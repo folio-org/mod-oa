@@ -14,9 +14,22 @@ buildscript {
 }
 
 
-final String version_regex = /^(((\d+)\.\d+)\.\d+)(-([a-zA-Z]+\.\d+))?$/
-version "${appVersion}"
-group "org.olf"
+final String version_regex = /^(((\d+)\.\d+)\.\d+)(-([a-zA-Z]+(\.\d+)?))?$/
+Map<String, String> env = System.getenv();
+String calculated_version = null;
+
+// If we are building in a Jenkins environment append the build number onto the snapshot tag
+if ( ( appVersion.contains('SNAPSHOT') ) && ( env.BUILD_NUMBER != null ) ) {
+  println("Detected snapshot version and build number - appending");
+  calculated_version = "${appVersion}.${env.BUILD_NUMBER}".toString()
+}
+else {
+  println("Release version");
+  calculated_version = "${appVersion}".toString()
+}
+
+version "${calculated_version}"
+group 'org.olf'
 
 apply plugin: 'eclipse'
 apply plugin: 'idea'
@@ -242,8 +255,6 @@ buildProperties.doLast {
 
     version.replaceAll(/^(((\d+)\.\d+)\.\d+)(-([\w]+))?$/ , '$1')
   }
-
-  Map<String, String> env = System.getenv()
 
   if(env.BUILD_NUMBER)
     properties.setProperty('build.number', env.BUILD_NUMBER)
