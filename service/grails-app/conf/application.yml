@@ -2,7 +2,7 @@
 grails:
     profile: rest-api
     codegen:
-        defaultPackage: mod_remote_sync
+        defaultPackage: mod_oa
     gorm:
         reactor:
             # Whether to translate GORM events into Reactor events
@@ -44,7 +44,7 @@ grails:
 
 info:
     app:
-        name: 'mod-remote-sync'
+        name: 'mod-oa'
         version: '@info.app.version@'
         grailsVersion: '@info.app.grailsVersion@'
 spring:
@@ -187,7 +187,7 @@ environments:
  
 okapi:
   schema:
-    appName: 'mod-remote-sync'
+    appName: 'mod-oa'
   service:
     host: localhost
     port: 9130
