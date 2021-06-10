@@ -3,28 +3,28 @@
   "name": "${info.app.name}",
   "provides": [
     {
-      "id": "remote-sync",
+      "id": "oa",
       "version": "${info.app.minorVersion}",
       "handlers" : [
         {
           "methods": [ "GET" ],
-          "pathPattern": "/remote-sync/settings*",
-          "permissionsRequired": [ "remote-sync.settings.get" ]
+          "pathPattern": "/oa/settings*",
+          "permissionsRequired": [ "oa.settings.get" ]
         },
         {
           "methods": [ "POST" ],
-          "pathPattern": "/remote-sync/settings*",
-          "permissionsRequired": [ "remote-sync.settings.post" ]
+          "pathPattern": "/oa/settings*",
+          "permissionsRequired": [ "oa.settings.post" ]
         },
         {
           "methods": [ "PUT" ],
-          "pathPattern": "/remote-sync/settings*",
-          "permissionsRequired": [ "remote-sync.settings.put" ]
+          "pathPattern": "/oa/settings*",
+          "permissionsRequired": [ "oa.settings.put" ]
         },
         {
           "methods": [ "DELETE" ],
-          "pathPattern": "/remote-sync/settings*",
-          "permissionsRequired": [ "remote-sync.settings.delete" ]
+          "pathPattern": "/oa/settings*",
+          "permissionsRequired": [ "oa.settings.delete" ]
         }
       ]
     },
@@ -48,47 +48,47 @@
   ],
   "permissionSets": [
     {
-      "permissionName": "remote-sync.settings.get",
+      "permissionName": "oa.settings.get",
       "displayName": "settings get",
       "description": "get settings",
       "visible": false
     }, 
     {
-      "permissionName": "remote-sync.settings.post",
+      "permissionName": "oa.settings.post",
       "displayName": "settings post",
       "description": "post settings",
       "visible": false
     }, 
     {
-      "permissionName": "remote-sync.settings.put",
+      "permissionName": "oa.settings.put",
       "displayName": "settings put",
       "description": "put settings",
       "visible": false
     }, {
-      "permissionName": "remote-sync.settings.delete",
+      "permissionName": "oa.settings.delete",
       "displayName": "settings delete",
       "description": "delete settings",
       "visible": false
     },
     {
-      "permissionName": "remote-sync.settings.read",
+      "permissionName": "oa.settings.read",
       "displayName": "settings read",
       "description": "read settings",
       "visible": false,
       "subPermissions": [
-          "remote-sync.settings.get"
+          "oa.settings.get"
       ]
     },
     {
-      "permissionName": "remote-sync.settings.write",
+      "permissionName": "oa.settings.write",
       "displayName": "settings write",
       "description": "write settings",
       "visible": false,
       "subPermissions": [
-          "remote-sync.settings.read",
-          "remote-sync.settings.post",
-          "remote-sync.settings.put",
-          "remote-sync.settings.delete"
+          "oa.settings.read",
+          "oa.settings.post",
+          "oa.settings.put",
+          "oa.settings.delete"
       ]
     }
   ],
