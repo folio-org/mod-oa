@@ -78,7 +78,6 @@ sourceSets {
 
 dependencies {
 
- /**** Grails 4 *****/
   compile "org.springframework.boot:spring-boot-starter-logging"
   compile "org.springframework.boot:spring-boot-autoconfigure"
   compile "org.grails:grails-core"
@@ -215,10 +214,6 @@ task generateDescriptors(type: Copy) {
   }
 }
 
-jar {
-  version "${version.replaceAll(version_regex, '$2')}"
-}
-
 buildProperties.doLast {
 
   // Find the right file
@@ -312,7 +307,7 @@ task createDockerfile(type: Dockerfile, dependsOn: prepareDocker) {
 
   destFile = project.file("${dockerBuildDir}/Dockerfile")
 
-  from 'folioci/alpine-jre-openjdk8:latest'
+  from 'folioci/alpine-jre-openjdk11:latest'
   instruction 'LABEL maintainer="Knowledge Integration"'
 
   exposePort 8079

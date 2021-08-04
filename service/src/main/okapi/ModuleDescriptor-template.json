@@ -95,8 +95,20 @@
   "launchDescriptor": {
     "dockerImage": "${info.app.name}:${info.app.version}",
     "dockerArgs": {
-      "HostConfig": { "PortBindings": { "8079/tcp":  [{ "HostPort": "%p" }] } }
+      "HostConfig": { 
+        "Memory": 1073741824,
+        "PortBindings": { "8079/tcp":  [{ "HostPort": "%p" }] } 
+      }
     },
-    "dockerPull" : false
+    "dockerPull" : false,
+    "env": [
+      { "name": "JAVA_OPTIONS", "value": "-server -XX:+UseContainerSupport -XX:MaxRAMPercentage=55.0 -XX:+PrintFlagsFinal" },
+      { "name": "DB_HOST", "value": "postgres" },
+      { "name": "DB_PORT", "value": "5432" },
+      { "name": "DB_USERNAME", "value": "folio_admin" },
+      { "name": "DB_PASSWORD", "value": "folio_admin" },
+      { "name": "DB_DATABASE", "value": "okapi_modules" },
+      { "name": "DB_MAXPOOLSIZE", "value": "50" }
+    ]
   }
 }
