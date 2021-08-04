@@ -1,7 +1,8 @@
 buildscript {
   repositories {
-    jcenter()
+    mavenCentral()
     maven { url "https://repo.grails.org/grails/core" }
+    maven { url "https://repo.grails.org/artifactory/core" }
   }
   dependencies {
     classpath "org.grails:grails-gradle-plugin:$grailsVersion"
@@ -321,6 +322,7 @@ task buildImage(type: DockerBuildImage, dependsOn: createDockerfile) {
   group = 'Docker'
 
   inputDir = file(dockerBuildDir)
+  images.add(dockerId)
 }
 
 
