@@ -214,10 +214,6 @@ task generateDescriptors(type: Copy) {
   }
 }
 
-jar {
-  version "${version.replaceAll(version_regex, '$2')}"
-}
-
 buildProperties.doLast {
 
   // Find the right file
