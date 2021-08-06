@@ -10,6 +10,7 @@ class UrlMappings {
         "/$domain/$property" (controller: 'refdata', action: 'lookup', method: 'GET')
       }
     }
+    "/oa/scholarlyWork" (resources: "scholarlyWork")
 
   }
 }
