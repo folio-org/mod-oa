@@ -27,6 +27,31 @@
           "permissionsRequired": [ "oa.settings.delete" ]
         },
         {
+          "methods": ["GET"],
+          "pathPattern": "/oa/refdata",
+          "permissionsRequired": [ "oa.refdata.collection.get" ]
+        },{
+          "methods": ["GET"],
+          "pathPattern": "/oa/refdata/{domain}/{property}",
+          "permissionsRequired": [ "oa.refdata.collection.get" ]
+        },{
+          "methods": ["GET"],
+          "pathPattern": "/oa/refdata/{id}",
+          "permissionsRequired": [ "oa.refdata.item.get" ]
+        },{
+          "methods": ["POST"],
+          "pathPattern": "/oa/refdata",
+          "permissionsRequired": [ "oa.refdata.item.post" ]
+        },{
+          "methods": ["PUT"],
+          "pathPattern": "/oa/refdata/{id}",
+          "permissionsRequired": [ "oa.refdata.item.put" ]
+        },{
+          "methods": ["DELETE"],
+          "pathPattern": "/oa/refdata/{id}",
+          "permissionsRequired": [ "oa.refdata.item.delete" ]
+        },
+        { 
           "methods": [ "GET" ],
           "pathPattern": "/oa/scholarlyWork",
           "permissionsRequired": [ "oa.scholarlyWork.view" ]
@@ -52,6 +77,7 @@
           "pathPattern": "/oa/scholarlyWork/{id}", 
           "permissionsRequired": [ "oa.scholarlyWork.manage" ]
         }
+
       ]
     },
     {
