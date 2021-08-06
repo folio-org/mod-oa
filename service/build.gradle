@@ -1,7 +1,8 @@
 buildscript {
   repositories {
-    jcenter()
+    mavenCentral()
     maven { url "https://repo.grails.org/grails/core" }
+    maven { url "https://repo.grails.org/artifactory/core" }
   }
   dependencies {
     classpath "org.grails:grails-gradle-plugin:$grailsVersion"
@@ -78,7 +79,6 @@ sourceSets {
 
 dependencies {
 
- /**** Grails 4 *****/
   compile "org.springframework.boot:spring-boot-starter-logging"
   compile "org.springframework.boot:spring-boot-autoconfigure"
   compile "org.grails:grails-core"
@@ -215,10 +215,6 @@ task generateDescriptors(type: Copy) {
   }
 }
 
-jar {
-  version "${version.replaceAll(version_regex, '$2')}"
-}
-
 buildProperties.doLast {
 
   // Find the right file
@@ -291,7 +287,7 @@ import com.bmuschko.gradle.docker.tasks.image.Dockerfile
 import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
 
 ext {
-  dockerTag = "${project.dockerRepo}/${project.name}:${project.version}${dockerTagSuffix}"
+  dockerId = "${project.dockerRepo}/${project.name}:${project.version}${dockerTagSuffix}"
   dockerBuildDir = mkdir("${buildDir}/docker")
 }
 
@@ -312,7 +308,7 @@ task createDockerfile(type: Dockerfile, dependsOn: prepareDocker) {
 
   destFile = project.file("${dockerBuildDir}/Dockerfile")
 
-  from 'folioci/alpine-jre-openjdk8:latest'
+  from 'folioci/alpine-jre-openjdk11:latest'
   instruction 'LABEL maintainer="Knowledge Integration"'
 
   exposePort 8079
@@ -326,6 +322,7 @@ task buildImage(type: DockerBuildImage, dependsOn: createDockerfile) {
   group = 'Docker'
 
   inputDir = file(dockerBuildDir)
+  images.add(dockerId)
 }
 
 
