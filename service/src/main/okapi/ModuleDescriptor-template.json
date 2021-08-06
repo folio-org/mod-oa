@@ -50,6 +50,32 @@
           "methods": ["DELETE"],
           "pathPattern": "/oa/refdata/{id}",
           "permissionsRequired": [ "oa.refdata.item.delete" ]
+        },
+        { 
+          "methods": [ "GET" ],
+          "pathPattern": "/oa/scholarlyWork",
+          "permissionsRequired": [ "oa.scholarlyWork.view" ]
+        },
+        {
+          "methods": [ "POST" ],
+          "pathPattern": "/oa/scholarlyWork",
+          "permissionsRequired": [ "oa.scholarlyWork.edit" ]
+        },
+        {
+          "methods": [ "GET"],
+          "pathPattern": "/oa/scholarlyWork/{id}",
+          "permissionsRequired": [ "oa.scholarlyWork.view" ]
+        },
+        {
+          "methods": [ "PUT" ],
+          "pathPattern": "/oa/scholarlyWork/{id}",
+          "permissionsRequired": [ "oa.scholarlyWork.edit" ]
+
+        },
+        {
+          "methods": [ "DELETE" ],
+          "pathPattern": "/oa/scholarlyWork/{id}", 
+          "permissionsRequired": [ "oa.scholarlyWork.manage" ]
         }
 
       ]
@@ -63,7 +89,8 @@
           "permissionsRequired" : [],
           "methods": ["POST", "DELETE"],
           "pathPattern": "/_/tenant"
-        }, {
+        }, 
+        {
          "permissionsRequired" : [],
          "methods" : [ "POST" ],
          "pathPattern" : "/_/tenant/disable"
@@ -115,6 +142,53 @@
           "oa.settings.post",
           "oa.settings.put",
           "oa.settings.delete"
+      ]
+    },
+    {
+      "permissionName": "oa.scholarlyWork.collection.get",
+      "displayName": "Scholarly work collection get",
+      "description": "Get a collection of scholarly work records"
+    },
+    {
+      "permissionName": "oa.scholarlyWork.item.get",
+      "displayName": "Scholarly work item get",
+      "description": "Get a scholarly work record"
+    },
+    {
+      "permissionName": "oa.scholarlyWork.view",
+      "subPermissions": [
+        "oa.scholarlyWork.collection.get",
+        "oa.scholarlyWork.item.get"
+      ]
+    },
+    {
+      "permissionName": "oa.scholarlyWork.item.post",
+      "displayName": "Scholarly work item post",
+      "description": "Post a scholarly work record"
+    },
+    {
+      "permissionName": "oa.scholarlyWork.item.put",
+      "displayName": "Scholarly work item put",
+      "description": "Put a scholarly work record"
+    },
+    {
+      "permissionName": "oa.scholarlyWork.edit",
+      "subPermissions": [
+        "oa.scholarlyWork.view",
+        "oa.scholarlyWork.item.post",
+        "oa.scholarlyWork.item.put"
+      ]
+    },
+    {
+      "permissionName": "oa.scholarlyWork.item.delete",
+      "displayName": "Scholarly work item delete",
+      "description": "Delete a scholarly work record"
+    },
+    {
+      "permissionName": "oa.scholarlyWork.manage",
+      "subPermissions": [
+        "oa.scholarlyWork.edit",
+        "oa.scholarlyWork.item.delete"
       ]
     }
   ],
