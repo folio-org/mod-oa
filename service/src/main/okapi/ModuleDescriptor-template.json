@@ -131,7 +131,8 @@
       "displayName": "settings put",
       "description": "put settings",
       "visible": false
-    }, {
+    }, 
+    {
       "permissionName": "oa.settings.delete",
       "displayName": "settings delete",
       "description": "delete settings",
@@ -157,6 +158,12 @@
           "oa.settings.put",
           "oa.settings.delete"
       ]
+    },
+    {
+      "permissionName": "oa.refdata.collection.get",
+      "displayName": "Ref data collection get",
+      "description": "Get a collection of ref data records",
+      "visible": false
     },
     {
       "permissionName": "oa.scholarlyWork.collection.get",
