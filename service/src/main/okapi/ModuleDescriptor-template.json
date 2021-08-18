@@ -38,20 +38,8 @@
           "methods": ["GET"],
           "pathPattern": "/oa/refdata/{id}",
           "permissionsRequired": [ "oa.refdata.item.get" ]
-        },{
-          "methods": ["POST"],
-          "pathPattern": "/oa/refdata",
-          "permissionsRequired": [ "oa.refdata.item.post" ]
-        },{
-          "methods": ["PUT"],
-          "pathPattern": "/oa/refdata/{id}",
-          "permissionsRequired": [ "oa.refdata.item.put" ]
-        },{
-          "methods": ["DELETE"],
-          "pathPattern": "/oa/refdata/{id}",
-          "permissionsRequired": [ "oa.refdata.item.delete" ]
         },
-        { 
+        {
           "methods": [ "GET" ],
           "pathPattern": "/oa/scholarlyWork",
           "permissionsRequired": [ "oa.scholarlyWork.view" ]
@@ -76,6 +64,32 @@
           "methods": [ "DELETE" ],
           "pathPattern": "/oa/scholarlyWork/{id}", 
           "permissionsRequired": [ "oa.scholarlyWork.manage" ]
+        },
+        {
+          "methods": [ "GET" ],
+          "pathPattern": "/oa/publicationRequest",
+          "permissionsRequired": [ "oa.publicationRequest.view" ]
+        },
+        {
+          "methods": [ "POST" ],
+          "pathPattern": "/oa/publicationRequest",
+          "permissionsRequired": [ "oa.publicationRequest.edit" ]
+        },
+        {
+          "methods": [ "GET"],
+          "pathPattern": "/oa/publicationRequest/{id}",
+          "permissionsRequired": [ "oa.publicationRequest.view" ]
+        },
+        {
+          "methods": [ "PUT" ],
+          "pathPattern": "/oa/publicationRequest/{id}",
+          "permissionsRequired": [ "oa.publicationRequest.edit" ]
+
+        },
+        {
+          "methods": [ "DELETE" ],
+          "pathPattern": "/oa/publicationRequest/{id}", 
+          "permissionsRequired": [ "oa.publicationRequest.manage" ]
         }
 
       ]
@@ -189,6 +203,53 @@
       "subPermissions": [
         "oa.scholarlyWork.edit",
         "oa.scholarlyWork.item.delete"
+      ]
+    },
+    {
+      "permissionName": "oa.publicationRequest.collection.get",
+      "displayName": "Publication request collection get",
+      "description": "Get a collection of publication request records"
+    },
+    {
+      "permissionName": "oa.publicationRequest.item.get",
+      "displayName": "Publication request item get",
+      "description": "Get a publication request record"
+    },
+    {
+      "permissionName": "oa.publicationRequest.view",
+      "subPermissions": [
+        "oa.publicationRequest.collection.get",
+        "oa.publicationRequest.item.get"
+      ]
+    },
+    {
+      "permissionName": "oa.publicationRequest.item.post",
+      "displayName": "Publication request item post",
+      "description": "Post a publication request record"
+    },
+    {
+      "permissionName": "oa.publicationRequest.item.put",
+      "displayName": "Publication request item put",
+      "description": "Put a publication request record"
+    },
+    {
+      "permissionName": "oa.publicationRequest.edit",
+      "subPermissions": [
+        "oa.publicationRequest.view",
+        "oa.publicationRequest.item.post",
+        "oa.publicationRequest.item.put"
+      ]
+    },
+    {
+      "permissionName": "oa.publicationRequest.item.delete",
+      "displayName": "Publication request item delete",
+      "description": "Delete a publication request record"
+    },
+    {
+      "permissionName": "oa.publicationRequest.manage",
+      "subPermissions": [
+        "oa.publicationRequest.edit",
+        "oa.publicationRequest.item.delete"
       ]
     }
   ],

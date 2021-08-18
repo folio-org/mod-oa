@@ -14,6 +14,7 @@ class UrlMappings {
 
     "/oa/settings/appSettings" (resources: 'setting');
 
+    "/oa/publicationRequest" (resources: "publicationRequest")
 
   }
 }
