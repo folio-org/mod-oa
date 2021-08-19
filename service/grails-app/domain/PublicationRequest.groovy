@@ -2,7 +2,7 @@ package org.olf.oa
 
 import grails.gorm.MultiTenant
 
-import java.time.LocalDate
+import java.util.Date
 
 import com.k_int.web.toolkit.refdata.CategoryId
 import com.k_int.web.toolkit.refdata.Defaults
@@ -12,7 +12,7 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
 
   String id
 
-  LocalDate requestDate
+  Date requestDate
 
   @CategoryId(defaultInternal=true)
   @Defaults(['New', 'Requested'])
