@@ -11,6 +11,14 @@ Bounded Context Deailing with Open Access Publishing
 
 ## Additional information
 
+### Deployment
+
+A sample k8s resource definition for service and deployment [can be found the scripts directory]()
+
+This module requires the following env parameters
+* OKAPI_SERVICE_PORT - port number for okapi
+* OKAPI_SERVICE_HOST - Host [namespace.hostname if running in a different namespace to okapi]
+
 ### Other documentation
 
 ### Issue tracker
