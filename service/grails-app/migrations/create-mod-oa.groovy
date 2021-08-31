@@ -29,5 +29,20 @@ databaseChangeLog = {
 
   }
 
+  changeSet(author: "samhepburn (manual)", id: "i202107091112-001") {
+    createTable(tableName: "scholarly_work") {
+      column(name: "sw_id", type: "VARCHAR(36)")
+      column(name: "sw_author_name_list", type: "VARCHAR(255)")
+      column(name: "sw_publisher_url", type: "VARCHAR(255)")
+      column(name: "sw_local_reference", type: "VARCHAR(36)")
+      column(name: "sw_journal_issue", type: "VARCHAR(36)")
+      column(name: "sw_journal_issue_date", type: "VARCHAR(36)")
+      column(name: "sw_journal_volume", type: "VARCHAR(36)")
+      column(name: "sw_journal_pages", type: "VARCHAR(36)")
+      column(name: "version", type: "BIGINT") {
+        constraints(nullable: "false")
+      }
+    }
+  }
 
 }
