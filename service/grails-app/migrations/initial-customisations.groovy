@@ -11,4 +11,11 @@ databaseChangeLog = {
     }
   }
 
+    changeSet(author: "samhepburn (manual)", id: "i202109011321") {
+        addColumn(tableName: "publication_request") {
+            column(name: "pr_request_number", type: "VARCHAR(36)")
+            column(name: "pr_date_modified", type: "DATE")
+            column(name: "pr_rejection_reason", type: "VARCHAR(36)")
+        }
+    }
 }
