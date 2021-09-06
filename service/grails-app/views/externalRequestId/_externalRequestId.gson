@@ -1,0 +1,6 @@
+import org.olf.oa.ExternalRequestId
+import groovy.transform.Field
+
+@Field 
+ExternalRequestId externalRequestId
+json g.render(externalRequestId)

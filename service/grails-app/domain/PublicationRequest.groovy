@@ -26,6 +26,10 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
   @Defaults(['Rejected'])
   RefdataValue rejectionReason
 
+  static hasMany = [
+    externalRequestIds: ExternalRequestId
+  ]
+
   static mapping = {
     id column: 'pr_id', generator: 'uuid2', length: 36
     requestNumber column: 'pr_request_number'
