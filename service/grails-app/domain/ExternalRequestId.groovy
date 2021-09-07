@@ -14,7 +14,7 @@ class ExternalRequestId implements MultiTenant<ExternalRequestId> {
 
   static mapping = {
     id column: 'eri_id', generator: 'uuid2', length: 36
-    owner column: 'eri_owner'
+    owner column: 'eri_owner_fk'
     externalId column: 'eri_external_id'
   }
   
