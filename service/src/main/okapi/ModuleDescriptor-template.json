@@ -166,6 +166,12 @@
       "visible": false
     },
     {
+      "permissionName": "oa.refdata.item.get",
+      "displayName": "Ref data item get",
+      "description": "Get a single ref data record",
+      "visible": false
+    },
+    {
       "permissionName": "oa.scholarlyWork.collection.get",
       "displayName": "Scholarly work collection get",
       "description": "Get a collection of scholarly work records"
@@ -265,7 +271,7 @@
     "dockerArgs": {
       "HostConfig": { 
         "Memory": 1073741824,
-        "PortBindings": { "8079/tcp":  [{ "HostPort": "%p" }] } 
+        "PortBindings": { "8080/tcp":  [{ "HostPort": "%p" }] } 
       }
     },
     "dockerPull" : false,

@@ -11,24 +11,36 @@ import com.k_int.web.toolkit.refdata.RefdataValue
 class PublicationRequest implements MultiTenant<PublicationRequest> {
 
   String id
-  String hrid
-
+  String requestNumber
   Date requestDate
+  Date dateModified
 
   @CategoryId(defaultInternal=true)
-  @Defaults(['New', 'Requested'])
+  @Defaults(['New', 'Rejected'])
   RefdataValue requestStatus
 
+  @CategoryId(defaultInternal=true)
+  @Defaults(['Rejected'])
+  RefdataValue rejectionReason
+
+  static hasMany = [
+    externalRequestIds: ExternalRequestId
+  ]
+
   static mapping = {
-               id column: 'pr_id', generator: 'uuid2', length: 36
-      requestDate column: 'pr_request_date'
-    requestStatus column: 'pr_request_status'
-             hrid column: 'pr_hrid'
+                 id column: 'pr_id', generator: 'uuid2', length: 36
+        requestDate column: 'pr_request_date'
+      requestStatus column: 'pr_request_status'
+      requestNumber column: 'pr_request_number'
+       dateModified column: 'pr_date_modified'
+    rejectionReason column: 'pr_rejection_reason'
   }
   
   static constraints = {
-      requestDate nullable: true
-    requestStatus nullable: true
-             hrid nullable: true
+        requestDate nullable: true
+      requestStatus nullable: true
+      requestNumber nullable: true
+       dateModified nullable: true
+    rejectionReason nullable: true
   }
 }
