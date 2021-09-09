@@ -142,7 +142,17 @@ databaseChangeLog = {
       column(name: "ca_mobile", type: "VARCHAR(36)")
       column(name: "version", type: "BIGINT") {
         constraints(nullable: "false")
+    }
+  }
+
+  changeSet(author: "ianibbo (manual)", id: "i202109091132") {
+    createTable(tableName: "funder") {
+      column(name: "version", type: "BIGINT") {
+        constraints(nullable: "false")
       }
+      column(name: "f_id", type: "VARCHAR(36)")
+      column(name: "f_name", type: "VARCHAR(36)")
+      column(name: "f_date_modified", type: "DATE") 
     }
   }
 
