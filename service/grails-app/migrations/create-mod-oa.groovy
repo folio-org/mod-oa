@@ -115,4 +115,13 @@ databaseChangeLog = {
         referencedTableName: "publication_request")
   }
 
+  changeSet(author: "ianibbo (manual)", id: "i202109091024") {
+    createSequence(sequenceName:'pubreq_hrid_seq')
+    addColumn(tableName: "publication_request") {
+      column(name: "pr_title", type: "VARCHAR(256)")
+      column(name: 'pr_pub_type_fk', type: "VARCHAR(36)")
+      column(name: 'pr_authnames', type: "VARCHAR(256)")
+    }
+  }
+
 }
