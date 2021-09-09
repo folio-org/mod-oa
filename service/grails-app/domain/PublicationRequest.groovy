@@ -19,7 +19,7 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
   Date dateModified
 
   @CategoryId(defaultInternal=true)
-  @Defaults(['New', 'Requested'])
+  @Defaults(['New', 'Rejected'])
   RefdataValue requestStatus
 
   @CategoryId(defaultInternal=true)
