@@ -64,4 +64,10 @@ databaseChangeLog = {
     addPrimaryKey(columnNames: "st_id", constraintName: "app_setting_PK", tableName: "app_setting")
   }
 
+  changeSet(author: "ianibbo (manual)", id: "i202109090941-001") {
+    addColumn(tableName: "custom_property") {
+      column(name: "note", type: "TEXT")
+    }
+  }
+
 }

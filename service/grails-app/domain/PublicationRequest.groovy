@@ -11,6 +11,7 @@ import com.k_int.web.toolkit.refdata.RefdataValue
 class PublicationRequest implements MultiTenant<PublicationRequest> {
 
   String id
+  String hrid
 
   Date requestDate
 
@@ -19,13 +20,15 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
   RefdataValue requestStatus
 
   static mapping = {
-    id column: 'pr_id', generator: 'uuid2', length: 36
-    requestDate column: 'pr_request_date'
+               id column: 'pr_id', generator: 'uuid2', length: 36
+      requestDate column: 'pr_request_date'
     requestStatus column: 'pr_request_status'
+             hrid column: 'pr_hrid'
   }
   
   static constraints = {
-    requestDate nullable: true
+      requestDate nullable: true
     requestStatus nullable: true
+             hrid nullable: true
   }
 }
