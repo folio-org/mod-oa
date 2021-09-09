@@ -16,6 +16,7 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
   String requestNumber
   Date requestDate
   Date dateModified
+  Date dateCreated
   String publicationTitle
   String authorNames
 
@@ -41,6 +42,7 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
        requestStatus column: 'pr_request_status'
        requestNumber column: 'pr_request_number'
         dateModified column: 'pr_date_modified'
+         dateCreated column: 'pr_date_created'
      rejectionReason column: 'pr_rejection_reason'
     publicationTitle column: 'pr_title'
      publicationType column: 'pr_pub_type_fk'
@@ -52,6 +54,7 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
        requestStatus nullable: true
        requestNumber nullable: true
         dateModified nullable: true
+         dateCreated nullable: true
      rejectionReason nullable: true
     publicationTitle nullable: true
      publicationType nullable: true

@@ -124,4 +124,10 @@ databaseChangeLog = {
     }
   }
 
+  changeSet(author: "samhepburn (manual)", id: "i202109091145") {
+    addColumn(tableName: "publication_request") {
+      column(name: "pr_date_created", type: "DATE")
+    }
+  }
+
 }
