@@ -130,4 +130,20 @@ databaseChangeLog = {
     }
   }
 
+  changeSet(author: "samhepburn (manual)", id: "i202109091155") {
+    createTable(tableName: "corresponding_author") {
+      column(name: "ca_id", type: "VARCHAR(36)")
+      column(name: "ca_title", type: "VARCHAR(12)")
+      column(name: "ca_family_name", type: "VARCHAR(36)")
+      column(name: "ca_given_names", type: "VARCHAR(36)")
+      column(name: "ca_orcid_id", type: "VARCHAR(36)")
+      column(name: "ca_mail_email", type: "VARCHAR(36)")
+      column(name: "ca_phone", type: "VARCHAR(36)")
+      column(name: "ca_mobile", type: "VARCHAR(36)")
+      column(name: "version", type: "BIGINT") {
+        constraints(nullable: "false")
+      }
+    }
+  }
+
 }
