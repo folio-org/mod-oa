@@ -14,8 +14,8 @@ import grails.gorm.multitenancy.Tenants
 import grails.gorm.transactions.Transactional
 import groovy.sql.Sql
 import com.k_int.okapi.OkapiTenantAdminService
-
-import com.k_int.web.toolkit.refdata.RefdataValue;
+import com.k_int.web.toolkit.settings.AppSetting
+import com.k_int.web.toolkit.refdata.*
 
 /**
  * This service works at the module level, it's often called without a tenant context.
@@ -41,8 +41,12 @@ public class HousekeepingService {
     log.info("HousekeepingService::setupData(${tenantName},${tenantId})");
     // Establish a database session in the context of the activated tenant. You can use GORM domain classes inside the closure
     Tenants.withId(tenantId) {
-      Status.withNewTransaction { status ->
-        RefdataValue.lookupOrCreate('RejectionReason', 'None given');
+      AppSetting.withNewTransaction { status ->
+        AppSetting pubreq_id_prefix = AppSetting.findByKey('hrid_prefix') ?: new AppSetting(
+                                  section:'PublicationRequests',
+                                  settingType:'String',
+                                  key: 'hrid_prefix',).save(flush:true, failOnError: true);
+
       }
     }
   }
