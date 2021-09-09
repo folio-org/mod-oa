@@ -7,7 +7,9 @@ import org.olf.oa.PublicationRequest
 import groovy.util.logging.Slf4j
 
 class PublicationRequestController extends OkapiTenantAwareController<PublicationRequest> {
-   PublicationRequestController(){
+
+  PublicationRequestController(){
     super(PublicationRequest)
   }
+
 }
