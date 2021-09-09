@@ -135,4 +135,18 @@ databaseChangeLog = {
     }
   }
 
+
+  changeSet(author: "ianibbo (manual)", id: "i202109091208") {
+    createTable(tableName: "publication_request_history") {
+      column(name: "version", type: "BIGINT") {
+        constraints(nullable: "false")
+      }
+      column(name: "prh_id", type: "VARCHAR(36)")
+      column(name: "prh_date_modified", type: "DATE")
+      column(name: "prh_owner_fk", type: "VARCHAR(36)")
+      column(name: "prh_note", type: "VARCHAR(256)")
+      column(name: "prh_from_state", type: "VARCHAR(36)")
+      column(name: "prh_to_state", type: "VARCHAR(36)")
+    }
+  }
 }

@@ -119,21 +119,53 @@ class PublicationRequestSpec extends HttpSpec {
       'WELLCOME'|'none'
   }
 
-  void 'Create Publication Request'(publication_type, publication_title, author_names) {
+  void 'Create Publication Request'(publication_type, publication_title, author_names, extid) {
     when:'We post a create request'
+
+      def external_ids = extid != null ?  [ [ externalId: extid ] ] : null;
       def create_resp = doPost('/oa/publicationRequest', [
         publicationType: publication_type,
         publicationTitle: publication_title,
-        authorNames: author_names
+        authorNames: author_names,
+        externalRequestIds:external_ids
       ]);
 
     then:
       println("got response: ${create_resp}");
       create_resp != null;
 
+    then:'Check that we do not unneccesarily create multiple history entries'
+      def update_resp = doPut("/oa/publicationRequest/${create_resp.id}".toString(), create_resp)
+      println("put response: ${update_resp}");
+      update_resp.history.size() == 0
+
     where:
-      publication_type|publication_title|author_names
-      'Journal Article'|'My article'|'Auth1, Auth2'
+      publication_type|publication_title|author_names|extid
+      'Journal Article'|'My article'|'Auth1, Auth2'|'EXTID-1'
+      'Journal Article'|'Article 2'|'Auth1'|'EXTID-2'
+      'Journal Article'|'Another article 57'|'Auth2'|null
+  }
+
+  void 'update publication request status'(publication_title, newstatus) {
+    when:'we find and update a publication request'
+      def resp = doGet('/oa/publicationRequest', [
+        stats: true,
+        match: 'publicationTitle',
+        term: publication_title
+      ])
+
+      println("Result of find: ${resp}");
+      def pub_to_update = resp.results[0]
+      pub_to_update.requestStatus = newstatus
+      def result_of_update = doPut("/oa/publicationRequest/${pub_to_update.id}".toString(), pub_to_update);
+
+    then:'Check request status updated'
+      println("updated record: ${result_of_update}");
+      result_of_update.requestStatus?.value == newstatus;
+    
+    where:
+      publication_title|newstatus
+      'My article'|'rejected'
   }
 
 }

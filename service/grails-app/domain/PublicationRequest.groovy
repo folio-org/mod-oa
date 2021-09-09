@@ -32,7 +32,13 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
   RefdataValue publicationType
 
   static hasMany = [
-    externalRequestIds: ExternalRequestId
+    externalRequestIds: ExternalRequestId,
+    history: PublicationRequestHistory
+  ]
+
+  static mappedBy = [
+    externalRequestIds: 'owner',
+    history: 'owner'
   ]
 
   static mapping = {
@@ -62,18 +68,20 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
     if ( requestNumber == null ) {
       this.requestNumber = generateHrid()
     }
+
+    if ( this.requestStatus == null ) {
+      this.requestStatus = RefdataValue.lookupOrCreate('requestStatus', 'New')
+    }
   }
 
   private String generateHrid() {
     String result = null;
 
-    AppSetting prefix_setting = AppSetting.findByKey('hrid_prefix')
-    log.debug("Got app setting ${prefix_setting} ${prefix_setting?.value} ${prefix_setting?.defValue}");
-
-    String hrid_prefix = prefix_setting?.value ?: prefix_setting.defValue ?: ''
-
     // Use this to make sessionFactory.currentSession work as expected
     PublicationRequest.withSession { session ->
+      AppSetting prefix_setting = AppSetting.findByKey('hrid_prefix')
+      log.debug("Got app setting ${prefix_setting} ${prefix_setting?.value} ${prefix_setting?.defValue}");
+      String hrid_prefix = prefix_setting?.value ?: prefix_setting.defValue ?: ''
       log.debug("Generate hrid");
       def sql = new Sql(session.connection())
       def query_result = sql.rows("select nextval('pubreq_hrid_seq')".toString());
