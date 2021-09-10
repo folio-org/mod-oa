@@ -142,6 +142,7 @@ databaseChangeLog = {
       column(name: "ca_mobile", type: "VARCHAR(36)")
       column(name: "version", type: "BIGINT") {
         constraints(nullable: "false")
+      }
     }
   }
 
