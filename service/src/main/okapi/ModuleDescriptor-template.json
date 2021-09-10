@@ -40,6 +40,19 @@
           "permissionsRequired": [ "oa.refdata.item.get" ]
         },
         {
+          "methods": ["POST"],
+          "pathPattern": "/oa/refdata",
+          "permissionsRequired": [ "oa.refdata.item.post" ]
+        },{
+          "methods": ["PUT"],
+          "pathPattern": "/oa/refdata/{id}",
+          "permissionsRequired": [ "oa.refdata.item.put" ]
+        },{
+          "methods": ["DELETE"],
+          "pathPattern": "/oa/refdata/{id}",
+          "permissionsRequired": [ "oa.refdata.item.delete" ]
+        },
+        {
           "methods": [ "GET" ],
           "pathPattern": "/oa/scholarlyWork",
           "permissionsRequired": [ "oa.scholarlyWork.view" ]
@@ -166,6 +179,58 @@
       "visible": false
     },
     {
+      "permissionName": "oa.refdata.item.get",
+      "displayName": "Ref data item get",
+      "description": "Get a ref data record",
+      "visible": false
+    },
+    {
+      "permissionName": "oa.refdata.item.post",
+      "displayName": "Ref data item post",
+      "description": "Post a ref data record",
+      "visible": false
+    },
+    {
+      "permissionName": "oa.refdata.item.put",
+      "displayName": "Ref data item put",
+      "description": "Put a ref data record",
+      "visible": false
+    },
+    {
+      "permissionName": "oa.refdata.item.delete",
+      "displayName": "Ref data item delete",
+      "description": "Delete a ref data record",
+      "visible": false
+    },
+    {
+      "permissionName": "oa.refdata.read",
+      "displayName": "Refdata read",
+      "description": "Read refdata as items or collections",
+      "subPermissions": [
+        "oa.refdata.collection.get",
+        "oa.refdata.item.get"
+      ]
+    },
+    {
+      "permissionName": "oa.refdata.write",
+      "displayName": "Refdata write",
+      "description": "Read and write refdata entries",
+      "subPermissions": [
+        "oa.refdata.read",
+        "oa.refdata.item.post",
+        "oa.refdata.item.put"
+      ]
+    },
+    {
+      "permissionName": "oa.refdata.manage",
+      "displayName": "Refdata manage",
+      "description": "Read, write and delete refdata entries",
+      "subPermissions": [
+        "oa.refdata.write",
+        "oa.refdata.item.delete"
+      ]
+    },
+    {
       "permissionName": "oa.scholarlyWork.collection.get",
       "displayName": "Scholarly work collection get",
       "description": "Get a collection of scholarly work records"
@@ -265,7 +330,7 @@
     "dockerArgs": {
       "HostConfig": { 
         "Memory": 1073741824,
-        "PortBindings": { "8079/tcp":  [{ "HostPort": "%p" }] } 
+        "PortBindings": { "8080/tcp":  [{ "HostPort": "%p" }] } 
       }
     },
     "dockerPull" : false,
