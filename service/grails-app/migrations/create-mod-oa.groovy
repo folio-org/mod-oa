@@ -171,4 +171,27 @@ databaseChangeLog = {
       column(name: "prh_to_state", type: "VARCHAR(36)")
     }
   }
+
+    changeSet(author: "samhepburn (manual)", id: "i20210910441") {
+      addColumn(tableName: "corresponding_author") {
+        column(name: "ca_owner_fk", type: "VARCHAR(36)") {
+          constraints(nullable: "false")
+        }
+      }
+      addForeignKeyConstraint(baseColumnNames: "ca_owner_fk",
+        baseTableName: "corresponding_author",
+        constraintName: "corresponding_author_owner_fk",
+        deferrable: "false",
+        initiallyDeferred: "false",
+        referencedColumnNames: "pr_id",
+        referencedTableName: "publication_request")
+    }
+
+    changeSet(author: "samhepburn (manual)", id: "i202109101458") {
+      addColumn(tableName: "publication_request") {
+        column(name: "pr_corresponding_author_fk", type: "VARCHAR(36)") {
+          constraints(nullable: "false")
+        }
+    }
+  }
 }

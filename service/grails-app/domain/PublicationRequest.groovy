@@ -19,6 +19,7 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
   Date dateCreated
   String publicationTitle
   String authorNames
+  CorrespondingAuthor correspondingAuthor
 
   @CategoryId(defaultInternal=true)
   @Defaults(['New', 'Rejected'])
@@ -39,32 +40,36 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
 
   static mappedBy = [
     externalRequestIds: 'owner',
-    history: 'owner'
+    history: 'owner',
+    correspondingAuthor: 'owner'
   ]
 
   static mapping = {
-                  id column: 'pr_id', generator: 'uuid2', length: 36
-         requestDate column: 'pr_request_date'
-       requestStatus column: 'pr_request_status'
-       requestNumber column: 'pr_request_number'
-        dateModified column: 'pr_date_modified'
-         dateCreated column: 'pr_date_created'
-     rejectionReason column: 'pr_rejection_reason'
-    publicationTitle column: 'pr_title'
-     publicationType column: 'pr_pub_type_fk'
-         authorNames column: 'pr_authnames'
+                   id column: 'pr_id', generator: 'uuid2', length: 36
+          requestDate column: 'pr_request_date'
+        requestStatus column: 'pr_request_status'
+        requestNumber column: 'pr_request_number'
+         dateModified column: 'pr_date_modified'
+          dateCreated column: 'pr_date_created'
+      rejectionReason column: 'pr_rejection_reason'
+     publicationTitle column: 'pr_title'
+      publicationType column: 'pr_pub_type_fk'
+          authorNames column: 'pr_authnames'
+  correspondingAuthor column: 'pr_corresponding_author_fk', cascade: 'all-delete-orphan'
+
   }
   
   static constraints = {
-         requestDate nullable: true
-       requestStatus nullable: true
-       requestNumber nullable: true
-        dateModified nullable: true
-         dateCreated nullable: true
-     rejectionReason nullable: true
-    publicationTitle nullable: true
-     publicationType nullable: true
-         authorNames nullable: true
+          requestDate nullable: true
+        requestStatus nullable: true
+        requestNumber nullable: true
+         dateModified nullable: true
+          dateCreated nullable: true
+      rejectionReason nullable: true
+     publicationTitle nullable: true
+      publicationType nullable: true
+          authorNames nullable: true
+  correspondingAuthor nullable: true
   }
 
   def beforeValidate() {
