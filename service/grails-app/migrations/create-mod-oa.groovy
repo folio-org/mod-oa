@@ -124,6 +124,28 @@ databaseChangeLog = {
     }
   }
 
+  changeSet(author: "samhepburn (manual)", id: "i202109091145") {
+    addColumn(tableName: "publication_request") {
+      column(name: "pr_date_created", type: "DATE")
+    }
+  }
+
+  changeSet(author: "samhepburn (manual)", id: "i202109091155") {
+    createTable(tableName: "corresponding_author") {
+      column(name: "ca_id", type: "VARCHAR(36)")
+      column(name: "ca_title", type: "VARCHAR(12)")
+      column(name: "ca_family_name", type: "VARCHAR(36)")
+      column(name: "ca_given_names", type: "VARCHAR(36)")
+      column(name: "ca_orcid_id", type: "VARCHAR(36)")
+      column(name: "ca_mail_email", type: "VARCHAR(36)")
+      column(name: "ca_phone", type: "VARCHAR(36)")
+      column(name: "ca_mobile", type: "VARCHAR(36)")
+      column(name: "version", type: "BIGINT") {
+        constraints(nullable: "false")
+      }
+    }
+  }
+
   changeSet(author: "ianibbo (manual)", id: "i202109091132") {
     createTable(tableName: "funder") {
       column(name: "version", type: "BIGINT") {
@@ -147,6 +169,29 @@ databaseChangeLog = {
       column(name: "prh_note", type: "VARCHAR(256)")
       column(name: "prh_from_state", type: "VARCHAR(36)")
       column(name: "prh_to_state", type: "VARCHAR(36)")
+    }
+  }
+
+    changeSet(author: "samhepburn (manual)", id: "i20210910441") {
+      addColumn(tableName: "corresponding_author") {
+        column(name: "ca_owner_fk", type: "VARCHAR(36)") {
+          constraints(nullable: "false")
+        }
+      }
+      addForeignKeyConstraint(baseColumnNames: "ca_owner_fk",
+        baseTableName: "corresponding_author",
+        constraintName: "corresponding_author_owner_fk",
+        deferrable: "false",
+        initiallyDeferred: "false",
+        referencedColumnNames: "pr_id",
+        referencedTableName: "publication_request")
+    }
+
+    changeSet(author: "samhepburn (manual)", id: "i202109101458") {
+      addColumn(tableName: "publication_request") {
+        column(name: "pr_corresponding_author_fk", type: "VARCHAR(36)") {
+          constraints(nullable: "false")
+        }
     }
   }
 }

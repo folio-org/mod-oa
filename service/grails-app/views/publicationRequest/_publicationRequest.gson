@@ -3,4 +3,4 @@ import groovy.transform.Field
 
 @Field 
 PublicationRequest publicationRequest
-json g.render(publicationRequest, [expand:['requestStatus', 'rejectionReason', 'externalRequestIds', 'history']])
+json g.render(publicationRequest, [expand:['requestStatus', 'rejectionReason', 'externalRequestIds', 'history', 'publicationType', 'correspondingAuthor']])
