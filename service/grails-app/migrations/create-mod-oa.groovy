@@ -190,7 +190,7 @@ databaseChangeLog = {
     changeSet(author: "samhepburn (manual)", id: "i202109101458") {
       addColumn(tableName: "publication_request") {
         column(name: "pr_corresponding_author_fk", type: "VARCHAR(36)") {
-          constraints(nullable: "false")
+          constraints(nullable: "true")
         }
     }
   }
