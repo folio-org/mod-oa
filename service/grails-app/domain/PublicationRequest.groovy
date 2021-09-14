@@ -20,7 +20,7 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
   String authorNames
 
   @CategoryId(defaultInternal=true)
-  @Defaults(['New', 'Rejected'])
+  @Defaults(['New', 'Closed', 'In progress'])
   RefdataValue requestStatus
 
   @CategoryId(defaultInternal=true)
