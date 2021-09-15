@@ -10,11 +10,47 @@ class Party implements MultiTenant<Party> {
 
   String id
 
+  String title
+
+  String familyName
+
+  String givenNames
+
+  String orcidId
+
+  String mainEmail
+
+  String phone
+    
+  String mobile
+
+  static hasMany = [
+    requestParty: RequestParty,
+  ]
+
+  static mappedBy = [
+    requestParty: 'partyOwner',
+  ]
+
   static mapping = {
-                  id column: 'p_id', generator: 'uuid2', length: 36
+                    id column: 'p_id', generator: 'uuid2', length: 36
+                 title column: 'p_title'
+            familyName column: 'p_family_name'
+            givenNames column: 'p_given_names'
+               orcidId column: 'p_orcid_id'
+             mainEmail column: 'p_main_email'
+                 phone column: 'p_phone'
+                mobile column: 'p_mobile'
   }
   
   static constraints = {
+                 title nullable: true
+                 familyName nullable: true
+                 givenNames nullable: true
+                 orcidId nullable: true
+                 mainEmail nullable: true
+                 phone nullable: true
+                 mobile nullable: true
   }
 
 }
