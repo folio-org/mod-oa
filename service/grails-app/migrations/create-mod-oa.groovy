@@ -178,13 +178,20 @@ databaseChangeLog = {
         constraints(nullable: "false")
       }
       column(name: "rp_id", type: "VARCHAR(36)")
-      column(name: "rp_role", type: "VARCHAR(12)")
+      column(name: "rp_role", type: "VARCHAR(36)")
       column(name: "rp_publication_request_fk", type: "VARCHAR(36)")
       column(name: "rp_party_fk", type: "VARCHAR(36)")
     }
   }
 
     changeSet(author: "samhepburn (manual)", id: "i202109151110") {
+      addColumn(tableName: "publication_request") {
+        column(name: "pr_corresponding_author_fk", type: "VARCHAR(36)")
+      }
+
+      addUniqueConstraint(columnNames: "p_id", constraintName: "p_id_unique", tableName: "party")
+      addUniqueConstraint(columnNames: "rp_id", constraintName: "rp_id_unique", tableName: "request_party")
+
       addForeignKeyConstraint(baseColumnNames: "rp_publication_request_fk",
         baseTableName: "request_party",
         constraintName: "publication_request_fk",

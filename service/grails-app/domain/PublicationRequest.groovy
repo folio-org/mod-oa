@@ -55,7 +55,7 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
      publicationTitle column: 'pr_title'
       publicationType column: 'pr_pub_type_fk'
           authorNames column: 'pr_authnames'
-  correspondingAuthor column: 'pr_corresponding_author_fk', cascade: 'all-delete-orphan'
+  correspondingAuthor column: 'pr_corresponding_author_fk', cascade: 'save-update'
   }
   
   static constraints = {

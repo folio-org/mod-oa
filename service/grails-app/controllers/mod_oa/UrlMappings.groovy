@@ -16,5 +16,7 @@ class UrlMappings {
 
     "/oa/publicationRequest" (resources: "publicationRequest")
     "/oa/funders" (resources: "funder")
+    "/oa/party" (resources: "party")
+
   }
 }
