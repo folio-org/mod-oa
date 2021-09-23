@@ -10,7 +10,7 @@ class PublicationIdentifier implements MultiTenant<PublicationIdentifier> {
   String id
 
   @CategoryId(defaultInternal=true)
-  @Defaults(['Type 1'])
+  @Defaults(['PMID'])
   RefdataValue type
 
   String publicationIdentifier
