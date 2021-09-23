@@ -22,7 +22,7 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
   RequestParty correspondingAuthor
   String localReference
   String publicationUrl
-
+  String doi
 
   @CategoryId(defaultInternal=true)
   @Defaults(['New', 'Rejected'])
@@ -47,10 +47,6 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
   @CategoryId(defaultInternal=true)
   @Defaults(['License 1'])
   RefdataValue license
-
-  @CategoryId(defaultInternal=true)
-  @Defaults(['Status'])
-  RefdataValue oaStatus
 
   static hasMany = [
     externalRequestIds: ExternalRequestId,
@@ -82,6 +78,7 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
        publicationUrl column: 'pr_pub_url'
        localReference column: 'pr_local_ref'
           authorNames column: 'pr_authnames'
+                  doi column: 'pr_doi'
   correspondingAuthor column: 'pr_corresponding_author_fk', cascade: 'save-update'
   }
   
@@ -101,6 +98,7 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
        publicationUrl nullable: true
        localReference nullable: true
           authorNames nullable: true
+                  doi nullable: true
   correspondingAuthor nullable: true
   }
 
