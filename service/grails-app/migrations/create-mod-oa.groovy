@@ -217,4 +217,24 @@ databaseChangeLog = {
         referencedTableName: "request_party")
   }
   
+    changeSet(author: "samhepburn (manual)", id: "i202109231034") {
+      addColumn(tableName: "publication_request") {
+        column(name: "pr_local_ref", type: "VARCHAR(36)")
+      }
+      addColumn(tableName: "publication_request") {
+        column(name: "pr_pub_url", type: "VARCHAR(255)")
+      }
+      addColumn(tableName: "publication_request") {
+        column(name: "pr_subtype", type: "VARCHAR(36)")
+      }
+      addColumn(tableName: "publication_request") {
+        column(name: "pr_publisher", type: "VARCHAR(36)")
+      }
+      addColumn(tableName: "publication_request") {
+        column(name: "pr_license", type: "VARCHAR(36)")
+      }
+      addColumn(tableName: "publication_request") {
+        column(name: "pr_oa_status", type: "VARCHAR(36)")
+      }
+    }
 }

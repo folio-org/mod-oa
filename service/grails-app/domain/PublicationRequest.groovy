@@ -20,6 +20,9 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
   String publicationTitle
   String authorNames
   RequestParty correspondingAuthor
+  String localReference
+  String publicationUrl
+
 
   @CategoryId(defaultInternal=true)
   @Defaults(['New', 'Rejected'])
@@ -32,6 +35,22 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
   @CategoryId(defaultInternal=true)
   @Defaults(['Journal Article', 'Book'])
   RefdataValue publicationType
+
+  @CategoryId(defaultInternal=true)
+  @Defaults(['Subtype 1'])
+  RefdataValue subtype
+  
+  @CategoryId(defaultInternal=true)
+  @Defaults(['Publisher 1'])
+  RefdataValue publisher
+
+  @CategoryId(defaultInternal=true)
+  @Defaults(['License 1'])
+  RefdataValue license
+
+  @CategoryId(defaultInternal=true)
+  @Defaults(['Status'])
+  RefdataValue oaStatus
 
   static hasMany = [
     externalRequestIds: ExternalRequestId,
@@ -54,6 +73,12 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
       rejectionReason column: 'pr_rejection_reason'
      publicationTitle column: 'pr_title'
       publicationType column: 'pr_pub_type_fk'
+              subtype column: 'pr_subtype'
+            publisher column: 'pr_publisher'
+              license column: 'pr_license'
+             oaStatus column: 'pr_oa_status'
+       publicationUrl column: 'pr_pub_url'
+       localReference column: 'pr_local_ref'
           authorNames column: 'pr_authnames'
   correspondingAuthor column: 'pr_corresponding_author_fk', cascade: 'save-update'
   }
@@ -67,6 +92,12 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
       rejectionReason nullable: true
      publicationTitle nullable: true
       publicationType nullable: true
+              subtype nullable: true
+            publisher nullable: true
+              license nullable: true
+             oaStatus nullable: true
+       publicationUrl nullable: true
+       localReference nullable: true
           authorNames nullable: true
   correspondingAuthor nullable: true
   }
