@@ -237,4 +237,24 @@ databaseChangeLog = {
         column(name: "pr_oa_status", type: "VARCHAR(36)")
       }
     }
+
+    changeSet(author: "samhepburn (manual)", id: "i202109231121") {
+      createTable(tableName: "publication_identifier") {
+        column(name: "pi_id", type: "VARCHAR(36)")
+        column(name: "pi_type", type: "VARCHAR(36)")
+        column(name: "pi_owner_fk", type: "VARCHAR(36)")
+        column(name: "pi_pub_identifier", type: "VARCHAR(36)")
+        column(name: "version", type: "BIGINT") {
+          constraints(nullable: "false")
+        }
+      }
+      addForeignKeyConstraint(baseColumnNames: "pi_owner_fk",
+        baseTableName: "publication_identifier",
+        constraintName: "publication_identifier_owner_fk",
+        deferrable: "false",
+        initiallyDeferred: "false",
+        referencedColumnNames: "pr_id",
+        referencedTableName: "publication_request")
+    }
+
 }

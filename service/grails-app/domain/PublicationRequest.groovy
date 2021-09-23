@@ -54,13 +54,15 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
 
   static hasMany = [
     externalRequestIds: ExternalRequestId,
-    history: PublicationRequestHistory
+    history: PublicationRequestHistory,
+    identifiers: PublicationIdentifier
   ]
 
   static mappedBy = [
     externalRequestIds: 'owner',
     history: 'owner',
-    correspondingAuthor: 'publicationRequestOwner'
+    correspondingAuthor: 'publicationRequestOwner',
+    identifier: 'owner'
   ]
 
   static mapping = {

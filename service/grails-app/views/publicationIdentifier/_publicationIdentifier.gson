@@ -1,0 +1,6 @@
+import org.olf.oa.PublicationIdentifier
+import groovy.transform.Field
+
+@Field 
+PublicationIdentifier publicationIdentifier
+json g.render(publicationIdentifier)
