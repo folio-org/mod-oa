@@ -1,6 +1,0 @@
-import org.olf.oa.CorrespondingAuthor
-import groovy.transform.Field
-
-@Field 
-CorrespondingAuthor correspondingAuthor
-json g.render(correspondingAuthor)

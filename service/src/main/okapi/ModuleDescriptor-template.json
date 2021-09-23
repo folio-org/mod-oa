@@ -103,6 +103,31 @@
           "methods": [ "DELETE" ],
           "pathPattern": "/oa/publicationRequest/{id}", 
           "permissionsRequired": [ "oa.publicationRequest.manage" ]
+        },
+        {
+          "methods": [ "GET" ],
+          "pathPattern": "/oa/party",
+          "permissionsRequired": [ "oa.party.view" ]
+        },
+        {
+          "methods": [ "POST" ],
+          "pathPattern": "/oa/party",
+          "permissionsRequired": [ "oa.party.edit" ]
+        },
+        {
+          "methods": [ "GET"],
+          "pathPattern": "/oa/party/{id}",
+          "permissionsRequired": [ "oa.party.view" ]
+        },
+        {
+          "methods": [ "PUT" ],
+          "pathPattern": "/oa/party/{id}",
+          "permissionsRequired": [ "oa.party.edit" ]
+        },
+        {
+          "methods": [ "DELETE" ],
+          "pathPattern": "/oa/party/{id}", 
+          "permissionsRequired": [ "oa.party.manage" ]
         }
 
       ]
@@ -322,6 +347,53 @@
       "subPermissions": [
         "oa.publicationRequest.edit",
         "oa.publicationRequest.item.delete"
+      ]
+    },
+    {
+      "permissionName": "oa.party.collection.get",
+      "displayName": "Party collection get",
+      "description": "Get a collection of party records"
+    },
+    {
+      "permissionName": "oa.party.item.get",
+      "displayName": "Party item get",
+      "description": "Get a party record"
+    },
+    {
+      "permissionName": "oa.party.view",
+      "subPermissions": [
+        "oa.party.collection.get",
+        "oa.party.item.get"
+      ]
+    },
+    {
+      "permissionName": "oa.party.item.post",
+      "displayName": "Party item post",
+      "description": "Post a party record"
+    },
+    {
+      "permissionName": "oa.party.item.put",
+      "displayName": "Party item put",
+      "description": "Put a party record"
+    },
+    {
+      "permissionName": "oa.party.edit",
+      "subPermissions": [
+        "oa.party.view",
+        "oa.party.item.post",
+        "oa.party.item.put"
+      ]
+    },
+    {
+      "permissionName": "oa.party.item.delete",
+      "displayName": "Party item delete",
+      "description": "Delete a party record"
+    },
+    {
+      "permissionName": "oa.party.manage",
+      "subPermissions": [
+        "oa.party.edit",
+        "oa.party.item.delete"
       ]
     }
   ],

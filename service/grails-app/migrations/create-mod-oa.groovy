@@ -130,22 +130,6 @@ databaseChangeLog = {
     }
   }
 
-  changeSet(author: "samhepburn (manual)", id: "i202109091155") {
-    createTable(tableName: "corresponding_author") {
-      column(name: "ca_id", type: "VARCHAR(36)")
-      column(name: "ca_title", type: "VARCHAR(12)")
-      column(name: "ca_family_name", type: "VARCHAR(36)")
-      column(name: "ca_given_names", type: "VARCHAR(36)")
-      column(name: "ca_orcid_id", type: "VARCHAR(36)")
-      column(name: "ca_mail_email", type: "VARCHAR(36)")
-      column(name: "ca_phone", type: "VARCHAR(36)")
-      column(name: "ca_mobile", type: "VARCHAR(36)")
-      column(name: "version", type: "BIGINT") {
-        constraints(nullable: "false")
-      }
-    }
-  }
-
   changeSet(author: "ianibbo (manual)", id: "i202109091132") {
     createTable(tableName: "funder") {
       column(name: "version", type: "BIGINT") {
@@ -172,26 +156,65 @@ databaseChangeLog = {
     }
   }
 
-    changeSet(author: "samhepburn (manual)", id: "i20210910441") {
-      addColumn(tableName: "corresponding_author") {
-        column(name: "ca_owner_fk", type: "VARCHAR(36)") {
-          constraints(nullable: "false")
-        }
+  changeSet(author: "samhepburn (manual)", id: "i202109151056") {
+    createTable(tableName: "party") {
+      column(name: "version", type: "BIGINT") {
+        constraints(nullable: "false")
       }
-      addForeignKeyConstraint(baseColumnNames: "ca_owner_fk",
-        baseTableName: "corresponding_author",
-        constraintName: "corresponding_author_owner_fk",
+      column(name: "p_id", type: "VARCHAR(36)")
+      column(name: "p_title", type: "VARCHAR(12)")
+      column(name: "p_family_name", type: "VARCHAR(36)")
+      column(name: "p_given_names", type: "VARCHAR(36)")
+      column(name: "p_orcid_id", type: "VARCHAR(36)")
+      column(name: "p_main_email", type: "VARCHAR(36)")
+      column(name: "p_phone", type: "VARCHAR(36)")
+      column(name: "p_mobile", type: "VARCHAR(36)")
+    }
+  }
+
+    changeSet(author: "samhepburn (manual)", id: "i202109151106") {
+    createTable(tableName: "request_party") {
+      column(name: "version", type: "BIGINT") {
+        constraints(nullable: "false")
+      }
+      column(name: "rp_id", type: "VARCHAR(36)")
+      column(name: "rp_role", type: "VARCHAR(36)")
+      column(name: "rp_publication_request_fk", type: "VARCHAR(36)")
+      column(name: "rp_party_fk", type: "VARCHAR(36)")
+    }
+  }
+
+    changeSet(author: "samhepburn (manual)", id: "i202109151110") {
+      addColumn(tableName: "publication_request") {
+        column(name: "pr_corresponding_author_fk", type: "VARCHAR(36)")
+      }
+
+      addUniqueConstraint(columnNames: "p_id", constraintName: "p_id_unique", tableName: "party")
+      addUniqueConstraint(columnNames: "rp_id", constraintName: "rp_id_unique", tableName: "request_party")
+
+      addForeignKeyConstraint(baseColumnNames: "rp_publication_request_fk",
+        baseTableName: "request_party",
+        constraintName: "publication_request_fk",
         deferrable: "false",
         initiallyDeferred: "false",
         referencedColumnNames: "pr_id",
         referencedTableName: "publication_request")
-    }
+    
+      addForeignKeyConstraint(baseColumnNames: "rp_party_fk",
+        baseTableName: "request_party",
+        constraintName: "request_party_party_fk",
+        deferrable: "false",
+        initiallyDeferred: "false",
+        referencedColumnNames: "p_id",
+        referencedTableName: "party")
 
-    changeSet(author: "samhepburn (manual)", id: "i202109101458") {
-      addColumn(tableName: "publication_request") {
-        column(name: "pr_corresponding_author_fk", type: "VARCHAR(36)") {
-          constraints(nullable: "true")
-        }
-    }
+      addForeignKeyConstraint(baseColumnNames: "pr_corresponding_author_fk",
+        baseTableName: "publication_request",
+        constraintName: "publication_request_request_party_fk",
+        deferrable: "false",
+        initiallyDeferred: "false",
+        referencedColumnNames: "rp_id",
+        referencedTableName: "request_party")
   }
+  
 }
