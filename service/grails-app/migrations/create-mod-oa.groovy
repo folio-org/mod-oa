@@ -234,9 +234,6 @@ databaseChangeLog = {
         column(name: "pr_license", type: "VARCHAR(36)")
       }
       addColumn(tableName: "publication_request") {
-        column(name: "pr_oa_status", type: "VARCHAR(36)")
-      }      
-      addColumn(tableName: "publication_request") {
         column(name: "pr_doi", type: "VARCHAR(36)")
       }
     }
@@ -259,5 +256,4 @@ databaseChangeLog = {
         referencedColumnNames: "pr_id",
         referencedTableName: "publication_request")
     }
-
 }

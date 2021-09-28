@@ -74,7 +74,6 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
               subtype column: 'pr_subtype'
             publisher column: 'pr_publisher'
               license column: 'pr_license'
-             oaStatus column: 'pr_oa_status'
        publicationUrl column: 'pr_pub_url'
        localReference column: 'pr_local_ref'
           authorNames column: 'pr_authnames'
@@ -94,7 +93,6 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
               subtype nullable: true
             publisher nullable: true
               license nullable: true
-             oaStatus nullable: true
        publicationUrl nullable: true
        localReference nullable: true
           authorNames nullable: true
