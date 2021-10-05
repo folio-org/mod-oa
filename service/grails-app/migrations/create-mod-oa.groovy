@@ -256,4 +256,25 @@ databaseChangeLog = {
         referencedColumnNames: "pr_id",
         referencedTableName: "publication_request")
     }
+
+    changeSet(author: "samhepburn (manual)", id: "i202109281157") {
+      createTable(tableName: "publication_status") {
+        column(name: "ps_id", type: "VARCHAR(36)")
+        column(name: "ps_owner_fk", type: "VARCHAR(36)")
+        column(name: "ps_publication_status", type: "VARCHAR(36)")
+        column(name: "ps_status_date", type: "DATE")
+        column(name: "ps_status_note", type: "VARCHAR(255)")
+        column(name: "version", type: "BIGINT") {
+          constraints(nullable: "false")
+        }
+      }
+      addForeignKeyConstraint(baseColumnNames: "ps_owner_fk",
+        baseTableName: "publication_status",
+        constraintName: "publication_status_owner_fk",
+        deferrable: "false",
+        initiallyDeferred: "false",
+        referencedColumnNames: "pr_id",
+        referencedTableName: "publication_request"
+      )
+    }
 }
