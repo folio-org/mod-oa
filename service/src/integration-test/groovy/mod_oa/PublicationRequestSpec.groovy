@@ -161,11 +161,11 @@ class PublicationRequestSpec extends HttpSpec {
 
     then:'Check request status updated'
       println("updated record: ${result_of_update}");
-      result_of_update.requestStatus?.value == newstatus;
+      result_of_update.requestStatus?.label == newstatus;
     
     where:
       publication_title|newstatus
-      'My article'|'rejected'
+      'My article'|'In progress'
   }
 
 }
