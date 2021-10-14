@@ -48,6 +48,8 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
   @Defaults(['License 1'])
   RefdataValue license
 
+  ChecklistGroup group
+
   static hasMany = [
     externalRequestIds: ExternalRequestId,
     history: PublicationRequestHistory,

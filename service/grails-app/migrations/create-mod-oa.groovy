@@ -277,4 +277,50 @@ databaseChangeLog = {
         referencedTableName: "publication_request"
       )
     }
+
+    changeSet(author: "samhepburn (manual)", id: "i202110141107") {
+      createTable(tableName: "checklist_group") {
+        column(name: "cg_id", type: "VARCHAR(36)")
+        column(name: "cg_name", type: "VARCHAR(255)")
+        column(name: "version", type: "BIGINT") {
+          constraints(nullable: "false")
+        }
+      }
+      createTable(tableName: "checklist_item") {
+        column(name: "ci_id", type: "VARCHAR(36)")
+        column(name: "ci_name", type: "VARCHAR(255)")
+        column(name: "ci_rule", type: "TEXT")
+        column(name: "version", type: "BIGINT") {
+          constraints(nullable: "false")
+        }
+      }
+      createTable(tableName: "checklist_group_item") {
+        column(name: "cgi_id", type: "VARCHAR(36)")
+        column(name: "cgi_status_fk", type: "VARCHAR(36)")
+        column(name: "cgi_group_index", type: "VARCHAR(36)")
+        column(name: "cgi_item_fk", type: "VARCHAR(36)")
+        column(name: "cgi_group_fk", type: "VARCHAR(36)")
+        column(name: "version", type: "BIGINT") {
+          constraints(nullable: "false")
+        }
+      }
+      addUniqueConstraint(columnNames: "cg_id", constraintName: "cg_id_unique", tableName: "checklist_group")
+      addUniqueConstraint(columnNames: "ci_id", constraintName: "ci_id_unique", tableName: "checklist_item")
+      addForeignKeyConstraint(baseColumnNames: "cgi_group_fk",
+        baseTableName: "checklist_group_item",
+        constraintName: "cgi_group_fk",
+        deferrable: "false",
+        initiallyDeferred: "false",
+        referencedColumnNames: "cg_id",
+        referencedTableName: "checklist_group"
+      )
+      addForeignKeyConstraint(baseColumnNames: "cgi_item_fk",
+        baseTableName: "checklist_group_item",
+        constraintName: "cgi_item_fk",
+        deferrable: "false",
+        initiallyDeferred: "false",
+        referencedColumnNames: "ci_id",
+        referencedTableName: "checklist_item"
+      )
+    }
 }

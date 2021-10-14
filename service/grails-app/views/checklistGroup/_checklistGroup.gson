@@ -1,0 +1,6 @@
+import org.olf.oa.ChecklistGroup
+import groovy.transform.Field
+
+@Field 
+ChecklistGroup checklistGroup
+json g.render(checklistGroup, [expand: ['checklistItems']])
