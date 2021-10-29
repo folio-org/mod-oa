@@ -2,8 +2,7 @@ package org.olf.oa
 
 import grails.gorm.MultiTenant
 
-import java.util.Date
-
+import java.time.LocalDate
 import com.k_int.web.toolkit.refdata.CategoryId
 import com.k_int.web.toolkit.refdata.Defaults
 import com.k_int.web.toolkit.refdata.RefdataValue
@@ -14,7 +13,7 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
 
   String id
   String requestNumber
-  Date requestDate
+  LocalDate requestDate
   Date dateModified
   Date dateCreated
   String publicationTitle
@@ -48,6 +47,7 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
   @Defaults(['License 1'])
   RefdataValue license
 
+// TODO: PR can only have one group right now
   ChecklistGroup group
 
   static hasMany = [
@@ -83,6 +83,7 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
           authorNames column: 'pr_authnames'
                   doi column: 'pr_doi'
   correspondingAuthor column: 'pr_corresponding_author_fk', cascade: 'save-update'
+                group column: 'pr_group_fk'
   }
   
   static constraints = {
@@ -102,6 +103,7 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
           authorNames nullable: true
                   doi nullable: true
   correspondingAuthor nullable: true
+                group nullable: true
   }
 
   def beforeValidate() {

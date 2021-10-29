@@ -323,4 +323,25 @@ databaseChangeLog = {
         referencedTableName: "checklist_item"
       )
     }
+  changeSet(author: "samhepburn (manual)", id: "i202110141531") {
+    addColumn(tableName: "publication_request") {
+      column(name: "pr_group_fk", type: "VARCHAR(36)")
+    }
+  }
+
+  changeSet(author: "samhepburn (manual)", id: "2021-10-19-1634-001") {
+    modifyDataType( 
+        tableName: "publication_request", 
+        columnName: "pr_request_date", 
+        newDataType: "timestamp", 
+        confirm: "Successfully updated the pr_request_date column."
+      )
+  }
+
+    changeSet(author: "samhepburn (manual)", id: "2021-10-28-1633-001") {
+      addColumn(tableName: "party") {
+        column(name: "p_full_name", type: "VARCHAR(255)")
+      }
+    }
+    
 }
