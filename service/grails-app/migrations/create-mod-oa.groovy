@@ -217,4 +217,131 @@ databaseChangeLog = {
         referencedTableName: "request_party")
   }
   
+    changeSet(author: "samhepburn (manual)", id: "i202109231034") {
+      addColumn(tableName: "publication_request") {
+        column(name: "pr_local_ref", type: "VARCHAR(36)")
+      }
+      addColumn(tableName: "publication_request") {
+        column(name: "pr_pub_url", type: "VARCHAR(255)")
+      }
+      addColumn(tableName: "publication_request") {
+        column(name: "pr_subtype", type: "VARCHAR(36)")
+      }
+      addColumn(tableName: "publication_request") {
+        column(name: "pr_publisher", type: "VARCHAR(36)")
+      }
+      addColumn(tableName: "publication_request") {
+        column(name: "pr_license", type: "VARCHAR(36)")
+      }
+      addColumn(tableName: "publication_request") {
+        column(name: "pr_doi", type: "VARCHAR(36)")
+      }
+    }
+
+    changeSet(author: "samhepburn (manual)", id: "i202109231121") {
+      createTable(tableName: "publication_identifier") {
+        column(name: "pi_id", type: "VARCHAR(36)")
+        column(name: "pi_type", type: "VARCHAR(36)")
+        column(name: "pi_owner_fk", type: "VARCHAR(36)")
+        column(name: "pi_pub_identifier", type: "VARCHAR(36)")
+        column(name: "version", type: "BIGINT") {
+          constraints(nullable: "false")
+        }
+      }
+      addForeignKeyConstraint(baseColumnNames: "pi_owner_fk",
+        baseTableName: "publication_identifier",
+        constraintName: "publication_identifier_owner_fk",
+        deferrable: "false",
+        initiallyDeferred: "false",
+        referencedColumnNames: "pr_id",
+        referencedTableName: "publication_request")
+    }
+
+    changeSet(author: "samhepburn (manual)", id: "i202109281157") {
+      createTable(tableName: "publication_status") {
+        column(name: "ps_id", type: "VARCHAR(36)")
+        column(name: "ps_owner_fk", type: "VARCHAR(36)")
+        column(name: "ps_publication_status", type: "VARCHAR(36)")
+        column(name: "ps_status_date", type: "DATE")
+        column(name: "ps_status_note", type: "VARCHAR(255)")
+        column(name: "version", type: "BIGINT") {
+          constraints(nullable: "false")
+        }
+      }
+      addForeignKeyConstraint(baseColumnNames: "ps_owner_fk",
+        baseTableName: "publication_status",
+        constraintName: "publication_status_owner_fk",
+        deferrable: "false",
+        initiallyDeferred: "false",
+        referencedColumnNames: "pr_id",
+        referencedTableName: "publication_request"
+      )
+    }
+
+    changeSet(author: "samhepburn (manual)", id: "i202110141107") {
+      createTable(tableName: "checklist_group") {
+        column(name: "cg_id", type: "VARCHAR(36)")
+        column(name: "cg_name", type: "VARCHAR(255)")
+        column(name: "version", type: "BIGINT") {
+          constraints(nullable: "false")
+        }
+      }
+      createTable(tableName: "checklist_item") {
+        column(name: "ci_id", type: "VARCHAR(36)")
+        column(name: "ci_name", type: "VARCHAR(255)")
+        column(name: "ci_rule", type: "TEXT")
+        column(name: "version", type: "BIGINT") {
+          constraints(nullable: "false")
+        }
+      }
+      createTable(tableName: "checklist_group_item") {
+        column(name: "cgi_id", type: "VARCHAR(36)")
+        column(name: "cgi_status_fk", type: "VARCHAR(36)")
+        column(name: "cgi_group_index", type: "VARCHAR(36)")
+        column(name: "cgi_item_fk", type: "VARCHAR(36)")
+        column(name: "cgi_group_fk", type: "VARCHAR(36)")
+        column(name: "version", type: "BIGINT") {
+          constraints(nullable: "false")
+        }
+      }
+      addUniqueConstraint(columnNames: "cg_id", constraintName: "cg_id_unique", tableName: "checklist_group")
+      addUniqueConstraint(columnNames: "ci_id", constraintName: "ci_id_unique", tableName: "checklist_item")
+      addForeignKeyConstraint(baseColumnNames: "cgi_group_fk",
+        baseTableName: "checklist_group_item",
+        constraintName: "cgi_group_fk",
+        deferrable: "false",
+        initiallyDeferred: "false",
+        referencedColumnNames: "cg_id",
+        referencedTableName: "checklist_group"
+      )
+      addForeignKeyConstraint(baseColumnNames: "cgi_item_fk",
+        baseTableName: "checklist_group_item",
+        constraintName: "cgi_item_fk",
+        deferrable: "false",
+        initiallyDeferred: "false",
+        referencedColumnNames: "ci_id",
+        referencedTableName: "checklist_item"
+      )
+    }
+  changeSet(author: "samhepburn (manual)", id: "i202110141531") {
+    addColumn(tableName: "publication_request") {
+      column(name: "pr_group_fk", type: "VARCHAR(36)")
+    }
+  }
+
+  changeSet(author: "samhepburn (manual)", id: "2021-10-19-1634-001") {
+    modifyDataType( 
+        tableName: "publication_request", 
+        columnName: "pr_request_date", 
+        newDataType: "timestamp", 
+        confirm: "Successfully updated the pr_request_date column."
+      )
+  }
+
+    changeSet(author: "samhepburn (manual)", id: "2021-10-28-1633-001") {
+      addColumn(tableName: "party") {
+        column(name: "p_full_name", type: "VARCHAR(255)")
+      }
+    }
+    
 }

@@ -128,8 +128,17 @@
           "methods": [ "DELETE" ],
           "pathPattern": "/oa/party/{id}", 
           "permissionsRequired": [ "oa.party.manage" ]
+        },
+        {
+          "methods": [ "GET" ],
+          "pathPattern": "/oa/checklistGroup", 
+          "permissionsRequired": [ "oa.checklist.view" ]
+        },
+        {
+          "methods": [ "GET" ],
+          "pathPattern": "/oa/checklistGroup/{id}", 
+          "permissionsRequired": [ "oa.checklist.view" ]
         }
-
       ]
     },
     {
@@ -394,6 +403,23 @@
       "subPermissions": [
         "oa.party.edit",
         "oa.party.item.delete"
+      ]
+    },
+    {
+      "permissionName": "oa.checklist.collection.get",
+      "displayName": "Checklist collection get",
+      "description": "Get a collection of checklist records"
+    },
+    {
+      "permissionName": "oa.checklist.item.get",
+      "displayName": "Checklist item get",
+      "description": "Get a checklist record"
+    },
+    {
+      "permissionName": "oa.checklist.view",
+      "subPermissions": [
+        "oa.checklist.collection.get",
+        "oa.checklist.item.get"
       ]
     }
   ],

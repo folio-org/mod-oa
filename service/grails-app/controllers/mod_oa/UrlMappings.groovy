@@ -18,5 +18,7 @@ class UrlMappings {
     "/oa/funders" (resources: "funder")
     "/oa/party" (resources: "party")
 
+    "/oa/checklistGroup" (resources: "checklistGroup")
+
   }
 }

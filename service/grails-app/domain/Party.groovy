@@ -16,6 +16,8 @@ class Party implements MultiTenant<Party> {
 
   String givenNames
 
+  String fullName
+
   String orcidId
 
   String mainEmail
@@ -37,6 +39,7 @@ class Party implements MultiTenant<Party> {
                  title column: 'p_title'
             familyName column: 'p_family_name'
             givenNames column: 'p_given_names'
+              fullName column: 'p_full_name'
                orcidId column: 'p_orcid_id'
              mainEmail column: 'p_main_email'
                  phone column: 'p_phone'
@@ -47,10 +50,14 @@ class Party implements MultiTenant<Party> {
                  title nullable: true
                  familyName nullable: true
                  givenNames nullable: true
+                 fullName (nullable:true, bindable: false)
                  orcidId nullable: true
                  mainEmail nullable: true
                  phone nullable: true
                  mobile nullable: true
   }
 
+  def beforeValidate() {
+    fullName = [givenNames, familyName].join(" ")
+  }
 }
