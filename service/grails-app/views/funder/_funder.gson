@@ -3,4 +3,4 @@ import groovy.transform.Field
 
 @Field 
 Funder funder
-json g.render(funder, [expand:['name', 'aspectFunded]])
+json g.render(funder, [expand:['name', 'aspectFunded']])
