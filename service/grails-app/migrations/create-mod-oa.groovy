@@ -343,5 +343,11 @@ databaseChangeLog = {
         column(name: "p_full_name", type: "VARCHAR(255)")
       }
     }
+
+    changeSet(author: "samhepburn (manual)", id: "2021-11-01-0951-001") {
+      addColumn(tableName: "funder") {
+        column(name: "f_aspect_funded", type: "VARCHAR(36)")
+      }
+    }
     
 }
