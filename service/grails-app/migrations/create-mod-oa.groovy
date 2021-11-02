@@ -363,4 +363,8 @@ databaseChangeLog = {
         referencedTableName: "request_party")
     }
     
+    changeSet(author: "samhepburn (manual)", id: "2021-11-02-1142-002") {
+      dropForeignKeyConstraint(baseTableName: "request_party", constraintName: "publication_request_fk")
+      dropColumn(columnName: "rp_publication_request_fk", tableName: "request_party")
+  }
 }
