@@ -8,7 +8,10 @@ def should_expand = [
   'publicationType',
   'correspondingAuthor',
   'identifiers',
-  'publicationStatuses'
+  'publicationStatuses',
+  'subtype',
+  'publisher',
+  'license'
 ]
 
 @Field 
