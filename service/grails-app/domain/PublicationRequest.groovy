@@ -19,6 +19,7 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
   String publicationTitle
   String authorNames
   RequestParty correspondingAuthor
+  RequestParty requestContact
   String localReference
   String publicationUrl
   String doi
@@ -61,6 +62,7 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
     externalRequestIds: 'owner',
     history: 'owner',
     correspondingAuthor: 'publicationRequestOwner',
+    requestContact: 'publicationRequestOwner',
     identifiers: 'owner',
     publicationStatuses: 'owner'
   ]
@@ -82,7 +84,8 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
        localReference column: 'pr_local_ref'
           authorNames column: 'pr_authnames'
                   doi column: 'pr_doi'
-  correspondingAuthor column: 'pr_corresponding_author_fk', cascade: 'save-update'
+  correspondingAuthor column: 'pr_corresponding_author_fk'
+       requestContact column: 'pr_request_contact_fk'
                 group column: 'pr_group_fk'
   }
   
@@ -103,6 +106,7 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
           authorNames nullable: true
                   doi nullable: true
   correspondingAuthor nullable: true
+       requestContact nullable: true
                 group nullable: true
   }
 

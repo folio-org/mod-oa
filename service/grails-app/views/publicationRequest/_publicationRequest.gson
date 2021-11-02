@@ -7,6 +7,7 @@ def should_expand = [
   'history',
   'publicationType',
   'correspondingAuthor',
+  'requestContact',
   'identifiers',
   'publicationStatuses',
   'subtype',
