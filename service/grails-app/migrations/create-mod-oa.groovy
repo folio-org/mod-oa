@@ -343,5 +343,28 @@ databaseChangeLog = {
         column(name: "p_full_name", type: "VARCHAR(255)")
       }
     }
+
+    changeSet(author: "samhepburn (manual)", id: "2021-11-01-0951-001") {
+      addColumn(tableName: "funder") {
+        column(name: "f_aspect_funded", type: "VARCHAR(36)")
+      }
+    }
+
+    changeSet(author: "samhepburn (manual)", id: "2021-11-02-0929-001") {
+      addColumn(tableName: "publication_request") {
+        column(name: "pr_request_contact_fk", type: "VARCHAR(36)")
+      }
+      addForeignKeyConstraint(baseColumnNames: "pr_request_contact_fk",
+        baseTableName: "publication_request",
+        constraintName: "publication_request_contact_fk",
+        deferrable: "false",
+        initiallyDeferred: "false",
+        referencedColumnNames: "rp_id",
+        referencedTableName: "request_party")
+    }
     
+    changeSet(author: "samhepburn (manual)", id: "2021-11-02-1142-002") {
+      dropForeignKeyConstraint(baseTableName: "request_party", constraintName: "publication_request_fk")
+      dropColumn(columnName: "rp_publication_request_fk", tableName: "request_party")
+  }
 }
