@@ -40,7 +40,7 @@ grails:
         dateFormats:
           - 'yyyy-MM-dd HH:mm:ss.S'
           - "yyyy-MM-dd'T'hh:mm:ss'Z'"
-          - 'yyyy-mm-dd'
+          - 'yyyy-MM-dd'
 
 info:
     app:
