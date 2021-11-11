@@ -367,4 +367,60 @@ databaseChangeLog = {
       dropForeignKeyConstraint(baseTableName: "request_party", constraintName: "publication_request_fk")
       dropColumn(columnName: "rp_publication_request_fk", tableName: "request_party")
   }
+
+  changeSet(author: "efreestone (manual)", id: "2021-11-11-1239-001") {
+    renameColumn(
+      tableName: "publication_request",
+      oldColumnName: "pr_date_modified",
+      newColumnName: "pr_last_updated"
+    )
+
+    renameColumn(
+      tableName: "funder",
+      oldColumnName: "f_date_modified",
+      newColumnName: "f_last_updated"
+    )
+
+    renameColumn(
+      tableName: "publication_request_history",
+      oldColumnName: "prh_date_modified",
+      newColumnName: "prh_last_updated"
+    )
+  }
+
+  changeSet(author: "efreestone (manual)", id: "2021-11-11-1239-002") {
+    modifyDataType( 
+      tableName: "publication_request", 
+      columnName: "pr_last_updated", 
+      newDataType: "timestamp", 
+      confirm: "Successfully updated the pr_last_updated column."
+    )
+  }
+
+  changeSet(author: "efreestone (manual)", id: "2021-11-11-1239-003") {
+    modifyDataType( 
+      tableName: "funder", 
+      columnName: "f_last_updated", 
+      newDataType: "timestamp", 
+      confirm: "Successfully updated the f_last_updated column."
+    )
+  }
+
+  changeSet(author: "efreestone (manual)", id: "2021-11-11-1239-004") {
+    modifyDataType( 
+      tableName: "publication_request_history", 
+      columnName: "prh_last_updated", 
+      newDataType: "timestamp", 
+      confirm: "Successfully updated the prh_last_updated column."
+    )
+  }
+
+  changeSet(author: "efreestone (manual)", id: "2021-11-11-1239-005") {
+    modifyDataType( 
+      tableName: "publication_request", 
+      columnName: "pr_date_created", 
+      newDataType: "timestamp", 
+      confirm: "Successfully updated the pr_date_created column."
+    )
+  }
 }

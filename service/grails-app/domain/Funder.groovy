@@ -18,17 +18,17 @@ class Funder implements MultiTenant<Funder> {
   @Defaults(['Research', 'Publication'])
   RefdataValue aspectFunded  
   
-  Date dateModified
+  Date lastUpdated
 
   static mapping = {
                   id column: 'f_id', generator: 'uuid2', length: 36
-        dateModified column: 'f_date_modified'
+        lastUpdated column: 'f_last_updated'
                 name column: 'f_name'
         aspectFunded column: 'f_aspect_funded'
   }
   
   static constraints = {
-        dateModified nullable: true
+        lastUpdated nullable: true
                 name nullable: true
         aspectFunded nullable: true
   }
