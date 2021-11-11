@@ -14,7 +14,7 @@ class PublicationRequestHistory implements MultiTenant<PublicationRequestHistory
 
   String id
   PublicationRequest owner
-  Date dateModified
+  Date lastUpdated
   String note
   RefdataValue fromState
   RefdataValue toState
@@ -26,14 +26,14 @@ class PublicationRequestHistory implements MultiTenant<PublicationRequestHistory
   static mapping = {
                   id column: 'prh_id', generator: 'uuid2', length: 36
                owner column: 'prh_owner_fk'
-        dateModified column: 'prh_date_modified'
+        lastUpdated column: 'prh_last_updated'
                 note column: 'prh_note'
            fromState column: 'prh_from_state'
              toState column: 'prh_to_state'
   }
   
   static constraints = {
-        dateModified nullable: true
+        lastUpdated nullable: true
                owner nullable: false
                 note nullable: true
            fromState nullable: true

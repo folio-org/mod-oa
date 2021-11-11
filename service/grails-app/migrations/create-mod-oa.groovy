@@ -367,4 +367,24 @@ databaseChangeLog = {
       dropForeignKeyConstraint(baseTableName: "request_party", constraintName: "publication_request_fk")
       dropColumn(columnName: "rp_publication_request_fk", tableName: "request_party")
   }
+
+  changeSet(author: "efreestone (manual)", id: "2021-11-11-1239-00") {
+    renameColumn(
+      tableName: "publication_request",
+      oldColumnName: "pr_date_modified",
+      newColumnName: "pr_last_updated"
+    )
+
+    renameColumn(
+      tableName: "funder",
+      oldColumnName: "f_date_modified",
+      newColumnName: "f_last_updated"
+    )
+
+    renameColumn(
+      tableName: "publication_request_history",
+      oldColumnName: "prh_date_modified",
+      newColumnName: "prh_last_updated"
+    )
+  }
 }
