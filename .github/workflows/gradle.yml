@@ -33,7 +33,7 @@ jobs:
       - name: Start containers
         run: |
           cd ../tools/testing
-          docker-compose -f "docker-compose.yml" up
+          docker-compose -f "docker-compose.yml" up -d
 
       - name: Build with Gradle
         run: ./gradlew clean build -x integrationTest
