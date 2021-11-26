@@ -36,3 +36,5 @@ See [configuration](https://dev.folio.org/download/artifacts) for repository acc
 and the [Docker image](https://hub.docker.com/r/folioorg/mod-oa/).
 
 
+
+Notes on github actions for grails: https://guides.grails.org/grails-on-github-actions/guide/index.html

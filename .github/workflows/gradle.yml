@@ -36,7 +36,12 @@ jobs:
           docker-compose -f "docker-compose.yml" up -d
 
       - name: Build with Gradle
-        run: ./gradlew clean build
+        run: |
+          ./gradlew clean build
+          ls 
+          ls ./build
+          ls ./build/test-results
+          ls ./build/test-results/integration-test
 
       - name: Stop containers
         run: |
@@ -47,5 +52,5 @@ jobs:
         uses: EnricoMi/publish-unit-test-result-action@v1
         if: always()
         with:
-          files: build/test-results/**/*.xml
+          files: ./build/test-results/**/*.xml
 
