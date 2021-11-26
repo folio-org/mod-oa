@@ -50,13 +50,13 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: Unit Test Results
-          path: build/test-results/**/*.xml
+          path: |
+            service/build/test-results/**/*.xml
+            service/build/spock-reports/*.html
 
       - name: Publish Test Results
         uses: EnricoMi/publish-unit-test-result-action@v1
         if: always()
         with:
           files: |
-            build/test-results/**/*.xml
             service/build/test-results/**/*.xml
-
