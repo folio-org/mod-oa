@@ -14,16 +14,31 @@ jobs:
         working-directory: ./service
     steps:
       - uses: actions/checkout@v1
+
       - name: Set up JDK 11
         uses: actions/setup-java@v2
         with:
           java-version: '11'
           distribution: 'adopt'
+
       - uses: actions/cache@v1 
         with:
           path: ~/.gradle/caches  
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }} 
           restore-keys: |
             ${{ runner.os }}-gradle-
+
+
+      - name: Start containers
+        run: |
+          cd ../tools/testing
+          docker-compose -f "docker-compose.yml" up
+
       - name: Build with Gradle
         run: ./gradlew clean build -x integrationTest
+
+      - name: Stop containers
+        run: |
+          cd ../tools/testing
+          docker-compose -f "docker-compose.yml" down -v
+
