@@ -37,10 +37,8 @@ logger ('com.k_int.okapi.OkapiTenantAdminService', DEBUG)
 logger ('com.k_int.okapi.OkapiSchemaHandler', WARN)
 logger ('com.k_int.web.toolkit', TRACE)
 logger ('org.grails.gorm.graphql', WARN)
-logger ('mod_oa', INFO)
 logger ('com.k_int.okapi', WARN)
 
-logger ('com.k_int.okapi.OkapiClient', DEBUG)
 // logger ('org.olf.okapi.modules.directory.CustomBinders', WARN)
 
 // LOG SQL - VERBOSE!!!!!!
@@ -50,11 +48,18 @@ logger ('com.k_int.okapi.OkapiClient', DEBUG)
 // logger 'org.hibernate.type.descriptor.sql.BasicBinder', TRACE, ['STDOUT']
  
 
-if (Environment.currentEnvironment == Environment.TEST) {
+if ( ( Environment.currentEnvironment == Environment.TEST) ||
+     ( Environment.currentEnvironment == Environment.DEVELOPMENT ) ) {
   logger 'groovy.net.http.JavaHttpBuilder', DEBUG
   logger 'groovy.net.http.JavaHttpBuilder.content', DEBUG
   logger 'groovy.net.http.JavaHttpBuilder.headers', DEBUG
+  logger 'com.k_int.okapi.OkapiTenantAdminService', TRACE
+  logger 'mod_oa', DEBUG
+  logger 'com.k_int.okapi.OkapiClient', DEBUG
 }
+else {
+}
+
 def targetDir = BuildSettings.TARGET_DIR
 if (Environment.isDevelopmentMode() && targetDir != null) {
     appender("FULL_STACKTRACE", FileAppender) {

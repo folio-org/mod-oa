@@ -165,11 +165,15 @@ databaseChangeLog = {
     }
   }
 
-  changeSet(author: "ibbo (generated)", id: "1549360204236-38") {
+  changeSet(author: "ibbo (generated)", id: "1549360204236-38b") {
     createTable(tableName: "work") {
       column(name: "w_id", type: "VARCHAR(36)") { constraints(nullable: "false") }
       column(name: "w_version", type: "BIGINT") { constraints(nullable: "false") }
       column(name: "w_title", type: "VARCHAR(255)") { constraints(nullable: "false") }
+    }
+
+    createIndex(indexName: "work_title_idx", tableName: "work") {
+      column(name: "w_title")
     }
   }
 
@@ -199,6 +203,8 @@ databaseChangeLog = {
       column(name: "io_identifier_fk", type: "VARCHAR(36)") { constraints(nullable: "false") }
     }
   }
+
+  
 
 
 }

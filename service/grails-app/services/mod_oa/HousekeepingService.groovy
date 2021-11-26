@@ -64,11 +64,18 @@ public class HousekeepingService {
     log.debug("HousekeepingService::onTenantLoadSample(${tenantId},${value},${existing_tenant},${upgrading},${toVersion},${fromVersion}");
     final String schemaName = OkapiTenantResolver.getTenantSchemaName(tenantId)
     Tenants.withId(schemaName) {
-      def sample_journal_data_stream = this.class.classLoader.getResourceAsStream("dummy_journal_data.json")
-      def sample_journal_data = new groovy.json.JsonSlurper().parse(sample_journal_data_stream)
-      sample_journal_data.each { desc ->
-        log.debug("Import: ${desc}");
-        bibReferenceService.importWorkAndInstances(desc)
+      try {
+        def sample_journal_data_stream = this.class.classLoader.getResourceAsStream("dummy_journal_data.json")
+        def sample_journal_data = new groovy.json.JsonSlurper().parse(sample_journal_data_stream)
+        sample_journal_data.each { desc ->
+          bibReferenceService.importWorkAndInstances(desc)
+        }
+      }
+      catch ( Exception e) {
+        log.error("Error in loadSample",e);
+      }
+      finally {
+        log.debug("Complete onTenantLoadSample transaction");
       }
     }
   }
