@@ -3,7 +3,6 @@ package mod_oa.kb
 import javax.persistence.Transient
 import org.hibernate.FetchMode
 import org.hibernate.sql.JoinType
-import org.olf.erm.Entitlement
 import com.k_int.web.toolkit.refdata.CategoryId
 import com.k_int.web.toolkit.refdata.RefdataValue
 import com.k_int.web.toolkit.refdata.Defaults
@@ -13,7 +12,7 @@ import grails.gorm.MultiTenant
 /**
  * mod-oa representation of a BIBFRAME instance
  */
-public class TitleInstance extends ErmResource implements MultiTenant<TitleInstance> {
+public class TitleInstance implements MultiTenant<TitleInstance> {
 
   // For grouping sibling title instances together - EG Print and Electronic editions of the same thing
   Work work
