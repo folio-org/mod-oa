@@ -38,19 +38,25 @@ jobs:
       - name: Build with Gradle
         run: |
           ./gradlew clean build
-          ls 
-          ls ./build
-          ls ./build/test-results
-          ls ./build/test-results/integration-test
+          ls ./build/test-results/integrationTest/*
 
       - name: Stop containers
         run: |
           cd ../tools/testing
           docker-compose -f "docker-compose.yml" down -v
 
+      - name: Upload Unit Test Results
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: Unit Test Results
+          path: build/test-results/**/*.xml
+
       - name: Publish Test Results
         uses: EnricoMi/publish-unit-test-result-action@v1
         if: always()
         with:
-          files: ./build/test-results/**/*.xml
+          files: |
+            build/test-results/**/*.xml
+            service/build/test-results/**/*.xml
 
