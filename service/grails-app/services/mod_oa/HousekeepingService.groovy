@@ -22,6 +22,8 @@ import com.k_int.web.toolkit.refdata.*
  */
 public class HousekeepingService {
 
+  BibReferenceService bibReferenceService
+
   /**
    * This is called by the eventing mechanism - There is no web request context
    * this method is called after the schema for a tenant is updated.
@@ -50,4 +52,17 @@ public class HousekeepingService {
       }
     }
   }
+
+  @Subscriber('okapi:tenant_load_sample')
+  public void onTenantLoadSample(final String tenantId, 
+                                 final String value, 
+                                 final boolean existing_tenant, 
+                                 final boolean upgrading, 
+                                 final String toVersion, 
+                                 final String fromVersion) {
+    log.debug("HousekeepingService::onTenantLoadSample(${tenantId},${value},${existing_tenant},${upgrading},${toVersion},${fromVersion}");
+    Tenants.withId(tenantId) {
+    }
+  }
+
 }

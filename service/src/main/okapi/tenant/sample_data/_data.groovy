@@ -10,7 +10,6 @@ import com.k_int.web.toolkit.custprops.CustomPropertyDefinition
 import grails.databinding.SimpleMapDataBindingSource
 import static grails.async.Promises.*
 import com.k_int.web.toolkit.settings.AppSetting
-import mod_remote_sync.*
 
 log.info 'Importing sample data'
 
