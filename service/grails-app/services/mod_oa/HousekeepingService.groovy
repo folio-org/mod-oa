@@ -16,6 +16,7 @@ import groovy.sql.Sql
 import com.k_int.okapi.OkapiTenantAdminService
 import com.k_int.web.toolkit.settings.AppSetting
 import com.k_int.web.toolkit.refdata.*
+import com.k_int.okapi.OkapiTenantResolver
 
 /**
  * This service works at the module level, it's often called without a tenant context.
@@ -61,9 +62,10 @@ public class HousekeepingService {
                                  final String toVersion, 
                                  final String fromVersion) {
     log.debug("HousekeepingService::onTenantLoadSample(${tenantId},${value},${existing_tenant},${upgrading},${toVersion},${fromVersion}");
-    Tenants.withId(tenantId) {
-      def sample_journal_data_resource = this.class.classLoader.getResource("dummy_journal_data.json").getFile()
-      def sample_journal_data = new groovy.json.JsonSlurper().parse(sample_journal_data_resource.inputStream)
+    final String schemaName = OkapiTenantResolver.getTenantSchemaName(tenantId)
+    Tenants.withId(schemaName) {
+      def sample_journal_data_stream = this.class.classLoader.getResourceAsStream("dummy_journal_data.json")
+      def sample_journal_data = new groovy.json.JsonSlurper().parse(sample_journal_data_stream)
       sample_journal_data.each { desc ->
         log.debug("Import: ${desc}");
         bibReferenceService.importWorkAndInstances(desc)

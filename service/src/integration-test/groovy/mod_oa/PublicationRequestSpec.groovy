@@ -65,7 +65,8 @@ class PublicationRequestSpec extends HttpSpec {
 
     when: 'Create the tenant'
       boolean resp = doPost('/_/tenant', {
-        parameters ([["key": "loadReference", "value": true]])
+        parameters ([["key": "loadReference", "value": true],
+                     ["key": "loadSample", "value": true ] ])
       }, null, booleanResponder)
 
     then: 'Response obtained'
