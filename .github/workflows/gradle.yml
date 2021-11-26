@@ -36,7 +36,7 @@ jobs:
           docker-compose -f "docker-compose.yml" up -d
 
       - name: Build with Gradle
-        run: ./gradlew clean build -x integrationTest
+        run: ./gradlew clean build
 
       - name: Stop containers
         run: |
