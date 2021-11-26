@@ -62,6 +62,12 @@ public class HousekeepingService {
                                  final String fromVersion) {
     log.debug("HousekeepingService::onTenantLoadSample(${tenantId},${value},${existing_tenant},${upgrading},${toVersion},${fromVersion}");
     Tenants.withId(tenantId) {
+      File sample_journal_data_file = this.class.classLoader.getResource("dummy_journal_data.json").getFile()
+      def sample_journal_data = JSON.parse(sample_journal_data_file)
+      sample_journal_data.each { desc ->
+        log.debug("Import: ${desc}");
+        bibReferenceService.importWorkAndInstances(desc)
+      }
     }
   }
 

@@ -13,4 +13,7 @@ public class BibReferenceService {
     return null;
   }
 
+  public void importWorkAndInstances(Map description) {
+  }
+
 }
