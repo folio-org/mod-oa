@@ -103,8 +103,17 @@
           "methods": [ "DELETE" ],
           "pathPattern": "/oa/publicationRequest/{id}", 
           "permissionsRequired": [ "oa.publicationRequest.manage" ]
+        },
+        {
+          "methods": [ "GET" ],
+          "pathPattern": "/oa/titleInstances",
+          "permissionsRequired": [ "oa.titleInstances.view" ]
+        },
+        {
+          "methods": [ "GET" ],
+          "pathPattern": "/oa/titleInstances/{id}",
+          "permissionsRequired": [ "oa.titleInstances.view" ]
         }
-
       ]
     },
     {
