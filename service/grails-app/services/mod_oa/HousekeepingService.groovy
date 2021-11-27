@@ -78,6 +78,20 @@ public class HousekeepingService {
             }
           }
         }
+
+        def sample_party_data_stream = this.class.classLoader.getResourceAsStream("dummy_party_data.json")
+        List<Map> sample_party_data = new groovy.json.JsonSlurper().parse(sample_party_data_stream)
+        int num_sample_party_records = sample_party_data.size();
+        ctr = 0;
+        AppSetting.withNewSession {
+          sample_party_data.each { pty ->
+            log.debug("Import sample party ${ctr++} of ${num_sample_party_records}");
+            AppSetting.withNewTransaction { status ->
+              log.debug("Import party ${pty}");
+            }
+          }
+        }
+
       }
       catch ( Exception e) {
         log.error("Error in loadSample",e);
