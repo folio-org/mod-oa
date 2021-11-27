@@ -17,6 +17,7 @@ import com.k_int.okapi.OkapiTenantAdminService
 import com.k_int.web.toolkit.settings.AppSetting
 import com.k_int.web.toolkit.refdata.*
 import com.k_int.okapi.OkapiTenantResolver
+import org.olf.oa.Party
 
 /**
  * This service works at the module level, it's often called without a tenant context.
@@ -88,6 +89,12 @@ public class HousekeepingService {
             log.debug("Import sample party ${ctr++} of ${num_sample_party_records}");
             AppSetting.withNewTransaction { status ->
               log.debug("Import party ${pty}");
+              // Key the sample data off main email - so that repeated calls to loadReference will not repeat the data
+              Party p = Party.findByMainEmail(pty.mainEmail) ?: new Party(
+                                  'title': pty.title,
+                                  'familyName': pty.familyName,
+                                  'givenNames': pty.givenNames,
+                                  'mainEmail': pty.mainEmail).save(flush:true, failOnError:true);
             }
           }
         }
