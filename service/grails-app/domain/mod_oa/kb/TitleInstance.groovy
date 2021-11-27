@@ -55,8 +55,12 @@ public class TitleInstance implements MultiTenant<TitleInstance> {
   }
 
   static constraints = {
-           title (nullable:false, blank:false)
-            work (nullable:true, blank:false)
+              title (nullable:false, blank:false)
+               work (nullable:true)
+    publicationType (nullable:true)
+               type (nullable:true)
+            subType (nullable:true)
+  
   }
   
 }

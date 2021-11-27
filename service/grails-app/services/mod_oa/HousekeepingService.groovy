@@ -66,10 +66,16 @@ public class HousekeepingService {
     Tenants.withId(schemaName) {
       try {
         def sample_journal_data_stream = this.class.classLoader.getResourceAsStream("dummy_journal_data.json")
-        def sample_journal_data = new groovy.json.JsonSlurper().parse(sample_journal_data_stream)
-        sample_journal_data.each { desc ->
-          AppSetting.withNewTransaction { status ->
-            bibReferenceService.importWorkAndInstances(desc)
+        List<Map> sample_journal_data = new groovy.json.JsonSlurper().parse(sample_journal_data_stream)
+
+        int num_sample_jounals = sample_journal_data.size();
+        int ctr=0;
+        AppSetting.withNewSession {
+          sample_journal_data.each { desc ->
+            log.debug("Import sample journal ${ctr++} of ${num_sample_jounals}");
+            AppSetting.withNewTransaction { status ->
+              bibReferenceService.importWorkAndInstances(desc)
+            }
           }
         }
       }

@@ -69,6 +69,9 @@ class PublicationRequestSpec extends HttpSpec {
                      ["key": "loadSample", "value": "true" ] ])
       }, null, booleanResponder)
 
+    then: 'Wait for sample data to complete'
+      Thread.sleep(10*1000);
+
     then: 'Response obtained'
       resp == true
 

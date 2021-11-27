@@ -38,6 +38,7 @@ public class BibReferenceService {
     if ( ( matching_instances == null ) || ( matching_instances.size() == 0 ) ) {
       log.debug("Entirely new title");
       result = createInstance(instance_description);
+      // result = new TitleInstance(title:'hello').save(flush:true, failOnError:true);
     }
     else if ( matching_instances.size() == 1 ) {
       log.debug("Matched exactly 1 existing title");
@@ -165,15 +166,12 @@ public class BibReferenceService {
     return result;
   }
 
-  private TitleInstance createInstance(instance_description) {
+  private TitleInstance createInstance(Map instance_description) {
 
     log.debug("Create titleInstance for ${instance_description}");
 
-    TitleInstance result = new TitleInstance(title:instance_description.title);
-
-    instance_description.ids.each { id ->
-      addIdentifierToTitle(result, id)
-    }
+    TitleInstance result = new TitleInstance();
+    result.title = instance_description.title;
 
     if ( instance_description.subType ) {
       result.subType = RefdataValue.lookupOrCreate('TitleInstance.SubType', instance_description.subType, instance_description.subType)
@@ -184,7 +182,7 @@ public class BibReferenceService {
     }
 
     if ( instance_description.publicationType ) {
-      result.type = RefdataValue.lookupOrCreate('TitleInstance.PublicationType', instance_description.publicationType, instance_description.publicationType)
+      result.publicationType = RefdataValue.lookupOrCreate('TitleInstance.PublicationType', instance_description.publicationType, instance_description.publicationType)
     }
     else {
       switch ( instance_description.type?.toLowerCase() ) {
@@ -197,9 +195,14 @@ public class BibReferenceService {
       }
     }
 
-    // result.work = resolveWork(instance_description)
+    result.work = resolveWork(instance_description)
 
     result.save(flush:true, failOnError:true)
+
+    instance_description.ids.each { id ->
+      log.debug("Add identifier: ${id}");
+      addIdentifierToTitle(result, id)
+    }
 
     // Reload the title with any identifiers properly attached
     result.refresh()
@@ -216,12 +219,31 @@ public class BibReferenceService {
 
     log.debug("addIdentifierToTitle(...${idpair})");
 
+    boolean selected = true;
+    boolean already_present = false;
     Identifier id = identifierLookup(idpair.ns, idpair.id)
     if ( id == null ) {
       log.debug("Create new identifier ${idpair}");
       id = new Identifier( ns: lookupOrCreateIdentifierNamespace(idpair.ns), value: idpair.id ).save(flush:true, failOnError:true);
     }
+    else {
+      IdentifierOccurrence current_selected = IdentifierOccurrence.createCriteria().get { and { eq('identifier',id) eq('selected',true) } }
+      if ( current_selected ) {
+        log.warn("The identifier ${idpair} is already selected for instance ${current_selected.title}. identifier will be added as selected:false");
+        selected=false;
+      }
 
-    IdentifierOccurrence io = new IdentifierOccurrence(identifier: id, title:ti).save(flush:true, failOnError:true);
+      IdentifierOccurrence already_present_check = IdentifierOccurrence.createCriteria().get { and { eq('identifier',id) eq('title',ti) } }
+      if ( already_present_check != null )
+        already_present = true
+    }
+
+
+    if ( !already_present ) {
+      IdentifierOccurrence io = new IdentifierOccurrence('identifier': id, 'title':ti, 'selected':selected).save(flush:true, failOnError:true);
+    }
+    else {
+      log.warn("Not adding duplicate identifier occurrence for ${idpair}/${ti}");
+    }
   }
 }
