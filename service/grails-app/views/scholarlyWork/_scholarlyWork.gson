@@ -1,6 +1,0 @@
-import org.olf.oa.ScholarlyWork
-import groovy.transform.Field
-
-@Field 
-ScholarlyWork scholarlyWork
-json g.render(scholarlyWork)

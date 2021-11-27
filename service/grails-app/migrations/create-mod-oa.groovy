@@ -156,6 +156,58 @@ databaseChangeLog = {
     }
   }
 
+  changeSet(author: "ibbo (generated)", id: "1549360204236-37") {
+    createTable(tableName: "title_instance") {
+      column(name: "ti_id", type: "VARCHAR(36)")
+      column(name: "ti_version", type: "BIGINT")
+      column(name: "ti_work_fk", type: "VARCHAR(36)")
+      column(name: "ti_type_fk", type: "VARCHAR(36)")
+      column(name: "ti_subtype_fk", type: "VARCHAR(36)")
+      column(name: "ti_publication_type_fk", type: "VARCHAR(36)")
+      column(name: "ti_title", type: "VARCHAR(2048)")
+    }
+  }
+
+  changeSet(author: "ibbo (generated)", id: "1549360204236-38b") {
+    createTable(tableName: "work") {
+      column(name: "w_id", type: "VARCHAR(36)") { constraints(nullable: "false") }
+      column(name: "w_version", type: "BIGINT") { constraints(nullable: "false") }
+      column(name: "w_title", type: "VARCHAR(2048)") { constraints(nullable: "false") }
+    }
+
+    createIndex(indexName: "work_title_idx", tableName: "work") {
+      column(name: "w_title")
+    }
+  }
+
+  changeSet(author: "ibbo (generated)", id: "1549360204236-17") {
+    createTable(tableName: "identifier") {
+      column(name: "id_id", type: "VARCHAR(36)") { constraints(nullable: "false") }
+      column(name: "id_version", type: "BIGINT") { constraints(nullable: "false") }
+      column(name: "id_ns_fk", type: "VARCHAR(36)") { constraints(nullable: "false") }
+      column(name: "id_value", type: "VARCHAR(255)") { constraints(nullable: "false") } 
+    }
+  }
+
+  changeSet(author: "ibbo (generated)", id: "1549360204236-18") {
+    createTable(tableName: "identifier_namespace") {
+      column(name: "idns_id", type: "VARCHAR(36)") { constraints(nullable: "false") }
+      column(name: "idns_version", type: "BIGINT") { constraints(nullable: "false") }
+      column(name: "idns_value", type: "VARCHAR(255)") { constraints(nullable: "false") }
+    }
+  }
+
+  changeSet(author: "ibbo (generated)", id: "1549360204236-19") {
+    createTable(tableName: "identifier_occurrence") {
+      column(name: "io_id", type: "VARCHAR(36)") { constraints(nullable: "false") }
+      column(name: "io_version", type: "BIGINT") { constraints(nullable: "false") }
+      column(name: "io_ti_fk", type: "VARCHAR(36)")
+      column(name: "io_status_fk", type: "VARCHAR(36)")
+      column(name: "io_identifier_fk", type: "VARCHAR(36)") { constraints(nullable: "false") }
+      column(name: "io_selected", type: "boolean") 
+    }
+  }
+
   changeSet(author: "samhepburn (manual)", id: "i202109151056") {
     createTable(tableName: "party") {
       column(name: "version", type: "BIGINT") {

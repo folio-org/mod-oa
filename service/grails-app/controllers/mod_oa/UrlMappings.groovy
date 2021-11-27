@@ -10,15 +10,13 @@ class UrlMappings {
         "/$domain/$property" (controller: 'refdata', action: 'lookup', method: 'GET')
       }
     }
-    "/oa/scholarlyWork" (resources: "scholarlyWork")
 
     "/oa/settings/appSettings" (resources: 'setting');
 
     "/oa/publicationRequest" (resources: "publicationRequest")
     "/oa/funders" (resources: "funder")
+    "/oa/titleInstances" (resources: "titleInstance")
     "/oa/party" (resources: "party")
-
     "/oa/checklistGroup" (resources: "checklistGroup")
-
   }
 }

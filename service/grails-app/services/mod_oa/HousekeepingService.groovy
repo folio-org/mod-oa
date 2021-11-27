@@ -16,11 +16,14 @@ import groovy.sql.Sql
 import com.k_int.okapi.OkapiTenantAdminService
 import com.k_int.web.toolkit.settings.AppSetting
 import com.k_int.web.toolkit.refdata.*
+import com.k_int.okapi.OkapiTenantResolver
 
 /**
  * This service works at the module level, it's often called without a tenant context.
  */
 public class HousekeepingService {
+
+  BibReferenceService bibReferenceService
 
   /**
    * This is called by the eventing mechanism - There is no web request context
@@ -50,4 +53,39 @@ public class HousekeepingService {
       }
     }
   }
+
+  @Subscriber('okapi:tenant_load_sample')
+  public void onTenantLoadSample(final String tenantId, 
+                                 final String value, 
+                                 final boolean existing_tenant, 
+                                 final boolean upgrading, 
+                                 final String toVersion, 
+                                 final String fromVersion) {
+    log.debug("HousekeepingService::onTenantLoadSample(${tenantId},${value},${existing_tenant},${upgrading},${toVersion},${fromVersion}");
+    final String schemaName = OkapiTenantResolver.getTenantSchemaName(tenantId)
+    Tenants.withId(schemaName) {
+      try {
+        def sample_journal_data_stream = this.class.classLoader.getResourceAsStream("dummy_journal_data.json")
+        List<Map> sample_journal_data = new groovy.json.JsonSlurper().parse(sample_journal_data_stream)
+
+        int num_sample_jounals = sample_journal_data.size();
+        int ctr=0;
+        AppSetting.withNewSession {
+          sample_journal_data.each { desc ->
+            log.debug("Import sample journal ${ctr++} of ${num_sample_jounals}");
+            AppSetting.withNewTransaction { status ->
+              bibReferenceService.importWorkAndInstances(desc)
+            }
+          }
+        }
+      }
+      catch ( Exception e) {
+        log.error("Error in loadSample",e);
+      }
+      finally {
+        log.debug("Complete onTenantLoadSample transaction");
+      }
+    }
+  }
+
 }
