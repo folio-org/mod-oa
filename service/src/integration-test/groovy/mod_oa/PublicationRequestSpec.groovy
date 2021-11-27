@@ -84,6 +84,19 @@ class PublicationRequestSpec extends HttpSpec {
       }
   }
 
+  void 'Check title instances'() {
+    when: 'We ask for a list of title instances'
+      def resp = doGet('/oa/titleInstances', [
+        stats: true
+      ])
+
+    then:'get the result'
+      println("Result of calling /oa/titleInstances: ${resp}");
+      resp != null
+      resp.totalRecords == 230
+
+  }
+
   void 'Check no funders'() {
     when:
       def resp = doGet('/oa/funders', [
