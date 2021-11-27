@@ -24,8 +24,11 @@ public class IdentifierOccurrence implements MultiTenant<IdentifierOccurrence> {
   String id
   Identifier identifier
   TitleInstance title
+
   @CategoryId(defaultInternal=true)
   RefdataValue status
+
+  Boolean selected
 
 
   static mapping = {
@@ -34,12 +37,14 @@ public class IdentifierOccurrence implements MultiTenant<IdentifierOccurrence> {
            identifier column:'io_identifier_fk'
                 title column:'io_ti_fk'
                status column:'io_status_fk'
+             selected column:'io_selected'
   }
 
   static constraints = {
       identifier(nullable:false, blank:false)
            title(nullable:true, blank:false)
-          status(nullable:false, blank:false)
+          status(nullable:true, blank:false)
+        selected(nullable:true)
   }
 
 

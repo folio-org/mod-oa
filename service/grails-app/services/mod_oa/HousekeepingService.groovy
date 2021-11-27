@@ -68,7 +68,9 @@ public class HousekeepingService {
         def sample_journal_data_stream = this.class.classLoader.getResourceAsStream("dummy_journal_data.json")
         def sample_journal_data = new groovy.json.JsonSlurper().parse(sample_journal_data_stream)
         sample_journal_data.each { desc ->
-          bibReferenceService.importWorkAndInstances(desc)
+          AppSetting.withNewTransaction { status ->
+            bibReferenceService.importWorkAndInstances(desc)
+          }
         }
       }
       catch ( Exception e) {

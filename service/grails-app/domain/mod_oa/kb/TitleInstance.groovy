@@ -14,11 +14,14 @@ import grails.gorm.MultiTenant
  */
 public class TitleInstance implements MultiTenant<TitleInstance> {
 
+  String id
+
   // For grouping sibling title instances together - EG Print and Electronic editions of the same thing
   Work work
   
   // Journal/Book/...
   @CategoryId(defaultInternal=false)
+  @Defaults(['Book', 'Journal'])
   RefdataValue publicationType
 
   // serial / monograph system
@@ -42,6 +45,8 @@ public class TitleInstance implements MultiTenant<TitleInstance> {
   ]
 
   static mapping = {
+                            id column: 'ti_id', generator: 'uuid2', length:36
+                       version column: 'ti_version'
                           work column: 'ti_work_fk'
                           type column: 'ti_type_fk'
                        subType column: 'ti_subtype_fk'
@@ -50,7 +55,7 @@ public class TitleInstance implements MultiTenant<TitleInstance> {
   }
 
   static constraints = {
-            name (nullable:false, blank:false)
+           title (nullable:false, blank:false)
             work (nullable:true, blank:false)
   }
   

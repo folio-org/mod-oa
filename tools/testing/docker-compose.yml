@@ -8,7 +8,7 @@ services:
   postgres:
     container_name: testing_pg
     hostname: postgres
-    image: postgres:12
+    image: postgres:14
     restart: "no"
     command: postgres -c 'max_connections=200'
     environment:
