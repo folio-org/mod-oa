@@ -1,6 +1,22 @@
 import org.olf.oa.PublicationRequest
 import groovy.transform.Field
+def should_expand = [
+  'requestStatus',
+  'rejectionReason',
+  'externalRequestIds',
+  'history',
+  'publicationType',
+  'correspondingAuthor',
+  'requestContact',
+  'identifiers',
+  'publicationStatuses',
+  'subtype',
+  'publisher',
+  'license'
+]
 
 @Field 
 PublicationRequest publicationRequest
-json g.render(publicationRequest, [expand:['requestStatus', 'rejectionReason', 'externalRequestIds', 'history']])
+json g.render(publicationRequest, [expand: should_expand]) {
+  'requestDate' publicationRequest.requestDate
+}

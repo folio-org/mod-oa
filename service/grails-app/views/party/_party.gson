@@ -1,0 +1,6 @@
+import org.olf.oa.Party
+import groovy.transform.Field
+
+@Field 
+Party party
+json g.render(party)

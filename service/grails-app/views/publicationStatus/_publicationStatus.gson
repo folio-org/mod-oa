@@ -1,0 +1,6 @@
+import org.olf.oa.PublicationStatus
+import groovy.transform.Field
+
+@Field 
+PublicationStatus publicationStatus
+json g.render(publicationStatus, [expand:['publicationStatus']])

@@ -1,0 +1,6 @@
+import org.olf.oa.RequestParty
+import groovy.transform.Field
+
+@Field 
+RequestParty requestParty
+json g.render(requestParty, [expand:['partyOwner']])

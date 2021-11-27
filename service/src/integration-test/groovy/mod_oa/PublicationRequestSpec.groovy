@@ -70,6 +70,10 @@ class PublicationRequestSpec extends HttpSpec {
       }, null, booleanResponder)
 
     then: 'Wait for sample data to complete'
+      // N.B. The _/tenant post above completes asynchronously and will return 200OK whilst the loading of sample data
+      // completes in the background. This sleep ensures we wait for that to finishe before proceeding. N.B. that without this
+      // (a) subsequent tests that rely on sample data will fail and (b) the DB connection may shut down if the tests complete
+      // whilst the sample data is still being loaded - resulting in you seeing an exception on the command line but not in the test logs
       Thread.sleep(10*1000);
 
     then: 'Response obtained'
@@ -178,11 +182,11 @@ class PublicationRequestSpec extends HttpSpec {
 
     then:'Check request status updated'
       println("updated record: ${result_of_update}");
-      result_of_update.requestStatus?.value == newstatus;
+      result_of_update.requestStatus?.label == newstatus;
     
     where:
       publication_title|newstatus
-      'My article'|'rejected'
+      'My article'|'In progress'
   }
 
 }

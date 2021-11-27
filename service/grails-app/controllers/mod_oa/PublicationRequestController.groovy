@@ -12,4 +12,14 @@ class PublicationRequestController extends OkapiTenantAwareController<Publicatio
     super(PublicationRequest)
   }
 
+  @Override
+  protected PublicationRequest queryForResource(Serializable id) {     
+    PublicationRequest result = null;
+    result = PublicationRequest.get(id);
+    if ( result == null ) {
+      result = PublicationRequest.findByRequestNumber(id)
+    }
+    return result;
+  }
+
 }

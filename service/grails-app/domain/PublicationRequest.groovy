@@ -2,8 +2,7 @@ package org.olf.oa
 
 import grails.gorm.MultiTenant
 
-import java.util.Date
-
+import java.time.LocalDate
 import com.k_int.web.toolkit.refdata.CategoryId
 import com.k_int.web.toolkit.refdata.Defaults
 import com.k_int.web.toolkit.refdata.RefdataValue
@@ -14,13 +13,19 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
 
   String id
   String requestNumber
-  Date requestDate
-  Date dateModified
+  LocalDate requestDate
+  Date lastUpdated
+  Date dateCreated
   String publicationTitle
   String authorNames
+  RequestParty correspondingAuthor
+  RequestParty requestContact
+  String localReference
+  String publicationUrl
+  String doi
 
   @CategoryId(defaultInternal=true)
-  @Defaults(['New', 'Rejected'])
+  @Defaults(['New', 'Closed', 'In progress'])
   RefdataValue requestStatus
 
   @CategoryId(defaultInternal=true)
@@ -31,37 +36,76 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
   @Defaults(['Journal Article', 'Book'])
   RefdataValue publicationType
 
+  @CategoryId(defaultInternal=true)
+  @Defaults(['Subtype 1'])
+  RefdataValue subtype
+  
+  @CategoryId(defaultInternal=true)
+  @Defaults(['Publisher 1'])
+  RefdataValue publisher
+
+  @CategoryId(defaultInternal=true)
+  @Defaults(['License 1'])
+  RefdataValue license
+
+// TODO: PR can only have one group right now
+  ChecklistGroup group
+
   static hasMany = [
     externalRequestIds: ExternalRequestId,
-    history: PublicationRequestHistory
+    history: PublicationRequestHistory,
+    identifiers: PublicationIdentifier,
+    publicationStatuses: PublicationStatus
   ]
 
   static mappedBy = [
     externalRequestIds: 'owner',
-    history: 'owner'
+    history: 'owner',
+    identifiers: 'owner',
+    publicationStatuses: 'owner'
   ]
 
   static mapping = {
-                  id column: 'pr_id', generator: 'uuid2', length: 36
-         requestDate column: 'pr_request_date'
-       requestStatus column: 'pr_request_status'
-       requestNumber column: 'pr_request_number'
-        dateModified column: 'pr_date_modified'
-     rejectionReason column: 'pr_rejection_reason'
-    publicationTitle column: 'pr_title'
-     publicationType column: 'pr_pub_type_fk'
-         authorNames column: 'pr_authnames'
+                   id column: 'pr_id', generator: 'uuid2', length: 36
+          requestDate column: 'pr_request_date'
+        requestStatus column: 'pr_request_status'
+        requestNumber column: 'pr_request_number'
+         lastUpdated column: 'pr_last_updated'
+          dateCreated column: 'pr_date_created'
+      rejectionReason column: 'pr_rejection_reason'
+     publicationTitle column: 'pr_title'
+      publicationType column: 'pr_pub_type_fk'
+              subtype column: 'pr_subtype'
+            publisher column: 'pr_publisher'
+              license column: 'pr_license'
+       publicationUrl column: 'pr_pub_url'
+       localReference column: 'pr_local_ref'
+          authorNames column: 'pr_authnames'
+                  doi column: 'pr_doi'
+  correspondingAuthor column: 'pr_corresponding_author_fk'
+       requestContact column: 'pr_request_contact_fk'
+                group column: 'pr_group_fk'
   }
   
   static constraints = {
-         requestDate nullable: true
-       requestStatus nullable: true
-       requestNumber nullable: true
-        dateModified nullable: true
-     rejectionReason nullable: true
-    publicationTitle nullable: true
-     publicationType nullable: true
-         authorNames nullable: true
+          requestDate nullable: true
+        requestStatus nullable: true
+        requestNumber nullable: true
+         lastUpdated nullable: true
+          dateCreated nullable: true
+      rejectionReason nullable: true
+     publicationTitle nullable: true
+      publicationType nullable: true
+              subtype nullable: true
+            publisher nullable: true
+              license nullable: true
+       publicationUrl nullable: true
+       localReference nullable: true
+          authorNames nullable: true
+                  doi nullable: true
+  correspondingAuthor nullable: true
+       requestContact nullable: true
+                group nullable: true
   }
 
   def beforeValidate() {
