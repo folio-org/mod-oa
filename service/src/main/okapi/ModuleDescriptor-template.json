@@ -114,6 +114,7 @@
           "pathPattern": "/oa/titleInstances/{id}",
           "permissionsRequired": [ "oa.titleInstances.view" ]
         },
+        {
           "methods": [ "GET" ],
           "pathPattern": "/oa/party",
           "permissionsRequired": [ "oa.party.view" ]
