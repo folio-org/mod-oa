@@ -70,7 +70,7 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
           requestDate column: 'pr_request_date'
         requestStatus column: 'pr_request_status'
         requestNumber column: 'pr_request_number'
-         lastUpdated column: 'pr_last_updated'
+          lastUpdated column: 'pr_last_updated'
           dateCreated column: 'pr_date_created'
       rejectionReason column: 'pr_rejection_reason'
      publicationTitle column: 'pr_title'

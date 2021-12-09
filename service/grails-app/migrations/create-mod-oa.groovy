@@ -237,6 +237,7 @@ databaseChangeLog = {
   }
 
     changeSet(author: "samhepburn (manual)", id: "i202109151110") {
+
       addColumn(tableName: "publication_request") {
         column(name: "pr_corresponding_author_fk", type: "VARCHAR(36)")
       }
