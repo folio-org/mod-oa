@@ -1,0 +1,14 @@
+import mod_oa.kb.TitleInstance
+import groovy.transform.Field
+
+def should_expand = [
+  'publicationType',
+  'type',
+  'subtype',
+  'identifiers'
+]
+
+@Field
+TitleInstance titleInstance
+json g.render(titleInstance, [expand: should_expand])
+

@@ -1,0 +1,11 @@
+import mod_oa.kb.Identifier
+
+import groovy.transform.*
+
+@Field
+Identifier identifier
+json g.render(identifier, [excludes: ['id', 'occurrences', 'ns']]) {
+  'ns' {
+    'value' identifier.ns.value
+  }
+}
