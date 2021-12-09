@@ -11,6 +11,14 @@ public class Work implements MultiTenant<Work> {
   String id
   String title
 
+  static hasMany = [
+    instances: TitleInstance
+  ]
+
+  static mappedBy = [
+    instances: 'work'
+  ]
+
   static mapping = {
                    id column:'w_id', generator: 'uuid2', length:36
               version column:'w_version'
