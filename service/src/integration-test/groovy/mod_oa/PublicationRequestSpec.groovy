@@ -125,7 +125,7 @@ class PublicationRequestSpec extends HttpSpec {
       resp.totalRecords == 0
   }
 
-  void 'Create Funding'(name, note) {
+  void 'Create Funding'(funder, note) {
     when:'We post a create funding'
       def create_resp = doPost('/oa/fundings', [
         funder: funder
