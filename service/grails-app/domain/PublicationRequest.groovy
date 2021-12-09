@@ -75,6 +75,7 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
       rejectionReason column: 'pr_rejection_reason'
      publicationTitle column: 'pr_title'
       publicationType column: 'pr_pub_type_fk'
+  publicationStatuses cascade: 'all-delete-orphan'
               subtype column: 'pr_subtype'
             publisher column: 'pr_publisher'
               license column: 'pr_license'
