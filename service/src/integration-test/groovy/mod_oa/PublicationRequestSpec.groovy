@@ -128,7 +128,7 @@ class PublicationRequestSpec extends HttpSpec {
   void 'Create Funding'(name, note) {
     when:'We post a create funding'
       def create_resp = doPost('/oa/fundings', [
-        name: name
+        funder: funder
       ]);
 
     then:
@@ -136,7 +136,7 @@ class PublicationRequestSpec extends HttpSpec {
       create_resp != null;
 
     where:
-      name|note
+      funder|note
       'WELLCOME'|'none'
   }
 
