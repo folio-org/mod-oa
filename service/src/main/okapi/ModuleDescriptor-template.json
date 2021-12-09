@@ -114,6 +114,7 @@
           "pathPattern": "/oa/titleInstances/{id}",
           "permissionsRequired": [ "oa.titleInstances.view" ]
         },
+        {
           "methods": [ "GET" ],
           "pathPattern": "/oa/party",
           "permissionsRequired": [ "oa.party.view" ]
@@ -430,6 +431,11 @@
         "oa.checklist.collection.get",
         "oa.checklist.item.get"
       ]
+    },
+    {
+      "permissionName": "oa.titleInstances.view",
+      "displayName": "TitleInstance collection get",
+      "description": "Get a collection of TitleInstance records"
     }
   ],
   "launchDescriptor": {

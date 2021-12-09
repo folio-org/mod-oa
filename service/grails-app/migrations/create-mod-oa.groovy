@@ -237,6 +237,7 @@ databaseChangeLog = {
   }
 
     changeSet(author: "samhepburn (manual)", id: "i202109151110") {
+
       addColumn(tableName: "publication_request") {
         column(name: "pr_corresponding_author_fk", type: "VARCHAR(36)")
       }
@@ -473,6 +474,15 @@ databaseChangeLog = {
       columnName: "pr_date_created", 
       newDataType: "timestamp", 
       confirm: "Successfully updated the pr_date_created column."
+    )
+  }
+
+  changeSet(author: "efreestone (manual)", id: "2021-12-09-1153-001") {
+    modifyDataType( 
+      tableName: "publication_status",
+      columnName: "ps_status_date",
+      newDataType: "timestamp",
+      confirm: "Successfully updated the ps_status_date column."
     )
   }
 }
