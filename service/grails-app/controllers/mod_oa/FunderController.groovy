@@ -3,13 +3,13 @@ package mod_oa
 import grails.rest.*
 import grails.converters.*
 import com.k_int.okapi.OkapiTenantAwareController
-import org.olf.oa.Funder
+import org.olf.oa.Funding
 import groovy.util.logging.Slf4j
 
-class FunderController extends OkapiTenantAwareController<Funder> {
+class FundingController extends OkapiTenantAwareController<Funding> {
 
-  FunderController(){
-    super(Funder)
+  FundingController(){
+    super(Funding)
   }
 
 }

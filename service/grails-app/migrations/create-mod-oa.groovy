@@ -130,18 +130,6 @@ databaseChangeLog = {
     }
   }
 
-  changeSet(author: "ianibbo (manual)", id: "i202109091132") {
-    createTable(tableName: "funder") {
-      column(name: "version", type: "BIGINT") {
-        constraints(nullable: "false")
-      }
-      column(name: "f_id", type: "VARCHAR(36)")
-      column(name: "f_name", type: "VARCHAR(36)")
-      column(name: "f_date_modified", type: "DATE") 
-    }
-  }
-
-
   changeSet(author: "ianibbo (manual)", id: "i202109091208") {
     createTable(tableName: "publication_request_history") {
       column(name: "version", type: "BIGINT") {
@@ -397,12 +385,6 @@ databaseChangeLog = {
       }
     }
 
-    changeSet(author: "samhepburn (manual)", id: "2021-11-01-0951-001") {
-      addColumn(tableName: "funder") {
-        column(name: "f_aspect_funded", type: "VARCHAR(36)")
-      }
-    }
-
     changeSet(author: "samhepburn (manual)", id: "2021-11-02-0929-001") {
       addColumn(tableName: "publication_request") {
         column(name: "pr_request_contact_fk", type: "VARCHAR(36)")
@@ -421,17 +403,11 @@ databaseChangeLog = {
       dropColumn(columnName: "rp_publication_request_fk", tableName: "request_party")
   }
 
-  changeSet(author: "efreestone (manual)", id: "2021-11-11-1239-001") {
+  changeSet(author: "efreestone (manual)", id: "2021-12-09-1507-001") {
     renameColumn(
       tableName: "publication_request",
       oldColumnName: "pr_date_modified",
       newColumnName: "pr_last_updated"
-    )
-
-    renameColumn(
-      tableName: "funder",
-      oldColumnName: "f_date_modified",
-      newColumnName: "f_last_updated"
     )
 
     renameColumn(
@@ -447,15 +423,6 @@ databaseChangeLog = {
       columnName: "pr_last_updated", 
       newDataType: "timestamp", 
       confirm: "Successfully updated the pr_last_updated column."
-    )
-  }
-
-  changeSet(author: "efreestone (manual)", id: "2021-11-11-1239-003") {
-    modifyDataType( 
-      tableName: "funder", 
-      columnName: "f_last_updated", 
-      newDataType: "timestamp", 
-      confirm: "Successfully updated the f_last_updated column."
     )
   }
 
@@ -485,4 +452,34 @@ databaseChangeLog = {
       confirm: "Successfully updated the ps_status_date column."
     )
   }
+
+  changeSet(author: "efreestone (manual)", id: "2021-12-09-1153-003") {
+    createTable(tableName: "funding") {
+      column(name: "version", type: "BIGINT") {
+        constraints(nullable: "false")
+      }
+      column(name: "f_id", type: "VARCHAR(36)")
+      column(name: "f_funder_fk", type: "VARCHAR(36)")
+      column(name: "f_last_updated", type: "timestamp")
+      column(name: "f_aspect_funded", type: "VARCHAR(36)")
+    }
+  }
+
+  changeSet(author: "efreestone (manual)", id: "2021-12-09-1153-004") {
+    addColumn(tableName: "funding") {
+      column(name: "f_owner_fk", type: "VARCHAR(36)")
+    }
+  }
+
+  changeSet(author: "samhepburn (manual)", id: "2021-12-09-1153-005") {
+    addForeignKeyConstraint(baseColumnNames: "f_owner_fk",
+      baseTableName: "funding",
+      constraintName: "funding_owner_fk",
+      deferrable: "false",
+      initiallyDeferred: "false",
+      referencedColumnNames: "pr_id",
+      referencedTableName: "publication_request"
+    )
+  }
+
 }

@@ -4,6 +4,7 @@ def should_expand = [
   'requestStatus',
   'rejectionReason',
   'externalRequestIds',
+  'fundings',
   'history',
   'publicationType',
   'correspondingAuthor',

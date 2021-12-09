@@ -14,7 +14,7 @@ class UrlMappings {
     "/oa/settings/appSettings" (resources: 'setting');
 
     "/oa/publicationRequest" (resources: "publicationRequest")
-    "/oa/funders" (resources: "funder")
+    "/oa/fundings" (resources: "funding")
     "/oa/titleInstances" (resources: "titleInstance")
     "/oa/party" (resources: "party")
     "/oa/checklistGroup" (resources: "checklistGroup")

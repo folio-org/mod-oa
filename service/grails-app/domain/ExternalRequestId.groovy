@@ -4,11 +4,11 @@ import grails.gorm.MultiTenant
 
 class ExternalRequestId implements MultiTenant<ExternalRequestId> {
 
-    String id
+  String id
 
-    String externalId
+  String externalId
 
-   static belongsTo = [
+  static belongsTo = [
     owner: PublicationRequest
   ]
 

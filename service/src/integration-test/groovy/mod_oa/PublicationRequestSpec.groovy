@@ -101,14 +101,14 @@ class PublicationRequestSpec extends HttpSpec {
 
   }
 
-  void 'Check no funders'() {
+  void 'Check no fundings'() {
     when:
-      def resp = doGet('/oa/funders', [
+      def resp = doGet('/oa/fundings', [
         stats: true
       ])
 
     then:'get the result'
-      println("Result of calling /oa/funders: ${resp}");
+      println("Result of calling /oa/fundings: ${resp}");
       resp != null
       resp.totalRecords == 0
   }
@@ -125,9 +125,9 @@ class PublicationRequestSpec extends HttpSpec {
       resp.totalRecords == 0
   }
 
-  void 'Create Funders'(name, note) {
-    when:'We post a create funder'
-      def create_resp = doPost('/oa/funders', [
+  void 'Create Funding'(name, note) {
+    when:'We post a create funding'
+      def create_resp = doPost('/oa/fundings', [
         name: name
       ]);
 
