@@ -476,4 +476,13 @@ databaseChangeLog = {
       confirm: "Successfully updated the pr_date_created column."
     )
   }
+
+  changeSet(author: "efreestone (manual)", id: "2021-12-09-1153-001") {
+    modifyDataType( 
+      tableName: "publication_status",
+      columnName: "ps_status_date",
+      newDataType: "timestamp",
+      confirm: "Successfully updated the ps_status_date column."
+    )
+  }
 }
