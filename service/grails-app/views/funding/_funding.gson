@@ -1,0 +1,6 @@
+import org.olf.oa.Funding
+import groovy.transform.Field
+
+@Field 
+Funding funding
+json g.render(funding, [expand:['funder', 'aspectFunded']])

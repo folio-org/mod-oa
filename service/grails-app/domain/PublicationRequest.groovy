@@ -55,7 +55,8 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
     externalRequestIds: ExternalRequestId,
     history: PublicationRequestHistory,
     identifiers: PublicationIdentifier,
-    publicationStatuses: PublicationStatus
+    publicationStatuses: PublicationStatus,
+    fundings: Funding
   ]
 
   static mappedBy = [
@@ -76,6 +77,7 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
      publicationTitle column: 'pr_title'
       publicationType column: 'pr_pub_type_fk'
   publicationStatuses cascade: 'all-delete-orphan'
+             fundings cascade: 'all-delete-orphan'
               subtype column: 'pr_subtype'
             publisher column: 'pr_publisher'
               license column: 'pr_license'
