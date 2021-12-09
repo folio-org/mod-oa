@@ -97,7 +97,7 @@ class PublicationRequestSpec extends HttpSpec {
     then:'get the result'
       println("Result of calling /oa/titleInstances: ${resp}");
       resp != null
-      resp.totalRecords == 230
+      resp.totalRecords == 223
 
   }
 
