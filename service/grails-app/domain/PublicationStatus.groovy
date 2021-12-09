@@ -5,6 +5,8 @@ import com.k_int.web.toolkit.refdata.CategoryId
 import com.k_int.web.toolkit.refdata.Defaults
 import com.k_int.web.toolkit.refdata.RefdataValue
 
+import java.time.LocalDate
+
 class PublicationStatus implements MultiTenant<PublicationStatus> {
 
   String id
@@ -13,7 +15,7 @@ class PublicationStatus implements MultiTenant<PublicationStatus> {
   @Defaults(['Submitted'])
   RefdataValue publicationStatus
 
-  Date statusDate
+  LocalDate statusDate
 
   String statusNote
 
