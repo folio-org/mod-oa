@@ -100,19 +100,6 @@ class PublicationRequestSpec extends HttpSpec {
       resp.totalRecords == 230
 
   }
-
-  void 'Check no fundings'() {
-    when:
-      def resp = doGet('/oa/fundings', [
-        stats: true
-      ])
-
-    then:'get the result'
-      println("Result of calling /oa/fundings: ${resp}");
-      resp != null
-      resp.totalRecords == 0
-  }
-
   void 'Check no publication requests'() {
     when:'we list bespoke sources'
       def resp = doGet('/oa/publicationRequest', [
@@ -123,21 +110,6 @@ class PublicationRequestSpec extends HttpSpec {
       println("Result of calling /oa/publicationRequest: ${resp}");
       resp != null
       resp.totalRecords == 0
-  }
-
-  void 'Create Funding'(funder, note) {
-    when:'We post a create funding'
-      def create_resp = doPost('/oa/fundings', [
-        funder: funder
-      ]);
-
-    then:
-      println("got response: ${create_resp}");
-      create_resp != null;
-
-    where:
-      funder|note
-      'WELLCOME'|'none'
   }
 
   void 'Create Publication Request'(publication_type, publication_title, author_names, extid) {
