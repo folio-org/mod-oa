@@ -9,7 +9,7 @@ import com.k_int.web.toolkit.refdata.RefdataValue
 class Funding implements MultiTenant<Funding> {
   String id
 
-  @CategoryId(defaultInternal=true)
+  @CategoryId(defaultInternal=false)
   @Defaults(['Funder 1'])
   RefdataValue funder
 

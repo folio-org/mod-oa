@@ -36,15 +36,15 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
   @Defaults(['Journal Article', 'Book'])
   RefdataValue publicationType
 
-  @CategoryId(defaultInternal=true)
+  @CategoryId(defaultInternal=false)
   @Defaults(['Subtype 1'])
   RefdataValue subtype
   
-  @CategoryId(defaultInternal=true)
+  @CategoryId(defaultInternal=false)
   @Defaults(['Publisher 1'])
   RefdataValue publisher
 
-  @CategoryId(defaultInternal=true)
+  @CategoryId(defaultInternal=false)
   @Defaults(['License 1'])
   RefdataValue license
 
