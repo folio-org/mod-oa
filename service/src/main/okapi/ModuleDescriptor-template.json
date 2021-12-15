@@ -116,6 +116,16 @@
         },
         {
           "methods": [ "GET" ],
+          "pathPattern": "/oa/works",
+          "permissionsRequired": [ "oa.works.view" ]
+        },
+        {
+          "methods": [ "GET" ],
+          "pathPattern": "/oa/works/{id}",
+          "permissionsRequired": [ "oa.works.view" ]
+        },
+        {
+          "methods": [ "GET" ],
           "pathPattern": "/oa/party",
           "permissionsRequired": [ "oa.party.view" ]
         },
@@ -436,6 +446,11 @@
       "permissionName": "oa.titleInstances.view",
       "displayName": "TitleInstance collection get",
       "description": "Get a collection of TitleInstance records"
+    },
+    {
+      "permissionName": "oa.works.view",
+      "displayName": "Works collection get",
+      "description": "Get a collection of Work records"
     }
   ],
   "launchDescriptor": {

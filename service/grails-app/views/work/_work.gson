@@ -1,0 +1,10 @@
+import mod_oa.kb.Work
+import groovy.transform.Field
+
+def should_expand = [
+  'instances'
+]
+
+@Field
+Work work
+json g.render(work, [expand: should_expand])
