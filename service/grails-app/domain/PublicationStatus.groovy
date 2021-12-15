@@ -11,7 +11,7 @@ class PublicationStatus implements MultiTenant<PublicationStatus> {
 
   String id
 
-  @CategoryId(defaultInternal=true)
+  @CategoryId(defaultInternal=false)
   @Defaults(['Submitted'])
   RefdataValue publicationStatus
 
