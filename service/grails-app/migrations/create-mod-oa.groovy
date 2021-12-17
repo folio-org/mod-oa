@@ -482,4 +482,20 @@ databaseChangeLog = {
     )
   }
 
+  changeSet(author: "ianibbo (manual)", id: "2021-12-17-1216-001") {
+    createTable(tableName: "correspondence") {
+      column(name: "version", type: "BIGINT") {
+        constraints(nullable: "false")
+      }
+      column(name: "prc_id", type: "VARCHAR(36)")
+      column(name: "prc_owner_fk", type: "VARCHAR(36)")
+      column(name: "prc_last_updated", type: "timestamp")
+      column(name: "prc_date_of_correspondence", type: "DATE")
+      column(name: "prc_content", type: "TEXT")
+      column(name: "prc_correspondent", type: "VARCHAR(256)")
+      column(name: "prc_status_fk", type: "VARCHAR(36)")
+      column(name: "prc_mode_fk", type: "VARCHAR(36)")
+      column(name: "prc_category_fk", type: "VARCHAR(36)")
+    }
+  }
 }
