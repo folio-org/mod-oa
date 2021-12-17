@@ -139,6 +139,41 @@ class PublicationRequestSpec extends HttpSpec {
       'Journal Article'|'Another article 57'|'Auth2'|null
   }
 
+  void 'publication request with correspondence'(publication_type, publication_title, author_names, extid) {
+    when:'We post a create request with corrrespondence'
+
+      def external_ids = extid != null ?  [ [ externalId: extid ] ] : null;
+      def create_resp = doPost('/oa/publicationRequest', [
+        publicationType: publication_type,
+        publicationTitle: publication_title,
+        authorNames: author_names,
+        externalRequestIds:external_ids,
+        correspondences:[
+          [
+            dateOfCorrespondence:'2021-12-17',
+            content:'This is the content of the correspondence',
+            correspondent:'Fred the postman',
+            status:'Awaiting Reply',
+            mode:'Email',
+            category: 'Funding'
+          ]
+        ]
+      ]);
+
+    then:
+      println("got response: ${create_resp}");
+      create_resp != null;
+
+    then:'Check that we do not unneccesarily create multiple history entries'
+      def update_resp = doPut("/oa/publicationRequest/${create_resp.id}".toString(), create_resp)
+      println("put response: ${update_resp}");
+      update_resp.history.size() == 0
+
+    where:
+      publication_type|publication_title|author_names|extid
+      'Journal Article'|'Another article 58'|'Auth3'|null
+  }
+
   void 'update publication request status'(publication_title, newstatus) {
     when:'we find and update a publication request'
       def resp = doGet('/oa/publicationRequest', [

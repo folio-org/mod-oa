@@ -1,3 +1,3 @@
 ## 1.0.0 (In Progress)
- * TODO
+ * 2021-12-17 Added Correspondence domain class and links to publication request
 
