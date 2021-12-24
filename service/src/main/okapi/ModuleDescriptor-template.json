@@ -158,6 +158,31 @@
           "methods": [ "GET" ],
           "pathPattern": "/oa/checklistGroup/{id}", 
           "permissionsRequired": [ "oa.checklist.view" ]
+        },
+        {
+          "methods": [ "GET" ],
+          "pathPattern": "/oa/correspondence",
+          "permissionsRequired": [ "oa.correspondence.view" ]
+        },
+        {
+          "methods": [ "GET" ],
+          "pathPattern": "/oa/correspondence/{id}",
+          "permissionsRequired": [ "oa.correspondence.view" ]
+        },
+        {
+          "methods": [ "POST" ],
+          "pathPattern": "/oa/correspondence",
+          "permissionsRequired": [ "oa.correspondence.edit" ]
+        },
+        {
+          "methods": [ "PUT" ],
+          "pathPattern": "/oa/correspondence/{id}",
+          "permissionsRequired": [ "oa.correspondence.edit" ]
+        },
+        {
+          "methods": [ "DELETE" ],
+          "pathPattern": "/oa/correspondence/{id}",
+          "permissionsRequired": [ "oa.correspondence.manage" ]
         }
       ]
     },
@@ -451,6 +476,28 @@
       "permissionName": "oa.works.view",
       "displayName": "Works collection get",
       "description": "Get a collection of Work records"
+    },
+    {
+      "permissionName": "oa.correspondence.manage",
+      "subPermissions": [
+        "oa.correspondence.edit",
+        "oa.correspondence.item.delete"
+      ]
+    },
+    {
+      "permissionName": "oa.correspondence.view",
+      "subPermissions": [
+        "oa.correspondence.collection.get",
+        "oa.correspondence.item.get"
+      ]
+    },
+    {
+      "permissionName": "oa.correspondence.edit",
+      "subPermissions": [
+        "oa.correspondence.view",
+        "oa.correspondence.item.post",
+        "oa.correspondence.item.put"
+      ]
     }
   ],
   "launchDescriptor": {
