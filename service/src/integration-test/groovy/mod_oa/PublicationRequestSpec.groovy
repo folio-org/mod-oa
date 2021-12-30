@@ -74,7 +74,7 @@ class PublicationRequestSpec extends HttpSpec {
       // completes in the background. This sleep ensures we wait for that to finishe before proceeding. N.B. that without this
       // (a) subsequent tests that rely on sample data will fail and (b) the DB connection may shut down if the tests complete
       // whilst the sample data is still being loaded - resulting in you seeing an exception on the command line but not in the test logs
-      Thread.sleep(10*1000);
+      Thread.sleep(12*1000);
 
     then: 'Response obtained'
       resp == true

@@ -18,6 +18,9 @@ import com.k_int.web.toolkit.settings.AppSetting
 import com.k_int.web.toolkit.refdata.*
 import com.k_int.okapi.OkapiTenantResolver
 import org.olf.oa.Party
+import mod_oa.kb.TitleInstance
+import mod_oa.kb.Work
+
 
 /**
  * This service works at the module level, it's often called without a tenant context.
@@ -78,6 +81,15 @@ public class HousekeepingService {
               bibReferenceService.importWorkAndInstances(desc)
             }
           }
+        }
+        log.info("Loaded ${ctr} journals");
+
+        def num_works = Work.executeQuery("select count(*) from Work as w").get(0)
+        def num_ti = Work.executeQuery("select count(*) from TitleInstance as ti").get(0)
+        log.info("num works ${num_works} num title instances ${num_ti}");
+
+        TitleInstance.executeQuery("select count(ti), ti.publicationType.value, ti.type.value, ti.subType.value from TitleInstance as ti group by ti.publicationType.value,ti.type.value,ti.subType.value").each { td ->
+          log.info("${td[0]} ${td[1]} ${td[2]} ${td[3]}");
         }
 
         def sample_party_data_stream = this.class.classLoader.getResourceAsStream("dummy_party_data.json")

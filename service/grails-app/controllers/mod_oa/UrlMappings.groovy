@@ -20,5 +20,6 @@ class UrlMappings {
 
     "/oa/party" (resources: "party")
     "/oa/checklistGroup" (resources: "checklistGroup")
+    "/oa/correspondence" (resources: "correspondence")
   }
 }
