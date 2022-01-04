@@ -68,4 +68,10 @@ jobs:
           echo "Also https://www.prestonlamb.com/blog/creating-a-docker-image-with-github-actions"
           cd ..
           ls
+          APP_VERSON=`grep appVersion ./service/gradle.properties| cut -f2 -d=`
+          if [[ "$APP_VERSION" =~ .*SNAPSHOT.* ]]; then
+            echo Publish as snapshot
+          else
+            echo Publish as release
+          fi
           docker build . --file Dockerfile
