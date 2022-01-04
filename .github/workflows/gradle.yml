@@ -60,3 +60,8 @@ jobs:
         with:
           files: |
             service/build/test-results/**/*.xml
+
+      - name: Publish
+        if: github.ref == 'refs/heads/master'
+        run: |
+          echo "See https://github.com/marketplace/actions/build-and-push-docker-images"
