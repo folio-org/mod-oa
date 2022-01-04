@@ -64,13 +64,14 @@ jobs:
       - name: Publish
         if: github.ref == 'refs/heads/master'
         run: |
-          echo "See https://github.com/marketplace/actions/build-and-push-docker-images"
-          echo "Also https://www.prestonlamb.com/blog/creating-a-docker-image-with-github-actions"
           cd ..
           cat ./service/gradle.properties
-          APP_VERSON=`grep appVersion ./service/gradle.properties| cut -f2 -d=`
-          echo "Parsed APP_VERSION to $APP_VERSION"
-          if [[ "$APP_VERSION" =~ .*SNAPSHOT.* ]]; then
+          echo "APP_VERSION=`grep appVersion ./service/gradle.properties| cut -f2 -d=`" >> $GITHUB_ENV
+        run: |
+          echo "See https://github.com/marketplace/actions/build-and-push-docker-images"
+          echo "Also https://www.prestonlamb.com/blog/creating-a-docker-image-with-github-actions"
+          echo "Parsed APP_VERSION to $env.APP_VERSION"
+          if [[ "$env.APP_VERSION" =~ .*SNAPSHOT.* ]]; then
             echo Publish as snapshot 
           else
             echo Publish as release
