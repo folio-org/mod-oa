@@ -74,10 +74,10 @@ jobs:
           echo "Parsed APP_VERSION to ${APP_VERSION}"
           if [[ "${APP_VERSION}" =~ .*SNAPSHOT.* ]]; then
             echo Publish as snapshot 
-            docker build . --file Dockerfile --tag ${APP_VERSION}
-            docker build . --file Dockerfile --tag snapshot-latest
+            docker build . --file Dockerfile --tag knowledgeintegration/mod-oa:${APP_VERSION}
+            docker build . --file Dockerfile --tag knowledgeintegration/mod-oa:snapshot-latest
           else
             echo Publish as release
-            docker build . --file Dockerfile --tag ${APP_VERSION}
-            docker build . --file Dockerfile --tag latest
+            docker build . --file Dockerfile --tag knowledgeintegration/mod-oa:${APP_VERSION}
+            docker build . --file Dockerfile --tag knowledgeintegration/mod-oa:latest
           fi
