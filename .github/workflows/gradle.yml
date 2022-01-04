@@ -61,7 +61,7 @@ jobs:
           files: |
             service/build/test-results/**/*.xml
 
-      - name: Publish
+      - name: Publish Docker Image
         if: github.ref == 'refs/heads/master'
         run: |
           cd ..
@@ -74,7 +74,10 @@ jobs:
           echo "Parsed APP_VERSION to ${APP_VERSION}"
           if [[ "${APP_VERSION}" =~ .*SNAPSHOT.* ]]; then
             echo Publish as snapshot 
+            docker build . --file Dockerfile --tag ${APP_VERSION}
+            docker build . --file Dockerfile --tag snapshot-latest
           else
             echo Publish as release
+            docker build . --file Dockerfile --tag ${APP_VERSION}
+            docker build . --file Dockerfile --tag latest
           fi
-          docker build . --file Dockerfile
