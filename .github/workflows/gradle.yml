@@ -67,7 +67,6 @@ jobs:
           cd ..
           cat ./service/gradle.properties
           echo "APP_VERSION=`grep appVersion ./service/gradle.properties| cut -f2 -d=`" >> $GITHUB_ENV
-        run: |
           echo "See https://github.com/marketplace/actions/build-and-push-docker-images"
           echo "Also https://www.prestonlamb.com/blog/creating-a-docker-image-with-github-actions"
           echo "Parsed APP_VERSION to $env.APP_VERSION"
