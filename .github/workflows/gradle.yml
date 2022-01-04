@@ -65,3 +65,6 @@ jobs:
         if: github.ref == 'refs/heads/master'
         run: |
           echo "See https://github.com/marketplace/actions/build-and-push-docker-images"
+          echo "Also https://www.prestonlamb.com/blog/creating-a-docker-image-with-github-actions"
+          ls
+          docker build . --file Dockerfile
