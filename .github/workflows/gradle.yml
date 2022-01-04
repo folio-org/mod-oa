@@ -67,6 +67,7 @@ jobs:
           cd ..
           cat ./service/gradle.properties
           APP_VERSION=$(grep appVersion ./service/gradle.properties| cut -f2 -d=)
+          echo "APP_VERSION_2=`grep appVersion ./service/gradle.properties| cut -f2 -d=`" >> $GITHUB_ENV
           echo "See https://github.com/marketplace/actions/build-and-push-docker-images"
           echo "Also https://www.prestonlamb.com/blog/creating-a-docker-image-with-github-actions"
           echo "Run number is $GITHUB_RUN_NUMBER"
