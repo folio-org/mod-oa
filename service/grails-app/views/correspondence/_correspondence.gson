@@ -1,7 +1,7 @@
 import org.olf.oa.Correspondence
 import groovy.transform.Field
 
-def should_expand = []
+def should_expand = [ 'status', 'mode', 'category' ]
 
 @Field
 Correspondence correspondence

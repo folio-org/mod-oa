@@ -23,6 +23,7 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
   String localReference
   String publicationUrl
   String doi
+  PublicationRequestAgreement agreement
 
   @CategoryId(defaultInternal=true)
   @Defaults(['New', 'Closed', 'In progress'])
@@ -90,6 +91,7 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
   correspondingAuthor column: 'pr_corresponding_author_fk'
        requestContact column: 'pr_request_contact_fk'
                 group column: 'pr_group_fk'
+            agreement column: 'pr_agreement_reference'
   }
   
   static constraints = {
@@ -111,6 +113,7 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
   correspondingAuthor nullable: true
        requestContact nullable: true
                 group nullable: true
+            agreement nullable: true
   }
 
   def beforeValidate() {

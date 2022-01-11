@@ -498,4 +498,17 @@ databaseChangeLog = {
       column(name: "prc_category_fk", type: "VARCHAR(36)")
     }
   }
+
+  changeSet(author: "ianibbo (manual)", id: "2022-01-04-1556-001") {
+    createTable(tableName: "publication_request_agreement") {
+      column(name: "rol_id", type: "VARCHAR(36)") { constraints(nullable: "false") }
+      column(name: "rol_version", type: "BIGINT") { constraints(nullable: "false") }
+      column(name: "rol_remote_id", type: "VARCHAR(50)") { constraints(nullable: "false") }
+      column(name: "pra_owner", type: "VARCHAR(36)") { constraints(nullable: "false") }
+    }
+
+    addColumn(tableName: "publication_request") {
+      column(name: "pr_agreement_reference", type: "VARCHAR(36)")
+    }
+  }
 }
