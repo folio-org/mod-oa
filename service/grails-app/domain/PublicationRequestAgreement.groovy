@@ -18,6 +18,10 @@ class PublicationRequestAgreement extends RemoteOkapiLink implements MultiTenant
     owner column: 'pra_owner'
   }
 
+  static constraints = {
+    owner(nullable:false, blank:false)
+  }
+
   @Override
   public String remoteUri() {
     return '/erm/sas'
