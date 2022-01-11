@@ -23,10 +23,11 @@ class PublicationRequestAgreement extends RemoteOkapiLink implements MultiTenant
   }
 
   @Override
-  public String remoteUri() {
-    return '/erm/sas'
+  public final def remoteUri() {
+    {->
+      def amends = applicableAmendmentParams
+      "erm/sas/${remoteId}"
+    }
   }
 
 }
-
-
