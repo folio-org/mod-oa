@@ -66,7 +66,8 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
     history: 'owner',
     identifiers: 'owner',
     publicationStatuses: 'owner',
-    correspondences: 'owner'
+    correspondences: 'owner',
+    agreement: 'owner'
   ]
 
   static mapping = {
@@ -91,7 +92,7 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
   correspondingAuthor column: 'pr_corresponding_author_fk'
        requestContact column: 'pr_request_contact_fk'
                 group column: 'pr_group_fk'
-            agreement column: 'pr_agreement_reference'
+            agreement column: 'pr_agreement_reference', cascade: 'all-delete-orphan'
   }
   
   static constraints = {
