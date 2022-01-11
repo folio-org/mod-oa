@@ -25,7 +25,4 @@ PublicationRequest publicationRequest
 
 json g.render(publicationRequest, [expand: should_expand]) {
   'requestDate' publicationRequest.requestDate
-  if (remoteObjValue) {
-    call( objectProperty, remoteObjValue )
-  }
 }
