@@ -60,7 +60,10 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
     correspondences: Correspondence
   ]
 
-  static hasOne = [PublicationRequestAgreement: agreement]
+  static hasOne = [
+    agreement: PublicationRequestAgreement
+  ]
+
 
   static mappedBy = [
     externalRequestIds: 'owner',
