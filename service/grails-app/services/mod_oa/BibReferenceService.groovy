@@ -45,7 +45,8 @@ public class BibReferenceService {
       result = matching_instances.get(0)
     }
     else {
-      throw new RuntimeException("Instance description ${instance_description} matched multiple (${matching_instances.size()}) titles");
+      log.debug("Matched >1 instance for identifiers: ${matching_instances}");
+      throw new RuntimeException("Instance description ${instance_description} matched multiple (${matching_instances.size()}) titles given identifiers ${instance_description.ids}");
     }
 
     return result;
