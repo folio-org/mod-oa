@@ -1,0 +1,38 @@
+import java.util.concurrent.ExecutionException
+import java.util.concurrent.Future
+import com.k_int.okapi.remote_resources.OkapiLookup
+import groovy.transform.*
+import groovyx.net.http.HttpException
+import org.olf.oa.PublicationRequestAgreement
+import groovy.transform.Field
+
+def should_expand = [
+]
+
+@Field 
+PublicationRequestAgreement publicationRequestAgreement
+
+final String objectProperty = 'reference_object'
+def remoteObjValue
+if(publicationRequestAgreement.respondsTo(objectProperty)){
+  try {
+    remoteObjValue = publicationRequestAgreement.invokeMethod(objectProperty, null)
+    if (remoteObjValue instanceof Future) {
+      remoteObjValue = (remoteObjValue as Future)?.get()
+    }
+  } catch (ExecutionException e) {
+
+    if (e.cause instanceof HttpException) {
+      HttpException httpEx = e.cause as HttpException
+      remoteObjValue = [error: httpEx.statusCode, message: httpEx.message ]
+    } else {
+      remoteObjValue = [error: e.class.name, message: e.message]
+    }
+  }
+}
+
+json g.render(publicationRequestAgreement, [expand: should_expand]) {
+  if (remoteObjValue) {
+    call( objectProperty, remoteObjValue )
+  }
+}
