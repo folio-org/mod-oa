@@ -24,6 +24,8 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
   String publicationUrl
   String doi
 
+  boolean withoutAgreement
+
   @CategoryId(defaultInternal=true)
   @Defaults(['New', 'Closed', 'In progress'])
   RefdataValue requestStatus
@@ -96,29 +98,32 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
   correspondingAuthor column: 'pr_corresponding_author_fk'
        requestContact column: 'pr_request_contact_fk'
                 group column: 'pr_group_fk'
+     withoutAgreement column: 'pr_without_agreement'
             agreement cascade: 'all-delete-orphan'
   }
   
   static constraints = {
-          requestDate nullable: true
-        requestStatus nullable: true
-        requestNumber nullable: true
-         lastUpdated nullable: true
-          dateCreated nullable: true
-      rejectionReason nullable: true
-     publicationTitle nullable: true
-      publicationType nullable: true
-              subtype nullable: true
-            publisher nullable: true
-              license nullable: true
-       publicationUrl nullable: true
-       localReference nullable: true
-          authorNames nullable: true
-                  doi nullable: true
-  correspondingAuthor nullable: true
-       requestContact nullable: true
-                group nullable: true
-            agreement nullable: true
+            requestDate nullable: true
+          requestStatus nullable: true
+          requestNumber nullable: true
+            lastUpdated nullable: true
+            dateCreated nullable: true
+        rejectionReason nullable: true
+       publicationTitle nullable: true
+        publicationType nullable: true
+                subtype nullable: true
+              publisher nullable: true
+                license nullable: true
+         publicationUrl nullable: true
+         localReference nullable: true
+            authorNames nullable: true
+                    doi nullable: true
+    correspondingAuthor nullable: true
+         requestContact nullable: true
+                  group nullable: true
+              agreement nullable: true
+       withoutAgreement(nullable:false, blank:false)
+
   }
 
   def beforeValidate() {
