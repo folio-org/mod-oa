@@ -23,6 +23,8 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
   String localReference
   String publicationUrl
   String doi
+
+  boolean withoutAgreement
   PublicationRequestAgreement agreement
 
   @CategoryId(defaultInternal=true)
@@ -92,28 +94,31 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
        requestContact column: 'pr_request_contact_fk'
                 group column: 'pr_group_fk'
             agreement column: 'pr_agreement_reference'
+     withoutAgreement column: 'pr_without_agreement'
   }
   
   static constraints = {
-          requestDate nullable: true
-        requestStatus nullable: true
-        requestNumber nullable: true
-         lastUpdated nullable: true
-          dateCreated nullable: true
-      rejectionReason nullable: true
-     publicationTitle nullable: true
-      publicationType nullable: true
-              subtype nullable: true
-            publisher nullable: true
-              license nullable: true
-       publicationUrl nullable: true
-       localReference nullable: true
-          authorNames nullable: true
-                  doi nullable: true
-  correspondingAuthor nullable: true
-       requestContact nullable: true
-                group nullable: true
-            agreement nullable: true
+            requestDate nullable: true
+          requestStatus nullable: true
+          requestNumber nullable: true
+            lastUpdated nullable: true
+            dateCreated nullable: true
+        rejectionReason nullable: true
+       publicationTitle nullable: true
+        publicationType nullable: true
+                subtype nullable: true
+              publisher nullable: true
+                license nullable: true
+         publicationUrl nullable: true
+         localReference nullable: true
+            authorNames nullable: true
+                    doi nullable: true
+    correspondingAuthor nullable: true
+         requestContact nullable: true
+                  group nullable: true
+              agreement nullable: true
+       withoutAgreement(nullable:false, blank:false)
+
   }
 
   def beforeValidate() {
