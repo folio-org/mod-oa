@@ -1,0 +1,11 @@
+import groovy.transform.*
+import org.olf.oa.PublicationRequestAgreement
+
+@Field PublicationRequestAgreement publicationRequestAgreement
+
+inherits template: "/remoteOkapiLink/remoteOkapiLink"
+
+def should_expand = []
+
+json g.render(publicationRequestAgreement, ['excludes': ['id', 'version', 'remoteId'], 'expand':should_expand])
+
