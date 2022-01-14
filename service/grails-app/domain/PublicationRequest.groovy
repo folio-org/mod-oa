@@ -24,7 +24,7 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
   String publicationUrl
   String doi
 
-  boolean withoutAgreement
+  boolean withoutAgreement = false
 
   @CategoryId(defaultInternal=true)
   @Defaults(['New', 'Closed', 'In progress'])
