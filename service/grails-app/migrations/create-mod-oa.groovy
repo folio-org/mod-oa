@@ -532,4 +532,12 @@ databaseChangeLog = {
       confirm: "Successfully updated the prc_date_of_correspondence column."
     )
   }
+
+  changeSet(author: "efreestone (manual)", id: "2022-01-14-1513-001") {
+    grailsChange {
+      change {
+        sql.execute("UPDATE ${database.defaultSchemaName}.publication_request SET pr_without_agreement = false".toString());
+      }
+    }
+  }
 }
