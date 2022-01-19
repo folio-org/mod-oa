@@ -81,7 +81,8 @@
         {
           "methods": [ "GET" ],
           "pathPattern": "/oa/publicationRequest",
-          "permissionsRequired": [ "oa.publicationRequest.view" ]
+          "permissionsRequired": [ "oa.publicationRequest.view" ],
+          "modulePermissions": [ "erm.agreements.item.get" ]
         },
         {
           "methods": [ "POST" ],
