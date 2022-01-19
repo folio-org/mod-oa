@@ -105,6 +105,13 @@ hibernate:
     allow_update_outside_transaction: true 
 
 
+okapi:
+    schema:
+        appName: 'mod-oa'
+    service:
+        register: false
+        deploy: false
+
 dataSource:
   pooled: true
   jmxExport: false
@@ -187,11 +194,6 @@ environments:
  
   development:
     okapi:
-      schema:
-        appName: 'mod-oa'
       service:
         host: localhost
         port: 9130
-        register: false
-        deploy: false
-
