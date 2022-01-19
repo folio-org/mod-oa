@@ -64,6 +64,7 @@ databaseChangeLog = {
     addPrimaryKey(columnNames: "st_id", constraintName: "app_setting_PK", tableName: "app_setting")
   }
 
+  // DON'T USE DATE COL TYPE--USE TIMESTAMP
   changeSet(author: "samhepburn (manual)", id: "i202108171122-001") {
     createTable(tableName: "publication_request") {
       column(name: "pr_id", type: "VARCHAR(36)")
@@ -75,6 +76,7 @@ databaseChangeLog = {
     }
   }
 
+  // DON'T USE DATE COL TYPE--USE TIMESTAMP
   changeSet(author: "samhepburn (manual)", id: "i202109011321") {
     addColumn(tableName: "publication_request") {
       column(name: "pr_request_number", type: "VARCHAR(36)")
@@ -124,12 +126,14 @@ databaseChangeLog = {
     }
   }
 
+  // DON'T USE DATE COL TYPE--USE TIMESTAMP
   changeSet(author: "samhepburn (manual)", id: "i202109091145") {
     addColumn(tableName: "publication_request") {
       column(name: "pr_date_created", type: "DATE")
     }
   }
 
+  // DON'T USE DATE COL TYPE--USE TIMESTAMP
   changeSet(author: "ianibbo (manual)", id: "i202109091208") {
     createTable(tableName: "publication_request_history") {
       column(name: "version", type: "BIGINT") {
@@ -298,6 +302,7 @@ databaseChangeLog = {
         referencedTableName: "publication_request")
     }
 
+    // DON'T USE DATE COL TYPE--USE TIMESTAMP
     changeSet(author: "samhepburn (manual)", id: "i202109281157") {
       createTable(tableName: "publication_status") {
         column(name: "ps_id", type: "VARCHAR(36)")
@@ -482,6 +487,7 @@ databaseChangeLog = {
     )
   }
 
+  // DON'T USE DATE COL TYPE--USE TIMESTAMP
   changeSet(author: "ianibbo (manual)", id: "2021-12-17-1216-001") {
     createTable(tableName: "correspondence") {
       column(name: "version", type: "BIGINT") {
@@ -509,6 +515,29 @@ databaseChangeLog = {
 
     addColumn(tableName: "publication_request") {
       column(name: "pr_agreement_reference", type: "VARCHAR(36)")
+    }
+  }
+
+  changeSet(author: "efreestone (manual)", id: "2022-01-13-1515-001") {
+    addColumn(tableName: "publication_request") {
+      column(name: "pr_without_agreement", type: "BOOLEAN")
+    }
+  }
+
+  changeSet(author: "efreestone (manual)", id: "2022-01-13-1515-002") {
+    modifyDataType( 
+      tableName: "correspondence",
+      columnName: "prc_date_of_correspondence",
+      newDataType: "timestamp",
+      confirm: "Successfully updated the prc_date_of_correspondence column."
+    )
+  }
+
+  changeSet(author: "efreestone (manual)", id: "2022-01-14-1513-001") {
+    grailsChange {
+      change {
+        sql.execute("UPDATE ${database.defaultSchemaName}.publication_request SET pr_without_agreement = false".toString());
+      }
     }
   }
 }
