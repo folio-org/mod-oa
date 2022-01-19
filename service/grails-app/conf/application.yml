@@ -185,12 +185,13 @@ environments:
         jdbcInterceptors: ConnectionState
         defaultTransactionIsolation: 2 # TRANSACTION_READ_COMMITTED
  
-okapi:
-  schema:
-    appName: 'mod-oa'
-  service:
-    host: localhost
-    port: 9130
-    register: false
-    deploy: false
+  development:
+    okapi:
+      schema:
+        appName: 'mod-oa'
+      service:
+        host: localhost
+        port: 9130
+        register: false
+        deploy: false
 
