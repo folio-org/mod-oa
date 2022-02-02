@@ -13,11 +13,25 @@ Bounded Context Deailing with Open Access Publishing
 
 ### Deployment
 
-A sample k8s resource definition for service and deployment [can be found the scripts directory]()
+A sample k8s resource definition for service and deployment [can be found the scripts directory](https://github.com/folio-org/mod-oa/blob/master/scripts/k8s_deployment_template.yaml)
+Or you can get the latest module descriptor from the project OKAPI - [For example - v1.0.0-SNAPSHOT65](curl http://folio-registry.aws.indexdata.com/_/proxy/modules/mod-oa-1.0.0-SNAPSHOT.65)
 
 This module requires the following env parameters
 * OKAPI_SERVICE_PORT - port number for okapi
 * OKAPI_SERVICE_HOST - Host [namespace.hostname if running in a different namespace to okapi]
+
+The following properties are understood and documented in the [Module Descriptor](https://github.com/folio-org/mod-oa/blob/master/service/src/main/okapi/ModuleDescriptor-template.json)
+* DB_DATABASE
+* DB_HOST
+* DB_USERNAME
+* DB_PASWORD
+* DB_MAXPOOLSIZE
+* DB_PORT
+* EVENTS_PUBLISHER_BOOTSTRAP_SERVERS
+* EVENTS_CONSUMER_BOOTSTRAP_SERVERS
+* EVENTS_PUBLISHER_ZK_CONNECT
+* EVENTS_CONSUMER_ZK_CONNECT
+
 
 ### Other documentation
 
