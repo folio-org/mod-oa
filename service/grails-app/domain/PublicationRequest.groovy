@@ -100,6 +100,8 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
                 group column: 'pr_group_fk'
      withoutAgreement column: 'pr_without_agreement'
             agreement cascade: 'all-delete-orphan'
+              history cascade: 'all-delete-orphan'
+
   }
   
   static constraints = {
