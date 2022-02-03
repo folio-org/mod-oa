@@ -540,4 +540,149 @@ databaseChangeLog = {
       }
     }
   }
+
+  // Add foreign key constraints to those columns which need them
+  changeSet(author: "efreestone (manual)", id: "2022-02-03-0933-001") {
+    addForeignKeyConstraint(
+      baseColumnNames: "pr_pub_type_fk",
+      baseTableName: "publication_request",
+      constraintName: "publication_request_publication_type_fk",
+      deferrable: "false",
+      initiallyDeferred: "false",
+      referencedColumnNames: "rdv_id",
+      referencedTableName: "refdata_value"
+    )
+  }
+
+  changeSet(author: "efreestone (manual)", id: "2022-02-03-0933-002") {
+    addForeignKeyConstraint(
+      baseColumnNames: "prh_owner_fk",
+      baseTableName: "publication_request_history",
+      constraintName: "publication_request_history_owner_fk",
+      deferrable: "false",
+      initiallyDeferred: "false",
+      referencedColumnNames: "pr_id",
+      referencedTableName: "publication_request"
+    )
+  }
+
+  changeSet(author: "efreestone (manual)", id: "2022-02-03-0933-004") {
+    addForeignKeyConstraint(
+      baseColumnNames: "ti_type_fk",
+      baseTableName: "title_instance",
+      constraintName: "title_instance_type_fk",
+      deferrable: "false",
+      initiallyDeferred: "false",
+      referencedColumnNames: "rdv_id",
+      referencedTableName: "refdata_value"
+    )
+  }
+
+  changeSet(author: "efreestone (manual)", id: "2022-02-03-0933-005") {
+    addForeignKeyConstraint(
+      baseColumnNames: "ti_subtype_fk",
+      baseTableName: "title_instance",
+      constraintName: "title_instance_subtype_fk",
+      deferrable: "false",
+      initiallyDeferred: "false",
+      referencedColumnNames: "rdv_id",
+      referencedTableName: "refdata_value"
+    )
+  }
+
+  changeSet(author: "efreestone (manual)", id: "2022-02-03-0933-006") {
+    addForeignKeyConstraint(
+      baseColumnNames: "ti_publication_type_fk",
+      baseTableName: "title_instance",
+      constraintName: "title_instance_publication_type_fk",
+      deferrable: "false",
+      initiallyDeferred: "false",
+      referencedColumnNames: "rdv_id",
+      referencedTableName: "refdata_value"
+    )
+  }
+
+  changeSet(author: "efreestone (manual)", id: "2022-02-03-0933-007") {
+    addForeignKeyConstraint(
+      baseColumnNames: "io_status_fk",
+      baseTableName: "identifier_occurrence",
+      constraintName: "identifier_occurrence_status_fk",
+      deferrable: "false",
+      initiallyDeferred: "false",
+      referencedColumnNames: "rdv_id",
+      referencedTableName: "refdata_value"
+    )
+  }
+
+  changeSet(author: "efreestone (manual)", id: "2022-02-03-0933-008") {
+    addForeignKeyConstraint(
+      baseColumnNames: "cgi_status_fk",
+      baseTableName: "checklist_group_item",
+      constraintName: "checklist_group_item_status_fk",
+      deferrable: "false",
+      initiallyDeferred: "false",
+      referencedColumnNames: "rdv_id",
+      referencedTableName: "refdata_value"
+    )
+  }
+
+  changeSet(author: "efreestone (manual)", id: "2022-02-03-0933-009") {
+    addForeignKeyConstraint(
+      baseColumnNames: "f_funder_fk",
+      baseTableName: "funding",
+      constraintName: "funding_funder_fk",
+      deferrable: "false",
+      initiallyDeferred: "false",
+      referencedColumnNames: "rdv_id",
+      referencedTableName: "refdata_value"
+    )
+  }
+
+  changeSet(author: "efreestone (manual)", id: "2022-02-03-0933-010") {
+    addForeignKeyConstraint(
+      baseColumnNames: "f_aspect_funded",
+      baseTableName: "funding",
+      constraintName: "funding_aspect_funded_fk",
+      deferrable: "false",
+      initiallyDeferred: "false",
+      referencedColumnNames: "rdv_id",
+      referencedTableName: "refdata_value"
+    )
+  }
+
+  changeSet(author: "efreestone (manual)", id: "2022-02-03-0933-011") {
+    addForeignKeyConstraint(
+      baseColumnNames: "prc_status_fk",
+      baseTableName: "correspondence",
+      constraintName: "correspondence_status_fk",
+      deferrable: "false",
+      initiallyDeferred: "false",
+      referencedColumnNames: "rdv_id",
+      referencedTableName: "refdata_value"
+    )
+  }
+
+  changeSet(author: "efreestone (manual)", id: "2022-02-03-0933-012") {
+    addForeignKeyConstraint(
+      baseColumnNames: "prc_mode_fk",
+      baseTableName: "correspondence",
+      constraintName: "correspondence_mode_fk",
+      deferrable: "false",
+      initiallyDeferred: "false",
+      referencedColumnNames: "rdv_id",
+      referencedTableName: "refdata_value"
+    )
+  }
+
+  changeSet(author: "efreestone (manual)", id: "2022-02-03-0933-013") {
+    addForeignKeyConstraint(
+      baseColumnNames: "prc_category_fk",
+      baseTableName: "correspondence",
+      constraintName: "correspondence_category_fk",
+      deferrable: "false",
+      initiallyDeferred: "false",
+      referencedColumnNames: "rdv_id",
+      referencedTableName: "refdata_value"
+    )
+  }
 }
