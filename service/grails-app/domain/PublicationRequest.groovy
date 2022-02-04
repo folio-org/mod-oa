@@ -59,7 +59,8 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
     identifiers: PublicationIdentifier,
     publicationStatuses: PublicationStatus,
     fundings: Funding,
-    correspondences: Correspondence
+    correspondences: Correspondence,
+    charges: Charge
   ]
 
   static hasOne = [
@@ -73,7 +74,8 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
     identifiers: 'owner',
     publicationStatuses: 'owner',
     correspondences: 'owner',
-    agreement: 'owner'
+    agreement: 'owner',
+    charges: 'owner'
   ]
 
   static mapping = {
@@ -101,7 +103,7 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
      withoutAgreement column: 'pr_without_agreement'
             agreement cascade: 'all-delete-orphan'
               history cascade: 'all-delete-orphan'
-
+              charges cascade: 'all-delete-orphan'
   }
   
   static constraints = {

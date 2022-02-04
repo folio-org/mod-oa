@@ -1,0 +1,9 @@
+import org.olf.oa.finance.ExchangeRate
+import groovy.transform.Field
+
+@Field 
+ExchangeRate exchangeRate
+json g.render(exchangeRate, ['excludes': ['fromCurrency', 'toCurrency']]) {
+  fromCurrency exchangeRate.fromCurrency.toString()
+  toCurrency exchangeRate.toCurrency.toString()
+}

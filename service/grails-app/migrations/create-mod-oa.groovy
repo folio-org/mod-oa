@@ -685,4 +685,119 @@ databaseChangeLog = {
       referencedTableName: "refdata_value"
     )
   }
+
+  changeSet(author: "efreestone (manual)", id: "2022-02-03-1110-001") {
+    createTable(tableName: "charge") {
+      column(name: "version", type: "BIGINT") {
+        constraints(nullable: "false")
+      }
+      column(name: "ch_id", type: "VARCHAR(36)")
+      column(name: "ch_amount_fk", type: "VARCHAR(36)")
+      column(name: 'ch_exchange_rate_fk', type: "VARCHAR(36)")
+      column(name: "ch_description", type: "TEXT")
+      column(name: "ch_discount", type: "NUMBER(19,2)") // This could be an amount, £13.50, or a percentage, 30%
+      column(name: "ch_discount_type_fk", type: "VARCHAR(36)")
+      column(name: "ch_category_fk", type: "VARCHAR(36)")
+      column(name: "ch_owner_fk", type: "VARCHAR(36)")
+    }
+  }
+
+  changeSet(author: "efreestone (manual)", id: "2022-02-03-1110-002") {
+    addForeignKeyConstraint(
+      baseColumnNames: "ch_category_fk",
+      baseTableName: "charge",
+      constraintName: "charge_category_fk",
+      deferrable: "false",
+      initiallyDeferred: "false",
+      referencedColumnNames: "rdv_id",
+      referencedTableName: "refdata_value"
+    )
+  }
+
+  changeSet(author: "efreestone (manual)", id: "2022-02-03-1110-003") {
+    addForeignKeyConstraint(
+      baseColumnNames: "rp_role",
+      baseTableName: "request_party",
+      constraintName: "request_party_role_fk",
+      deferrable: "false",
+      initiallyDeferred: "false",
+      referencedColumnNames: "rdv_id",
+      referencedTableName: "refdata_value"
+    )
+  }
+
+  changeSet(author: "efreestone (manual)", id: "2022-02-03-1110-004") {
+    createTable(tableName: "monetary_value") {
+      column(name: "version", type: "BIGINT") {
+        constraints(nullable: "false")
+      }
+      column(name: "id", type: "VARCHAR(36)")
+      column(name: "basecurrency", type: "VARCHAR(36)")
+      column(name: "monval", type: "NUMBER(19,2)")
+    }
+
+    addPrimaryKey(columnNames: "id", constraintName: "monetary_valuePK", tableName: "monetary_value")
+  }
+
+  changeSet(author: "efreestone (manual)", id: "2022-02-04-0940-001") {
+    addForeignKeyConstraint(
+      baseColumnNames: "ch_amount_fk",
+      baseTableName: "charge",
+      constraintName: "charge_amount_fk",
+      deferrable: "false",
+      initiallyDeferred: "false",
+      referencedColumnNames: "id",
+      referencedTableName: "monetary_value"
+    )
+  }
+
+  changeSet(author: "efreestone (manual)", id: "2022-02-04-0940-002") {
+    addForeignKeyConstraint(
+      baseColumnNames: "ch_discount_type_fk",
+      baseTableName: "charge",
+      constraintName: "charge_discount_type_fk",
+      deferrable: "false",
+      initiallyDeferred: "false",
+      referencedColumnNames: "rdv_id",
+      referencedTableName: "refdata_value"
+    )
+  }
+
+  changeSet(author: "efreestone (manual)", id: "2022-02-04-0940-003") {
+    addForeignKeyConstraint(
+      baseColumnNames: "ch_owner_fk",
+      baseTableName: "charge",
+      constraintName: "charge_owner_fk",
+      deferrable: "false",
+      initiallyDeferred: "false",
+      referencedColumnNames: "pr_id",
+      referencedTableName: "publication_request"
+    )
+  }
+
+  changeSet(author: "efreestone (manual)", id: "2022-02-04-1202-001") {
+    createTable(tableName: "exchange_rate") {
+      column(name: "version", type: "BIGINT") {
+        constraints(nullable: "false")
+      }
+      column(name: "id", type: "VARCHAR(36)")
+      column(name: "from_currency", type: "VARCHAR(36)")
+      column(name: "to_currency", type: "VARCHAR(36)")
+      column(name: "coefficient", type: "NUMBER(20,10)")
+    }
+
+    addPrimaryKey(columnNames: "id", constraintName: "exchange_ratePK", tableName: "exchange_rate")
+  }
+
+  changeSet(author: "efreestone (manual)", id: "2022-02-04-1202-002") {
+    addForeignKeyConstraint(
+      baseColumnNames: "ch_exchange_rate_fk",
+      baseTableName: "charge",
+      constraintName: "charge_exchange_rate_fk",
+      deferrable: "false",
+      initiallyDeferred: "false",
+      referencedColumnNames: "id",
+      referencedTableName: "exchange_rate"
+    )
+  }
 }

@@ -17,7 +17,8 @@ def should_expand = [
   'publisher',
   'license',
   'correspondences',
-  'agreement'
+  'agreement',
+  'charges'
 ]
 
 @Field 
