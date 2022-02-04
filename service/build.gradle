@@ -110,6 +110,10 @@ dependencies {
 
   profile "org.grails.profiles:rest-api"
   runtime "com.zaxxer:HikariCP:3.2.0"
+
+  // Finance
+  compile "javax.money:money-api:1.1"
+  compile "org.javamoney:moneta:1.1"
   
 
   /************** Testing ************/
