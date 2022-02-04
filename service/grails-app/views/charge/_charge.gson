@@ -1,0 +1,8 @@
+import org.olf.oa.Charge
+import groovy.transform.Field
+
+@Field 
+Charge charge
+json g.render(charge, ['expand': ['amount', 'exchangeRate'], 'excludes': ['owner']]) {
+  localAmount g.render(charge.localAmount)
+}

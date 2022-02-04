@@ -3,6 +3,7 @@ package org.olf.oa
 import grails.gorm.MultiTenant
 
 import org.olf.oa.finance.MonetaryValue
+import org.olf.oa.finance.ExchangeRate
 
 import com.k_int.web.toolkit.refdata.CategoryId
 import com.k_int.web.toolkit.refdata.Defaults
@@ -13,7 +14,7 @@ class Charge implements MultiTenant<Charge> {
   String id
 
   MonetaryValue amount // The amount entered by the user in a defined currency
-  BigDecimal exchangeRate = BigDecimal.ZERO // 0 treated as non existent NUMBER(5,10) maybe level of precision?
+  ExchangeRate exchangeRate
   /* The idea here is that we might want to calculate localAmount not from static rate but from some API */
 
   String description
@@ -22,7 +23,7 @@ class Charge implements MultiTenant<Charge> {
   @Defaults(['APC'])
   RefdataValue category
 
-  BigDecimal discount
+  BigDecimal discount = BigDecimal.ZERO
   @CategoryId(defaultInternal=true)
   @Defaults(['percentage', 'subtracted'])
   RefdataValue discountType
@@ -33,12 +34,20 @@ class Charge implements MultiTenant<Charge> {
 
   //TODO add Payer after user consultation, whether controlled field or free text
 
-  MonetaryValue getLocalAmount(String localCurrencyCode, BigDecimal overwriteExchangeRate = BigDecimal.ZERO) {
-    BigDecimal finalExchangeRate = overwriteExchangeRate ?: exchangeRate;
+  MonetaryValue getLocalAmount(ExchangeRate overwriteExchangeRate = null) {
+    MonetaryValue localAmount
 
-    if (finalExchangeRate) {
-      MonetaryValue localAmount = new MonetaryValue([value: amount.value.multiply(finalExchangeRate)])
-      localAmount.setBaseCurrency(localCurrencyCode)
+    ExchangeRate finalExchangeRate = exchangeRate.coefficient ? exchangeRate : overwriteExchangeRate
+
+    if (finalExchangeRate && finalExchangeRate.coefficient) {
+      if (finalExchangeRate.fromCurrency == amount.baseCurrency) {
+        localAmount = new MonetaryValue([
+          value: amount.value.multiply(finalExchangeRate.coefficient),
+          baseCurrency: finalExchangeRate?.toCurrency
+        ])
+      } else {
+        throw new RuntimeException("Cannot exchange currencies. Amount baseCurrency (${amount.baseCurrency}) is not equal to exchangeRate fromCurrency (${finalExchangeRate.fromCurrency})")
+      }
     } else {
       throw new RuntimeException("No exchange rate provided")
     }
@@ -46,11 +55,17 @@ class Charge implements MultiTenant<Charge> {
     localAmount
   }
 
+  def beforeValidate() {
+    if (!exchangeRate.fromCurrency) {
+      exchangeRate.fromCurrency = amount.baseCurrency
+    }
+  }
+
   
   static mapping = {
                id column: 'ch_id', generator: 'uuid2', length: 36
            amount column: 'ch_amount_fk'
-     exchangeRate column: 'ch_exchange_rate'
+     exchangeRate column: 'ch_exchange_rate_fk'
       description column: 'ch_description'
          category column: 'ch_category_fk'
          discount column: 'ch_discount'

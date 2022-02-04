@@ -91,7 +91,7 @@ class MonetaryValue implements MultiTenant<MonetaryValue> {
   }
   
   private void ensureScale () {
-    value = value.setScale(currencyUnit.decimalPlaces, RoundingMode.HALF_UP)
+    value = value.setScale(currencyUnit.getDefaultFractionDigits(), RoundingMode.HALF_UP)
   }
   
   public void setBaseCurrency (String currencyCode) {

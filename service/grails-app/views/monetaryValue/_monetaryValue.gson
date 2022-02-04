@@ -1,0 +1,8 @@
+import org.olf.oa.finance.MonetaryValue
+import groovy.transform.Field
+
+@Field 
+MonetaryValue monetaryValue
+json g.render(monetaryValue, ['excludes': ['baseCurrency']]){
+  baseCurrency monetaryValue.baseCurrency.toString()
+}

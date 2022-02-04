@@ -693,7 +693,7 @@ databaseChangeLog = {
       }
       column(name: "ch_id", type: "VARCHAR(36)")
       column(name: "ch_amount_fk", type: "VARCHAR(36)")
-      column(name: 'ch_exchange_rate', type: "NUMBER(10,10)")
+      column(name: 'ch_exchange_rate_fk', type: "VARCHAR(36)")
       column(name: "ch_description", type: "TEXT")
       column(name: "ch_discount", type: "NUMBER(19,2)") // This could be an amount, £13.50, or a percentage, 30%
       column(name: "ch_discount_type_fk", type: "VARCHAR(36)")
@@ -772,6 +772,32 @@ databaseChangeLog = {
       initiallyDeferred: "false",
       referencedColumnNames: "pr_id",
       referencedTableName: "publication_request"
+    )
+  }
+
+  changeSet(author: "efreestone (manual)", id: "2022-02-04-1202-001") {
+    createTable(tableName: "exchange_rate") {
+      column(name: "version", type: "BIGINT") {
+        constraints(nullable: "false")
+      }
+      column(name: "id", type: "VARCHAR(36)")
+      column(name: "from_currency", type: "VARCHAR(36)")
+      column(name: "to_currency", type: "VARCHAR(36)")
+      column(name: "coefficient", type: "NUMBER(20,10)")
+    }
+
+    addPrimaryKey(columnNames: "id", constraintName: "exchange_ratePK", tableName: "exchange_rate")
+  }
+
+  changeSet(author: "efreestone (manual)", id: "2022-02-04-1202-002") {
+    addForeignKeyConstraint(
+      baseColumnNames: "ch_exchange_rate_fk",
+      baseTableName: "charge",
+      constraintName: "charge_exchange_rate_fk",
+      deferrable: "false",
+      initiallyDeferred: "false",
+      referencedColumnNames: "id",
+      referencedTableName: "exchange_rate"
     )
   }
 }
