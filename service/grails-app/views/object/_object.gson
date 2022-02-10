@@ -1,5 +1,66 @@
+import org.apache.commons.lang3.ClassUtils
+import org.grails.orm.hibernate.cfg.GrailsHibernateUtil
+
+import grails.plugin.json.builder.JsonOutput
 import groovy.transform.*
 
-@Field Object object
 
-json g.render(object)
+@Field Object object
+object = GrailsHibernateUtil.unwrapIfProxy(object)
+
+/**
+ * Fallback template for all things not explicitly templated.
+ * 
+ * We should expand this to work with collections of things, maps and then do the right thing.
+ */
+
+if ( object instanceof String ) {
+  
+  out << JsonOutput.toJson(object)
+  
+} else if (object instanceof Map) {
+  // Map
+  Map m = object as Map
+  json {
+    for (String key : m.keySet()) {
+      call(key, g.render(template:'object', model:['object': m[key]]))
+    }
+  }
+
+} else if ([Collection, Object[]].any { it.isAssignableFrom(object.getClass()) }) {
+  
+  json tmpl.object(object as List)
+
+} else if (Iterator.isAssignableFrom(object.getClass())) {
+  
+  Iterator iter = object as Iterator
+  out << '['
+  
+  // Handle an unbounded list of results.
+  if (iter.hasNext()) {
+    
+    json g.render (iter.next())
+    
+    while (iter.hasNext()) {
+      out << ','
+      json g.render (iter.next())
+    }
+  }
+  
+  out << ']'
+  
+} else {
+  
+  // Convert the wrapper class to a primitive, if applicable
+  Class cls = ClassUtils.wrapperToPrimitive(object.class) ?: object.class
+  
+  if (cls.isPrimitive()) {
+    // Just write the value
+    out << JsonOutput.toJson(object)
+  } else {
+    // Use the built in rendering.
+    json g.render (object)
+  }
+}
+
+
