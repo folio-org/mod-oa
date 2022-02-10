@@ -18,7 +18,7 @@ class UrlMappings {
     "/oa/titleInstances" (resources: "titleInstance")
     "/oa/works" (resources: "work") {
       collection {
-        "/citation" (controller: "work", action: "createFromCitation", method: "POST")
+        "/citation" (action: "createFromCitation", method: "POST")
       }
     }
 
