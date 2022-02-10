@@ -73,12 +73,17 @@ public class BibReferenceService {
     return result;
   }
 
-  public void importWorkAndInstances(Map description) {
+  public Set<Work> importWorkAndInstances(Map description) {
     log.debug("BibReferenceService::importWorkAndInstances(${description})");
+    Set<Work> works = []
+
     description?.instances?.each { instance_overrides ->
       Map instance_data = [ title: description.title, type: description.type ] + instance_overrides
       TitleInstance ti = resolveInstance(instance_data)
+      works.add(ti.work)
     }
+
+    return works
   }
 
   public TitleInstance titleInstanceById(String ns, String value) {
