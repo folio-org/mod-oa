@@ -42,7 +42,13 @@ public class BibReferenceService {
     }
     else if ( matching_instances.size() == 1 ) {
       log.debug("Matched exactly 1 existing title");
-      result = matching_instances.get(0)
+
+      // Double check that the title matches
+      if (matching_instances.get(0)?.work?.title == instance_description?.title) {
+        result = matching_instances.get(0)
+       } else {
+         throw new RuntimeException("Instance description title ${instance_description?.title} does not match for TI record matched by id: ${matching_instances.get(0)}");
+       }
     }
     else {
       log.warn("Matched >1 instance for identifiers: ${matching_instances}");
@@ -73,12 +79,30 @@ public class BibReferenceService {
     return result;
   }
 
-  public void importWorkAndInstances(Map description) {
+  public Work importWorkAndInstances(Map description) {
     log.debug("BibReferenceService::importWorkAndInstances(${description})");
+    Set<Work> works = []
+
     description?.instances?.each { instance_overrides ->
       Map instance_data = [ title: description.title, type: description.type ] + instance_overrides
       TitleInstance ti = resolveInstance(instance_data)
+      works.add(ti.work)
     }
+
+    Work result
+    switch (works.size()) {
+      case 0:
+        //error
+        break;
+      case 1:
+        result = works[0]
+        break;
+      default:
+        //error
+        break
+    }
+
+    return result
   }
 
   public TitleInstance titleInstanceById(String ns, String value) {

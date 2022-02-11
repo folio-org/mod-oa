@@ -16,7 +16,11 @@ class UrlMappings {
     "/oa/publicationRequest" (resources: "publicationRequest")
     "/oa/fundings" (resources: "funding")
     "/oa/titleInstances" (resources: "titleInstance")
-    "/oa/works" (resources: "work")
+    "/oa/works" (resources: "work") {
+      collection {
+        "/citation" (action: "createFromCitation", method: "POST")
+      }
+    }
 
     "/oa/party" (resources: "party")
     "/oa/checklistGroup" (resources: "checklistGroup")

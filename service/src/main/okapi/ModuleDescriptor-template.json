@@ -184,6 +184,11 @@
           "methods": [ "DELETE" ],
           "pathPattern": "/oa/correspondence/{id}",
           "permissionsRequired": [ "oa.correspondence.manage" ]
+        },
+        {
+          "methods": ["POST"],
+          "pathPattern": "/oa/works/citation",
+          "permissionsRequired": [ "oa.works.create" ]
         }
       ]
     },
@@ -477,6 +482,14 @@
       "permissionName": "oa.works.view",
       "displayName": "Works collection get",
       "description": "Get a collection of Work records"
+    },
+    {
+      "permissionName": "oa.works.create",
+      "displayName": "Works create",
+      "description": "Create work records",
+      "subPermissions": [
+        "oa.works.view"
+      ]
     },
     {
       "permissionName": "oa.correspondence.manage",
