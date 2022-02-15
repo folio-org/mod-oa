@@ -800,4 +800,12 @@ databaseChangeLog = {
       referencedTableName: "exchange_rate"
     )
   }
+
+  changeSet(author: "ianibbo (manual)", id: "2022-02-15-1339-001") {
+    addColumn(tableName: "charge") {
+      column(name: "ch_invoice_reference", type: "VARCHAR(36)")
+      column(name: "ch_invoice_line_item_reference", type: "VARCHAR(36)")
+    }
+  }
+
 }

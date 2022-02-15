@@ -30,6 +30,12 @@ class Charge implements MultiTenant<Charge> {
 
   PublicationRequest owner
 
+  // The UUID of a selected invoice pertaining to this charge
+  String invoiceReference
+
+  // The UUID of a selected invoice line item pertaining to this charge
+  String invoiceLineItemReference
+
   static transients = ['localAmount']
 
   //TODO add Payer after user consultation, whether controlled field or free text
@@ -63,24 +69,27 @@ class Charge implements MultiTenant<Charge> {
 
   
   static mapping = {
-               id column: 'ch_id', generator: 'uuid2', length: 36
-           amount column: 'ch_amount_fk'
-     exchangeRate column: 'ch_exchange_rate_fk'
-      description column: 'ch_description'
-         category column: 'ch_category_fk'
-         discount column: 'ch_discount'
-     discountType column: 'ch_discount_type_fk'
-            owner column: 'ch_owner_fk'
+                          id column: 'ch_id', generator: 'uuid2', length: 36
+                      amount column: 'ch_amount_fk'
+                exchangeRate column: 'ch_exchange_rate_fk'
+                 description column: 'ch_description'
+                    category column: 'ch_category_fk'
+                    discount column: 'ch_discount'
+                discountType column: 'ch_discount_type_fk'
+                       owner column: 'ch_owner_fk'
+            invoiceReference column: 'ch_invoice_reference'
+    invoiceLineItemReference column: 'ch_invoice_line_item_reference'
   }
   
   static constraints = {
-          amount(nullable: false)
-    exchangeRate(nullable: true)
-     description(nullable: true)
-        category(nullable: true)
-        discount(nullable: true)
-    discountType(nullable: true)
-
+                      amount(nullable: false)
+                exchangeRate(nullable: true)
+                 description(nullable: true)
+                    category(nullable: true)
+                    discount(nullable: true)
+                discountType(nullable: true)
+            invoiceReference(nullable: true)
+    invoiceLineItemReference(nullable: true)
   }
 
 }
