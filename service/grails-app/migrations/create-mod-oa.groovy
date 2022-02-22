@@ -817,5 +817,4 @@ databaseChangeLog = {
       column(name: "ch_charge_status_fk", type: "VARCHAR(36)")
     }
   }
-
 }

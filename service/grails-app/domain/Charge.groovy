@@ -113,7 +113,6 @@ class Charge implements MultiTenant<Charge> {
                          tax(nullable: true)
                    payerNote(nullable: true)
                 chargeStatus(nullable: true)
-
   }
 
 }
