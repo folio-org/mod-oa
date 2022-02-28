@@ -101,8 +101,11 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
        requestContact column: 'pr_request_contact_fk'
                 group column: 'pr_group_fk'
      withoutAgreement column: 'pr_without_agreement'
-            agreement cascade: 'all-delete-orphan'
+
+   externalRequestIds cascade: 'all-delete-orphan'
               history cascade: 'all-delete-orphan'
+          identifiers cascade: 'all-delete-orphan'
+            agreement cascade: 'all-delete-orphan'
               charges cascade: 'all-delete-orphan'
   }
   
