@@ -28,10 +28,12 @@ class Party implements MultiTenant<Party> {
 
   static hasMany = [
     requestParty: RequestParty,
+    alternateEmails: AlternateEmailAddress
   ]
 
   static mappedBy = [
     requestParty: 'partyOwner',
+    alternateEmails: 'owner'
   ]
 
   static mapping = {
@@ -44,17 +46,18 @@ class Party implements MultiTenant<Party> {
              mainEmail column: 'p_main_email'
                  phone column: 'p_phone'
                 mobile column: 'p_mobile'
+       alternateEmails cascade: 'all-delete-orphan'
   }
   
   static constraints = {
-                 title nullable: true
-                 familyName nullable: true
-                 givenNames nullable: true
-                 fullName (nullable:true, bindable: false)
-                 orcidId nullable: true
-                 mainEmail nullable: true
-                 phone nullable: true
-                 mobile nullable: true
+           title nullable: true
+      familyName nullable: true
+      givenNames nullable: true
+       fullName (nullable:true, bindable: false)
+        orcidId (nullable: true, unique: true)
+      mainEmail (nullable: true, unique: true)
+           phone nullable: true
+          mobile nullable: true
   }
 
   def beforeValidate() {

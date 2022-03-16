@@ -1,0 +1,6 @@
+import org.olf.oa.AlternateEmailAddress
+import groovy.transform.Field
+
+@Field 
+AlternateEmailAddress aea
+json g.render(aea, ['excludes': ['owner']])
