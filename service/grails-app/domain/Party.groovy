@@ -28,10 +28,12 @@ class Party implements MultiTenant<Party> {
 
   static hasMany = [
     requestParty: RequestParty,
+    alternateEmails: AlternateEmailAddress
   ]
 
   static mappedBy = [
     requestParty: 'partyOwner',
+    alternateEmails: 'owner'
   ]
 
   static mapping = {
@@ -44,6 +46,7 @@ class Party implements MultiTenant<Party> {
              mainEmail column: 'p_main_email'
                  phone column: 'p_phone'
                 mobile column: 'p_mobile'
+       alternateEmails cascade: 'all-delete-orphan'
   }
   
   static constraints = {

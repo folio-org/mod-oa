@@ -839,4 +839,26 @@ databaseChangeLog = {
       referencedTableName: "work"
     )
   }
+
+  changeSet(author: "efreestone (manual)", id: "2022-03-16-1054-001") {
+
+    createTable(tableName: "alternate_email_address") {
+      column(name: "aea_id", type: "VARCHAR(36)") { constraints(nullable: "false") }
+      column(name: "aea_version", type: "BIGINT") { constraints(nullable: "false") }
+      column(name: "aea_email", type: "VARCHAR(255)") { constraints(nullable: "false") }
+      column(name: "aea_owner_fk", type: "VARCHAR(36)")
+    }
+
+    addPrimaryKey(columnNames: "aea_id", constraintName: "alternate_email_addressPK", tableName: "alternate_email_address")
+    
+    addForeignKeyConstraint(
+      baseColumnNames: "aea_owner_fk",
+      baseTableName: "alternate_email_address",
+      constraintName: "aea_to_party_fk",
+      deferrable: "false",
+      initiallyDeferred: "false",
+      referencedColumnNames: "p_id",
+      referencedTableName: "party"
+    )
+  }
 }

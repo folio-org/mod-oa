@@ -3,4 +3,4 @@ import groovy.transform.Field
 
 @Field 
 Party party
-json g.render(party)
+json g.render(party, ['expand': ['alternateEmails']])
