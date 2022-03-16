@@ -817,4 +817,26 @@ databaseChangeLog = {
       column(name: "ch_charge_status_fk", type: "VARCHAR(36)")
     }
   }
+
+  changeSet(author: "efreestone (manual)", id: "2022-03-16-1005-001") {
+    addColumn(tableName: "publication_request") {
+      column(name: "pr_work_fk", type: "VARCHAR(36)")
+    }
+  }
+
+  changeSet(author: "efreestone (manual)", id: "2022-03-16-1005-002") {
+    addPrimaryKey(columnNames: "w_id", constraintName: "workPK", tableName: "work")
+  }
+
+  changeSet(author: "efreestone (manual)", id: "2022-03-16-1005-003") {
+    addForeignKeyConstraint(
+      baseColumnNames: "pr_work_fk",
+      baseTableName: "publication_request",
+      constraintName: "work_fk",
+      deferrable: "false",
+      initiallyDeferred: "false",
+      referencedColumnNames: "w_id",
+      referencedTableName: "work"
+    )
+  }
 }

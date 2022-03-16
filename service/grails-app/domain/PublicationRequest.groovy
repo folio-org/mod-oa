@@ -9,6 +9,8 @@ import com.k_int.web.toolkit.refdata.RefdataValue
 import groovy.sql.Sql
 import com.k_int.web.toolkit.settings.AppSetting
 
+import mod_oa.kb.Work
+
 class PublicationRequest implements MultiTenant<PublicationRequest> {
 
   String id
@@ -49,6 +51,8 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
   @CategoryId(defaultInternal=false)
   @Defaults(['License 1'])
   RefdataValue license
+
+  Work work
 
 // TODO: PR can only have one group right now
   ChecklistGroup group
@@ -101,6 +105,7 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
        requestContact column: 'pr_request_contact_fk'
                 group column: 'pr_group_fk'
      withoutAgreement column: 'pr_without_agreement'
+                 work column: 'pr_work_fk'
 
    externalRequestIds cascade: 'all-delete-orphan'
               history cascade: 'all-delete-orphan'
@@ -130,6 +135,7 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
                   group nullable: true
               agreement nullable: true
        withoutAgreement(nullable:false, blank:false)
+                   work nullable: true
 
   }
 
