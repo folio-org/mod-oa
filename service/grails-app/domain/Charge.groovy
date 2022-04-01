@@ -10,6 +10,8 @@ import com.k_int.web.toolkit.refdata.Defaults
 import com.k_int.web.toolkit.refdata.RefdataValue
 
 class Charge implements MultiTenant<Charge> {
+  private static BigDecimal ONE_HUNDRED = new BigDecimal(100L)
+  private static BigDecimal ONE = new BigDecimal(1L)
 
   String id
 
@@ -36,7 +38,7 @@ class Charge implements MultiTenant<Charge> {
   // The UUID of a selected invoice line item pertaining to this charge
   String invoiceLineItemReference
 
-  static transients = ['localAmount']
+  static transients = ['estimatedInvoicePrice', 'estimatedPrice']
 
   @CategoryId(defaultInternal=true)
   @Defaults(['Library', 'DFG', 'Author'])
@@ -50,28 +52,54 @@ class Charge implements MultiTenant<Charge> {
   @Defaults(['Expected', 'Invoiced'])
   RefdataValue chargeStatus
 
+  BigDecimal getTaxMultiplicand() {
+    return tax.divide(ONE_HUNDRED).add(ONE)
+  }
 
   //TODO add Payer after user consultation, whether controlled field or free text
+  MonetaryValue getEstimatedInvoicePrice() {
+    MonetaryValue estimatedPrice
+    BigDecimal value
+    
+    if (discountType.value == 'percentage') {
+      // PERCENTAGE DISCOUNT
+      // Value = (value - (value*(discount/100)))*(1+(tax/100))
+      value = amount.value.subtract((amount.value.multiply(discount.divide(ONE_HUNDRED)))).multiply(getTaxMultiplicand())
+    } else {
+      // STATIC DISCOUNT
+      // Value = (value - discount)*(1+(tax/100))
+      value = amount.value.subtract(discount).multiply(getTaxMultiplicand())
+    }
+    
+    estimatedPrice = new MonetaryValue([
+      value: value,
+      baseCurrency: amount?.baseCurrency
+    ])
+    
+    estimatedPrice
+  }
 
-  MonetaryValue getLocalAmount(ExchangeRate overwriteExchangeRate = null) {
-    MonetaryValue localAmount
-
-    ExchangeRate finalExchangeRate = exchangeRate.coefficient ? exchangeRate : overwriteExchangeRate
+  MonetaryValue getEstimatedPrice(ExchangeRate overwriteExchangeRate = null) {
+    MonetaryValue estimatedPrice
+    ExchangeRate finalExchangeRate = overwriteExchangeRate ?: (
+      exchangeRate.coefficient ? exchangeRate : null
+    )
 
     if (finalExchangeRate && finalExchangeRate.coefficient) {
       if (finalExchangeRate.fromCurrency == amount.baseCurrency) {
-        localAmount = new MonetaryValue([
-          value: amount.value.multiply(finalExchangeRate.coefficient),
+        estimatedPrice = new MonetaryValue([
+          value: getEstimatedInvoicePrice().value.multiply(finalExchangeRate.coefficient),
           baseCurrency: finalExchangeRate?.toCurrency
         ])
+
       } else {
         throw new RuntimeException("Cannot exchange currencies. Amount baseCurrency (${amount.baseCurrency}) is not equal to exchangeRate fromCurrency (${finalExchangeRate.fromCurrency})")
       }
     } else {
       throw new RuntimeException("No exchange rate provided")
     }
-    
-    localAmount
+
+    estimatedPrice
   }
 
   def beforeValidate() {
