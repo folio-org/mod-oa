@@ -861,4 +861,68 @@ databaseChangeLog = {
       referencedTableName: "party"
     )
   }
+
+  // Setup addresses
+  changeSet(author: "efreestone (manual)", id: "20220408-1351-001") {
+    createTable(tableName: "address") {
+      column(name: "add_id", type: "VARCHAR(36)") { constraints(nullable: "false") }
+      column(name: "add_version", type: "BIGINT") { constraints(nullable: "false") }
+      column(name: "add_name", type: "VARCHAR(255)")
+      column(name: "add_address_line_one", type: "VARCHAR(255)")
+      column(name: "add_address_line_two", type: "VARCHAR(255)")
+      column(name: "add_city", type: "VARCHAR(255)")
+      column(name: "add_region", type: "VARCHAR(255)")
+      column(name: "add_postal_code", type: "VARCHAR(255)")
+      column(name: "add_country", type: "VARCHAR(255)")
+    }
+
+    addPrimaryKey(columnNames: "add_id", constraintName: "address_PK", tableName: "address")
+  }
+
+  changeSet(author: "efreestone (manual)", id: "20220408-1351-002") {
+    createTable(tableName: "party_address") {
+      column(name: "padd_id", type: "VARCHAR(36)") { constraints(nullable: "false") }
+      column(name: "padd_version", type: "BIGINT") { constraints(nullable: "false") }
+      column(name: "padd_address_fk", type: "VARCHAR(36)")
+      column(name: "padd_owner_fk", type: "VARCHAR(36)")
+    }
+
+    addPrimaryKey(columnNames: "padd_id", constraintName: "party_address_PK", tableName: "party_address")
+
+    addForeignKeyConstraint(
+      baseColumnNames: "padd_address_fk",
+      baseTableName: "party_address",
+      constraintName: "padd_to_address_fk",
+      deferrable: "false",
+      initiallyDeferred: "false",
+      referencedColumnNames: "add_id",
+      referencedTableName: "address"
+    )
+
+    addForeignKeyConstraint(
+      baseColumnNames: "padd_owner_fk",
+      baseTableName: "party_address",
+      constraintName: "padd_to_party_fk",
+      deferrable: "false",
+      initiallyDeferred: "false",
+      referencedColumnNames: "p_id",
+      referencedTableName: "party"
+    )
+  }
+
+  changeSet(author: "efreestone (manual)", id: "20220408-1351-003") {
+    addColumn (tableName: "party" ) {
+      column(name: "p_street_address_fk", type: "VARCHAR(36)")
+    }
+
+    addForeignKeyConstraint(
+      baseColumnNames: "p_street_address_fk",
+      baseTableName: "party",
+      constraintName: "p_to_party_address_fk",
+      deferrable: "false",
+      initiallyDeferred: "false",
+      referencedColumnNames: "padd_id",
+      referencedTableName: "party_address"
+    )
+  }
 }

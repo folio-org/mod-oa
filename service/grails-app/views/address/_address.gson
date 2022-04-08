@@ -1,0 +1,6 @@
+import org.olf.oa.Address
+import groovy.transform.Field
+
+@Field 
+Address address
+json g.render(address)

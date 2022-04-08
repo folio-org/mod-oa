@@ -1,0 +1,6 @@
+import org.olf.oa.PartyAddress
+import groovy.transform.Field
+
+@Field 
+PartyAddress partyAddress
+json g.render(partyAddress, ['expand': ['address']])
