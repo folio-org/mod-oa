@@ -26,6 +26,16 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
   String publicationUrl
   String doi
 
+  /* If type is book, we need to store year/place of publication.
+   * Creating a full TitleInstance under a Work seems pointless
+   * without proper citation information, so instead we can store
+   * those fields on the request itself for now with a view to
+   * migrating those over once we need a more involved model.
+   */
+
+  LocalDate bookDateOfPublication
+  String bookPlaceOfPublication
+
   boolean withoutAgreement = false
 
   @CategoryId(defaultInternal=true)
@@ -83,60 +93,63 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
   ]
 
   static mapping = {
-                   id column: 'pr_id', generator: 'uuid2', length: 36
-          requestDate column: 'pr_request_date'
-        requestStatus column: 'pr_request_status'
-        requestNumber column: 'pr_request_number'
-          lastUpdated column: 'pr_last_updated'
-          dateCreated column: 'pr_date_created'
-      rejectionReason column: 'pr_rejection_reason'
-     publicationTitle column: 'pr_title'
-      publicationType column: 'pr_pub_type_fk'
-  publicationStatuses cascade: 'all-delete-orphan'
-             fundings cascade: 'all-delete-orphan'
-              subtype column: 'pr_subtype'
-            publisher column: 'pr_publisher'
-              license column: 'pr_license'
-       publicationUrl column: 'pr_pub_url'
-       localReference column: 'pr_local_ref'
-          authorNames column: 'pr_authnames'
-                  doi column: 'pr_doi'
-  correspondingAuthor column: 'pr_corresponding_author_fk'
-       requestContact column: 'pr_request_contact_fk'
-                group column: 'pr_group_fk'
-     withoutAgreement column: 'pr_without_agreement'
-                 work column: 'pr_work_fk'
+                        id column: 'pr_id', generator: 'uuid2', length: 36
+               requestDate column: 'pr_request_date'
+             requestStatus column: 'pr_request_status'
+             requestNumber column: 'pr_request_number'
+               lastUpdated column: 'pr_last_updated'
+               dateCreated column: 'pr_date_created'
+           rejectionReason column: 'pr_rejection_reason'
+          publicationTitle column: 'pr_title'
+           publicationType column: 'pr_pub_type_fk'
+       publicationStatuses cascade: 'all-delete-orphan'
+                  fundings cascade: 'all-delete-orphan'
+                   subtype column: 'pr_subtype'
+                 publisher column: 'pr_publisher'
+                   license column: 'pr_license'
+            publicationUrl column: 'pr_pub_url'
+            localReference column: 'pr_local_ref'
+               authorNames column: 'pr_authnames'
+                       doi column: 'pr_doi'
+       correspondingAuthor column: 'pr_corresponding_author_fk'
+            requestContact column: 'pr_request_contact_fk'
+                     group column: 'pr_group_fk'
+          withoutAgreement column: 'pr_without_agreement'
+                      work column: 'pr_work_fk'
+     bookDateOfPublication column: 'pr_book_date_of_publication'
+    bookPlaceOfPublication column: 'pr_book_place_of_publication'
 
-   externalRequestIds cascade: 'all-delete-orphan'
-              history cascade: 'all-delete-orphan'
-          identifiers cascade: 'all-delete-orphan'
-            agreement cascade: 'all-delete-orphan'
-              charges cascade: 'all-delete-orphan'
+        externalRequestIds cascade: 'all-delete-orphan'
+                   history cascade: 'all-delete-orphan'
+               identifiers cascade: 'all-delete-orphan'
+                 agreement cascade: 'all-delete-orphan'
+                   charges cascade: 'all-delete-orphan'
   }
   
   static constraints = {
-            requestDate nullable: true
-          requestStatus nullable: true
-          requestNumber nullable: true
-            lastUpdated nullable: true
-            dateCreated nullable: true
-        rejectionReason nullable: true
-       publicationTitle nullable: true
-        publicationType nullable: true
-                subtype nullable: true
-              publisher nullable: true
-                license nullable: true
-         publicationUrl nullable: true
-         localReference nullable: true
-            authorNames nullable: true
-                    doi nullable: true
-    correspondingAuthor nullable: true
-         requestContact nullable: true
-                  group nullable: true
-              agreement nullable: true
-       withoutAgreement(nullable:false, blank:false)
-                   work nullable: true
-
+              requestDate nullable: true
+            requestStatus nullable: true
+            requestNumber nullable: true
+              lastUpdated nullable: true
+              dateCreated nullable: true
+          rejectionReason nullable: true
+         publicationTitle nullable: true
+          publicationType nullable: true
+                  subtype nullable: true
+                publisher nullable: true
+                  license nullable: true
+           publicationUrl nullable: true
+           localReference nullable: true
+              authorNames nullable: true
+                      doi nullable: true
+      correspondingAuthor nullable: true
+           requestContact nullable: true
+                    group nullable: true
+                agreement nullable: true
+         withoutAgreement(nullable:false, blank:false)
+    bookDateOfPublication(nullable: true)
+   bookPlaceOfPublication(nullable: true)
+                     work nullable: true
   }
 
   def beforeValidate() {

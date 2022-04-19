@@ -925,4 +925,14 @@ databaseChangeLog = {
       referencedTableName: "party_address"
     )
   }
+
+  changeSet(author: "efreestone (manual)", id: "20220419-1210-001") {
+    addColumn (tableName: "publication_request" ) {
+      column(name: "pr_book_date_of_publication", type: "TIMESTAMP")
+    }
+
+    addColumn (tableName: "publication_request" ) {
+      column(name: "pr_book_place_of_publication", type: "VARCHAR(255)")
+    }
+  }
 }
