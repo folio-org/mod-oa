@@ -2,7 +2,9 @@ import mod_oa.kb.Work
 import groovy.transform.Field
 
 def should_expand = [
-  'instances'
+  'instances',
+  'indexedInDOAJ',
+  'oaStatus'
 ]
 
 @Field

@@ -935,4 +935,76 @@ databaseChangeLog = {
       column(name: "pr_book_place_of_publication", type: "VARCHAR(255)")
     }
   }
+
+  changeSet(author: "efreestone (manual)", id: "2022-04-29-1232-001") {
+    addColumn (tableName: "work" ) {
+      column(name: "w_indexed_in_doaj_fk", type: "VARCHAR(36)")
+    }
+  }
+
+  changeSet(author: "efreestone (manual)", id: "2022-04-29-1232-002") {
+    addForeignKeyConstraint(
+      baseColumnNames: "w_indexed_in_doaj_fk",
+      baseTableName: "work",
+      constraintName: "work_indexed_in_doaj_fk",
+      deferrable: "false",
+      initiallyDeferred: "false",
+      referencedColumnNames: "rdv_id",
+      referencedTableName: "refdata_value"
+    )
+  }
+
+  changeSet(author: "efreestone (manual)", id: "2022-04-29-1232-003") {
+    addColumn (tableName: "work" ) {
+      column(name: "w_oa_status_fk", type: "VARCHAR(36)")
+    }
+  }
+
+  changeSet(author: "efreestone (manual)", id: "2022-04-29-1232-004") {
+    addForeignKeyConstraint(
+      baseColumnNames: "w_oa_status_fk",
+      baseTableName: "work",
+      constraintName: "work_oa_status_fk",
+      deferrable: "false",
+      initiallyDeferred: "false",
+      referencedColumnNames: "rdv_id",
+      referencedTableName: "refdata_value"
+    )
+  }
+
+  changeSet(author: "efreestone (manual)", id: "2022-04-29-1232-005") {
+    addColumn (tableName: "publication_request" ) {
+      column(name: "pr_work_indexed_in_doaj_fk", type: "VARCHAR(36)")
+    }
+  }
+
+  changeSet(author: "efreestone (manual)", id: "2022-04-29-1232-006") {
+    addForeignKeyConstraint(
+      baseColumnNames: "pr_work_indexed_in_doaj_fk",
+      baseTableName: "publication_request",
+      constraintName: "publication_request_work_indexed_in_doaj_fk",
+      deferrable: "false",
+      initiallyDeferred: "false",
+      referencedColumnNames: "rdv_id",
+      referencedTableName: "refdata_value"
+    )
+  }
+
+  changeSet(author: "efreestone (manual)", id: "2022-04-29-1232-007") {
+    addColumn (tableName: "publication_request" ) {
+      column(name: "pr_work_oa_status_fk", type: "VARCHAR(36)")
+    }
+  }
+
+  changeSet(author: "efreestone (manual)", id: "2022-04-29-1232-008") {
+    addForeignKeyConstraint(
+      baseColumnNames: "pr_work_oa_status_fk",
+      baseTableName: "publication_request",
+      constraintName: "publication_request_work_oa_status_fk",
+      deferrable: "false",
+      initiallyDeferred: "false",
+      referencedColumnNames: "rdv_id",
+      referencedTableName: "refdata_value"
+    )
+  }
 }

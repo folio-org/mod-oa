@@ -19,7 +19,9 @@ def should_expand = [
   'correspondences',
   'agreement',
   'charges',
-  'work'
+  'work',
+  'workIndexedInDOAJ',
+  'workOAStatus'
 ]
 
 @Field 
