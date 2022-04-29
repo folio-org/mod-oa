@@ -64,6 +64,14 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
 
   Work work
 
+  @CategoryId(value='Global.Yes_No', defaultInternal=true)
+  @Defaults(['Yes', 'No'])
+  RefdataValue workIndexedInDOAJ
+
+  @CategoryId(value='Work.OaStatus', defaultInternal=false)
+  @Defaults(['Gold', 'Hybrid'])
+  RefdataValue workOAStatus
+
 // TODO: PR can only have one group right now
   ChecklistGroup group
 
@@ -118,6 +126,8 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
                       work column: 'pr_work_fk'
      bookDateOfPublication column: 'pr_book_date_of_publication'
     bookPlaceOfPublication column: 'pr_book_place_of_publication'
+         workIndexedInDOAJ column: 'pr_work_indexed_in_doaj_fk'
+              workOAStatus column: 'pr_work_oa_status_fk'
 
         externalRequestIds cascade: 'all-delete-orphan'
                    history cascade: 'all-delete-orphan'
@@ -150,6 +160,8 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
     bookDateOfPublication(nullable: true)
    bookPlaceOfPublication(nullable: true)
                      work nullable: true
+        workIndexedInDOAJ(nullable:true)
+             workOAStatus(nullable:true)
   }
 
   def beforeValidate() {
