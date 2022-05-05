@@ -72,8 +72,8 @@ public class BibReferenceService {
         log.debug("Creating new work: ${description}");
         result = new Work(
           title:description.title,
-          indexedInDOAJ: Work.lookupOrCreateIndexedInDOAJ(description.indexedInDOAJ),
-          oaStatus: Work.lookupOrCreateOaStatus(description.oaStatus)
+          indexedInDOAJ: description.indexedInDOAJ ? Work.lookupOrCreateIndexedInDOAJ(description.indexedInDOAJ) : null,
+          oaStatus: description.oaStatus ? Work.lookupOrCreateOaStatus(description.oaStatus) : null
         )
       }
 
