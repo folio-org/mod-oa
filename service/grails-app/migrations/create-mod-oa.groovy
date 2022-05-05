@@ -928,7 +928,7 @@ databaseChangeLog = {
 
   changeSet(author: "efreestone (manual)", id: "20220419-1210-001") {
     addColumn (tableName: "publication_request" ) {
-      column(name: "pr_book_date_of_publication", type: "TIMESTAMP")
+      column(name: "pr_book_date_of_publication", type: "VARCHAR(36)")
     }
 
     addColumn (tableName: "publication_request" ) {
