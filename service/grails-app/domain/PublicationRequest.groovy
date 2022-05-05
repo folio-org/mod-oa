@@ -33,7 +33,7 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
    * migrating those over once we need a more involved model.
    */
 
-  LocalDate bookDateOfPublication
+  String bookDateOfPublication
   String bookPlaceOfPublication
 
   boolean withoutAgreement = false
@@ -157,7 +157,7 @@ class PublicationRequest implements MultiTenant<PublicationRequest> {
                     group nullable: true
                 agreement nullable: true
          withoutAgreement(nullable:false, blank:false)
-    bookDateOfPublication(nullable: true)
+    bookDateOfPublication(nullable:true, blank:false, matches: '^\\d{4}(-((0[0-9])|(1[0-2]))(-(([0-2][0-9])|3[0-1]))?)?\$')
    bookPlaceOfPublication(nullable: true)
                      work nullable: true
         workIndexedInDOAJ(nullable:true)
