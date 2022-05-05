@@ -70,9 +70,14 @@ public class BibReferenceService {
 
       if ( result == null ) {
         log.debug("Creating new work: ${description}");
-        result = new Work(title:description.title)
-        result.save(flush:true, failOnError:true)
+        result = new Work(
+          title:description.title,
+          indexedInDOAJ: description.indexedInDOAJ ? Work.lookupOrCreateIndexedInDOAJ(description.indexedInDOAJ) : null,
+          oaStatus: description.oaStatus ? Work.lookupOrCreateOaStatus(description.oaStatus) : null
+        )
       }
+
+      result.save(flush:true, failOnError:true)
     }
 
     log.debug("resolveWork complete");
@@ -84,7 +89,12 @@ public class BibReferenceService {
     Set<Work> works = []
 
     description?.instances?.each { instance_overrides ->
-      Map instance_data = [ title: description.title, type: description.type ] + instance_overrides
+      Map instance_data = [
+        title: description.title,
+        type: description.type,
+        indexedInDOAJ: description.indexedInDOAJ,
+        oaStatus: description.oaStatus
+      ] + instance_overrides
       TitleInstance ti = resolveInstance(instance_data)
       works.add(ti.work)
     }
