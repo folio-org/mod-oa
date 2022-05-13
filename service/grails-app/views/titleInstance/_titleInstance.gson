@@ -11,4 +11,3 @@ def should_expand = [
 @Field
 TitleInstance titleInstance
 json g.render(titleInstance, [excludes:['work'], expand: should_expand])
-
