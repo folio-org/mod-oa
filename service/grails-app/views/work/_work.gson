@@ -1,12 +1,33 @@
 import mod_oa.kb.Work
 import groovy.transform.Field
+import mod_oa.kb.TitleInstance
+import mod_oa.kb.IdentifierOccurrence
+import mod_oa.kb.Identifier
 
 def should_expand = [
-  'instances',
   'indexedInDOAJ',
   'oaStatus'
 ]
 
 @Field
 Work work
-json g.render(work, [expand: should_expand])
+json g.render(work, [expand: should_expand]) {
+
+  // Manually expand instances so we don't get cycles in the graph
+  instances(work.instances) { TitleInstance ti ->
+    id ti.id
+    title ti.title
+    identifiers(ti.identifiers) { IdentifierOccurrence io ->
+      identifier: {
+        ns {
+          value io.identifier.ns.value
+        }
+        value io.identifier.value
+      }
+    } 
+    publicationType: ti.publicationType
+    type: ti.type
+    subType: ti.subType
+  }
+
+}
