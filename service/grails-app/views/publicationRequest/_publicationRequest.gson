@@ -29,4 +29,6 @@ PublicationRequest publicationRequest
 
 json g.render(publicationRequest, [expand: should_expand]) {
   'requestDate' publicationRequest.requestDate
+  version publicationRequest.version
+
 }
