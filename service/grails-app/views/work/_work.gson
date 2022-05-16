@@ -18,6 +18,7 @@ json g.render(work, [expand: should_expand]) {
     id ti.id
     title ti.title
     identifiers(ti.identifiers) { IdentifierOccurrence io ->
+      id: io.id
       identifier: {
         id io.identifier.id
         ns {
