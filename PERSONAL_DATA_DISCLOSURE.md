@@ -25,7 +25,7 @@ For the purposes of this form, "store" includes the following:
 - [ ] Date of birth
 - [ ] Place of birth
 - [ ] Racial or ethnic origin
-- [ ] Address
+- [X] Address
 - [ ] Location information
 - [ ] Phone numbers
 - [ ] Passport number / National identification numbers
