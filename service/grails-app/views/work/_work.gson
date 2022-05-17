@@ -28,9 +28,10 @@ json g.render(work, [expand: should_expand]) {
         value io.identifier.value
       }
     } 
-    publicationType ti.publicationType
-    type ti.type
-    subType ti.subType
+
+    'publicationType' g.render(ti.publicationType)
+    'type' g.render(ti.type)
+    'subType' g.render(ti.subType)
   }
 
 }
