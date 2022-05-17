@@ -1,5 +1,8 @@
 # mod-oa
 
+![Development 2021-2022 funded by European Regional Development Fund (EFRE)](https://github.com/folio-org/mod-oa/raw/master/assets/EFRE_2015_quer_RGB.jpg)
+
+
 Copyright (C) 2021 The Open Library Foundation
 
 This software is distributed under the terms of the Apache License,
