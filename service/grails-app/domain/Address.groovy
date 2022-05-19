@@ -47,7 +47,7 @@ public class Address implements MultiTenant<Address> {
     addressLineTwo nullable: true
               city nullable: true
             region nullable: true
-        postalCode nullable: false
-           country nullable: false
+        postalCode nullable: true
+           country nullable: true
   }
 }
