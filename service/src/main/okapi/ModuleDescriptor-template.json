@@ -126,6 +126,11 @@
           "permissionsRequired": [ "oa.works.view" ]
         },
         {
+          "methods": [ "PUT" ],
+          "pathPattern": "/oa/works/{id}",
+          "permissionsRequired": [ "oa.works.edit" ]
+        },
+        {
           "methods": [ "GET" ],
           "pathPattern": "/oa/party",
           "permissionsRequired": [ "oa.party.view" ]
@@ -489,6 +494,18 @@
       "description": "Create work records",
       "subPermissions": [
         "oa.works.view"
+      ]
+    },
+    {
+      "permissionName": "oa.works.item.put",
+      "displayName": "Works item put",
+      "description": "Put a works record"
+    },
+    {
+      "permissionName": "oa.works.edit",
+      "subPermissions": [
+        "oa.correspondence.view",
+        "oa.works.item.put"
       ]
     },
     {
