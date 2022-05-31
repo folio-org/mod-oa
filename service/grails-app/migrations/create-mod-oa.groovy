@@ -1007,4 +1007,64 @@ databaseChangeLog = {
       referencedTableName: "refdata_value"
     )
   }
+
+  changeSet(author: "Jack-Golding (manual)", id: "2022-05-31-1052-001") {
+    addForeignKeyConstraint(
+      baseColumnNames: "pr_license",
+      baseTableName: "publication_request",
+      constraintName: "publication_request_license_fk",
+      deferrable: "false",
+      initiallyDeferred: "false",
+      referencedColumnNames: "rdv_id",
+      referencedTableName: "refdata_value"
+    )
+  }
+
+  changeSet(author: "Jack-Golding (manual)", id: "2022-05-31-1052-002") {
+    addForeignKeyConstraint(
+      baseColumnNames: "pr_publisher",
+      baseTableName: "publication_request",
+      constraintName: "publication_request_publisher_fk",
+      deferrable: "false",
+      initiallyDeferred: "false",
+      referencedColumnNames: "rdv_id",
+      referencedTableName: "refdata_value"
+    )
+  }
+
+  changeSet(author: "Jack-Golding (manual)", id: "2022-05-31-1052-003") {
+    addForeignKeyConstraint(
+      baseColumnNames: "pr_subtype",
+      baseTableName: "publication_request",
+      constraintName: "publication_request_subtype_fk",
+      deferrable: "false",
+      initiallyDeferred: "false",
+      referencedColumnNames: "rdv_id",
+      referencedTableName: "refdata_value"
+    )
+  }
+
+  changeSet(author: "Jack-Golding (manual)", id: "2022-05-31-1052-004") {
+    addForeignKeyConstraint(
+      baseColumnNames: "ps_publication_status",
+      baseTableName: "publication_status",
+      constraintName: "publication_status_publication_status_fk",
+      deferrable: "false",
+      initiallyDeferred: "false",
+      referencedColumnNames: "rdv_id",
+      referencedTableName: "refdata_value"
+    )
+  }
+
+  changeSet(author: "Jack-Golding (manual)", id: "2022-05-31-1052-005") {
+    addForeignKeyConstraint(
+      baseColumnNames: "pi_type",
+      baseTableName: "publication_identifier",
+      constraintName: "publication_identifier_type_fk",
+      deferrable: "false",
+      initiallyDeferred: "false",
+      referencedColumnNames: "rdv_id",
+      referencedTableName: "refdata_value"
+    )
+  }
 }
