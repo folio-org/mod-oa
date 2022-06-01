@@ -194,6 +194,31 @@
           "methods": ["POST"],
           "pathPattern": "/oa/works/citation",
           "permissionsRequired": [ "oa.works.create" ]
+        },
+        {
+          "methods": [ "GET" ],
+          "pathPattern": "/oa/charges",
+          "permissionsRequired": [ "oa.charges.view" ]
+        },
+        {
+          "methods": [ "GET" ],
+          "pathPattern": "/oa/charges/{id}",
+          "permissionsRequired": [ "oa.charges.view" ]
+        },
+        {
+          "methods": [ "POST" ],
+          "pathPattern": "/oa/charges",
+          "permissionsRequired": [ "oa.charges.edit" ]
+        },
+        {
+          "methods": [ "PUT" ],
+          "pathPattern": "/oa/charges/{id}",
+          "permissionsRequired": [ "oa.charges.edit" ]
+        },
+        {
+          "methods": [ "DELETE" ],
+          "pathPattern": "/oa/charges/{id}",
+          "permissionsRequired": [ "oa.charges.manage" ]
         }
       ]
     },
@@ -528,6 +553,28 @@
         "oa.correspondence.view",
         "oa.correspondence.item.post",
         "oa.correspondence.item.put"
+      ]
+    },
+    {
+      "permissionName": "oa.charges.manage",
+      "subPermissions": [
+        "oa.charges.edit",
+        "oa.charges.item.delete"
+      ]
+    },
+    {
+      "permissionName": "oa.charges.view",
+      "subPermissions": [
+        "oa.charges.collection.get",
+        "oa.charges.item.get"
+      ]
+    },
+    {
+      "permissionName": "oa.charges.edit",
+      "subPermissions": [
+        "oa.charges.view",
+        "oa.charges.item.post",
+        "oa.charges.item.put"
       ]
     }
   ],
