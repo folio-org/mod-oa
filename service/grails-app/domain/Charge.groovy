@@ -108,6 +108,14 @@ class Charge implements MultiTenant<Charge> {
     }
   }
 
+  static hasMany = [
+    payers: Payer
+  ]
+
+  static mappedBy = [
+    payers: 'owner',
+  ]
+
   
   static mapping = {
                           id column: 'ch_id', generator: 'uuid2', length: 36

@@ -1067,4 +1067,16 @@ databaseChangeLog = {
       referencedTableName: "refdata_value"
     )
   }
+
+  changeSet(author: "Jack-Golding (manual)", id: "2022-06-08-1555-001") {
+    createTable(tableName: "payer") {
+      column(name: "cpy_id", type: "VARCHAR(36)") { constraints(nullable: "false") }
+      column(name: "cpy_version", type: "BIGINT") { constraints(nullable: "false") }
+      column(name: "cpy_payer_name_fk", type: "VARCHAR(50)") { constraints(nullable: "false") }
+      column(name: "cpy_payer_amount", type: "NUMBER(20,10)") { constraints(nullable: "false") }
+      column(name: "cpy_payer_note", type: "TEXT") { constraints(nullable: "false") }
+      column(name: "pra_owner", type: "VARCHAR(36)") { constraints(nullable: "false") }
+    }
+  }
+  
 }
