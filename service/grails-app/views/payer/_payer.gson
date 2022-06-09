@@ -3,4 +3,4 @@ import groovy.transform.Field
 
 @Field 
 Payer payer
-json g.render(payer, [expand: ['payerName'], excludes: ['owner']])
+json g.render(payer, [expand: ['payer'], excludes: ['owner']])

@@ -11,7 +11,7 @@ class Payer implements MultiTenant<Payer> {
 
   @CategoryId(defaultInternal=true)
   @Defaults(['Library', 'DFG', 'Author'])
-  RefdataValue payerName
+  RefdataValue payer
 
   BigDecimal payerAmount
 
@@ -25,14 +25,14 @@ class Payer implements MultiTenant<Payer> {
                   id column: 'cpy_id', generator: 'uuid2', length: 36
                owner column: 'cpy_owner_fk'
              version column: 'cpy_version'
-           payerName column: 'cpy_payer_name_fk'
+               payer column: 'cpy_payer_fk'
          payerAmount column: 'cpy_payer_amount'
            payerNote column: 'cpy_payer_note'
   }
   
   static constraints = {
               owner(nullable:false, blank:false);
-          payerName nullable: false
+              payer nullable: false
         payerAmount nullable: false
           payerNote nullable: true
   }   

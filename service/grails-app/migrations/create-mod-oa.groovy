@@ -1070,7 +1070,7 @@ databaseChangeLog = {
     createTable(tableName: "payer") {
       column(name: "cpy_id", type: "VARCHAR(36)") { constraints(nullable: "false") }
       column(name: "cpy_version", type: "BIGINT") { constraints(nullable: "false") }
-      column(name: "cpy_payer_name_fk", type: "VARCHAR(36)") { constraints(nullable: "false") }
+      column(name: "cpy_payer_fk", type: "VARCHAR(36)") { constraints(nullable: "false") }
       column(name: "cpy_payer_amount", type: "NUMBER(19,2)") { constraints(nullable: "false") }
       column(name: "cpy_payer_note", type: "TEXT") { constraints(nullable: "true") }
       column(name: "cpy_owner_fk", type: "VARCHAR(36)") { constraints(nullable: "false") }
