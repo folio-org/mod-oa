@@ -3,7 +3,7 @@ import groovy.transform.Field
 
 @Field 
 Charge charge
-json g.render(charge, ['expand': ['amount', 'exchangeRate', 'payer', 'chargeStatus', 'discountType','category'], 'excludes': ['owner']]) {
+json g.render(charge, ['expand': ['amount', 'exchangeRate', 'payers', 'chargeStatus', 'discountType','category'], 'excludes': ['owner']]) {
   estimatedInvoicePrice g.render(charge.estimatedInvoicePrice)
   estimatedPrice g.render(charge.estimatedPrice)
 }
