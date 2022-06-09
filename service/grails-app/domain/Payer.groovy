@@ -24,14 +24,15 @@ class Payer implements MultiTenant<Payer> {
   static mapping = {
                   id column: 'cpy_id', generator: 'uuid2', length: 36
                owner column: 'cpy_owner_fk'
-               payer column: 'cpy_payer_name_fk'
+             version column: 'cpy_version'
+           payerName column: 'cpy_payer_name_fk'
          payerAmount column: 'cpy_payer_amount'
            payerNote column: 'cpy_payer_note'
   }
   
   static constraints = {
               owner(nullable:false, blank:false);
-              payer nullable: false
+          payerName nullable: false
         payerAmount nullable: false
           payerNote nullable: true
   }   

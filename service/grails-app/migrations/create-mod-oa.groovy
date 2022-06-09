@@ -1074,19 +1074,8 @@ databaseChangeLog = {
       column(name: "cpy_version", type: "BIGINT") { constraints(nullable: "false") }
       column(name: "cpy_payer_name_fk", type: "VARCHAR(50)") { constraints(nullable: "false") }
       column(name: "cpy_payer_amount", type: "NUMBER(19,2)") { constraints(nullable: "false") }
-      column(name: "cpy_payer_note", type: "TEXT") { constraints(nullable: "false") }
+      column(name: "cpy_payer_note", type: "TEXT") { constraints(nullable: "true") }
       column(name: "cpy_owner_fk", type: "VARCHAR(36)") { constraints(nullable: "false") }
     }
-  }
-
-  changeSet(author: "Jack-Golding (manual)", id: "2022-06-09-1151-001"){
-    addForeignKeyConstraint(
-        baseColumnNames: "cpy_owner_fk",
-        baseTableName: "payer",
-        constraintName: "charge_to_payer_fk",
-        deferrable: "false",
-        initiallyDeferred: "false",
-        referencedColumnNames: "ch_id",
-        referencedTableName: "charge")
   }
 }
