@@ -1073,19 +1073,9 @@ databaseChangeLog = {
       column(name: "cpy_id", type: "VARCHAR(36)") { constraints(nullable: "false") }
       column(name: "cpy_version", type: "BIGINT") { constraints(nullable: "false") }
       column(name: "cpy_payer_name_fk", type: "VARCHAR(50)") { constraints(nullable: "false") }
-      column(name: "cpy_payer_amount", type: "NUMBER(20,10)") { constraints(nullable: "false") }
+      column(name: "cpy_payer_amount", type: "NUMBER(19,2)") { constraints(nullable: "false") }
       column(name: "cpy_payer_note", type: "TEXT") { constraints(nullable: "false") }
       column(name: "cpy_owner_fk", type: "VARCHAR(36)") { constraints(nullable: "false") }
     }
-
-    addForeignKeyConstraint(baseColumnNames: "cpy_owner_fk",
-        baseTableName: "payer",
-        constraintName: "payer_owner_fk",
-        deferrable: "false",
-        initiallyDeferred: "false",
-        referencedColumnNames: "ch_id",
-        referencedTableName: "charge"
-      )
   }
-  
 }
