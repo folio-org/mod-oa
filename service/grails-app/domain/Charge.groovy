@@ -40,13 +40,8 @@ class Charge implements MultiTenant<Charge> {
 
   static transients = ['estimatedInvoicePrice', 'estimatedPrice']
 
-  @CategoryId(defaultInternal=true)
-  @Defaults(['Library', 'DFG', 'Author'])
-  RefdataValue payer
-
   String discountNote
   BigDecimal tax
-  String payerNote
 
   @CategoryId(defaultInternal=true)
   @Defaults(['Expected', 'Invoiced'])
@@ -128,11 +123,11 @@ class Charge implements MultiTenant<Charge> {
                        owner column: 'ch_owner_fk'
             invoiceReference column: 'ch_invoice_reference'
     invoiceLineItemReference column: 'ch_invoice_line_item_reference'
-                       payer column: 'ch_payer_fk'
                 discountNote column: 'ch_discount_note'
                          tax column: 'ch_tax'
-                   payerNote column: 'ch_payer_note'
                 chargeStatus column: 'ch_charge_status_fk'
+                     payers cascade: 'all-delete-orphan'
+
   }
   
   static constraints = {
@@ -144,10 +139,8 @@ class Charge implements MultiTenant<Charge> {
                 discountType(nullable: true)
             invoiceReference(nullable: true)
     invoiceLineItemReference(nullable: true)
-                       payer(nullable: true)
                 discountNote(nullable: true)
                          tax(nullable: true)
-                   payerNote(nullable: true)
                 chargeStatus(nullable: true)
   }
 
