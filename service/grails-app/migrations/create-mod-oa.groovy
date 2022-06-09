@@ -810,10 +810,8 @@ databaseChangeLog = {
 
   changeSet(author: "ianibbo (manual)", id: "2022-02-22-1438-001") {
     addColumn(tableName: "charge") {
-      column(name: "ch_payer_fk", type: "VARCHAR(36)")
       column(name: "ch_discount_note", type: "TEXT")
       column(name: "ch_tax", type: "NUMBER(20,10)")
-      column(name: "ch_payer_note", type: "TEXT")
       column(name: "ch_charge_status_fk", type: "VARCHAR(36)")
     }
   }
