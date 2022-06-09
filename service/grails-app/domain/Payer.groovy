@@ -32,7 +32,7 @@ class Payer implements MultiTenant<Payer> {
   static constraints = {
               owner(nullable:false, blank:false);
               payer nullable: false
-        payerAmount nullable: true
+        payerAmount nullable: false
           payerNote nullable: true
   }   
 }
