@@ -18,7 +18,7 @@ class Payer implements MultiTenant<Payer> {
   String payerNote
 
   static belongsTo = [
-    owner: PublicationRequest
+    owner: Charge
   ]
 
   static mapping = {
