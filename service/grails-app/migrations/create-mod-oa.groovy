@@ -810,8 +810,10 @@ databaseChangeLog = {
 
   changeSet(author: "ianibbo (manual)", id: "2022-02-22-1438-001") {
     addColumn(tableName: "charge") {
+      column(name: "ch_payer_fk", type: "VARCHAR(36)")
       column(name: "ch_discount_note", type: "TEXT")
       column(name: "ch_tax", type: "NUMBER(20,10)")
+      column(name: "ch_payer_note", type: "TEXT")
       column(name: "ch_charge_status_fk", type: "VARCHAR(36)")
     }
   }
@@ -1075,5 +1077,10 @@ databaseChangeLog = {
       column(name: "cpy_payer_note", type: "TEXT") { constraints(nullable: "true") }
       column(name: "cpy_owner_fk", type: "VARCHAR(36)") { constraints(nullable: "false") }
     }
+  }
+
+  changeSet(author: "Jack-Golding (manual)", id: "2022-06-14-1659-001") {
+      dropColumn(columnName: "ch_payer_note", tableName: "charge")
+      dropColumn(columnName: "ch_payer_fk", tableName: "charge")
   }
 }
