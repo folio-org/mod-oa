@@ -14,6 +14,8 @@ class Charge implements MultiTenant<Charge> {
   private static BigDecimal ONE = new BigDecimal(1L)
 
   String id
+  Date dateCreated
+  Date lastUpdated
 
   MonetaryValue amount // The amount entered by the user in a defined currency
   ExchangeRate exchangeRate
@@ -114,6 +116,8 @@ class Charge implements MultiTenant<Charge> {
   
   static mapping = {
                           id column: 'ch_id', generator: 'uuid2', length: 36
+                 dateCreated column: 'ch_date_created'
+                 lastUpdated column: 'ch_last_updated'
                       amount column: 'ch_amount_fk'
                 exchangeRate column: 'ch_exchange_rate_fk'
                  description column: 'ch_description'
@@ -131,6 +135,8 @@ class Charge implements MultiTenant<Charge> {
   }
   
   static constraints = {
+                 dateCreated(nullable: true)
+                 lastUpdated(nullable: true)
                       amount(nullable: false)
                 exchangeRate(nullable: true)
                  description(nullable: true)

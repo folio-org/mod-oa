@@ -1083,4 +1083,11 @@ databaseChangeLog = {
       dropColumn(columnName: "ch_payer_note", tableName: "charge")
       dropColumn(columnName: "ch_payer_fk", tableName: "charge")
   }
+
+  changeSet(author: "Jack-Golding (manual)", id: "2022-06-16-1453-001") {
+      addColumn (tableName: "charge" ) {
+        column(name: "ch_date_created", type: "timestamp")
+        column(name: "ch_last_updated", type: "timestamp")
+    }
+  }
 }
