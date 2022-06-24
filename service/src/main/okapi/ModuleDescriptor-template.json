@@ -1,6 +1,9 @@
 {
   "id": "${info.app.name}-${info.app.version}",
   "name": "${info.app.name}",
+  "requires": [
+    { "id": "servint", "version": "1.1" }
+  ],
   "provides": [
     {
       "id": "oa",
