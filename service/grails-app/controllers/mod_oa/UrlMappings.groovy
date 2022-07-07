@@ -26,5 +26,11 @@ class UrlMappings {
     "/oa/checklistGroup" (resources: "checklistGroup")
     "/oa/correspondence" (resources: "correspondence")
     "/oa/charges" (resources : "charge")
+
+    "/oa/checklistItems"(resources: 'checklistItemDefinition') {
+      collection {
+        "/" (controller: 'customPropertyDefinition', action: 'index')
+      }
+    }
   }
 }

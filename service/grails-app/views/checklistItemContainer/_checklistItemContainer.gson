@@ -1,0 +1,25 @@
+import org.grails.core.artefact.DomainClassArtefactHandler
+import org.hibernate.Hibernate
+
+import org.olf.oa.workflow.ChecklistItem;
+import org.olf.oa.workflow.ChecklistItemContainer
+import groovy.transform.*
+
+import java.time.temporal.Temporal
+
+@Field ChecklistItemContainer checklistItemContainer
+
+// Build up a map for easy sorting.
+Map<String, Set<ChecklistItem>> itemMap = [:]
+for (ChecklistItem ci : checklistItemContainer.items) {
+  final String ciName = ci.definition.name
+  itemMap[ciName] = ci
+}
+
+json {
+  itemMap.each { final String itemName, Set<ChecklistItem> items ->
+    call itemName, items, { ChecklistItem ci ->
+      g.inline( ci , [expand: ['outcome', 'status', 'notes'], excludes: ['parent'] ])
+    } 
+  }
+}

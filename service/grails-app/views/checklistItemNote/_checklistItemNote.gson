@@ -1,0 +1,6 @@
+import org.olf.oa.ChecklistItemNote
+import groovy.transform.Field
+
+@Field 
+ChecklistItemNote checklistItemNote
+json g.render(checklistItemNote, excludes: ['parent'])

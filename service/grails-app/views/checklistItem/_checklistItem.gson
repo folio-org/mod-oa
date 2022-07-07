@@ -1,6 +1,0 @@
-import org.olf.oa.ChecklistItem
-import groovy.transform.Field
-
-@Field 
-ChecklistItem checklistItem
-json g.render(checklistItem)

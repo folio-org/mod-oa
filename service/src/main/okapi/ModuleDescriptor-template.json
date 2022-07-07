@@ -219,7 +219,28 @@
           "methods": [ "DELETE" ],
           "pathPattern": "/oa/charges/{id}",
           "permissionsRequired": [ "oa.charges.manage" ]
-        }
+        },
+        {
+          "methods": ["GET"],
+          "pathPattern": "/oa/checklistItems",
+          "permissionsRequired": [ "oa.checklistItems.collection.get" ]
+        },{
+          "methods": ["GET"],
+          "pathPattern": "/oa/checklistItems/{id}",
+          "permissionsRequired": [ "oa.checklistItems.item.get" ]
+        },{
+          "methods": ["POST"],
+          "pathPattern": "/oa/checklistItems",
+          "permissionsRequired": [ "oa.checklistItems.item.post" ]
+        },{
+          "methods": ["PUT"],
+          "pathPattern": "/oa/checklistItems/{id}",
+          "permissionsRequired": [ "oa.checklistItems.item.put" ]
+        },{
+          "methods": ["DELETE"],
+          "pathPattern": "/oa/checklistItems/{id}",
+          "permissionsRequired": [ "oa.checklistItems.item.delete" ]
+        },
       ]
     },
     {
@@ -576,7 +597,54 @@
         "oa.charges.item.post",
         "oa.charges.item.put"
       ]
-    }
+    },
+    {
+      "permissionName": "oa.checklistItems.collection.get",
+      "displayName": "Custom properties collection get",
+      "description": "Get a collection of custom properties records"
+    },
+    {
+      "permissionName": "oa.checklistItems.item.get",
+      "displayName": "Custom property item get",
+      "description": "Get custom property record"
+    },
+    {
+      "permissionName": "oa.checklistItems.view",
+      "subPermissions": [
+        "oa.checklistItems.collection.get",
+        "oa.checklistItems.item.get"
+      ]
+    },
+    {
+      "permissionName": "oa.checklistItems.item.post",
+      "displayName": "Custom property item post",
+      "description": "Post custom property record"
+    },
+    {
+      "permissionName": "oa.checklistItems.item.put",
+      "displayName": "Custom property item put",
+      "description": "Put custom property record"
+    },
+    {
+      "permissionName": "oa.checklistItems.edit",
+      "subPermissions": [
+        "oa.checklistItems.view",
+        "oa.checklistItems.item.post",
+        "oa.checklistItems.item.put"
+      ]
+    },
+    {
+      "permissionName": "oa.checklistItems.item.delete",
+      "displayName": "Custom property item delete",
+      "description": "Delete custom property record"
+    },
+    {
+      "permissionName": "oa.checklistItems.manage",
+      "subPermissions": [
+        "oa.checklistItems.edit",
+        "oa.checklistItems.item.delete"
+      ]
+    },
   ],
   "launchDescriptor": {
     "dockerImage": "${info.app.name}:${info.app.version}",
