@@ -1,5 +1,10 @@
 package org.olf.oa.workflow;
 
+import org.olf.oa.workflow.ChecklistItemContainer
+import org.olf.oa.workflow.ChecklistItemDefinition
+import org.olf.oa.workflow.ChecklistItem
+
+
 import grails.databinding.SimpleMapDataBindingSource
 import grails.util.Holders
 import grails.web.databinding.DataBindingUtils
