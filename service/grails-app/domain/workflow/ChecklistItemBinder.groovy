@@ -64,7 +64,7 @@ class ChecklistItemBinder {
             final boolean deleteFlag = (val.'_delete' == true)
             if (val.id) {
               // Needs to be a get so that the changes are persisted.
-              theItem = CustomPropertyItem.get(val.id)
+              theItem = ChecklistItem.get(val.id)
               
               // If we are to delete the property we should do that here.
               if (deleteFlag) {
@@ -75,7 +75,7 @@ class ChecklistItemBinder {
             // Not delete
             if (!deleteFlag) {
               // Create a new property if we need one.
-              theItem = theItem ?: new CustomPropertyItem()
+              theItem = theItem ?: new ChecklistItem()
               log.debug ("Property instance to use as the target ${theItem}")
               
               dataBinder.bind(theItem, new SimpleMapDataBindingSource(val) )

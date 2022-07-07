@@ -46,7 +46,7 @@ class ChecklistItemContainer implements MultiTenant<ChecklistItemContainer> {
   public static InternalPropertyDefinition getItemDefByName ( final String name ) {
     final Class checklistItemClass = grailsApplication.getDomainClass("org.olf.oa.workflow.ChecklistItem").clazz
     
-    if ( type ) {
+    if ( checklistItemClass ) {
       InternalPropertyDefinition d = new InternalPropertyDefinition ()
       
       d.type = checklistItemClass

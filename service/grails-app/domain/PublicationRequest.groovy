@@ -74,9 +74,6 @@ class PublicationRequest implements ChecklistItems, MultiTenant<PublicationReque
   @Defaults(['Gold', 'Hybrid'])
   RefdataValue workOAStatus
 
-// TODO: PR can only have one group right now
-  ChecklistGroup group
-
   static hasMany = [
     externalRequestIds: ExternalRequestId,
     history: PublicationRequestHistory,

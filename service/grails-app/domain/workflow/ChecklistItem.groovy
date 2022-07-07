@@ -1,8 +1,11 @@
 package org.olf.oa.workflow;
 
+import com.k_int.web.toolkit.refdata.RefdataValue;
+import com.k_int.web.toolkit.refdata.CategoryId;
+import com.k_int.web.toolkit.refdata.Defaults;
+
 import grails.gorm.MultiTenant;
 import grails.gorm.annotation.Entity;
-
 
 @Entity
 class ChecklistItem implements MultiTenant<ChecklistItem> {
@@ -42,7 +45,7 @@ class ChecklistItem implements MultiTenant<ChecklistItem> {
     status        column: 'cli_status_fk'
     definition    column: 'cli_definition_fk'
     parent        column: 'cli_parent_fk'
-    notes         cascade: 'all-delete-orphan', sort dateCreated: "desc"
+    notes         cascade: 'all-delete-orphan', sort: 'dateCreated', order: 'desc'
   }
   
   static constraints = {
