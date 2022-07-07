@@ -27,6 +27,7 @@ class ChecklistItemDefinition implements MultiTenant<ChecklistItemDefinition> {
     tablePerHierarchy false
 
     id            column: 'clid_id', generator: 'uuid2', length: 36
+    version       column: 'version'
     dateCreated   column: 'clid_date_created'
     lastUpdated   column: 'clid_last_updated'
     description   column: 'clid_description'

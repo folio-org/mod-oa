@@ -10,7 +10,7 @@ import grails.gorm.MultiTenant
  */
 public class Workflow implements MultiTenant<Workflow> {
   String id
-  Set<ChecklistItem> checklist = []
+  Set<ChecklistItem> checklist
   
   static hasMany = [
     checklist: ChecklistItem,
@@ -22,9 +22,9 @@ public class Workflow implements MultiTenant<Workflow> {
 
   static mapping = {
     tablePerHierarchy   false
-    id                  column: 'id', generator: 'uuid2', length:36
-    version             column: 'version'
+    version             false
 
+    id                  column: 'id', generator: 'uuid2', length:36
     checklist           cascade: 'all-delete-orphan'
   }
 }
