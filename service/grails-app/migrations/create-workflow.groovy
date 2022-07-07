@@ -1,16 +1,20 @@
 databaseChangeLog = {
 
-  // CHECKLIST ITEM CONTAINER
-  changeSet(author: "efreestone (manual)", id: "2022-07-07-1045-001") {
-    createTable(tableName: "checklist_item_container") {
-      column(name: "id", type: "BIGINT") {
+  // WORKFLOW
+  changeSet(author: "efreestone (manual)", id: "2022-07-07-1437-001") {
+    createTable(tableName: "workflow") {
+      column(name: "id", type: "VARCHAR(36)") {
+        constraints(nullable: "false")
+      }
+
+      column(name: "version", type: "BIGINT") {
         constraints(nullable: "false")
       }
     }
   }
 
-  changeSet(author: "efreestone (manual)", id: "2022-07-07-1045-002") {
-    addPrimaryKey(columnNames: "id", constraintName: "checklist_item_containerPK", tableName: "checklist_item_container")
+  changeSet(author: "efreestone (manual)", id: "2022-07-07-1437-002") {
+    addPrimaryKey(columnNames: "id", constraintName: "workflowPK", tableName: "workflow")
   }
 
   // CHECKLIST ITEM DEFINITION
@@ -80,7 +84,7 @@ databaseChangeLog = {
       column(name: "cli_last_updated", type: "TIMESTAMP")
 
       column(name: "cli_definition_fk", type: "VARCHAR(36)")
-      column(name: "cli_parent_fk", type: "BIGINT")
+      column(name: "cli_parent_fk", type: "VARCHAR(36)")
 
       column(name: 'cli_outcome_fk', type: 'VARCHAR(36)')
       column(name: 'cli_status_fk', type: 'VARCHAR(36)')
@@ -92,13 +96,13 @@ databaseChangeLog = {
   }
 
   changeSet(author: "efreestone (manual)", id: "2022-07-07-1045-010") {
-    addForeignKeyConstraint(baseColumnNames: "cli_parent_fk", baseTableName: "checklist_item", constraintName: "checklistItem_checklistContainerFK", deferrable: "false", initiallyDeferred: "false", referencedColumnNames: "id", referencedTableName: "checklist_item_container")
+    addForeignKeyConstraint(baseColumnNames: "cli_parent_fk", baseTableName: "checklist_item", constraintName: "checklistItem_workflowFK", deferrable: "false", initiallyDeferred: "false", referencedColumnNames: "id", referencedTableName: "workflow")
   }
 
   // CHECKLIST ITEM NOTE
   changeSet(author: "efreestone (manual)", id: "2022-07-07-1045-011") {
     createTable(tableName: "checklist_item_note") {
-      column(name: "clid_id", type: "VARCHAR(36)") {
+      column(name: "clin_id", type: "VARCHAR(36)") {
         constraints(nullable: "false")
       }
 
@@ -109,7 +113,7 @@ databaseChangeLog = {
       column(name: "clin_date_created", type: "TIMESTAMP")
       column(name: "clin_last_updated", type: "TIMESTAMP")
 
-      column(name: 'clin_parent_fk', type: 'VARCHAR(36)')
+      column(name: 'clin_parent_fk', type: 'BIGINT')
 
       column(name: 'clin_note', type: 'VARCHAR(255)')
     }

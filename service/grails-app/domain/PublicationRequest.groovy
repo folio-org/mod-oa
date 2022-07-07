@@ -2,7 +2,7 @@ package org.olf.oa
 
 import grails.gorm.MultiTenant
 
-import org.olf.oa.workflow.ChecklistItems;
+import org.olf.oa.workflow.Workflow;
 
 import java.time.LocalDate
 import com.k_int.web.toolkit.refdata.CategoryId
@@ -13,8 +13,7 @@ import com.k_int.web.toolkit.settings.AppSetting
 
 import mod_oa.kb.Work
 
-class PublicationRequest implements ChecklistItems, MultiTenant<PublicationRequest> {
-
+class PublicationRequest extends Workflow implements MultiTenant<PublicationRequest> {
   String id
   String requestNumber
   LocalDate requestDate
@@ -118,7 +117,6 @@ class PublicationRequest implements ChecklistItems, MultiTenant<PublicationReque
                        doi column: 'pr_doi'
        correspondingAuthor column: 'pr_corresponding_author_fk'
             requestContact column: 'pr_request_contact_fk'
-                     group column: 'pr_group_fk'
           withoutAgreement column: 'pr_without_agreement'
                       work column: 'pr_work_fk'
      bookDateOfPublication column: 'pr_book_date_of_publication'
@@ -154,7 +152,6 @@ class PublicationRequest implements ChecklistItems, MultiTenant<PublicationReque
                       doi nullable: true
       correspondingAuthor nullable: true
            requestContact nullable: true
-                    group nullable: true
                 agreement nullable: true
          withoutAgreement(nullable:false, blank:false)
     bookDateOfPublication(nullable:true, blank:false, matches: '^\\d{4}(-((0[0-9])|(1[0-2]))(-(([0-2][0-9])|3[0-1]))?)?\$')

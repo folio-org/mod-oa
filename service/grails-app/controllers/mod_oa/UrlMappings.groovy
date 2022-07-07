@@ -28,7 +28,7 @@ class UrlMappings {
 
     "/oa/checklistItems"(resources: 'checklistItemDefinition') {
       collection {
-        "/" (controller: 'customPropertyDefinition', action: 'index')
+        "/" (controller: 'checklistItemDefinition', action: 'index')
       }
     }
   }

@@ -1094,9 +1094,15 @@ databaseChangeLog = {
   }
 
   // DROP Checklist stuff ready for separate checklist workflow domain classes
-  changeSet(author: "EFreestone (manual)", id:"2022-07-07-1040-001") {
-    dropTable(tableName: "checklist_group")
-    dropTable(tableName: "checklist_item")
+  changeSet(author: "EFreestone (manual)", id:"2022-07-07-1449-001") {
     dropTable(tableName: "checklist_group_item")
+  }
+
+  changeSet(author: "EFreestone (manual)", id:"2022-07-07-1449-002") {
+    dropTable(tableName: "checklist_group")
+  }
+
+  changeSet(author: "EFreestone (manual)", id:"2022-07-07-1449-003") {
+    dropTable(tableName: "checklist_item")
   }
 }

@@ -16,11 +16,7 @@ class ChecklistItem implements MultiTenant<ChecklistItem> {
 
   ChecklistItemDefinition definition
 
-  ChecklistItemContainer parent
-
-  static mappedBy = [
-    "parent" : "items",
-  ]
+  static belongsTo = [ parent: Workflow ]
 
   Set<ChecklistItemNote> notes = []
   static hasMany = [
@@ -34,8 +30,6 @@ class ChecklistItem implements MultiTenant<ChecklistItem> {
   @CategoryId(defaultInternal=true)
   @Defaults(['Required', 'Not required'])
   RefdataValue status
-
-
 
   static mapping = {
     id            column: 'cli_id' // Handle ids slightly differently for custprops
@@ -53,7 +47,7 @@ class ChecklistItem implements MultiTenant<ChecklistItem> {
     lastUpdated   (nullable: true)
     outcome       (nullable: true)
     status        (nullable: true)
-    definition    (definition: false)
+    definition    (nullable: false)
   }
 
 }
