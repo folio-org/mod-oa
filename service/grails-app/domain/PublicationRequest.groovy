@@ -2,6 +2,8 @@ package org.olf.oa
 
 import grails.gorm.MultiTenant
 
+import org.olf.oa.workflow.ChecklistItems;
+
 import java.time.LocalDate
 import com.k_int.web.toolkit.refdata.CategoryId
 import com.k_int.web.toolkit.refdata.Defaults
@@ -11,7 +13,7 @@ import com.k_int.web.toolkit.settings.AppSetting
 
 import mod_oa.kb.Work
 
-class PublicationRequest implements MultiTenant<PublicationRequest> {
+class PublicationRequest implements ChecklistItems, MultiTenant<PublicationRequest> {
 
   String id
   String requestNumber

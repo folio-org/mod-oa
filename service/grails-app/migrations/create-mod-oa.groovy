@@ -324,6 +324,7 @@ databaseChangeLog = {
       )
     }
 
+    // Checklist stuff is later dropped ready for separate checklist workflow domain classes
     changeSet(author: "samhepburn (manual)", id: "i202110141107") {
       createTable(tableName: "checklist_group") {
         column(name: "cg_id", type: "VARCHAR(36)")
@@ -614,6 +615,7 @@ databaseChangeLog = {
     )
   }
 
+  // Checklist stuff is later dropped ready for separate checklist workflow domain classes
   changeSet(author: "efreestone (manual)", id: "2022-02-03-0933-008") {
     addForeignKeyConstraint(
       baseColumnNames: "cgi_status_fk",
@@ -1089,5 +1091,12 @@ databaseChangeLog = {
         column(name: "ch_date_created", type: "timestamp")
         column(name: "ch_last_updated", type: "timestamp")
     }
+  }
+
+  // DROP Checklist stuff ready for separate checklist workflow domain classes
+  changeSet(author: "EFreestone (manual)", id:"2022-07-07-1040-001") {
+    dropTable(tableName: "checklist_group")
+    dropTable(tableName: "checklist_item")
+    dropTable(tableName: "checklist_group_item")
   }
 }
