@@ -33,7 +33,6 @@ class ChecklistItem implements MultiTenant<ChecklistItem> {
 
   static mapping = {
     id            column: 'cli_id' // Handle ids slightly differently for custprops
-    version       column: 'version'
     dateCreated   column: 'cli_date_created'
     lastUpdated   column: 'cli_last_updated'
     outcome       column: 'cli_outcome_fk'

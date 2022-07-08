@@ -123,7 +123,6 @@ class PublicationRequest extends Workflow implements MultiTenant<PublicationRequ
     bookPlaceOfPublication column: 'pr_book_place_of_publication'
          workIndexedInDOAJ column: 'pr_work_indexed_in_doaj_fk'
               workOAStatus column: 'pr_work_oa_status_fk'
-                   version column: 'version'
 
        publicationStatuses cascade: 'all-delete-orphan'
                   fundings cascade: 'all-delete-orphan'

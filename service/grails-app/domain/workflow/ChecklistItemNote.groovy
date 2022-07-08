@@ -21,7 +21,6 @@ class ChecklistItemNote implements MultiTenant<ChecklistItemNote> {
 
   static mapping = {
     id            column: 'clin_id', generator: 'uuid2', length: 36
-    version       column: 'version'
     dateCreated   column: 'clin_date_created'
     lastUpdated   column: 'clin_last_updated'
     outcome       column: 'clin_note'
