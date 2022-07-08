@@ -1007,4 +1007,87 @@ databaseChangeLog = {
       referencedTableName: "refdata_value"
     )
   }
+
+  changeSet(author: "Jack-Golding (manual)", id: "2022-05-31-1052-001") {
+    addForeignKeyConstraint(
+      baseColumnNames: "pr_license",
+      baseTableName: "publication_request",
+      constraintName: "publication_request_license_fk",
+      deferrable: "false",
+      initiallyDeferred: "false",
+      referencedColumnNames: "rdv_id",
+      referencedTableName: "refdata_value"
+    )
+  }
+
+  changeSet(author: "Jack-Golding (manual)", id: "2022-05-31-1052-002") {
+    addForeignKeyConstraint(
+      baseColumnNames: "pr_publisher",
+      baseTableName: "publication_request",
+      constraintName: "publication_request_publisher_fk",
+      deferrable: "false",
+      initiallyDeferred: "false",
+      referencedColumnNames: "rdv_id",
+      referencedTableName: "refdata_value"
+    )
+  }
+
+  changeSet(author: "Jack-Golding (manual)", id: "2022-05-31-1052-003") {
+    addForeignKeyConstraint(
+      baseColumnNames: "pr_subtype",
+      baseTableName: "publication_request",
+      constraintName: "publication_request_subtype_fk",
+      deferrable: "false",
+      initiallyDeferred: "false",
+      referencedColumnNames: "rdv_id",
+      referencedTableName: "refdata_value"
+    )
+  }
+
+  changeSet(author: "Jack-Golding (manual)", id: "2022-05-31-1052-004") {
+    addForeignKeyConstraint(
+      baseColumnNames: "ps_publication_status",
+      baseTableName: "publication_status",
+      constraintName: "publication_status_publication_status_fk",
+      deferrable: "false",
+      initiallyDeferred: "false",
+      referencedColumnNames: "rdv_id",
+      referencedTableName: "refdata_value"
+    )
+  }
+
+  changeSet(author: "Jack-Golding (manual)", id: "2022-05-31-1052-005") {
+    addForeignKeyConstraint(
+      baseColumnNames: "pi_type",
+      baseTableName: "publication_identifier",
+      constraintName: "publication_identifier_type_fk",
+      deferrable: "false",
+      initiallyDeferred: "false",
+      referencedColumnNames: "rdv_id",
+      referencedTableName: "refdata_value"
+    )
+  }
+
+  changeSet(author: "Jack-Golding (manual)", id: "2022-06-08-1555-001") {
+    createTable(tableName: "payer") {
+      column(name: "cpy_id", type: "VARCHAR(36)") { constraints(nullable: "false") }
+      column(name: "cpy_version", type: "BIGINT") { constraints(nullable: "false") }
+      column(name: "cpy_payer_fk", type: "VARCHAR(36)") { constraints(nullable: "false") }
+      column(name: "cpy_payer_amount", type: "NUMBER(19,2)") { constraints(nullable: "false") }
+      column(name: "cpy_payer_note", type: "TEXT") { constraints(nullable: "true") }
+      column(name: "cpy_owner_fk", type: "VARCHAR(36)") { constraints(nullable: "false") }
+    }
+  }
+
+  changeSet(author: "Jack-Golding (manual)", id: "2022-06-14-1659-001") {
+      dropColumn(columnName: "ch_payer_note", tableName: "charge")
+      dropColumn(columnName: "ch_payer_fk", tableName: "charge")
+  }
+
+  changeSet(author: "Jack-Golding (manual)", id: "2022-06-16-1453-001") {
+      addColumn (tableName: "charge" ) {
+        column(name: "ch_date_created", type: "timestamp")
+        column(name: "ch_last_updated", type: "timestamp")
+    }
+  }
 }

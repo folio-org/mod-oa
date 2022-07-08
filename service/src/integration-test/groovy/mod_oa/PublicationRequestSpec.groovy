@@ -261,7 +261,7 @@ class PublicationRequestSpec extends HttpSpec {
       'My article'|'In progress'
   }
 
-  void 'Query works endpoing'(qry, expected_count) {
+  void 'Query works endpoint'(qry, expected_count) {
     when:'we seach works'
       def resp = doGet('/oa/works', [
         stats: true,

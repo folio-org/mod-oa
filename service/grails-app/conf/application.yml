@@ -104,6 +104,26 @@ hibernate:
         use_query_cache: false
     allow_update_outside_transaction: true 
 
+management:
+  endpoints:
+    enabled-by-default: false
+    web:
+      base-path: '/admin'
+      exposure:
+        include:
+          - health
+          - info
+  endpoint:
+    info:
+      enabled: true
+    health:
+      enabled: true
+      
+  health:
+     datasource:
+        enabled: true
+     defaults:
+        enabled: false
 
 okapi:
     schema:

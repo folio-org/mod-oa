@@ -14,6 +14,10 @@ Bounded Context Deailing with Open Access Publishing
 
 ## Additional information
 
+### Code of Conduct
+
+Refer to the Wiki [FOLIO Code of Conduct](https://wiki.folio.org/display/COMMUNITY/FOLIO+Code+of+Conduct).
+
 ### Deployment
 
 A sample k8s resource definition for service and deployment [can be found the scripts directory](https://github.com/folio-org/mod-oa/blob/master/scripts/k8s_deployment_template.yaml)

@@ -54,6 +54,11 @@ public class HousekeepingService {
                                   settingType:'String',
                                   key: 'hrid_prefix',).save(flush:true, failOnError: true);
 
+        AppSetting charge_default_tax = AppSetting.findByKey('default_tax') ?: new AppSetting(
+                                  section:'PublicationRequests',
+                                  settingType:'String',
+                                  key: 'default_tax',).save(flush:true, failOnError: true);
+
       }
     }
   }
