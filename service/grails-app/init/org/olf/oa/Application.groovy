@@ -1,4 +1,4 @@
-package mod_oa
+package org.olf.oa
 
 import grails.boot.GrailsApp
 import grails.boot.config.GrailsAutoConfiguration
