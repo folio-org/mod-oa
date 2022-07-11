@@ -60,3 +60,10 @@ and the [Docker image](https://hub.docker.com/r/folioorg/mod-oa/).
 
 Notes on github actions for grails: https://guides.grails.org/grails-on-github-actions/guide/index.html, https://dev.to/erichelgeson/grails-ci-with-github-actions-25ff
 
+
+
+Externa API URLs
+OA Switchboard webhook endpoint: 
+
+    https://okapi-dev.libsdev.k-int.com/_/invoke/tenant/test1/oa/externalApi/oaSwitchboard
+
