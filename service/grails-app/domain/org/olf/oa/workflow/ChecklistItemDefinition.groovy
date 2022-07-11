@@ -1,9 +1,10 @@
 package org.olf.oa.workflow;
 
+import grails.compiler.GrailsCompileStatic
 import grails.gorm.MultiTenant;
 import grails.gorm.annotation.Entity;
 
-@Entity
+@GrailsCompileStatic
 class ChecklistItemDefinition implements MultiTenant<ChecklistItemDefinition> {
 
   String id

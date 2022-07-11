@@ -1,7 +1,9 @@
 package org.olf.oa
 
+import grails.compiler.GrailsCompileStatic
 import grails.gorm.MultiTenant
-
+import org.hibernate.Session
+import org.hibernate.internal.SessionImpl
 import org.olf.oa.kb.Work
 import org.olf.oa.workflow.Workflow;
 
@@ -12,6 +14,7 @@ import com.k_int.web.toolkit.refdata.RefdataValue
 import groovy.sql.Sql
 import com.k_int.web.toolkit.settings.AppSetting
 
+@GrailsCompileStatic
 class PublicationRequest extends Workflow implements MultiTenant<PublicationRequest> {
   String id
   String requestNumber
@@ -173,15 +176,16 @@ class PublicationRequest extends Workflow implements MultiTenant<PublicationRequ
     String result = null;
 
     // Use this to make sessionFactory.currentSession work as expected
-    PublicationRequest.withSession { session ->
+    PublicationRequest.withSession { SessionImpl session ->
+      
       AppSetting prefix_setting = AppSetting.findByKey('hrid_prefix')
-      log.debug("Got app setting ${prefix_setting} ${prefix_setting?.value} ${prefix_setting?.defValue}");
+      log.debug("Got app setting ${prefix_setting} ${prefix_setting?.value} ${prefix_setting?.defValue}")
       String hrid_prefix = prefix_setting?.value ?: prefix_setting.defValue ?: ''
       log.debug("Generate hrid");
       def sql = new Sql(session.connection())
-      def query_result = sql.rows("select nextval('pubreq_hrid_seq')".toString());
-      log.debug("Query result: ${query_result.toString()}");
-      result = hrid_prefix + query_result[0].get('nextval')?.toString();
+      def query_result = sql.rows("select nextval('pubreq_hrid_seq')".toString())
+      log.debug("Query result: ${query_result.toString()}")
+      result = hrid_prefix + query_result[0].get('nextval')?.toString()
     }
     return result;
   }

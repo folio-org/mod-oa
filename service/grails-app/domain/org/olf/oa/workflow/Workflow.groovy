@@ -2,12 +2,14 @@ package org.olf.oa.workflow
 
 import org.olf.oa.workflow.ChecklistItem
 
+import grails.compiler.GrailsCompileStatic
 import grails.gorm.MultiTenant
 
 /**
  * an Workflow - Superclass
  * Contains checklistItems from definitions set up elsewhere
  */
+@GrailsCompileStatic
 public class Workflow implements MultiTenant<Workflow> {
   String id
   Set<ChecklistItem> checklist
@@ -25,6 +27,6 @@ public class Workflow implements MultiTenant<Workflow> {
     version             false
 
     id                  column: 'id', generator: 'uuid2', length:36
-    checklist           cascade: 'all-delete-orphan'
+//    checklist           cascade: 'all-delete-orphan'
   }
 }

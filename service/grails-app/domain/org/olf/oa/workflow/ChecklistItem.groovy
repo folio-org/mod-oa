@@ -4,15 +4,17 @@ import com.k_int.web.toolkit.refdata.RefdataValue;
 import com.k_int.web.toolkit.refdata.CategoryId;
 import com.k_int.web.toolkit.refdata.Defaults;
 
+import grails.compiler.GrailsCompileStatic
 import grails.gorm.MultiTenant;
 import grails.gorm.annotation.Entity;
 
-@Entity
+@GrailsCompileStatic
 class ChecklistItem implements MultiTenant<ChecklistItem> {
 
   String id
   Date dateCreated
   Date lastUpdated
+  Workflow parent
 
   ChecklistItemDefinition definition
 
