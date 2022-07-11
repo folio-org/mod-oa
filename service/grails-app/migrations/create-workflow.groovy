@@ -68,7 +68,7 @@ databaseChangeLog = {
   // CHECKLIST ITEM
   changeSet(author: "efreestone (manual)", id: "2022-07-07-1045-008") {
     createTable(tableName: "checklist_item") {
-      column(autoIncrement: "true", name: "cli_id", type: "BIGINT") {
+      column(name: "cli_id", type: "VARCHAR(36)") {
         constraints(primaryKey: "true", primaryKeyName: "checklist_itemPK")
       }
 
@@ -109,7 +109,7 @@ databaseChangeLog = {
       column(name: "clin_date_created", type: "TIMESTAMP")
       column(name: "clin_last_updated", type: "TIMESTAMP")
 
-      column(name: 'clin_parent_fk', type: 'BIGINT')
+      column(name: 'clin_parent_fk', type: 'VARCHAR(36)')
 
       column(name: 'clin_note', type: 'VARCHAR(255)')
     }

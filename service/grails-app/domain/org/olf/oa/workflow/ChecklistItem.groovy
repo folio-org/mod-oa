@@ -34,7 +34,7 @@ class ChecklistItem implements MultiTenant<ChecklistItem> {
   RefdataValue status
 
   static mapping = {
-    id            column: 'cli_id' // Handle ids slightly differently for custprops
+    id            column: 'cli_id', generator: 'uuid2', length: 36
     dateCreated   column: 'cli_date_created'
     lastUpdated   column: 'cli_last_updated'
     outcome       column: 'cli_outcome_fk'
