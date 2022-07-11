@@ -40,21 +40,39 @@ apply plugin: 'com.github.erdi.webdriver-binaries'
 apply plugin: 'com.bmuschko.docker-remote-api'
 
 eclipse {
+  autoBuildTasks ([':processResources'])
+  synchronizationTasks ([':processResources'])
+  
   classpath {
+    defaultOutputDir = new File(project.buildDir.canonicalPath, 'main')
     file {
-      whenMerged {
-        def confEntries = (entries.findAll { it.path == 'grails-app/conf' }) as List
+      
+      whenMerged { classpath ->
         
-        if (confEntries) {
-          def singleEnty = confEntries[0]
+        Set<String> resources = sourceSets.main?.resources?.srcDirs?.collect { it.canonicalPath }
+        
+        entries.collect().each {
           
-          // Remove all the entries.
-          entries.removeAll ( confEntries )
+          if (it.path =='grails-app/conf' && it.output?.toLowerCase().endsWith('test')) {
+            classpath.entries.remove( it )
+            println "Removed ${it}"
+            return
+          }
+
+          if (it.hasProperty('output') && it.output.startsWith('bin/')) {
+            it.output = 'build/' + it.output.substring(4)
+          }
           
-          // Set the output directory, and re-add.
-          singleEnty.output = "bin/main"
-          entries << singleEnty
+          // Eclude the output of the resources added to the source sets for grails.
+          // Instead we add the results of the 'processResources' tasks to the classpath later.
+          if (it.hasProperty('dir') && resources.find { res -> it.dir?.canonicalPath?.startsWith(res) } ) {
+            it.exported = false
+            it.excludes << '**/*'
+          }
         }
+        def lib = new org.gradle.plugins.ide.eclipse.model.Library(fileReference(file("${tasks.processResources.destinationDir}")))
+        println "Adding: ${lib}"
+        entries << lib
       }
     }
   }
