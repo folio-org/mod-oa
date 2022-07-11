@@ -24,7 +24,6 @@ public class Workflow implements MultiTenant<Workflow> {
 
   static mapping = {
     tablePerHierarchy   false
-    version             false
 
     id                  column: 'id', generator: 'uuid2', length:36
 //    checklist           cascade: 'all-delete-orphan'

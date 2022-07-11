@@ -101,6 +101,9 @@ class PublicationRequest extends Workflow implements MultiTenant<PublicationRequ
   ]
 
   static mapping = {
+    version             false
+    
+    
                         id column: 'pr_id', generator: 'uuid2', length: 36
                requestDate column: 'pr_request_date'
              requestStatus column: 'pr_request_status'
