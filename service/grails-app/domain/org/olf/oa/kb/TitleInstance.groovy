@@ -1,4 +1,4 @@
-package mod_oa.kb
+package org.olf.oa.kb
 
 import javax.persistence.Transient
 import org.hibernate.FetchMode

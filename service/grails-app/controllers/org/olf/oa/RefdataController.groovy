@@ -1,4 +1,4 @@
-package mod_oa
+package org.olf.oa
 
 import org.springframework.http.HttpStatus
 import com.k_int.okapi.OkapiTenantAwareController

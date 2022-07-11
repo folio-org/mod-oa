@@ -2,6 +2,7 @@ package org.olf.oa
 
 import grails.gorm.MultiTenant
 
+import org.olf.oa.kb.Work
 import org.olf.oa.workflow.Workflow;
 
 import java.time.LocalDate
@@ -10,8 +11,6 @@ import com.k_int.web.toolkit.refdata.Defaults
 import com.k_int.web.toolkit.refdata.RefdataValue
 import groovy.sql.Sql
 import com.k_int.web.toolkit.settings.AppSetting
-
-import mod_oa.kb.Work
 
 class PublicationRequest extends Workflow implements MultiTenant<PublicationRequest> {
   String id

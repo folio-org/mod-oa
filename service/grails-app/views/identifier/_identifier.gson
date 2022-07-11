@@ -1,4 +1,4 @@
-import mod_oa.kb.Identifier
+import org.olf.oa.kb.Identifier
 
 import groovy.transform.*
 

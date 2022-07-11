@@ -1,10 +1,11 @@
-package mod_oa
+package org.olf.oa
 
-import mod_oa.kb.IdentifierNamespace
-import mod_oa.kb.IdentifierOccurrence
-import mod_oa.kb.Identifier
-import mod_oa.kb.TitleInstance
-import mod_oa.kb.Work
+import org.olf.oa.kb.Identifier
+import org.olf.oa.kb.IdentifierNamespace
+import org.olf.oa.kb.IdentifierOccurrence
+import org.olf.oa.kb.TitleInstance
+import org.olf.oa.kb.Work
+
 import com.k_int.web.toolkit.refdata.RefdataValue
 
 public class BibReferenceService {

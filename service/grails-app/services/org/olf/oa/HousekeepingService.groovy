@@ -1,4 +1,4 @@
-package mod_oa
+package org.olf.oa
 
 import java.sql.ResultSet
 
@@ -18,14 +18,14 @@ import com.k_int.web.toolkit.settings.AppSetting
 import com.k_int.web.toolkit.refdata.*
 import com.k_int.okapi.OkapiTenantResolver
 import org.olf.oa.Party
-import mod_oa.kb.TitleInstance
-import mod_oa.kb.Work
+import org.olf.oa.kb.TitleInstance
+import org.olf.oa.kb.Work
 
 
 /**
  * This service works at the module level, it's often called without a tenant context.
  */
-public class HousekeepingService {
+class HousekeepingService {
 
   BibReferenceService bibReferenceService
 

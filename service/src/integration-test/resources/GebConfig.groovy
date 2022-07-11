@@ -1,6 +1,6 @@
 import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.chrome.ChromeOptions
-import org.openqa.selenium.htmlunit.HtmlUnitDriver
+//import org.openqa.selenium.htmlunit.HtmlUnitDriver
 
 environments {
 
@@ -18,8 +18,8 @@ environments {
         }
     }
 
-    // run via “./gradlew -Dgeb.env=htmlUnit iT”
-    htmlUnit {
-        driver = { new HtmlUnitDriver() }
-    }
+//    // run via “./gradlew -Dgeb.env=htmlUnit iT”
+//    htmlUnit {
+//        driver = { new HtmlUnitDriver() }
+//    }
 }

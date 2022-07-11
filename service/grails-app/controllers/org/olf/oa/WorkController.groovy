@@ -1,10 +1,13 @@
-package mod_oa
+package org.olf.oa
 
 import grails.rest.*
 import grails.converters.*
+
+import org.olf.oa.BibReferenceService
+import org.olf.oa.kb.Work
+
 import com.k_int.okapi.OkapiTenantAwareController
-import mod_oa.kb.Work
-import mod_oa.BibReferenceService
+
 import groovy.util.logging.Slf4j
 
 class WorkController extends OkapiTenantAwareController<Work> {

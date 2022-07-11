@@ -1,4 +1,4 @@
-package mod_oa.kb
+package org.olf.oa.kb
 
 import com.k_int.web.toolkit.refdata.CategoryId
 import com.k_int.web.toolkit.refdata.RefdataValue
