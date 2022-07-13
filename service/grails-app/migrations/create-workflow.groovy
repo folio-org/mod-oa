@@ -126,4 +126,13 @@ databaseChangeLog = {
   changeSet(author: "efreestone (manual)", id: "2022-07-07-1045-013") {
     addForeignKeyConstraint(baseColumnNames: "clin_parent_fk", baseTableName: "checklist_item_note", constraintName: "checklistItemNote_checklistItemFK", deferrable: "false", initiallyDeferred: "false", referencedColumnNames: "cli_id", referencedTableName: "checklist_item")
   }
+
+  changeSet(author: "efreestone (manual)", id: "2022-07-13-1154-001") {
+    addUniqueConstraint(
+      tableName: "checklist_item",
+      columnNames: "cli_parent_fk,cli_definition_fk",
+      constraintName: "checklist_item_unique_parent_definition"
+    )
+  }
+
 }
