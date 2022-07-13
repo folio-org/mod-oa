@@ -1,0 +1,5 @@
+import org.olf.oa.workflow.ChecklistItem;
+import groovy.transform.*
+
+@Field ChecklistItem checklistItem
+json g.render(checklistItem, [expand: ['notes', 'status', 'outcome', 'definition'], excludes: ['parent']])

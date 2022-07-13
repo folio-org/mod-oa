@@ -24,4 +24,24 @@ databaseChangeLog = {
       referencedTableName: "refdata_value"
     )
   }
+
+  changeSet(author: "efreestone (manual)", id: "2022-07-13-1012-001") {
+    grailsChange {
+      change {
+        sql.eachRow("SELECT pr_id, version FROM ${database.defaultSchemaName}.publication_request".toString()) { def row ->
+          // Create workflow for each PR.
+          sql.executeInsert("""
+            INSERT INTO ${database.defaultSchemaName}.workflow (id, version)
+                VALUES (:id, :version);
+          """.toString(), [id: row.pr_id, version: row.version])
+        }
+      }
+    }
+  }
+
+  // Drop version column from PR ready for usage with Workflow
+  changeSet(author: "efreestone (manual)", id: "2022-07-13-1012-002") {
+        dropColumn(columnName: "version", tableName: "publication_request")
+
+  }
 }

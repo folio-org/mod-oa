@@ -65,6 +65,7 @@ databaseChangeLog = {
   }
 
   // DON'T USE DATE COL TYPE--USE TIMESTAMP
+  // Version here removed later to work with Workflow superclass 
   changeSet(author: "samhepburn (manual)", id: "i202108171122-001") {
     createTable(tableName: "publication_request") {
       column(name: "pr_id", type: "VARCHAR(36)")
