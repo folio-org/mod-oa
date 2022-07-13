@@ -22,6 +22,71 @@ class PublicationRequestSpec extends HttpSpec {
 
   static final String tenantName = 'pr_tests'
 
+  // OA Switchboard test messages - E1 - Eligibility Enquiry, P1 Publication Payment settlement notification messages copied from
+  // https://bitbucket.org/oaswitchboard/api/src/master/messages/samples/
+  static final Map OA_SWITCHBOARD_E1_NO_PRIOR_AGREEMENT = [
+    "header": [
+      "type": "e1",
+      "version": "v2",
+      "to": [ "address": "https://ror.org/000002", "type": "publisher", "name": "Royal Society of Middle-Earth" ],
+      "ref": "XXXX-0002",
+      "validity": "2022-04-01",
+      "persistent": true
+    ],
+    "data": [
+      "authors": [[
+        "listingorder": 1, "lastName": "Baggins", "firstName": "Frodo", "initials": "FB", "ORCID": "0000-0000-0000-0000", "email": "frodo.baggins@vu.nl", "isCorrespondingAuthor": true,
+        "institutions": [
+          [ "name": "VU Amsterdam", "ror": "https://ror.org/008xxew50", "isni": "0000000417549227", "grid": "grid.12380.38" ]
+        ],
+        "currentaddress": [
+          [ "name": "VU Amsterdam", "ror": "https://ror.org/008xxew50", "isni": "0000000417549227", "grid": "grid.12380.38" ]
+        ],
+        "affiliation": "VU Amsterdam"
+      ]],
+      "article": [
+        "title": "The International relations of Middle-Earth",
+        "type": "research-article",
+        "funders": [[ "name": "Aragorn Foundation", "ror": "https://ror.org/999999" ],
+          [
+            "name": "Middle-Earth Thinktank",
+            "ror": "https://ror.org/888888"
+          ]
+        ],
+        "acknowledgement": "Aragorn Foundation, Middle-Earth Thinktank",
+        "grants": [[
+          "name": "Generous grant",
+          "id": "GD-000-001"
+        ]],
+        "doi": "https://doi.org/00.0000/mearth.0000",
+        "submissionId": "00.0000",
+        "manuscript": [
+          "dates": [
+            "submission": "2021-02-01",
+            "acceptance": "2021-03-01",
+            "publication": "2021-04-01"
+          ],
+          "title": "The International relations of Middle-Earth",
+          "id": "00.0000-000"
+        ],
+        "preprint": [ "title": "The International relations of Middle-Earth", "url": "https://arxiv.org/00.0000-000", "id": "00.0000-000" ],
+        "vor": [ "publication": "pure OA journal", "license": "CC BY", "deposition": "open repository, like PMC", "researchdata": "data available on request" ]
+      ],
+      "journal": [ "name": "Middle Earth papers", "id": "0000-0000", "inDOAJ": true ],
+      "settlement": [ "charges": [] ],
+      "charges": [
+        "prioragreement": false,
+        "charged": true,
+        "currency": "EUR",
+        "fees": [
+          "apc": [ "name": "estimated", "type": "per article APC list price", "amount": 1000 ],
+          "extra": [[ "type": "submission format", "amount": 100 ], [ "type": "license choice", "amount": 100 ] ], "total": [ "name": "estimated", "amount": 1200 ]
+        ]
+      ]
+    ]
+  ]
+  
+
   @Shared
   def grailsApplication
 
@@ -211,6 +276,20 @@ class PublicationRequestSpec extends HttpSpec {
     where:
       qry|expected_count
       'Annals of Global Analysis and Geometry'|1
+  }
+
+  void 'Post to the oaSwitchboard endpoint'(payload, expected_status) {
+    when:'we post to the OA switchboard endpoint'
+      def resp = doGet('/oa/externalApi/oaSwitchboard', payload)
+      println("Result of post to oaSwitchboard: ${resp}");
+
+    then:'Got right result'
+      resp.status == expected_status
+
+    where:
+      payload|expected_status
+      OA_SWITCHBOARD_E1_NO_PRIOR_AGREEMENT | 'ok'
+
   }
 
 }

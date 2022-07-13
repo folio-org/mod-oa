@@ -31,5 +31,6 @@ class UrlMappings {
         "/" (controller: 'checklistItemDefinition', action: 'index')
       }
     }
+    "/oa/externalApi/oaSwitchboard" (controller: 'externalApi', action:'oaSwitchboard' )
   }
 }
