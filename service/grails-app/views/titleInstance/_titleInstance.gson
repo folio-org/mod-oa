@@ -1,4 +1,5 @@
-import mod_oa.kb.TitleInstance
+import org.olf.oa.kb.TitleInstance
+
 import groovy.transform.Field
 
 def should_expand = [

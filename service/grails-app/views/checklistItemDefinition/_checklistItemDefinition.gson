@@ -1,0 +1,5 @@
+import org.olf.oa.workflow.ChecklistItemDefinition;
+import groovy.transform.*
+
+@Field ChecklistItemDefinition checklistItemDefinition
+json g.render(checklistItemDefinition)

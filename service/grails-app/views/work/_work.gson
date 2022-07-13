@@ -1,8 +1,9 @@
-import mod_oa.kb.Work
+import org.olf.oa.kb.Identifier
+import org.olf.oa.kb.IdentifierOccurrence
+import org.olf.oa.kb.TitleInstance
+import org.olf.oa.kb.Work
+
 import groovy.transform.Field
-import mod_oa.kb.TitleInstance
-import mod_oa.kb.IdentifierOccurrence
-import mod_oa.kb.Identifier
 
 def should_expand = [
   'indexedInDOAJ',
