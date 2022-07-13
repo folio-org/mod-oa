@@ -1,11 +1,14 @@
 package org.olf.oa.workflow;
 
+import com.ibm.icu.text.Normalizer2
+
 import grails.compiler.GrailsCompileStatic
 import grails.gorm.MultiTenant;
 import grails.gorm.annotation.Entity;
 
 @GrailsCompileStatic
 class ChecklistItemDefinition implements MultiTenant<ChecklistItemDefinition> {
+  private static final Normalizer2 normalizer = Normalizer2.NFKDInstance
 
   String id
   Date dateCreated
@@ -19,9 +22,24 @@ class ChecklistItemDefinition implements MultiTenant<ChecklistItemDefinition> {
   // Used for ordering. Larger weight values sink.
   int weight = 0
 
-  private static String nameToLabel (String value) {
-    // Strip double whitespace entries.
-    return value?.trim().replaceAll(/([a-z0-9A-Z])([A-Z][a-z])/, '$1 $2')
+  public static String normValue ( String string ) {
+    // Remove all diacritics and substitute for compatibility
+    normalizer.normalize( string.trim() ).replaceAll(/\p{M}/, '').replaceAll(/\s+/, '_').toLowerCase()
+  }
+  
+  private static String tidyLabel ( String string ) {
+    string.trim().replaceAll(/\s{2,}/, ' ')
+  }
+  
+  void setName (String name) {
+    this.name = normValue( name )
+  }
+  
+  void setLabel (String label) {
+    this.label = tidyLabel( label )
+    if (this.name == null) {
+      this.setName( label )
+    }
   }
   
   static mapping = {
@@ -43,11 +61,4 @@ class ChecklistItemDefinition implements MultiTenant<ChecklistItemDefinition> {
     description     (nullable: true, blank: false)
     label           (nullable: false, blank: false)
   }
-
-  def beforeValidate() {
-    if (!this.label && this.name) {
-      this.label = nameToLabel(this.name)
-    }
-  }
-
 }
