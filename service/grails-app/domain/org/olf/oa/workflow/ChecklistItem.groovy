@@ -26,7 +26,7 @@ class ChecklistItem implements MultiTenant<ChecklistItem> {
   ]
   
   @CategoryId(defaultInternal=false)
-  @Defaults(['Met', 'Not met', 'Other'])
+  @Defaults(['Yes', 'No', 'Other'])
   RefdataValue outcome
 
   @CategoryId(defaultInternal=true)
