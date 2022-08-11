@@ -555,6 +555,31 @@
       ]
     },
     {
+      "permissionName": "oa.correspondence.item.delete",
+      "displayName": "Correspondence item delete",
+      "description": "Delete a correspondence record"
+    },
+    {
+      "permissionName": "oa.correspondence.item.post",
+      "displayName": "Correspondence item post",
+      "description": "Post a correspondence record"
+    },
+    {
+      "permissionName": "oa.correspondence.item.put",
+      "displayName": "Correspondence item put",
+      "description": "Put a correspondence record"
+    },
+    {
+      "permissionName": "oa.correspondence.item.get",
+      "displayName": "Correspondence item get",
+      "description": "Get a correspondence record"
+    },
+    {
+      "permissionName": "oa.correspondence.collection.get",
+      "displayName": "Correspondence collection get",
+      "description": "Get a collection of correspondence records"
+    },
+    {
       "permissionName": "oa.charges.manage",
       "subPermissions": [
         "oa.charges.edit",
