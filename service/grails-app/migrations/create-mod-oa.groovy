@@ -1127,7 +1127,7 @@ databaseChangeLog = {
   }
 
   changeSet(author: "Jack-Golding (manual)", id:"2202-08-15-1359-003") {
-    addColumn (tableName: "party") {
+    addColumn (tableName: "publication_request") {
       column(name: "pr_corresponding_faculty_fk", type:"VARCHAR(36)")
       column(name: "pr_corresponding_department", type:"VARCHAR(255)")
     }
