@@ -38,6 +38,7 @@ class PublicationRequest extends Workflow implements MultiTenant<PublicationRequ
 
   String bookDateOfPublication
   String bookPlaceOfPublication
+  String correspondingDepartment
 
   boolean withoutAgreement = false
 
@@ -74,6 +75,10 @@ class PublicationRequest extends Workflow implements MultiTenant<PublicationRequ
   @CategoryId(value='Work.OaStatus', defaultInternal=false)
   @Defaults(['Gold', 'Hybrid'])
   RefdataValue workOAStatus
+
+  @CategoryId(value='Party.Faculty', defaultInternal=false)
+  @Defaults(['Faculty 1'])
+  RefdataValue correspondingFaculty
 
   static hasMany = [
     externalRequestIds: ExternalRequestId,
@@ -128,6 +133,8 @@ class PublicationRequest extends Workflow implements MultiTenant<PublicationRequ
     bookPlaceOfPublication column: 'pr_book_place_of_publication'
          workIndexedInDOAJ column: 'pr_work_indexed_in_doaj_fk'
               workOAStatus column: 'pr_work_oa_status_fk'
+   correspondingDepartment column: 'pr_corresponding_department'
+      correspondingFaculty column: 'pr_corresponding_faculty_fk'
 
        publicationStatuses cascade: 'all-delete-orphan'
                   fundings cascade: 'all-delete-orphan'
@@ -163,6 +170,8 @@ class PublicationRequest extends Workflow implements MultiTenant<PublicationRequ
                      work nullable: true
         workIndexedInDOAJ(nullable:true)
              workOAStatus(nullable:true)
+  correspondingDepartment(nullable:true)
+     correspondingFaculty(nullable:true)
   }
 
   def beforeValidate() {
