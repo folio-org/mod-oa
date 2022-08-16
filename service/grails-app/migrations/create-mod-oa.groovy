@@ -1106,4 +1106,42 @@ databaseChangeLog = {
   changeSet(author: "EFreestone (manual)", id:"2022-07-07-1449-003") {
     dropTable(tableName: "checklist_item")
   }
+
+  changeSet(author: "Jack-Golding (manual)", id:"2202-08-15-1351-001") {
+    addColumn (tableName: "party") {
+      column(name: "p_faculty_fk", type:"VARCHAR(36)")
+      column(name: "p_department", type:"VARCHAR(255)")
+    }
+  }
+
+  changeSet(author: "Jack-Golding (manual)", id:"2202-08-15-1355-002") {
+     addForeignKeyConstraint(
+      baseColumnNames: "p_faculty_fk",
+      baseTableName: "party",
+      constraintName: "party_faculty_fk",
+      deferrable: "false",
+      initiallyDeferred: "false",
+      referencedColumnNames: "rdv_id",
+      referencedTableName: "refdata_value"
+    )
+  }
+
+  changeSet(author: "Jack-Golding (manual)", id:"2202-08-15-1359-003") {
+    addColumn (tableName: "publication_request") {
+      column(name: "pr_corresponding_faculty_fk", type:"VARCHAR(36)")
+      column(name: "pr_corresponding_department", type:"VARCHAR(255)")
+    }
+  }
+
+  changeSet(author: "Jack-Golding (manual)", id:"2202-08-15-1400-004") {
+     addForeignKeyConstraint(
+      baseColumnNames: "pr_corresponding_faculty_fk",
+      baseTableName: "publication_request",
+      constraintName: "publication_request_corresponding_faculty_fk",
+      deferrable: "false",
+      initiallyDeferred: "false",
+      referencedColumnNames: "rdv_id",
+      referencedTableName: "refdata_value"
+    )
+  }
 }

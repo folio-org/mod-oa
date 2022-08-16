@@ -26,7 +26,13 @@ class Party implements MultiTenant<Party> {
     
   String mobile
 
+  String department
+
   PartyAddress streetAddress
+
+  @CategoryId(defaultInternal=false)
+  @Defaults(['Faculty 1'])
+  RefdataValue faculty
 
   static hasMany = [
     requestParty: RequestParty,
@@ -50,6 +56,8 @@ class Party implements MultiTenant<Party> {
                 mobile column: 'p_mobile'
        alternateEmails cascade: 'all-delete-orphan'
          streetAddress column: 'p_street_address_fk'
+               faculty column: 'p_faculty_fk'
+            department column: 'p_department'
   }
   
   static constraints = {
@@ -62,6 +70,8 @@ class Party implements MultiTenant<Party> {
             phone nullable: true
            mobile nullable: true
     streetAddress nullable: true
+          faculty nullable: true
+       department nullable: true
   }
 
   def beforeValidate() {
