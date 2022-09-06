@@ -258,7 +258,7 @@ class PublicationRequestSpec extends HttpSpec {
     
     where:
       publication_title|newstatus
-      'My article'|'In progress'
+      'My article'|'Open'
   }
 
   void 'Query works endpoint'(qry, expected_count) {

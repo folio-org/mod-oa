@@ -43,7 +43,7 @@ class PublicationRequest extends Workflow implements MultiTenant<PublicationRequ
   boolean withoutAgreement = false
 
   @CategoryId(defaultInternal=true)
-  @Defaults(['New', 'Closed', 'In progress'])
+  @Defaults(['Open', 'Closed'])
   RefdataValue requestStatus
 
   @CategoryId(defaultInternal=true)
