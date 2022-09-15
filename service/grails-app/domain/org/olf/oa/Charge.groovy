@@ -46,7 +46,7 @@ class Charge implements MultiTenant<Charge> {
   BigDecimal tax
 
   @CategoryId(defaultInternal=true)
-  @Defaults(['Expected', 'Invoiced'])
+  @Defaults(['Expected', 'Invoiced', 'Paid'])
   RefdataValue chargeStatus
 
   BigDecimal getTaxMultiplicand() {
