@@ -22,6 +22,7 @@ class Charge implements MultiTenant<Charge> {
   /* The idea here is that we might want to calculate localAmount not from static rate but from some API */
 
   String description
+  String paymentPeriod
 
   @CategoryId(defaultInternal=false)
   @Defaults(['APC', 'BPC'])
@@ -131,6 +132,7 @@ class Charge implements MultiTenant<Charge> {
                          tax column: 'ch_tax'
                 chargeStatus column: 'ch_charge_status_fk'
                      payers cascade: 'all-delete-orphan'
+               paymentPeriod column: 'ch_payment_period'
 
   }
   
@@ -148,6 +150,7 @@ class Charge implements MultiTenant<Charge> {
                 discountNote(nullable: true)
                          tax(nullable: true)
                 chargeStatus(nullable: true)
+               paymentPeriod(nullable: true, blank: false, matches: '^\\d{4}(-((0[0-9])|(1[0-2]))(-(([0-2][0-9])|3[0-1]))?)?\$')
   }
 
 }
