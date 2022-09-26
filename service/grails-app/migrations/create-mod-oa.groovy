@@ -1144,4 +1144,10 @@ databaseChangeLog = {
       referencedTableName: "refdata_value"
     )
   }
+
+  changeSet(author: "Jack-Golding (manual)", id:"2022-09-23-1430-001"){
+    addColumn(tableName: "charge") {
+      column(name: "ch_payment_period", type: "VARCHAR(36)")
+    }
+  }
 }
