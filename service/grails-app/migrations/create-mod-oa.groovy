@@ -1189,15 +1189,36 @@ databaseChangeLog = {
     )
   }
 
-  changeSet(author: "Jack-Golding (manual)", id: "2022-09-27-1405-005"){
+  changeSet(author: "Jack-Golding (manual)", id: "2022-09-27-1405-028"){
     grailsChange{
       change{
         sql.rows("SELECT p_faculty_fk, p_department FROM ${database.defaultSchemaName}.party".toString()).each {
-          println("LOGDEBUG ${IT}")
-          // sql.execute("INSERT INTO ${database.defaultSchemaName}.party(p_institution_level_1, p_institution_level_2)".toString())
-        }
+          // sql.execute("INSERT INTO ${database.defaultSchemaName}.party(p_institution_level_1_fk, p_institution_level_2)".toString())
+          println("LOGDEBUG : ${it}")        
       }
     }
   }
+  }
 
+  changeSet(author: "Jack-Golding (manual)", id: "2022-09-27-1522-005"){
+    grailsChange{
+      change{
+        sql.rows("SELECT p_institution_level_1_fk, p_institution_level_2 FROM ${database.defaultSchemaName}.party".toString()).each {
+          // sql.execute("INSERT INTO ${database.defaultSchemaName}.party(p_institution_level_1_fk, p_institution_level_2)".toString())
+          println("LOGDEBUG : ${it}")        
+      }
+    }
+  }
+  }
+
+//    changeSet(author: "Jack-Golding (manual)", id: "2022-09-27-1525-031"){
+//     grailsChange{
+//       change{
+//               sql.rows("SELECT p_id, p_faculty_fk, p_department FROM ${database.defaultSchemaName}.party".toString()).each {
+//                 sql.execute("UPDATE ${database.defaultSchemaName}.party SET p_institution_level_1_fk = :instL1, p_institution_level_2 = :instL2 WHERE p_id = :pId".toString(), [pId: it.p_id, instL1: it.p_faculty_fk, instL2: it.p_department])
+//              }
+//             }
+//            }
+
+// }
 }
