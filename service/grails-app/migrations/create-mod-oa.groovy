@@ -1150,4 +1150,54 @@ databaseChangeLog = {
       column(name: "ch_payment_period", type: "VARCHAR(36)")
     }
   }
+
+  changeSet(author: "Jack-Golding (manual)", id:"2022-09-27-1137-001"){
+    addColumn (tableName: "publication_request") {
+      column(name: "pr_corresponding_institution_level_1_fk", type:"VARCHAR(36)")
+      column(name: "pr_corresponding_institution_level_2", type:"VARCHAR(255)")
+  }
+}
+
+  changeSet(author: "Jack-Golding (manual)", id:"2022-09-27-1139-002") {
+     addForeignKeyConstraint(
+      baseColumnNames: "pr_corresponding_institution_level_1_fk",
+      baseTableName: "publication_request",
+      constraintName: "publication_request_corresponding_institution_level_1_fk",
+      deferrable: "false",
+      initiallyDeferred: "false",
+      referencedColumnNames: "rdv_id",
+      referencedTableName: "refdata_value"
+    )
+  }
+
+  changeSet(author: "Jack-Golding (manual)", id:"2022-09-27-1141-003") {
+    addColumn (tableName: "party") {
+      column(name: "p_institution_level_1_fk", type:"VARCHAR(36)")
+      column(name: "p_institution_level_2", type:"VARCHAR(255)")
+    }
+  }
+
+  changeSet(author: "Jack-Golding (manual)", id:"2022-09-27-1142-004") {
+     addForeignKeyConstraint(
+      baseColumnNames: "p_institution_level_1_fk",
+      baseTableName: "party",
+      constraintName: "party_institution_level_1_fk",
+      deferrable: "false",
+      initiallyDeferred: "false",
+      referencedColumnNames: "rdv_id",
+      referencedTableName: "refdata_value"
+    )
+  }
+
+  changeSet(author: "Jack-Golding (manual)", id: "2022-09-27-1405-005"){
+    grailsChange{
+      change{
+        sql.rows("SELECT p_faculty_fk, p_department FROM ${database.defaultSchemaName}.party".toString()).each {
+          println("LOGDEBUG ${IT}")
+          // sql.execute("INSERT INTO ${database.defaultSchemaName}.party(p_institution_level_1, p_institution_level_2)".toString())
+        }
+      }
+    }
+  }
+
 }

@@ -38,7 +38,7 @@ class PublicationRequest extends Workflow implements MultiTenant<PublicationRequ
 
   String bookDateOfPublication
   String bookPlaceOfPublication
-  String correspondingDepartment
+  String correspondingInstitutionLevel2
 
   boolean withoutAgreement = false
 
@@ -76,9 +76,9 @@ class PublicationRequest extends Workflow implements MultiTenant<PublicationRequ
   @Defaults(['Gold', 'Hybrid'])
   RefdataValue workOAStatus
 
-  @CategoryId(value='Party.Faculty', defaultInternal=false)
+  @CategoryId(value='Party.InstitutionLevelOne', defaultInternal=false)
   @Defaults(['Faculty 1'])
-  RefdataValue correspondingFaculty
+  RefdataValue correspondingInstitutionLevel1
 
   static hasMany = [
     externalRequestIds: ExternalRequestId,
@@ -107,71 +107,71 @@ class PublicationRequest extends Workflow implements MultiTenant<PublicationRequ
 
   static mapping = {
     version             false
-    
-    
-                        id column: 'pr_id', generator: 'uuid2', length: 36
-               requestDate column: 'pr_request_date'
-             requestStatus column: 'pr_request_status'
-             requestNumber column: 'pr_request_number'
-               lastUpdated column: 'pr_last_updated'
-               dateCreated column: 'pr_date_created'
-           rejectionReason column: 'pr_rejection_reason'
-          publicationTitle column: 'pr_title'
-           publicationType column: 'pr_pub_type_fk'
-                   subtype column: 'pr_subtype'
-                 publisher column: 'pr_publisher'
-                   license column: 'pr_license'
-            publicationUrl column: 'pr_pub_url'
-            localReference column: 'pr_local_ref'
-               authorNames column: 'pr_authnames'
-                       doi column: 'pr_doi'
-       correspondingAuthor column: 'pr_corresponding_author_fk'
-            requestContact column: 'pr_request_contact_fk'
-          withoutAgreement column: 'pr_without_agreement'
-                      work column: 'pr_work_fk'
-     bookDateOfPublication column: 'pr_book_date_of_publication'
-    bookPlaceOfPublication column: 'pr_book_place_of_publication'
-         workIndexedInDOAJ column: 'pr_work_indexed_in_doaj_fk'
-              workOAStatus column: 'pr_work_oa_status_fk'
-   correspondingDepartment column: 'pr_corresponding_department'
-      correspondingFaculty column: 'pr_corresponding_faculty_fk'
 
-       publicationStatuses cascade: 'all-delete-orphan'
-                  fundings cascade: 'all-delete-orphan'
-        externalRequestIds cascade: 'all-delete-orphan'
-                   history cascade: 'all-delete-orphan'
-               identifiers cascade: 'all-delete-orphan'
-                 agreement cascade: 'all-delete-orphan'
-                   charges cascade: 'all-delete-orphan'
+
+                              id column: 'pr_id', generator: 'uuid2', length: 36
+                     requestDate column: 'pr_request_date'
+                   requestStatus column: 'pr_request_status'
+                   requestNumber column: 'pr_request_number'
+                     lastUpdated column: 'pr_last_updated'
+                     dateCreated column: 'pr_date_created'
+                 rejectionReason column: 'pr_rejection_reason'
+                publicationTitle column: 'pr_title'
+                 publicationType column: 'pr_pub_type_fk'
+                         subtype column: 'pr_subtype'
+                       publisher column: 'pr_publisher'
+                         license column: 'pr_license'
+                  publicationUrl column: 'pr_pub_url'
+                  localReference column: 'pr_local_ref'
+                     authorNames column: 'pr_authnames'
+                             doi column: 'pr_doi'
+             correspondingAuthor column: 'pr_corresponding_author_fk'
+                  requestContact column: 'pr_request_contact_fk'
+                withoutAgreement column: 'pr_without_agreement'
+                            work column: 'pr_work_fk'
+           bookDateOfPublication column: 'pr_book_date_of_publication'
+          bookPlaceOfPublication column: 'pr_book_place_of_publication'
+               workIndexedInDOAJ column: 'pr_work_indexed_in_doaj_fk'
+                    workOAStatus column: 'pr_work_oa_status_fk'
+  correspondingInstitutionLevel1 column: 'pr_corresponding_institution_level_1_fk'
+  correspondingInstitutionLevel2 column: 'pr_corresponding_institution_level_2'
+
+            publicationStatuses cascade: 'all-delete-orphan'
+                       fundings cascade: 'all-delete-orphan'
+             externalRequestIds cascade: 'all-delete-orphan'
+                        history cascade: 'all-delete-orphan'
+                    identifiers cascade: 'all-delete-orphan'
+                      agreement cascade: 'all-delete-orphan'
+                        charges cascade: 'all-delete-orphan'
   }
   
   static constraints = {
-              requestDate nullable: true
-            requestStatus nullable: true
-            requestNumber nullable: true
-              lastUpdated nullable: true
-              dateCreated nullable: true
-          rejectionReason nullable: true
-         publicationTitle nullable: true
-          publicationType nullable: true
-                  subtype nullable: true
-                publisher nullable: true
-                  license nullable: true
-           publicationUrl nullable: true
-           localReference nullable: true
-              authorNames nullable: true
-                      doi nullable: true
-      correspondingAuthor nullable: true
-           requestContact nullable: true
-                agreement nullable: true
-         withoutAgreement(nullable:false, blank:false)
-    bookDateOfPublication(nullable:true, blank:false, matches: '^\\d{4}(-((0[0-9])|(1[0-2]))(-(([0-2][0-9])|3[0-1]))?)?\$')
-   bookPlaceOfPublication(nullable: true)
-                     work nullable: true
-        workIndexedInDOAJ(nullable:true)
-             workOAStatus(nullable:true)
-  correspondingDepartment(nullable:true)
-     correspondingFaculty(nullable:true)
+                   requestDate nullable: true
+                 requestStatus nullable: true
+                 requestNumber nullable: true
+                   lastUpdated nullable: true
+                   dateCreated nullable: true
+               rejectionReason nullable: true
+              publicationTitle nullable: true
+               publicationType nullable: true
+                       subtype nullable: true
+                     publisher nullable: true
+                       license nullable: true
+                publicationUrl nullable: true
+                localReference nullable: true
+                   authorNames nullable: true
+                           doi nullable: true
+           correspondingAuthor nullable: true
+                requestContact nullable: true
+                     agreement nullable: true
+              withoutAgreement(nullable: false, blank:false)
+         bookDateOfPublication(nullable: true, blank:false, matches: '^\\d{4}(-((0[0-9])|(1[0-2]))(-(([0-2][0-9])|3[0-1]))?)?\$')
+        bookPlaceOfPublication(nullable: true)
+                          work nullable: true
+             workIndexedInDOAJ(nullable:true)
+                  workOAStatus(nullable:true)
+correspondingInstitutionLevel1(nullable:true)
+correspondingInstitutionLevel2(nullable:true)
   }
 
   def beforeValidate() {
