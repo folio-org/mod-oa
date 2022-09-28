@@ -1200,7 +1200,7 @@ databaseChangeLog = {
     }
   }
 
-  changeSet(author: "Jack-Golding (manual)", id: "2022-09-27-1333-02"){
+  changeSet(author: "Jack-Golding (manual)", id: "2022-09-28-1333-02"){
     grailsChange{
       change{
         sql.rows("SELECT pr_id, pr_corresponding_faculty_fk, pr_corresponding_department FROM ${database.defaultSchemaName}.publication_request".toString()).each {
@@ -1211,13 +1211,13 @@ databaseChangeLog = {
     }
   }
 
-  changeSet(author: "Jack-Golding (manual)", id: "2022-09-27-1344-003") {
+  changeSet(author: "Jack-Golding (manual)", id: "2022-09-28-1344-003") {
     dropForeignKeyConstraint(baseTableName: "party", constraintName: "party_faculty_fk")
     dropColumn(columnName: "p_faculty_fk", tableName: "party")
     dropColumn(columnName: "p_department", tableName: "party")
   }
 
-  changeSet(author: "Jack-Golding (manual)", id: "2022-09-27-1344-004") {
+  changeSet(author: "Jack-Golding (manual)", id: "2022-09-28-1344-004") {
     dropForeignKeyConstraint(baseTableName: "publication_request", constraintName: "publication_request_corresponding_faculty_fk")
     dropColumn(columnName: "pr_corresponding_faculty_fk", tableName: "publication_request")
     dropColumn(columnName: "pr_corresponding_department", tableName: "publication_request")
