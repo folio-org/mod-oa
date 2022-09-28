@@ -15,6 +15,8 @@ buildscript {
 }
 
 
+
+
 final String version_regex = /^(((\d+)\.\d+)\.\d+)(-([a-zA-Z]+(\.\d+)?))?$/
 Map<String, String> env = System.getenv();
 String calculated_version = null;
@@ -38,6 +40,7 @@ apply plugin: 'org.grails.grails-web'
 apply plugin: 'org.grails.plugins.views-json'
 apply plugin: 'com.github.erdi.webdriver-binaries'
 apply plugin: 'com.bmuschko.docker-remote-api'
+apply plugin: 'jacoco'
 
 eclipse {
   autoBuildTasks ([':processResources'])
@@ -364,5 +367,24 @@ tasks.withType(Test) {
   systemProperty "geb.build.reportsDir", reporting.file("geb/integrationTest")
   systemProperty "webdriver.chrome.driver", System.getProperty('webdriver.chrome.driver')
   systemProperty "webdriver.gecko.driver", System.getProperty('webdriver.gecko.driver')
+}
+
+
+jacoco {
+  toolVersion = "0.8.8"
+}
+
+jacocoTestReport {
+  executionData = files tasks.withType(Test)*.jacoco*.destinationFile.findAll { it.exists() }
+  afterEvaluate {
+    classDirectories = files(classDirectories.files.collect {
+        fileTree(dir: it,
+                 exclude: ['**/Application**',
+                           '**/BootStrap**',
+                           '**/**gson**',
+                           '**/**closure**',
+                           '**/UrlMappings**'])
+    })
+  }
 }
 
