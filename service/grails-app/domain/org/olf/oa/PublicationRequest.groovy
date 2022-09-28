@@ -76,7 +76,7 @@ class PublicationRequest extends Workflow implements MultiTenant<PublicationRequ
   @Defaults(['Gold', 'Hybrid'])
   RefdataValue workOAStatus
 
-  @CategoryId(value='Party.InstitutionLevelOne', defaultInternal=false)
+  @CategoryId(value='Party.InstitutionLevel1', defaultInternal=false)
   @Defaults(['Faculty 1'])
   RefdataValue correspondingInstitutionLevel1
 

@@ -1189,36 +1189,37 @@ databaseChangeLog = {
     )
   }
 
-  changeSet(author: "Jack-Golding (manual)", id: "2022-09-27-1405-028"){
+  changeSet(author: "Jack-Golding (manual)", id: "2022-09-28-1333-001"){
     grailsChange{
       change{
-        sql.rows("SELECT p_faculty_fk, p_department FROM ${database.defaultSchemaName}.party".toString()).each {
-          // sql.execute("INSERT INTO ${database.defaultSchemaName}.party(p_institution_level_1_fk, p_institution_level_2)".toString())
-          println("LOGDEBUG : ${it}")        
+        sql.rows("SELECT p_id, p_faculty_fk, p_department FROM ${database.defaultSchemaName}.party".toString()).each {
+          sql.execute("UPDATE ${database.defaultSchemaName}.party SET p_institution_level_1_fk = :instL1, p_institution_level_2 = :instL2 WHERE p_id = :pId".toString(),
+           [pId: it.p_id, instL1: it.p_faculty_fk, instL2: it.p_department])
+        }
       }
     }
   }
-  }
 
-  changeSet(author: "Jack-Golding (manual)", id: "2022-09-27-1522-005"){
+  changeSet(author: "Jack-Golding (manual)", id: "2022-09-27-1333-02"){
     grailsChange{
       change{
-        sql.rows("SELECT p_institution_level_1_fk, p_institution_level_2 FROM ${database.defaultSchemaName}.party".toString()).each {
-          // sql.execute("INSERT INTO ${database.defaultSchemaName}.party(p_institution_level_1_fk, p_institution_level_2)".toString())
-          println("LOGDEBUG : ${it}")        
+        sql.rows("SELECT pr_id, pr_corresponding_faculty_fk, pr_corresponding_department FROM ${database.defaultSchemaName}.publication_request".toString()).each {
+          sql.execute("UPDATE ${database.defaultSchemaName}.publication_request SET pr_corresponding_institution_level_1_fk = :corrInstL1, pr_corresponding_institution_level_2 = :corrInstL2 WHERE pr_id = :prId".toString(), 
+           [prId: it.pr_id, corrInstL1: it.pr_corresponding_faculty_fk, corrInstL2: it.pr_corresponding_department])
+        }
       }
     }
   }
+
+  changeSet(author: "Jack-Golding (manual)", id: "2022-09-27-1344-003") {
+    dropForeignKeyConstraint(baseTableName: "party", constraintName: "party_faculty_fk")
+    dropColumn(columnName: "p_faculty_fk", tableName: "party")
+    dropColumn(columnName: "p_department", tableName: "party")
   }
 
-//    changeSet(author: "Jack-Golding (manual)", id: "2022-09-27-1525-031"){
-//     grailsChange{
-//       change{
-//               sql.rows("SELECT p_id, p_faculty_fk, p_department FROM ${database.defaultSchemaName}.party".toString()).each {
-//                 sql.execute("UPDATE ${database.defaultSchemaName}.party SET p_institution_level_1_fk = :instL1, p_institution_level_2 = :instL2 WHERE p_id = :pId".toString(), [pId: it.p_id, instL1: it.p_faculty_fk, instL2: it.p_department])
-//              }
-//             }
-//            }
-
-// }
+  changeSet(author: "Jack-Golding (manual)", id: "2022-09-27-1344-004") {
+    dropForeignKeyConstraint(baseTableName: "publication_request", constraintName: "publication_request_corresponding_faculty_fk")
+    dropColumn(columnName: "pr_corresponding_faculty_fk", tableName: "publication_request")
+    dropColumn(columnName: "pr_corresponding_department", tableName: "publication_request")
+  }
 }

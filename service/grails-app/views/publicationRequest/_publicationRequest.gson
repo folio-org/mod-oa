@@ -23,7 +23,7 @@ def should_expand = [
   'workIndexedInDOAJ',
   'workOAStatus',
   'checklist',
-  'correspondingFaculty'
+  'correspondingInstitutionLevel1'
 ]
 
 @Field 
