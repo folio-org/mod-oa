@@ -441,4 +441,21 @@ class PublicationRequestSpec extends HttpSpec {
     then: 'New setting created'
       log.debug("created setting ${resp}");
   }
+
+  void 'get correspondence'() {
+    when: 'We get correspondence'
+      def resp=doGet('/oa/correspondence', [
+        'stats': true,
+        'offset': 0,
+        'perPage': 10,
+        'page': 0
+      ])
+    then:
+      println("resp: ${resp}");
+      resp.totalRecords > 0
+
+    then: 'rows'
+      resp != null
+  }
+
 }
