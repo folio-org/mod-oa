@@ -137,7 +137,6 @@ class PublicationRequestSpec extends HttpSpec {
       resp == true
   }
 
-  /*
   void "Check sample data was loaded"() {
     log.debug("\n\nCheck sample data loaded\n\n");
     when: 'check sample data to complete'
@@ -145,7 +144,16 @@ class PublicationRequestSpec extends HttpSpec {
     then: 
       list.size() > 0
   }
-  */
+
+  void "Check specific refdata category"() {
+    log.debug("\n\nCheck sample data loaded\n\n");
+    when: 'check specific refdata'
+      List list = doGet('/oa/refdata/Funding/AspectFunded')
+    then:
+      list.size() > 0
+  }
+
+
 
   void 'Set up checklist item definitions'(String name, String description, String label, int weight) {
     when: 'We create a new checkist item definition'
