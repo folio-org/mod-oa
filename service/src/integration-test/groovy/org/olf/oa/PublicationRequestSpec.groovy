@@ -153,7 +153,37 @@ class PublicationRequestSpec extends HttpSpec {
       list.size() > 0
   }
 
+  void "Check specific refdata category with params"() {
+    log.debug("\n\nCheck sample data loaded\n\n");
+    when: 'check specific refdata'
+      Map resp = doGet('/oa/refdata/Funding/AspectFunded', [
+        'stats': true,
+        'offset': 0,
+        'perPage': 10,
+        'page': 0
+      ])
+    then:
+      println("resp: ${resp}");
+      resp.totalRecords == 2
+  }
 
+  void "Check specific refdata category with params and filter and match"() {
+    log.debug("\n\nCheck sample data loaded\n\n");
+    when: 'check specific refdata'
+      // This request is only there to game the coverage - we know these work. sigh.
+      Map resp = doGet('/oa/refdata/Funding/AspectFunded', [
+        'stats': true,
+        'offset': 0,
+        'perPage': 10,
+        'page': 0,
+        'filter': 'value==research',
+        'match':'value',
+        'term':'research'
+      ])
+    then:
+      println("resp: ${resp}");
+      resp.totalRecords == 1
+  }
 
   void 'Set up checklist item definitions'(String name, String description, String label, int weight) {
     when: 'We create a new checkist item definition'
@@ -268,6 +298,26 @@ class PublicationRequestSpec extends HttpSpec {
             mode:'Email',
             category: 'Funding'
           ]
+        ],
+        charges:[
+          [
+            amount:[
+              baseCurrency:"EUR",
+              value:1.23
+            ],
+            exchangeRate:[
+              fromCurrency:'EUR',
+              toCurrency:'EUR',
+              coefficient:1
+            ],
+            description:'A charge',
+            paymentPeriod:'2022',
+            category:'APC',
+            discountType:'percentage',
+            invoiceReference:'1323',
+            invoiceLineItemReference:'12',
+            tax:10
+          ]
         ]
       ]);
 
@@ -338,4 +388,57 @@ class PublicationRequestSpec extends HttpSpec {
 
   }
 
+  void 'Test import endpoint'() {
+    when:'We post a citation'
+      def resp=doPost('/oa/works/citation', [
+        "title": "Platform For Change", 
+        "type":"monograph",
+        "instances":[ 
+          [ "ids":[ [ "ns":"isbn", "id":"978-0471948407" ] ], "subType":"print" ], 
+          [ "ids":[ [ "ns":"isbn", "id":"0471948403" ] ], "subType":"electronic"]
+        ]
+      ])
+
+    then:
+      println("result of import: ${resp}");
+      resp != null;
+  }
+
+  void 'Import requires a title'() {
+    def resp = null;
+    when: 'We try to import a citation without a title'
+    try {
+      resp=doPost('/oa/works/citation', [
+        "notaprop": "somevalue"
+      ])
+    }
+    catch ( Exception e ) {
+    }
+    then: 
+      resp == null;
+  }
+
+  void 'Get Settings'() {
+    when: 'We get the settings' 
+      def resp=doGet('/oa/settings/appSettings')
+
+    then:
+      log.debug("Got settings ${resp}");
+  }
+
+  void 'Add a setting'() {
+    when: 'We post a setting'
+      def resp=doPost('/oa/settings/appSettings', [
+        section: 'Test',
+        key: 'TestSetting',
+        settingType: 'String',
+        vocab: null,
+        defValue: 'two',
+        value: 'one',
+        hidden: false
+      ])
+
+    then: 'New setting created'
+      log.debug("created setting ${resp}");
+  }
 }

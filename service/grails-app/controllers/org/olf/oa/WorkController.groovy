@@ -21,7 +21,10 @@ class WorkController extends OkapiTenantAwareController<Work> {
     Work.withTransaction {
       def data = getObjectToBind()
       Work work = bibReferenceService.importWorkAndInstances(data)
-      work.refresh()
+
+      if ( work )
+        work.refresh()
+
       respond work
     }
   }
