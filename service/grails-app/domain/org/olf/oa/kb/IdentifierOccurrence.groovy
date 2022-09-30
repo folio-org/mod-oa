@@ -34,9 +34,9 @@ public class IdentifierOccurrence implements MultiTenant<IdentifierOccurrence> {
   static mapping = {
                    id column:'io_id', generator: 'uuid2', length:36
               version column:'io_version'
-           identifier column:'io_identifier_fk'
+           identifier column:'io_identifier_fk', fetch: 'join'
                 title column:'io_ti_fk'
-               status column:'io_status_fk'
+               status column:'io_status_fk', fetch: 'join'
              selected column:'io_selected'
   }
 
