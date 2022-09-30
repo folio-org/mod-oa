@@ -375,7 +375,17 @@ jacoco {
 }
 
 jacocoTestReport {
+  // See https://github.com/grails/grails-core/issues/11318
+  // executionData test, integrationTest
   executionData = files tasks.withType(Test)*.jacoco*.destinationFile.findAll { it.exists() }
+  // executionData = files tasks.withType(Test)*.jacoco*.destinationFile.findAll { it.exists() } tasks.withType(IntegrationTest)*.jacoco*.destinationFile.findAll { it.exists() }
+
+  println("execution data : ${executionData}");
+  reports {
+    xml.enabled true
+    html.enabled true
+    csv.enabled true
+  }
   afterEvaluate {
     classDirectories = files(classDirectories.files.collect {
         fileTree(dir: it,
@@ -386,5 +396,22 @@ jacocoTestReport {
                            '**/UrlMappings**'])
     })
   }
+  dependsOn test, integrationTest
 }
 
+/*
+https://stackoverflow.com/questions/29097393/gradle-jacocotestreport-is-not-working
+// always run the tests before generating the report
+codeCoverageReport.dependsOn {
+    subprojects*.test
+}
+
+sonarqube {
+    properties {
+        property "sonar.projectKey", "your_project_key"
+        property "sonar.verbose", true
+        property "sonar.projectName", "Your project name"
+        property "sonar.coverage.jacoco.xmlReportPaths", "${rootDir}/build/reports/jacoco/codeCoverageReport/codeCoverageReport.xml"
+    }
+}
+*/

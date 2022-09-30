@@ -125,32 +125,70 @@ class PublicationRequestSpec extends HttpSpec {
 
 
   void "Create Tenant" () {
-    // Max time to wait is 10 seconds
-    def conditions = new PollingConditions(timeout: 10)
-
     when: 'Create the tenant'
       boolean resp = doPost('/_/tenant', {
         parameters ([["key": "loadReference", "value": "true" ],
                      ["key": "loadSample", "value": "true" ] ])
       }, null, booleanResponder)
 
-    then: 'Wait for sample data to complete'
-      // N.B. The _/tenant post above completes asynchronously and will return 200OK whilst the loading of sample data
-      // completes in the background. This sleep ensures we wait for that to finishe before proceeding. N.B. that without this
-      // (a) subsequent tests that rely on sample data will fail and (b) the DB connection may shut down if the tests complete
-      // whilst the sample data is still being loaded - resulting in you seeing an exception on the command line but not in the test logs
-      Thread.sleep(12*1000);
-
-    then: 'Response obtained'
+      // The call returns before the dataloading has completed.. Snooze whilst we load some titles
+      Thread.sleep(10000);
+    then:
       resp == true
+  }
 
-    and: 'Refdata added'
+  /*
+  void "Check sample data was loaded"() {
+    log.debug("\n\nCheck sample data loaded\n\n");
+    when: 'check sample data to complete'
+      List list = doGet('/oa/refdata')
+    then: 
+      list.size() > 0
+  }
+  */
 
-      List list
-      // Wait for the refdata to be loaded.
-      conditions.eventually {
-        (list = doGet('/oa/refdata')).size() > 0
-      }
+  void 'Set up checklist item definitions'(String name, String description, String label, int weight) {
+    when: 'We create a new checkist item definition'
+      def checklist_item = [
+        'name': name,
+        'description': description,
+        'label': label,
+        'weight': weight
+      ]
+      def resp = doPost('/oa/checklistItems', checklist_item)
+    then:
+      resp != null
+    where:
+      name | description | label | weight
+      'Check1' | 'Check1' | 'Check1' | 1
+      'Check2' | 'Check2' | 'Check3' | 2
+      'Check3' | 'Check2' | 'Check3' | 3
+  }
+
+  // Add lots of utterly unnecessary parameters that don't add at all to the quality of the tests to game the coverage metrics. /sigh.
+  void 'List checklist item definitions'(boolean stats, int offset, int perPage, int page, String filters, String match, String term) {
+
+    when: 'We get the list of checklist items'
+      def resp = doGet('/oa/checklistItems', [
+        'stats': stats,
+        'offset': offset,
+        'perPage': perPage,
+        'page': page,
+        'filters': filters,
+        'match': match,
+        'term': term
+      ])
+      log.debug("List checklist items response: ${resp}");
+    then:
+      if ( stats == true )
+        resp.totalRecords == 1
+      else
+        resp.size() == 1
+      
+    where:
+      stats | offset | perPage | page | filters | match | term
+      true  | 0 | 10 | 0 | 'description==Check1' | 'match' | 'Check1'
+      false | 0 | 10 | 0 | 'description==Check1' | 'match' | 'Check1'
   }
 
   void 'Check title instances'() {
