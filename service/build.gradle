@@ -412,9 +412,10 @@ jacocoTestReport {
 
 sonarqube {
     properties {
+        property "sonar.java.coveragePlugin", "jacoco"
         property "sonar.projectKey", "org.folio:mod-oa"
         property "sonar.verbose", true
         property "sonar.projectName", "mod-oa"
-        property "sonar.coverage.jacoco.xmlReportPaths", "${rootDir}/build/reports/jacoco/codeCoverageReport/codeCoverageReport.xml"
+        property "sonar.coverage.jacoco.xmlReportPaths", "${rootDir}/build/reports/jacoco/test/jacocoTestReport.xml"
     }
 }
