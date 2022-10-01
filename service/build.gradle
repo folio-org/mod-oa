@@ -3,6 +3,7 @@ buildscript {
     mavenCentral()
     maven { url "https://repo.grails.org/grails/core" }
     maven { url "https://repo.grails.org/artifactory/core" }
+    maven { url "https://plugins.gradle.org/m2/" }
   }
   dependencies {
     classpath "org.grails:grails-gradle-plugin:$grailsVersion"
@@ -11,6 +12,7 @@ buildscript {
     classpath "org.grails.plugins:hibernate5:${gormHibernate-".RELEASE"}"
     classpath 'org.grails.plugins:database-migration:3.1.0'
     classpath 'com.bmuschko:gradle-docker-plugin:6.6.1'
+    classpath 'org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:3.4.0.2513'
   }
 }
 
@@ -41,6 +43,7 @@ apply plugin: 'org.grails.plugins.views-json'
 apply plugin: 'com.github.erdi.webdriver-binaries'
 apply plugin: 'com.bmuschko.docker-remote-api'
 apply plugin: 'jacoco'
+apply plugin: 'org.sonarqube'
 
 
 java {
@@ -407,19 +410,11 @@ jacocoTestReport {
   dependsOn test, integrationTest
 }
 
-/*
-https://stackoverflow.com/questions/29097393/gradle-jacocotestreport-is-not-working
-// always run the tests before generating the report
-codeCoverageReport.dependsOn {
-    subprojects*.test
-}
-
 sonarqube {
     properties {
-        property "sonar.projectKey", "your_project_key"
+        property "sonar.projectKey", "org.folio:mod-oa"
         property "sonar.verbose", true
-        property "sonar.projectName", "Your project name"
+        property "sonar.projectName", "mod-oa"
         property "sonar.coverage.jacoco.xmlReportPaths", "${rootDir}/build/reports/jacoco/codeCoverageReport/codeCoverageReport.xml"
     }
 }
-*/
