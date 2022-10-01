@@ -477,4 +477,54 @@ class PublicationRequestSpec extends HttpSpec {
     then:'Check result count'
       resp_as_str != null
   }
+
+  void 'get charges'() {
+    when: 'We get charges'
+      def resp=doGet('/oa/charges', [
+        'stats': true,
+        'offset': 0,
+        'perPage': 10,
+        'page': 0
+      ])
+    then:
+      println("resp: ${resp}");
+      resp.totalRecords > 0
+
+    then: 'rows'
+      resp != null
+  }
+
+  void 'get parties'() {
+    when: 'We get parties'
+      def resp=doGet('/oa/party', [
+        'stats': true,
+        'offset': 0,
+        'perPage': 10,
+        'page': 0
+      ])
+    then:
+      println("resp: ${resp}");
+      resp.totalRecords > 0
+
+    then: 'rows'
+      resp != null
+  }
+
+  void 'get fundings'() {
+    when: 'We get fundings'
+      def resp=doGet('/oa/fundings', [
+        'stats': true,
+        'offset': 0,
+        'perPage': 10,
+        'page': 0
+      ])
+    then:
+      println("resp: ${resp}");
+      resp.totalRecords != null
+
+    then: 'rows'
+      resp != null
+  }
+
+
 }
