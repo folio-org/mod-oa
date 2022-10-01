@@ -37,7 +37,7 @@ jobs:
 
       - name: Build with Gradle
         run: |
-          ./gradlew clean build
+          ./gradlew clean build jacocoTestReport
           ls ./build/test-results/integrationTest/*
 
       - name: Stop containers
