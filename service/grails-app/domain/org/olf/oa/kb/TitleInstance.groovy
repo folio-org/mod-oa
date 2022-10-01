@@ -43,14 +43,16 @@ public class TitleInstance implements MultiTenant<TitleInstance> {
   static mappedBy = [
     identifiers: 'title'
   ]
+  
+  Set<IdentifierOccurrence> identifiers
 
   static mapping = {
                             id column: 'ti_id', generator: 'uuid2', length:36
                        version column: 'ti_version'
                           work column: 'ti_work_fk'
-                          type column: 'ti_type_fk'
-                       subType column: 'ti_subtype_fk'
-               publicationType column: 'ti_publication_type_fk'
+                          type column: 'ti_type_fk', fetch: 'join'
+                       subType column: 'ti_subtype_fk', fetch: 'join'
+               publicationType column: 'ti_publication_type_fk', fetch: 'join'
                          title column: 'ti_title'
   }
 

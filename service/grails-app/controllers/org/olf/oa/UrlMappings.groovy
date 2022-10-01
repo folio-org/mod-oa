@@ -28,7 +28,9 @@ class UrlMappings {
 
     "/oa/checklistItems"(resources: 'checklistItemDefinition') {
       collection {
-        "/" (controller: 'checklistItemDefinition', action: 'index')
+        "/" (controller: 'checklistItemDefinition', action: 'index') {
+          sort = [ 'weight;asc', 'label;asc', 'id;asc']
+        }
       }
     }
     "/oa/externalApi/oaSwitchboard" (controller: 'externalApi', action:'oaSwitchboard' )

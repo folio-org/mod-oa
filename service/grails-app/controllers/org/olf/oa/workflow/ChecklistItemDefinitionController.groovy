@@ -19,6 +19,7 @@ class ChecklistItemDefinitionController extends OkapiTenantAwareController<Check
     super(ChecklistItemDefinition)
   }
   
+  /*
   protected def doTheLookup (Class res = this.resource, Closure baseQuery) {
     final int offset = params.int("offset") ?: 0
     final int perPage = Math.min(params.int('perPage') ?: params.int('max') ?: 10, 100)
@@ -35,7 +36,10 @@ class ChecklistItemDefinitionController extends OkapiTenantAwareController<Check
       return simpleLookupService.lookup(res, params.term, perPage, page, filters, match_in, sorts, baseQuery)
     }
   }
+  */
   
+  /*
+  Ian: I think this was an artefact of cloning the custom properties code - trying without this block
   protected ChecklistItemDefinition createResource(Map parameters) {
     def res
     if (!parameters.type) {
@@ -46,13 +50,18 @@ class ChecklistItemDefinitionController extends OkapiTenantAwareController<Check
     
     res
   }
+  */
   
   protected ChecklistItemDefinition createResource() {
     def instance
     def json = getObjectToBind()
+
+    /*
+    Ian: I think this was an artefact of cloning the custom properties code - trying without this block
     if (json && json.type) {
       instance = resource.forType("${json.type}")
     }
+    */
     
     if (!instance) {
       instance = super.createResource()

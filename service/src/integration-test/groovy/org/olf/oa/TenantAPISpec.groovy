@@ -36,8 +36,8 @@ class TenantAPISpec extends HttpSpec {
   }
 
   void "Create Tenant" () {
-    // Max time to wait is 10 seconds
-    def conditions = new PollingConditions(timeout: 10)
+    // Max time to wait is 20 seconds
+    def conditions = new PollingConditions(timeout: 20)
 
     when: 'Create the tenant'
       boolean resp = doPost('/_/tenant', {

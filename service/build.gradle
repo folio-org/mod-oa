@@ -3,16 +3,20 @@ buildscript {
     mavenCentral()
     maven { url "https://repo.grails.org/grails/core" }
     maven { url "https://repo.grails.org/artifactory/core" }
+    maven { url "https://plugins.gradle.org/m2/" }
   }
   dependencies {
     classpath "org.grails:grails-gradle-plugin:$grailsVersion"
-    classpath "org.grails.plugins:views-gradle:2.0.1"
+    classpath "org.grails.plugins:views-gradle:2.0.4"
     classpath "gradle.plugin.com.github.erdi.webdriver-binaries:webdriver-binaries-gradle-plugin:2.0"
     classpath "org.grails.plugins:hibernate5:${gormHibernate-".RELEASE"}"
     classpath 'org.grails.plugins:database-migration:3.1.0'
     classpath 'com.bmuschko:gradle-docker-plugin:6.6.1'
+    classpath 'org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:3.4.0.2513'
   }
 }
+
+
 
 
 final String version_regex = /^(((\d+)\.\d+)\.\d+)(-([a-zA-Z]+(\.\d+)?))?$/
@@ -38,6 +42,14 @@ apply plugin: 'org.grails.grails-web'
 apply plugin: 'org.grails.plugins.views-json'
 apply plugin: 'com.github.erdi.webdriver-binaries'
 apply plugin: 'com.bmuschko.docker-remote-api'
+apply plugin: 'jacoco'
+apply plugin: 'org.sonarqube'
+
+
+java {
+  sourceCompatibility = JavaVersion.VERSION_11
+  targetCompatibility = JavaVersion.VERSION_11
+}
 
 eclipse {
   autoBuildTasks ([':processResources'])
@@ -366,3 +378,43 @@ tasks.withType(Test) {
   systemProperty "webdriver.gecko.driver", System.getProperty('webdriver.gecko.driver')
 }
 
+
+jacoco {
+  toolVersion = "0.8.8"
+}
+
+
+// Use ./gradlew clean build jacocoTestReport
+jacocoTestReport {
+  // See https://github.com/grails/grails-core/issues/11318
+  // executionData test, integrationTest
+  executionData = files tasks.withType(Test)*.jacoco*.destinationFile.findAll { it.exists() }
+  // executionData = files tasks.withType(Test)*.jacoco*.destinationFile.findAll { it.exists() } tasks.withType(IntegrationTest)*.jacoco*.destinationFile.findAll { it.exists() }
+
+  println("execution data : ${executionData}");
+  reports {
+    xml.enabled true
+    html.enabled true
+    csv.enabled true
+  }
+  afterEvaluate {
+    classDirectories = files(classDirectories.files.collect {
+        fileTree(dir: it,
+                 exclude: ['**/Application**',
+                           '**/BootStrap**',
+                           '**/**gson**',
+                           '**/**closure**',
+                           '**/UrlMappings**'])
+    })
+  }
+  dependsOn test, integrationTest
+}
+
+sonarqube {
+    properties {
+        property "sonar.projectKey", "org.folio:mod-oa"
+        property "sonar.verbose", true
+        property "sonar.projectName", "mod-oa"
+        property "sonar.coverage.jacoco.xmlReportPaths", "${rootDir}/build/reports/jacoco/codeCoverageReport/codeCoverageReport.xml"
+    }
+}
