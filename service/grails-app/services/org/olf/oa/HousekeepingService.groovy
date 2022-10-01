@@ -49,6 +49,8 @@ class HousekeepingService {
     // Establish a database session in the context of the activated tenant. You can use GORM domain classes inside the closure
     Tenants.withId(tenantId) {
       AppSetting.withNewTransaction { status ->
+        RefdataValue.lookupOrCreate('InstitutionName', 'Institution name');
+
         AppSetting pubreq_id_prefix = AppSetting.findByKey('hrid_prefix') ?: new AppSetting(
                                   section:'PublicationRequests',
                                   settingType:'String',
