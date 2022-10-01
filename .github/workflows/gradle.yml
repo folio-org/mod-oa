@@ -39,9 +39,7 @@ jobs:
         run: |
           ./gradlew clean build jacocoTestReport
           ls ./build/test-results/integrationTest/*
-          ls ./build/reports
-          ls ./build/reports/jacoco
-          ls ./build/reports/jacoco/test
+          ls ./build/*
 
       - name: Stop containers
         run: |
@@ -67,14 +65,14 @@ jobs:
           files: |
             service/build/test-results/**/*.xml
 
-      - name: Add coverage to PR
-        id: jacoco
-        uses: madrapps/jacoco-report@v1.3
-        with:
-          paths: ./service/build/reports/jacoco/test/jacocoTestReport.xml
-          token: ${{ secrets.GITHUB_TOKEN }}
-          min-coverage-overall: 40
-          min-coverage-changed-files: 60
+      # - name: Add coverage to PR
+      #   id: jacoco
+      #   uses: madrapps/jacoco-report@v1.3
+      #   with:
+      #     paths: ./service/build/reports/jacoco/test/jacocoTestReport.xml
+      #     token: ${{ secrets.GITHUB_TOKEN }}
+      #     min-coverage-overall: 40
+      #     min-coverage-changed-files: 60
 
       - name: Publish Docker Image
         if: github.ref == 'refs/heads/master'
