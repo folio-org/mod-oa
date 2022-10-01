@@ -132,7 +132,8 @@ class PublicationRequestSpec extends HttpSpec {
       }, null, booleanResponder)
 
       // The call returns before the dataloading has completed.. Snooze whilst we load some titles
-      Thread.sleep(10000);
+      // Github action seems to take even longer to complete the title load  :'(
+      Thread.sleep(20000);
     then:
       resp == true
   }
