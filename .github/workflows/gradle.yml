@@ -63,10 +63,6 @@ jobs:
         with:
           files: |
             service/build/test-results/**/*.xml
-            service/build/reports/**/*.xml
-            service/build/reports/**/*.csv
-            service/build/reports/**/*.html
-
 
       - name: Add coverage to PR
         id: jacoco
