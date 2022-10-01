@@ -235,6 +235,10 @@
           "methods": ["DELETE"],
           "pathPattern": "/oa/checklistItems/{id}",
           "permissionsRequired": [ "oa.checklistItems.item.delete" ]
+        }, {
+          "methods": ["GET"],
+          "pathPattern": "/oa/reports/openApcChargesReport",
+          "permissionsRequired": [ "oa.reports.get" ]
         }
       ]
     },
@@ -476,6 +480,11 @@
       "permissionName": "oa.party.item.get",
       "displayName": "Party item get",
       "description": "Get a party record"
+    },
+    {
+      "permissionName": "oa.reports.get",
+      "displayName": "In App Reporting for Open Access",
+      "description": "In App Reporting for Open Access"
     },
     {
       "permissionName": "oa.party.view",

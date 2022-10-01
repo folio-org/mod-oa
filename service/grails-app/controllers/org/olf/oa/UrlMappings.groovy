@@ -32,5 +32,8 @@ class UrlMappings {
       }
     }
     "/oa/externalApi/oaSwitchboard" (controller: 'externalApi', action:'oaSwitchboard' )
+
+    "/oa/reports/openApcChargesReport" (controller: 'reports', action:'openApcChargesReport')
+    "/oa/reports/openApcBcpReport" (controller: 'reports', action:'openApcBcpReport')
   }
 }
