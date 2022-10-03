@@ -237,7 +237,7 @@
           "permissionsRequired": [ "oa.checklistItems.item.delete" ]
         }, {
           "methods": ["GET"],
-          "pathPattern": "/oa/reports/openApcChargesReport",
+          "pathPattern": "/oa/reports/{reportname}",
           "permissionsRequired": [ "oa.reports.get" ]
         }
       ]
