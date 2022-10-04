@@ -56,7 +56,7 @@ and c.chargeStatus.value like :cs
       output.each { chg ->
 
         MonetaryValue mv = chg.getEstimatedPrice()
-        PublicationIdentifier pi = chg.owner.identifiers.find { it.type.value == 'ISSN' }
+        PublicationIdentifier pi = chg.owner.identifiers.find { it.type.value == 'issn' }
 
         List<String> datarow = [ institution, 
                                  chg.paymentPeriod, 
@@ -104,7 +104,7 @@ and c.chargeStatus.value like :cs
       output.each { chg ->
 
         MonetaryValue mv = chg.getEstimatedPrice()
-        PublicationIdentifier pi = chg.owner.identifiers.find { it.type.value == 'ISBN' }
+        PublicationIdentifier pi = chg.owner.identifiers.find { it.type.value == 'isbn' }
 
         List<String> datarow = [ institution,
                                  chg.paymentPeriod,
