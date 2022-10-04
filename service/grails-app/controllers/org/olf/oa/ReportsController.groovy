@@ -63,8 +63,8 @@ and c.chargeStatus.value like :cs
                                  mv?.baseCurrency?.getCurrencyCode() == 'EUR' ? mv.value : null,
                                  chg.owner.doi, 
                                  chg.owner.workOAStatus?.value == 'hybrid' ? true : false, 
-                                 chg.owner.publisher.label, 
-                                 chg.owner.work.title, 
+                                 chg.owner.publisher?.label, 
+                                 chg.owner.work?.title, 
                                  pi?.value, 
                                  chg.owner.doi == null ? chg.owner.publicationUrl : null ]
         csvWriter.writeNext(datarow as String[])
