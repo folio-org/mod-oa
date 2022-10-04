@@ -56,15 +56,15 @@ and c.chargeStatus.value like :cs
       output.each { chg ->
 
         MonetaryValue mv = chg.getEstimatedPrice()
-        PublicationIdentifier pi = chg.owner.identifiers.find { it.type.value == 'ISSN' }
+        PublicationIdentifier pi = chg.owner.identifiers.find { it.type.value == 'issn' }
 
         List<String> datarow = [ institution, 
                                  chg.paymentPeriod, 
                                  mv?.baseCurrency?.getCurrencyCode() == 'EUR' ? mv.value : null,
                                  chg.owner.doi, 
                                  chg.owner.workOAStatus?.value == 'hybrid' ? true : false, 
-                                 chg.owner.publisher.label, 
-                                 chg.owner.work.title, 
+                                 chg.owner.publisher?.label, 
+                                 chg.owner.work?.title, 
                                  pi?.value, 
                                  chg.owner.doi == null ? chg.owner.publicationUrl : null ]
         csvWriter.writeNext(datarow as String[])
@@ -104,7 +104,7 @@ and c.chargeStatus.value like :cs
       output.each { chg ->
 
         MonetaryValue mv = chg.getEstimatedPrice()
-        PublicationIdentifier pi = chg.owner.identifiers.find { it.type.value == 'ISBN' }
+        PublicationIdentifier pi = chg.owner.identifiers.find { it.type.value == 'isbn' }
 
         List<String> datarow = [ institution,
                                  chg.paymentPeriod,
