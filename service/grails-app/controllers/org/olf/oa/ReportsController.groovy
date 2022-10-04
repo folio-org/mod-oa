@@ -65,7 +65,7 @@ and c.chargeStatus.value like :cs
                                  chg.owner.workOAStatus?.value == 'hybrid' ? true : false, 
                                  chg.owner.publisher?.label, 
                                  chg.owner.work?.title, 
-                                 pi?.value, 
+                                 pi?.publicationIdentifier, 
                                  chg.owner.doi == null ? chg.owner.publicationUrl : null ]
         csvWriter.writeNext(datarow as String[])
       }
@@ -112,7 +112,7 @@ and c.chargeStatus.value like :cs
                                  chg.owner.doi,
                                  null, // chg.owner.SOMETHING,
                                  chg.owner.publicationTitle,
-                                 chg.owner.doi == null ? pi?.value : null ]
+                                 chg.owner.doi == null ? pi?.publicationIdentifier : null ]
         csvWriter.writeNext(datarow as String[])
       }
 
