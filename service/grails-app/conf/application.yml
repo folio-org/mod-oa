@@ -99,7 +99,7 @@ grails:
     # Under grails key
     hibernate:
         osiv:
-            readonly: true
+            readonly: false
     
 ---
 hibernate:

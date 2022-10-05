@@ -357,7 +357,7 @@ class PublicationRequestSpec extends HttpSpec {
       'My article'|'Open'
   }
 
-  void 'update publication request checklist item'(publication_title, newstatus) {
+  void 'update publication request with new checklist item'(publication_title, newstatus) {
     when:'we find and update a publication request'
 
       def resp = doGet('/oa/publicationRequest', [
@@ -381,7 +381,10 @@ class PublicationRequestSpec extends HttpSpec {
       pub_to_update.checklist = [
         [
           'definition': check1_definition_id,
-          'outcome': 'no'
+          'outcome': 'no',
+          'notes':[
+            [ 'note':'This is a note' ]
+          ]
         ]
       ]
       
@@ -412,6 +415,7 @@ class PublicationRequestSpec extends HttpSpec {
 
       // we set the outcome to NO in the test above, Set checklist item Check1 to yes here
       pub_to_update.checklist[0].outcome = 'yes'
+      pub_to_update.checklist[0].notes[0].note = 'This is an updated note'
 
       def result_of_update = doPut("/oa/publicationRequest/${pub_to_update.id}".toString(), pub_to_update);
 
@@ -424,6 +428,7 @@ class PublicationRequestSpec extends HttpSpec {
     then: 'Re-Fetch the publication request'
       // Do an explicit fetch of the updated publication request
       def refetched_pr = doGet("/oa/publicationRequest/${pub_to_update.id}".toString());
+      println("The refetched pr is ${refetched_pr}");
 
       // Check that the checklist item really has changed to yes
       refetched_pr.checklist[0].outcome.value == 'yes'

@@ -14,7 +14,6 @@ import com.k_int.web.toolkit.refdata.RefdataValue
 import groovy.sql.Sql
 import com.k_int.web.toolkit.settings.AppSetting
 
-@GrailsCompileStatic
 class PublicationRequest extends Workflow implements MultiTenant<PublicationRequest> {
   String id
   String requestNumber
