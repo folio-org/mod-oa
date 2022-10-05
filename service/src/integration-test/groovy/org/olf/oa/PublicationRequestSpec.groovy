@@ -409,7 +409,8 @@ class PublicationRequestSpec extends HttpSpec {
       println("Result of find: ${resp}");
       def pub_to_update = resp.results[0]
       pub_to_update.requestStatus = newstatus
-      // Set checklist item Check1 to no
+
+      // we set the outcome to NO in the test above, Set checklist item Check1 to yes here
       pub_to_update.checklist[0].outcome = 'yes'
 
       def result_of_update = doPut("/oa/publicationRequest/${pub_to_update.id}".toString(), pub_to_update);
