@@ -349,13 +349,90 @@ class PublicationRequestSpec extends HttpSpec {
       def result_of_update = doPut("/oa/publicationRequest/${pub_to_update.id}".toString(), pub_to_update);
 
     then:'Check request status updated'
-      println("updated record: ${result_of_update}");
+      println("updated publication request record (status): ${result_of_update}");
       result_of_update.requestStatus?.label == newstatus;
     
     where:
       publication_title|newstatus
       'My article'|'Open'
   }
+
+  void 'update publication request checklist item'(publication_title, newstatus) {
+    when:'we find and update a publication request'
+
+      def resp = doGet('/oa/publicationRequest', [
+        stats: true,
+        match: 'publicationTitle',
+        term: publication_title
+      ])
+
+      def checklist_definitions = doGet('/oa/checklistItems', [
+        'stats': true,
+        'filters': 'name==check1'
+      ])
+      log.debug("Definitions search result: ${checklist_definitions}");
+
+      String check1_definition_id = checklist_definitions.results[0].id;
+
+      println("Result of find: ${resp}");
+      def pub_to_update = resp.results[0]
+      pub_to_update.requestStatus = newstatus
+      // Set checklist item Check1 to no
+      pub_to_update.checklist = [
+        [
+          'definition': check1_definition_id,
+          'outcome': 'no'
+        ]
+      ]
+      
+      def result_of_update = doPut("/oa/publicationRequest/${pub_to_update.id}".toString(), pub_to_update);
+
+    then:'Check request status updated'
+      println("updated record: ${result_of_update}");
+      result_of_update.requestStatus?.label == newstatus;
+      result_of_update.checklist[0].outcome.value == 'no'
+
+    where:
+      publication_title|newstatus
+      'My article'|'Open'
+  }
+
+  void 'update existing checklist item'(publication_title, newstatus) {
+    when:'we find and update a publication request'
+
+      def resp = doGet('/oa/publicationRequest', [
+        stats: true,
+        match: 'publicationTitle',
+        term: publication_title
+      ])
+
+      println("Result of find: ${resp}");
+      def pub_to_update = resp.results[0]
+      pub_to_update.requestStatus = newstatus
+      // Set checklist item Check1 to no
+      pub_to_update.checklist[0].outcome = 'yes'
+
+      def result_of_update = doPut("/oa/publicationRequest/${pub_to_update.id}".toString(), pub_to_update);
+
+    then:'Check request status updated'
+      println("updated record: ${result_of_update}");
+      result_of_update.requestStatus?.label == newstatus;
+      // Check that the put result thinks that the outcome YES is a refdata which has a value of yes
+      result_of_update.checklist[0].outcome.value == 'yes'
+
+    then: 'Re-Fetch the publication request'
+      // Do an explicit fetch of the updated publication request
+      def refetched_pr = doGet("/oa/publicationRequest/${pub_to_update.id}".toString());
+
+      // Check that the checklist item really has changed to yes
+      refetched_pr.checklist[0].outcome.value == 'yes'
+
+    where:
+      publication_title|newstatus
+      'My article'|'Open'
+
+  }
+
 
   void 'Query works endpoint'(qry, expected_count) {
     when:'we seach works'
@@ -525,6 +602,5 @@ class PublicationRequestSpec extends HttpSpec {
     then: 'rows'
       resp != null
   }
-
 
 }
