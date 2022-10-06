@@ -129,12 +129,46 @@ class PublicationRequestSpec extends HttpSpec {
       boolean resp = doPost('/_/tenant', {
         parameters ([["key": "loadReference", "value": "true" ],
                      ["key": "loadSample", "value": "true" ] ])
-      }, null, booleanResponder)
-
-      // The call returns before the dataloading has completed.. Snooze whilst we load some titles
-      Thread.sleep(20000);
+      }, null, booleanResponder);
     then:
       resp == true
+      
+    when: 'Check title count settled'
+      // Check every 2 seconds after an initial wait of 3 seconds and
+      // timeout after 5 seconds of total wait.
+      def conditions = new PollingConditions(timeout: 5, initialDelay: 3, delay: 2)
+    
+    and: 'Get title count'
+      int count = doGet('/oa/titleInstances', [
+        stats: true
+      ])?.totalRecords ?: 0
+    
+    then: 'We have some titles'
+      conditions.eventually {
+        count > 0
+        count = (doGet('/oa/titleInstances', [
+          stats: true
+        ])?.totalRecords ?: 0)
+      }
+
+    when: 'Keep checking title count'
+      // Check every 5 seconds after an initial wait of 10 seconds and
+      // timeout after 60 seconds of total wait.
+      conditions = new PollingConditions(timeout: 60, initialDelay: 10, delay: 10)
+      int previousCount = count 
+    
+    then: 'Count eventually settles'
+      conditions.eventually {
+        count = (doGet('/oa/titleInstances', [
+          stats: true
+        ])?.totalRecords ?: 0)
+        println("# of title instances currently: ${count}");
+        count == previousCount
+        
+        previousCount = count
+      }
+      
+      println("# of title instances settled on : ${count}");
   }
 
   void "Check sample data was loaded"() {
