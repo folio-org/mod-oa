@@ -405,6 +405,7 @@ jacocoTestReport {
                            '**/BootStrap**',
                            '**/**gson**',
                            '**/**closure**',
+                           '**/**Controller.class',
                            '**/UrlMappings**'])
     })
   }

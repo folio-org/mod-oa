@@ -61,11 +61,13 @@ public class BibReferenceService {
 
   public Work resolveWork(Map description) {
 
-    log.debug("resolve work: ${description.title}");
+    log.debug("resolve work: ${description?.title}");
 
     Work result = null;
 
-    if ( ( description?.title != null ) && ( description?.title.length() > 0 ) ) {
+    if ( ( description != null ) && 
+         ( description?.title != null ) && ( description != null ) && 
+         ( description?.title.length() > 0 ) ) {
 
       result = Work.createCriteria().get { eq('title',description.title) }
 
@@ -116,6 +118,7 @@ public class BibReferenceService {
     return result
   }
 
+  /*
   public TitleInstance titleInstanceById(String ns, String value) {
     TitleInstance result = TitleInstance
                              .createCriteria()
@@ -139,6 +142,7 @@ public class BibReferenceService {
 
     return result;
   }
+  */
 
   private Identifier identifierLookup(String p_ns, String p_value) {
     Identifier result = Identifier.createCriteria().get {

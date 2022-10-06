@@ -93,6 +93,8 @@ class PublicationRequestSpec extends HttpSpec {
   @Shared
   def grailsApplication
 
+  BibReferenceService bibReferenceService
+
   static final Closure booleanResponder = {
     response.success { FromServer fs, Object body ->
       true
@@ -712,6 +714,81 @@ class PublicationRequestSpec extends HttpSpec {
 
      then: 'assert correct string'
        stringified_mv1=='EUR 1.23'
+  }
+
+  void "test bibReferenceService"() {
+
+    boolean exception_thrown = false;
+
+    when: "We call bib reference service with null"
+      Tenants.withId(OkapiTenantResolver.getTenantSchemaName( tenantName )) {
+        bibReferenceService.resolveInstance(null)
+      }
+
+    then: "Exception was thrown"
+      def e = thrown(RuntimeException)
+      e.message.startsWith('Missing mandatory');
+
+    when: "We call bib reference with an empty map"
+      Tenants.withId(OkapiTenantResolver.getTenantSchemaName( tenantName )) {
+        bibReferenceService.resolveInstance([:])
+      }
+
+    then: "Exception was thrown"
+      def e2 = thrown(RuntimeException)
+      e2.message.startsWith('Missing mandatory');
+
+    when: "We call bib reference with an empty map"
+      def r1 = null;
+      Tenants.withId(OkapiTenantResolver.getTenantSchemaName( tenantName )) {
+        r1 = bibReferenceService.resolveInstance([
+          "title":"Platform for change, a message from Stafford Beer",
+          "ids" : [ [ "ns":"isbn", "id":"12345678" ] ]
+        ])
+      }
+
+    then: "Instance created"
+      r1 != null
+
+    when: "We pass the same instance, we get the created one back"
+      def r2 = null;
+      Tenants.withId(OkapiTenantResolver.getTenantSchemaName( tenantName )) {
+        r2 = bibReferenceService.resolveInstance([
+          "title":"Platform for change, a message from Stafford Beer",
+          "ids" : [ [ "ns":"isbn", "id":"12345678" ] ]
+        ])
+      }
+
+    then: "Instance looked up"
+      r2.id == r1.id
+
+    when: "We try to look up a work with null"
+      def r3 = null;
+      Tenants.withId(OkapiTenantResolver.getTenantSchemaName( tenantName )) {
+        r3 = bibReferenceService.resolveWork([:])
+      }
+
+    then: "No work located"
+      r3 == null
+      
+    when: "Work creation"
+      def w1 = null;
+      Tenants.withId(OkapiTenantResolver.getTenantSchemaName( tenantName )) {
+        w1 = bibReferenceService.resolveWork(['title':'How many grapes went into the wine'])
+      }
+
+    then: "No work located"
+      w1 != null
+
+    when: "We look up a work instead"
+      def w2 = null;
+      Tenants.withId(OkapiTenantResolver.getTenantSchemaName( tenantName )) {
+        w2 = bibReferenceService.resolveWork(['title':'How many grapes went into the wine'])
+      }
+
+    then: "Same work returned"
+      w1.id == w2.id
+
   }
 
 }
