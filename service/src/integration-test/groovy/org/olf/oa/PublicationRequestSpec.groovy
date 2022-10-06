@@ -8,6 +8,8 @@ import groovyx.net.http.FromServer
 import spock.lang.*
 import spock.util.concurrent.PollingConditions
 import groovy.util.logging.Slf4j
+import groovyx.net.http.HttpException
+
 
 /**
  * This class requires special properties to be configured in grails-app/config/application-test.yml - this file
@@ -606,6 +608,48 @@ class PublicationRequestSpec extends HttpSpec {
 
     then: 'rows'
       resp != null
+  }
+
+
+
+  void "Create some refdata so we cand delete it"() {
+
+    when: 'We create some refdata'
+      def post_response = doPost('/oa/refdata', [
+        desc:'DeleteTestNonInternal',
+        internal: false,
+        values: [
+          [ 'value' : 'value1', 'label':'Value 1' ],
+          [ 'value' : 'value2', 'label':'Value 2' ]
+        ]
+      ]);
+      println(post_response)
+
+    then: 'We create some internal refdata'
+      def i_post_response = doPost('/oa/refdata', [
+        desc:'DeleteTestInternal',
+        internal: true,
+        values: [
+          [ 'value' : 'ivalue1', 'label':'I-Value 1' ],
+          [ 'value' : 'ivalue2', 'label':'I-Value 2' ]
+        ]
+      ]);
+      println(i_post_response)
+
+    then: 'We delete the non-internal refdata OK'
+      def delete_result = doDelete("/oa/refdata/${post_response.id}".toString());
+      println("delete_result : ${delete_result}");
+
+    then: 'Attempt to delete internal refdata'
+      try {
+        def i_delete_result = doDelete("/oa/refdata/${i_post_response.id}".toString());
+      }
+      catch ( groovyx.net.http.HttpException ex ) {
+         assert ex.statusCode == 405
+         log.debug( ex.fromServer?.message )
+      }
+
+
   }
 
 
