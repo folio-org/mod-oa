@@ -56,7 +56,10 @@ if ( ( Environment.currentEnvironment == Environment.TEST) ||
   logger 'com.k_int.okapi.OkapiTenantAdminService', TRACE
   logger 'mod_oa', DEBUG
   logger 'com.k_int.okapi.OkapiClient', DEBUG
-  // logger 'org.hibernate.SQL', DEBUG
+  
+  logger 'org.hibernate.loader.criteria', TRACE
+  logger 'org.hibernate.SQL', DEBUG
+  logger 'org.hibernate.type.descriptor.sql.BasicBinder', TRACE
 }
 else {
 }

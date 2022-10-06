@@ -10,7 +10,9 @@ import org.springframework.context.annotation.Bean
 import io.undertow.Undertow.Builder
 import io.undertow.UndertowOptions
 import groovy.util.logging.Slf4j
+import org.springframework.scheduling.annotation.EnableScheduling
 
+@EnableScheduling
 @CompileStatic
 @Slf4j
 class Application extends GrailsAutoConfiguration {
