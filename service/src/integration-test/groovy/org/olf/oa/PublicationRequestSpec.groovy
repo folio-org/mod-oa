@@ -154,7 +154,7 @@ class PublicationRequestSpec extends HttpSpec {
     when: 'Keep checking title count'
       // Check every 5 seconds after an initial wait of 10 seconds and
       // timeout after 60 seconds of total wait.
-      conditions = new PollingConditions(timeout: 60, initialDelay: 10, delay: 5)
+      conditions = new PollingConditions(timeout: 60, initialDelay: 10, delay: 10)
       int previousCount = count 
     
     then: 'Count eventually settles'
