@@ -9,6 +9,9 @@ import spock.lang.*
 import spock.util.concurrent.PollingConditions
 import groovy.util.logging.Slf4j
 
+import com.k_int.okapi.OkapiTenantResolver
+import grails.gorm.multitenancy.Tenants
+
 /**
  * This class requires special properties to be configured in grails-app/config/application-test.yml - this file
  * is in the .gitignore file to ensure we do not leak API keys via git. See the .gitignore file for details about the
@@ -642,5 +645,73 @@ class PublicationRequestSpec extends HttpSpec {
       resp != null
   }
 
+
+
+  void "Create some refdata so we cand delete it"() {
+
+    when: 'We create some refdata'
+      def post_response = doPost('/oa/refdata', [
+        desc:'DeleteTestNonInternal',
+        internal: false,
+        values: [
+          [ 'value' : 'value1', 'label':'Value 1' ],
+          [ 'value' : 'value2', 'label':'Value 2' ]
+        ]
+      ]);
+      println(post_response)
+
+    then: 'We create some internal refdata'
+      def i_post_response = doPost('/oa/refdata', [
+        desc:'DeleteTestInternal',
+        internal: true,
+        values: [
+          [ 'value' : 'ivalue1', 'label':'I-Value 1' ],
+          [ 'value' : 'ivalue2', 'label':'I-Value 2' ]
+        ]
+      ]);
+      println(i_post_response)
+
+    then: 'We delete the non-internal refdata OK'
+      def delete_result = doDelete("/oa/refdata/${post_response.id}".toString());
+      println("delete_result : ${delete_result}");
+
+    then: 'Attempt to delete internal refdata'
+      try {
+        def i_delete_result = doDelete("/oa/refdata/${i_post_response.id}".toString());
+      }
+      catch ( groovyx.net.http.HttpException ex ) {
+         assert ex.statusCode == 405
+         log.debug( ex.fromServer?.message )
+      }
+
+
+  }
+
+  void "test monetary value"() {
+
+    org.olf.oa.finance.MonetaryValue mv1 = null;
+    org.olf.oa.finance.MonetaryValue mv2 = null;
+    org.olf.oa.finance.MonetaryValue mv3 = null;
+    String stringified_mv1 = null
+    String stringified_mv2 = null
+    String stringified_mv3 = null
+    def m
+
+    when: 'We create a monetary value'
+      Tenants.withId(OkapiTenantResolver.getTenantSchemaName( tenantName )) {
+        mv1 = new org.olf.oa.finance.MonetaryValue(baseCurrency:Currency.getInstance('EUR'), value:new BigDecimal(1.23));
+        mv2 = new org.olf.oa.finance.MonetaryValue(baseCurrency:Currency.getInstance('EUR'), value:new BigDecimal(1.25));
+        mv3 = new org.olf.oa.finance.MonetaryValue(baseCurrency:Currency.getInstance('EUR'), value:new BigDecimal(0.05));
+        stringified_mv1= mv1.toString();
+        println("stringified_mv1=${stringified_mv1}");
+        stringified_mv2= mv2.toString();
+        println("stringified_mv2=${stringified_mv2}");
+        stringified_mv3= mv3.toString();
+        println("stringified_mv3=${stringified_mv3}");
+     }
+
+     then: 'assert correct string'
+       stringified_mv1=='EUR 1.23'
+  }
 
 }
