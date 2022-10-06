@@ -10,6 +10,9 @@ import spock.util.concurrent.PollingConditions
 import groovy.util.logging.Slf4j
 import groovyx.net.http.HttpException
 
+import com.k_int.okapi.OkapiTenantResolver
+import grails.gorm.multitenancy.Tenants
+
 
 /**
  * This class requires special properties to be configured in grails-app/config/application-test.yml - this file
@@ -650,6 +653,35 @@ class PublicationRequestSpec extends HttpSpec {
       }
 
 
+  }
+
+
+  void "test monetary value"() {
+
+    org.olf.oa.finance.MonetaryValue mv1 = null;
+    org.olf.oa.finance.MonetaryValue mv2 = null;
+    org.olf.oa.finance.MonetaryValue mv3 = null;
+    String stringified_mv1 = null
+    String stringified_mv2 = null
+    String stringified_mv3 = null
+    def m
+    
+
+    when: 'We create a monetary value'
+      Tenants.withId(OkapiTenantResolver.getTenantSchemaName( tenantName )) {
+        mv1 = new org.olf.oa.finance.MonetaryValue(baseCurrency:Currency.getInstance('EUR'), value:new BigDecimal(1.23));
+        mv2 = new org.olf.oa.finance.MonetaryValue(baseCurrency:Currency.getInstance('EUR'), value:new BigDecimal(1.25));
+        mv3 = new org.olf.oa.finance.MonetaryValue(baseCurrency:Currency.getInstance('EUR'), value:new BigDecimal(0.05));
+        stringified_mv1= mv1.toString();
+        println("stringified_mv1=${stringified_mv1}");
+        stringified_mv2= mv2.toString();
+        println("stringified_mv2=${stringified_mv2}");
+        stringified_mv3= mv3.toString();
+        println("stringified_mv3=${stringified_mv3}");
+     }
+
+     then: 'assert correct string'
+       stringified_mv1=='EUR 1.23'
   }
 
 
