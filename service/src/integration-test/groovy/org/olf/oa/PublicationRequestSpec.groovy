@@ -8,6 +8,11 @@ import groovyx.net.http.FromServer
 import spock.lang.*
 import spock.util.concurrent.PollingConditions
 import groovy.util.logging.Slf4j
+import com.k_int.okapi.OkapiHeaders
+import grails.gorm.multitenancy.Tenants
+import com.k_int.okapi.OkapiTenantResolver
+
+import org.olf.oa.kb.TitleInstance
 
 /**
  * This class requires special properties to be configured in grails-app/config/application-test.yml - this file
@@ -21,6 +26,8 @@ import groovy.util.logging.Slf4j
 class PublicationRequestSpec extends HttpSpec {
 
   static final String tenantName = 'pr_tests'
+
+  def bibReferenceService
 
   // OA Switchboard test messages - E1 - Eligibility Enquiry, P1 Publication Payment settlement notification messages copied from
   // https://bitbucket.org/oaswitchboard/api/src/master/messages/samples/
@@ -643,4 +650,27 @@ class PublicationRequestSpec extends HttpSpec {
   }
 
 
+  void 'check title resolver service'(Map citation, String expected_outcome) {
+  
+    String outcome = null;
+    when: 'We resolve a title'  
+      def result = null;
+      try {
+        Tenants.withId(OkapiTenantResolver.getTenantSchemaName( tenantName )) {
+          TitleInstance.withTransaction { status ->
+            result = bibReferenceService.resolveInstance(null)
+          }
+        }
+      }
+      catch ( Exception e ) {
+        outcome = e.message
+      }
+
+    then:
+      expected_outcome == outcome
+
+    where:
+      citation | expected_outcome
+      null | 'Missing mandatory information in call to resolveInstance : null'
+  }
 }
