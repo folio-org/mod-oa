@@ -21,9 +21,9 @@ class ReportsController {
 
   private static final String REPORT_QRY = '''select c
 from Charge as c
-where c.paymentPeriod like :pp
-and c.category.value in :ccList
-and c.chargeStatus.value in :csList
+where (:pp is null or c.paymentPeriod = :pp)
+and (:ccList is null or c.category.value in :ccList)
+and (:csList is null or c.chargeStatus.value in :csList)
 '''
 
   GrailsApplication grailsApplication
@@ -51,7 +51,7 @@ and c.chargeStatus.value in :csList
       List<String> header = [ 'instituion', 'period', 'euro', 'doi', 'is_hybrid', 'publisher', 'journal_full_title', 'issn', 'url' ]
       csvWriter.writeNext(header as String[])
 
-      List<Charge> output = Charge.executeQuery(REPORT_QRY, [ pp: paymentPeriod+'%', ccList : chargeCategory.split(','), csList: chargeStatus.split(',') ] )
+      List<Charge> output = Charge.executeQuery(REPORT_QRY, [ pp: paymentPeriod, ccList : chargeCategory?.split(','), csList: chargeStatus?.split(',') ] )
       
       output.each { chg ->
 
