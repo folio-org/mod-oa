@@ -48,8 +48,13 @@ logger ('com.k_int.okapi', WARN)
 // logger 'org.hibernate.type.descriptor.sql.BasicBinder', TRACE, ['STDOUT']
  
 
-if ( ( Environment.currentEnvironment == Environment.TEST) ||
-     ( Environment.currentEnvironment == Environment.DEVELOPMENT ) ) {
+if ( Environment.currentEnvironment == Environment.TEST) {
+  // Logging badly screws with code coverage metrics. So set everything to debug when testing
+  logger 'mod_oa', DEBUG
+  logger 'com.k_int', DEBUG
+  logger 'org.olf', DEBUG
+}
+else if ( Environment.currentEnvironment == Environment.DEVELOPMENT ) {
   logger 'groovy.net.http.JavaHttpBuilder', DEBUG
   logger 'groovy.net.http.JavaHttpBuilder.content', DEBUG
   logger 'groovy.net.http.JavaHttpBuilder.headers', DEBUG

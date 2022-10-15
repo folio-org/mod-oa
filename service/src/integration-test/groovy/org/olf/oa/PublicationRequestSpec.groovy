@@ -13,6 +13,8 @@ import grails.gorm.multitenancy.Tenants
 import com.k_int.okapi.OkapiTenantResolver
 
 import org.olf.oa.kb.TitleInstance
+import org.olf.oa.BibReferenceService
+import org.olf.oa.finance.MonetaryValue
 
 /**
  * This class requires special properties to be configured in grails-app/config/application-test.yml - this file
@@ -27,7 +29,7 @@ class PublicationRequestSpec extends HttpSpec {
 
   static final String tenantName = 'pr_tests'
 
-  def bibReferenceService
+  BibReferenceService bibReferenceService
 
   // OA Switchboard test messages - E1 - Eligibility Enquiry, P1 Publication Payment settlement notification messages copied from
   // https://bitbucket.org/oaswitchboard/api/src/master/messages/samples/
@@ -653,12 +655,13 @@ class PublicationRequestSpec extends HttpSpec {
   void 'check title resolver service'(Map citation, String expected_outcome) {
   
     String outcome = null;
-    when: 'We resolve a title'  
+    when: "We resolve a title using citation ${citation}"
       def result = null;
       try {
         Tenants.withId(OkapiTenantResolver.getTenantSchemaName( tenantName )) {
           TitleInstance.withTransaction { status ->
-            result = bibReferenceService.resolveInstance(null)
+            result = bibReferenceService.resolveInstance(citation)
+            outcome = result.title
           }
         }
       }
@@ -671,6 +674,54 @@ class PublicationRequestSpec extends HttpSpec {
 
     where:
       citation | expected_outcome
-      null | 'Missing mandatory information in call to resolveInstance : null'
+      null           | 'Missing mandatory information in call to resolveInstance : null'
+      [:]            | 'Missing mandatory information in call to resolveInstance : [:]'
+      ['title':null] | 'Missing mandatory information in call to resolveInstance : [title:null]'
+      ['title':'hello', 'ids': null ] | 'Missing mandatory information in call to resolveInstance : [title:hello, ids:null]'
+      ['title':'', 'ids': null ] | 'Missing mandatory information in call to resolveInstance : [title:, ids:null]'
+      ['title':'', 'ids': [] ] | 'Missing mandatory information in call to resolveInstance : [title:, ids:[]]'
+      ['title':'', 'ids': ['ns':'isbn', 'value':'1234' ] ] | 'Missing mandatory information in call to resolveInstance : [title:, ids:[ns:isbn, value:1234]]'
+      ['title':null, 'ids': ['ns':'isbn', 'value':'1234' ] ] | 'Missing mandatory information in call to resolveInstance : [title:null, ids:[ns:isbn, value:1234]]'
+      ['title':'hello', 'ids': [] ] | 'Missing mandatory information in call to resolveInstance : [title:hello, ids:[]]'
+      ['title':'Brain of the firm'] | 'Missing mandatory information in call to resolveInstance : [title:Brain of the firm]'
+      ['title': 'Annals of Global Analysis and Geometry', "type":"serial", "ids":[ [ "ns":"issn", "id":"0232-704X" ] ], "subType":"electronic" ] | 'Annals of Global Analysis and Geometry'
   }
+
+  void 'test Monetary Value'() {
+    String outcome = null;
+    when: "Create a MV and do some calculations"
+      def result = null;
+      try {
+        Tenants.withId(OkapiTenantResolver.getTenantSchemaName( tenantName )) {
+          TitleInstance.withTransaction { status ->
+            MonetaryValue mv = new MonetaryValue( baseCurrency: Currency.getInstance('EUR'), value : new BigDecimal("1.23"));
+            mv.setBaseCurrency('EUR')
+            outcome = mv.toString()
+          }
+        }
+      }
+      catch ( Exception e ) {
+        outcome = e.message
+      }
+
+    then:
+      println("MVTest Outcome was ${outcome}");
+      outcome == 'EUR 1.23'
+
+  }
+
+  /*
+  void 'test titleInstanceById'() {
+    TitleInstance ti = null;
+    when: "We lookup a title by id"
+      Tenants.withId(OkapiTenantResolver.getTenantSchemaName( tenantName )) {
+        TitleInstance.withTransaction { status ->
+          ti = bibReferenceService.titleInstanceById('issn','0232-704X')
+        }
+      }
+
+    then: "lookup complete"
+      ti != null
+  }
+ */
 }

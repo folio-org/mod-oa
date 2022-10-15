@@ -403,6 +403,7 @@ jacocoTestReport {
         fileTree(dir: it,
                  exclude: ['**/Application**',
                            '**/BootStrap**',
+                           '**/**Controller**',
                            '**/**gson**',
                            '**/**closure**',
                            '**/UrlMappings**'])

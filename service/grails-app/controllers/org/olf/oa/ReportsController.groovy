@@ -38,7 +38,6 @@ and c.chargeStatus.value like :cs
     // Set the file disposition.
     OutputStreamWriter osWriter
 
-    try {
       response.setHeader "Content-disposition", "attachment; filename=export.csv"
       osWriter = new OutputStreamWriter(new BufferedOutputStream(response.outputStream))
       ICSVWriter csvWriter = new CSVWriterBuilder(osWriter)
@@ -71,10 +70,8 @@ and c.chargeStatus.value like :cs
       }
 
       // exportService.exportLicensesAsCsv(csvWriter, exportObj)
-    } finally {
       // Always close the stream.
       osWriter?.close()
-    }
   }
 
   def openApcBcpReport(String institution, 
@@ -86,7 +83,6 @@ and c.chargeStatus.value like :cs
     // Set the file disposition.
     OutputStreamWriter osWriter
 
-    try {
       response.setHeader "Content-disposition", "attachment; filename=export.csv"
       osWriter = new OutputStreamWriter(new BufferedOutputStream(response.outputStream))
       ICSVWriter csvWriter = new CSVWriterBuilder(osWriter)
@@ -117,10 +113,8 @@ and c.chargeStatus.value like :cs
       }
 
       // exportService.exportLicensesAsCsv(csvWriter, exportObj)
-    } finally {
       // Always close the stream.
       osWriter?.close()
-    }
   }
 
 
