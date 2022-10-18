@@ -99,7 +99,7 @@ and (:csList is null or c.chargeStatus.value in :csList)
       List<String> header = [ 'instituion', 'period', 'euro', 'doi', 'backlist_oa', 'book_title', 'isbn' ]
       csvWriter.writeNext(header as String[])
 
-      List<Charge> output = Charge.executeQuery(REPORT_QRY, [ pp: paymentPeriod+'%', cc : chargeCategory+'%', cs: chargeStatus+'%' ] )
+      List<Charge> output = Charge.executeQuery(REPORT_QRY, [ pp: paymentPeriod, ccList : chargeCategory?.split(','), csList: chargeStatus?.split(',') ] )
 
       output.each { chg ->
 
