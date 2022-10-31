@@ -1222,4 +1222,9 @@ databaseChangeLog = {
     dropColumn(columnName: "pr_corresponding_faculty_fk", tableName: "publication_request")
     dropColumn(columnName: "pr_corresponding_department", tableName: "publication_request")
   }
+
+  changeSet(author: "Jack-Golding (manual)", id: "2022-10-27") {
+    addUniqueConstraint(columnNames: "id_value,id_ns_fk", constraintName: "identifier_ns_value_unique", tableName: "identifier")
+  }
+
 }

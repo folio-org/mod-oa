@@ -141,15 +141,18 @@ public class BibReferenceService {
   }
 
   private Identifier identifierLookup(String p_ns, String p_value) {
-    Identifier result = Identifier.createCriteria().get {
+    List<Identifier> result = Identifier.createCriteria().list {
                'ns' {
                  eq('value',p_ns)
                }
                eq('value',p_value)
            }
-    return result;
+    if (result?.size() > 1) {
+      log.warn("Matched >1 identifier namespace and value combination: ${result.size()}");
+      throw new RuntimeException("Namespace and value combination ${p_ns}, ${p_value} matched multiple (${result.size()}) identifiers");
+    }
+    return result[0];
   }
-
   /*
    * Given a list of ns:"namespace, id:"value" pairs, find all known instances that have an identifier in that list.
    * If we don't find any then we don't know about the title.
