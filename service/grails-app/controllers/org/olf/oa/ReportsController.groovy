@@ -11,6 +11,9 @@ import com.k_int.okapi.OkapiTenantAwareController
 import com.opencsv.CSVWriterBuilder
 import com.opencsv.ICSVWriter
 import org.olf.oa.finance.MonetaryValue
+import org.olf.oa.kb.IdentifierOccurrence
+import org.olf.oa.kb.TitleInstance
+
 
 /**
  * External for OA network connectivity
@@ -56,7 +59,10 @@ and ((:csList) is null or c.chargeStatus.value in (:csList))
       output.each { chg ->
 
         MonetaryValue mv = chg.getEstimatedPrice()
-        PublicationIdentifier pi = chg.owner.identifiers.find { it.type.value == 'issn' }
+
+        List<TitleInstance> ti = chg.owner?.work?.instances?.sort { it?.subType?.value }
+        
+        IdentifierOccurrence io = ti[0].identifiers.find { it.identifier.ns.value == "issn" }
 
         List<String> datarow = [ institution, 
                                  chg.paymentPeriod, 
@@ -65,7 +71,7 @@ and ((:csList) is null or c.chargeStatus.value in (:csList))
                                  chg.owner.workOAStatus?.value == 'hybrid' ? true : false, 
                                  chg.owner.publisher?.label, 
                                  chg.owner.work?.title, 
-                                 pi?.publicationIdentifier, 
+                                 io?.identifier?.value, 
                                  chg.owner.doi == null ? chg.owner.publicationUrl : null ]
         csvWriter.writeNext(datarow as String[])
       }
