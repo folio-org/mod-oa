@@ -22,8 +22,8 @@ class ReportsController {
   private static final String REPORT_QRY = '''select c
 from Charge as c
 where (:pp is null or c.paymentPeriod = :pp)
-and (:ccList is null or c.category.value in :ccList)
-and (:csList is null or c.chargeStatus.value in :csList)
+and ((:ccList) is null or c.category.value in (:ccList))
+and ((:csList) is null or c.chargeStatus.value in (:csList))
 '''
 
   GrailsApplication grailsApplication
