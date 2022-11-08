@@ -1227,4 +1227,10 @@ databaseChangeLog = {
     addUniqueConstraint(columnNames: "id_value,id_ns_fk", constraintName: "identifier_ns_value_unique", tableName: "identifier")
   }
 
+  changeSet(author: "Jack-Golding (manual)", id: "2022-11-08") {
+    addColumn(tableName: "publication_request") {
+      column(name: "pr_retrospective_oa", type: "BOOLEAN")
+    }
+  }
+
 }

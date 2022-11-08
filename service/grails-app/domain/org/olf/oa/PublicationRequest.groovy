@@ -19,6 +19,7 @@ class PublicationRequest extends Workflow implements MultiTenant<PublicationRequ
   String id
   String requestNumber
   LocalDate requestDate
+  boolean retrospectiveOA = false
   Date lastUpdated
   Date dateCreated
   String publicationTitle
@@ -113,6 +114,7 @@ class PublicationRequest extends Workflow implements MultiTenant<PublicationRequ
                      requestDate column: 'pr_request_date'
                    requestStatus column: 'pr_request_status'
                    requestNumber column: 'pr_request_number'
+                 retrospectiveOA column: 'pr_retrospective_oa'
                      lastUpdated column: 'pr_last_updated'
                      dateCreated column: 'pr_date_created'
                  rejectionReason column: 'pr_rejection_reason'
@@ -149,6 +151,7 @@ class PublicationRequest extends Workflow implements MultiTenant<PublicationRequ
                    requestDate nullable: true
                  requestStatus nullable: true
                  requestNumber nullable: true
+               retrospectiveOA nullable: true
                    lastUpdated nullable: true
                    dateCreated nullable: true
                rejectionReason nullable: true
