@@ -116,7 +116,7 @@ and ((:csList) is null or c.chargeStatus.value in (:csList))
                                  chg.paymentPeriod,
                                  mv?.baseCurrency?.getCurrencyCode() == 'EUR' ? mv.value : null,
                                  chg.owner.doi,
-                                 null, // chg.owner.SOMETHING,
+                                 chg.owner?.retrospectiveOA,
                                  chg.owner.publicationTitle,
                                  chg.owner.doi == null ? pi?.publicationIdentifier : null ]
         csvWriter.writeNext(datarow as String[])
