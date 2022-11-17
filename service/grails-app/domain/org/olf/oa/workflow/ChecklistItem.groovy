@@ -30,7 +30,7 @@ class ChecklistItem implements MultiTenant<ChecklistItem> {
   RefdataValue outcome
 
   @CategoryId(defaultInternal=true)
-  @Defaults(['Required', 'Not required'])
+  @Defaults(['Visible', 'Hidden'])
   RefdataValue status
 
   static mapping = {
