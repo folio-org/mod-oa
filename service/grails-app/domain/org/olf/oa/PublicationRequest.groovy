@@ -49,7 +49,7 @@ class PublicationRequest extends Workflow implements MultiTenant<PublicationRequ
 
   @CategoryId(defaultInternal=true)
   @Defaults(['Rejected'])
-  RefdataValue rejectionReason
+  RefdataValue closureReason
 
   @CategoryId(defaultInternal=true)
   @Defaults(['Journal Article', 'Book'])
@@ -117,7 +117,7 @@ class PublicationRequest extends Workflow implements MultiTenant<PublicationRequ
                  retrospectiveOA column: 'pr_retrospective_oa'
                      lastUpdated column: 'pr_last_updated'
                      dateCreated column: 'pr_date_created'
-                 rejectionReason column: 'pr_rejection_reason'
+                   closureReason column: 'pr_closure_reason_fk'
                 publicationTitle column: 'pr_title'
                  publicationType column: 'pr_pub_type_fk'
                          subtype column: 'pr_subtype'
@@ -154,7 +154,7 @@ class PublicationRequest extends Workflow implements MultiTenant<PublicationRequ
                retrospectiveOA nullable: true
                    lastUpdated nullable: true
                    dateCreated nullable: true
-               rejectionReason nullable: true
+                 closureReason nullable: true
               publicationTitle nullable: true
                publicationType nullable: true
                        subtype nullable: true

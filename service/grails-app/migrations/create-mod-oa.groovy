@@ -1233,4 +1233,37 @@ databaseChangeLog = {
     }
   }
 
+  changeSet(author: "Jack-Golding (manual)", id:"2022-11-24-1140-001"){
+    addColumn (tableName: "publication_request") {
+      column(name: "pr_closure_reason_fk", type:"VARCHAR(36)")
+    }
+  }
+
+  changeSet(author: "Jack-Golding (manual)", id:"2022-11-24-1141-002") {
+     addForeignKeyConstraint(
+      baseColumnNames: "pr_closure_reason_fk",
+      baseTableName: "publication_request",
+      constraintName: "publication_request_closure_reason_fk",
+      deferrable: "false",
+      initiallyDeferred: "false",
+      referencedColumnNames: "rdv_id",
+      referencedTableName: "refdata_value"
+    )
+  }
+
+  changeSet(author: "Jack-Golding (manual)", id: "2022-11-24-1143-03"){
+    grailsChange{
+      change{
+        sql.rows("SELECT pr_id, pr_rejection_reason FROM ${database.defaultSchemaName}.publication_request".toString()).each {
+          sql.execute("UPDATE ${database.defaultSchemaName}.publication_request SET pr_closure_reason_fk = :rejReason WHERE pr_id = :prId".toString(), 
+           [prId: it.pr_id, rejReason: it.pr_rejection_reason])
+        }
+      }
+    }
+  }
+
+  changeSet(author: "Jack-Golding (manual)", id: "2022-11-24-1146-004") {
+    dropColumn(columnName: "pr_rejection_reason", tableName: "publication_request")
+  }
+
 }
