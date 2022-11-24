@@ -4,7 +4,7 @@ import groovy.transform.Field
 
 def should_expand = [
   'requestStatus',
-  'rejectionReason',
+  'closureReason',
   'externalRequestIds',
   'fundings',
   'history',
