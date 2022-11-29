@@ -20,7 +20,7 @@ public class TitleInstance implements MultiTenant<TitleInstance> {
   Work work
   
   // Journal/Book/...
-  @CategoryId(defaultInternal=false)
+  @CategoryId(defaultInternal=true)
   @Defaults(['Book', 'Journal'])
   RefdataValue publicationType
 
