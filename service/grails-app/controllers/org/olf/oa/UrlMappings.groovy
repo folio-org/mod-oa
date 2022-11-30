@@ -37,5 +37,7 @@ class UrlMappings {
 
     "/oa/reports/openApcChargesReport" (controller: 'reports', action:'openApcChargesReport')
     "/oa/reports/openApcBcpReport" (controller: 'reports', action:'openApcBcpReport')
+    "/oa/reports/openApcTransformativeAgreementReport" (controller: 'reports', action:'openApcTransformativeAgreementReport')
+
   }
 }
