@@ -51,7 +51,7 @@ and ((:csList) is null or c.chargeStatus.value in (:csList))
         .withLineEnd(ICSVWriter.DEFAULT_LINE_END)             // "\n"
       .build()
 
-      List<String> header = [ 'instituion', 'period', 'euro', 'doi', 'is_hybrid', 'publisher', 'journal_full_title', 'issn', 'url' ]
+      List<String> header = [ 'institution', 'period', 'euro', 'doi', 'is_hybrid', 'publisher', 'journal_full_title', 'issn', 'url' ]
       csvWriter.writeNext(header as String[])
 
       List<Charge> output = Charge.executeQuery(REPORT_QRY, [ pp: paymentPeriod, ccList : chargeCategory?.split(','), csList: chargeStatus?.split(',') ] )
@@ -102,7 +102,7 @@ and ((:csList) is null or c.chargeStatus.value in (:csList))
         .withLineEnd(ICSVWriter.DEFAULT_LINE_END)             // "\n"
       .build()
 
-      List<String> header = [ 'instituion', 'period', 'euro', 'doi', 'backlist_oa', 'book_title', 'isbn' ]
+      List<String> header = [ 'institution', 'period', 'euro', 'doi', 'backlist_oa', 'book_title', 'isbn' ]
       csvWriter.writeNext(header as String[])
 
       List<Charge> output = Charge.executeQuery(REPORT_QRY, [ pp: paymentPeriod, ccList : chargeCategory?.split(','), csList: chargeStatus?.split(',') ] )
