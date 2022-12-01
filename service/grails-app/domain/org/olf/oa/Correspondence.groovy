@@ -22,11 +22,11 @@ class Correspondence implements MultiTenant<Correspondence> {
   @Defaults(['Awaiting Reply', 'Response Needed', 'Closed'])
   RefdataValue status
 
-  @CategoryId(defaultInternal=true)
+  @CategoryId(defaultInternal=false)
   @Defaults(['Email', 'Telephone'])
   RefdataValue mode
 
-  @CategoryId(defaultInternal=true)
+  @CategoryId(defaultInternal=false)
   @Defaults(['Invoice', 'Funding'])
   RefdataValue category
 

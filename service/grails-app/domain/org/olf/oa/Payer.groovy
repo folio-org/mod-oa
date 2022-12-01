@@ -9,7 +9,7 @@ class Payer implements MultiTenant<Payer> {
 
   String id
 
-  @CategoryId(defaultInternal=true)
+  @CategoryId(defaultInternal=false)
   @Defaults(['Library', 'DFG', 'Author'])
   RefdataValue payer
 

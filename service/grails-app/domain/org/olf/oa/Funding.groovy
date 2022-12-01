@@ -13,7 +13,7 @@ class Funding implements MultiTenant<Funding> {
   @Defaults(['Funder 1'])
   RefdataValue funder
 
-  @CategoryId(defaultInternal=true)
+  @CategoryId(defaultInternal=false)
   @Defaults(['Research', 'Publication'])
   RefdataValue aspectFunded  
   
