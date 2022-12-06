@@ -31,8 +31,7 @@ and ((:csList) is null or c.chargeStatus.value in (:csList))
 
   private static final String AGREEMENT_REPORT_QUERY = '''select pr
 from PublicationRequest as pr
-where pr.agreement.id like :a
-and (:ps is null or (pr.publicationStatuses)publicationStatuses where publicationStatuses.publicationStatus.value = :ps)
+where pr.agreement.remoteId = :a
 '''
 
   GrailsApplication grailsApplication
@@ -68,12 +67,16 @@ and (:ps is null or (pr.publicationStatuses)publicationStatuses where publicatio
 
         List<TitleInstance> ti = chg.owner?.work?.instances?.sort { it?.subType?.value }
         
-        IdentifierOccurrence io = ti[0].identifiers.find { it.identifier.ns.value == "issn" }
-
+        IdentifierOccurrence io = null
+        
+        if(ti?.size() > 0){
+          io = ti[0]?.identifiers?.find { it?.identifier?.ns?.value == "issn" }
+        }
+        
         List<String> datarow = [ institution, 
-                                 chg.paymentPeriod, 
+                                 chg?.paymentPeriod, 
                                  mv?.baseCurrency?.getCurrencyCode() == 'EUR' ? mv.value : null,
-                                 chg.owner.doi, 
+                                 chg.owner?.doi, 
                                  chg.owner.workOAStatus?.value == 'hybrid' ? true : false, 
                                  chg.owner.publisher?.label, 
                                  chg.owner.work?.title, 
@@ -89,11 +92,11 @@ and (:ps is null or (pr.publicationStatuses)publicationStatuses where publicatio
     }
   }
 
-  def openApcBcpReport(String institution, 
+  def openApcBpcReport(String institution, 
                        String paymentPeriod, 
                        String chargeCategory, 
                        String chargeStatus) {
-    log.debug("openApcBcpReport(${institution},${paymentPeriod},${chargeCategory},${chargeStatus}) ${params}")
+    log.debug("openApcBpcReport(${institution},${paymentPeriod},${chargeCategory},${chargeStatus}) ${params}")
 
     // Set the file disposition.
     OutputStreamWriter osWriter
@@ -116,15 +119,15 @@ and (:ps is null or (pr.publicationStatuses)publicationStatuses where publicatio
       output.each { chg ->
 
         MonetaryValue mv = chg.getEstimatedPrice()
-        PublicationIdentifier pi = chg.owner.identifiers.find { it.type.value == 'isbn' }
+        PublicationIdentifier pi = chg.owner?.identifiers?.find { it?.type?.value == 'isbn' }
 
         List<String> datarow = [ institution,
                                  chg.paymentPeriod,
                                  mv?.baseCurrency?.getCurrencyCode() == 'EUR' ? mv.value : null,
-                                 chg.owner.doi,
+                                 chg.owner?.doi,
                                  chg.owner?.retrospectiveOA,
-                                 chg.owner.publicationTitle,
-                                 chg.owner.doi == null ? pi?.publicationIdentifier : null ]
+                                 chg.owner?.publicationTitle,
+                                 chg.owner?.doi == null ? pi?.publicationIdentifier : null ]
         csvWriter.writeNext(datarow as String[])
       }
 
@@ -137,9 +140,8 @@ and (:ps is null or (pr.publicationStatuses)publicationStatuses where publicatio
 
   def openApcTransformativeAgreementReport(String institution, 
                        String paymentPeriod, 
-                       String publicationStatus, 
                        String agreementId) {
-    log.debug("openApcTransformativeAgreementReport(${institution},${paymentPeriod},${publicationStatus},${agreementId}) ${params}")
+    log.debug("openApcTransformativeAgreementReport(${institution},${paymentPeriod},${agreementId}) ${params}")
 
     // Set the file disposition.
     OutputStreamWriter osWriter
@@ -157,22 +159,26 @@ and (:ps is null or (pr.publicationStatuses)publicationStatuses where publicatio
       List<String> header = [ 'instituion', 'period', 'doi', 'is_hybrid', 'publisher', 'journal_full_title', 'issn', 'url' ]
       csvWriter.writeNext(header as String[])
 
-      List<PublicationRequest> output = PublicationRequest.executeQuery(AGREEMENT_REPORT_QUERY, [ pp: agreementId, ps : publicationStatus ] )
+      List<PublicationRequest> output = PublicationRequest.executeQuery(AGREEMENT_REPORT_QUERY, [ a: agreementId ] )
 
       output.each { pr ->
 
         List<TitleInstance> ti = pr?.work?.instances?.sort { it?.subType?.value }
         
-        IdentifierOccurrence io = ti[0].identifiers.find { it.identifier.ns.value == "issn" }
+        IdentifierOccurrence io = null
+        
+        if(ti?.size() > 0){
+          io = ti[0]?.identifiers?.find { it?.identifier?.ns?.value == "issn" }
+        }
 
         List<String> datarow = [ institution, 
                                  paymentPeriod, 
-                                 pr.doi, 
-                                 pr.workOAStatus?.value == 'hybrid' ? true : false, 
-                                 pr.publisher?.label, 
-                                 pr.work?.title, 
+                                 pr?.doi, 
+                                 pr?.workOAStatus?.value == 'hybrid' ? true : false, 
+                                 pr?.publisher?.label, 
+                                 pr?.work?.title, 
                                  io?.identifier?.value, 
-                                 pr.doi == null ? chg.owner.publicationUrl : null ]
+                                 pr?.doi == null ? pr?.publicationUrl : null ]
         csvWriter.writeNext(datarow as String[])
       }
 
