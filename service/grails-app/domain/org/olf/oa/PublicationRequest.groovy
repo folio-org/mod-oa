@@ -47,7 +47,7 @@ class PublicationRequest extends Workflow implements MultiTenant<PublicationRequ
   @Defaults(['Open', 'Closed'])
   RefdataValue requestStatus
 
-  @CategoryId(defaultInternal=true)
+  @CategoryId(defaultInternal=false)
   @Defaults(['Rejected'])
   RefdataValue closureReason
 
