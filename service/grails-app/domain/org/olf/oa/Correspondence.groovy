@@ -18,7 +18,7 @@ class Correspondence implements MultiTenant<Correspondence> {
   String content
   String correspondent
 
-  @CategoryId(defaultInternal=true)
+  @CategoryId(defaultInternal=false)
   @Defaults(['Awaiting Reply', 'Response Needed', 'Closed'])
   RefdataValue status
 
