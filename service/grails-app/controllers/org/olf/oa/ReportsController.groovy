@@ -29,9 +29,10 @@ and ((:ccList) is null or c.category.value in (:ccList))
 and ((:csList) is null or c.chargeStatus.value in (:csList))
 '''
 
-  private static final String AGREEMENT_REPORT_QUERY = '''select pr
+  private static final String AGREEMENT_REPORT_QRY = '''select pr
 from PublicationRequest as pr
 where pr.agreement.remoteId = :a
+and (exists (select ps from PublicationStatus as ps where pr.id = ps.owner.id and ps.publicationStatus.value = :ps and (:pp is null or year(ps.statusDate) = :pp)) or :ps is null)
 '''
 
   GrailsApplication grailsApplication
@@ -139,9 +140,10 @@ where pr.agreement.remoteId = :a
   }
 
   def openApcTransformativeAgreementReport(String institution, 
-                       String paymentPeriod, 
+                       String paymentPeriod,
+                       String publicationStatus, 
                        String agreementId) {
-    log.debug("openApcTransformativeAgreementReport(${institution},${paymentPeriod},${agreementId}) ${params}")
+    log.debug("openApcTransformativeAgreementReport(${institution},${paymentPeriod},${publicationStatus},${agreementId}) ${params}")
 
     // Set the file disposition.
     OutputStreamWriter osWriter
@@ -159,7 +161,13 @@ where pr.agreement.remoteId = :a
       List<String> header = [ 'instituion', 'period', 'doi', 'is_hybrid', 'publisher', 'journal_full_title', 'issn', 'url' ]
       csvWriter.writeNext(header as String[])
 
-      List<PublicationRequest> output = PublicationRequest.executeQuery(AGREEMENT_REPORT_QUERY, [ a: agreementId ] )
+      int parsedPaymentPeriod
+
+      if(paymentPeriod != null){
+      parsedPaymentPeriod = Integer.parseInt(paymentPeriod)
+      }
+
+      List<PublicationRequest> output = PublicationRequest.executeQuery(AGREEMENT_REPORT_QRY, [ a: agreementId, ps: publicationStatus, pp: parsedPaymentPeriod] )
 
       output.each { pr ->
 
