@@ -586,7 +586,7 @@ class PublicationRequestSpec extends HttpSpec {
 
   void testBpcReport() {
     when:'we seach works'
-      def resp_bytes = doGet('/oa/reports/openApcBcpReport', [institution: 'My Institution String'])
+      def resp_bytes = doGet('/oa/reports/openApcBpcReport', [institution: 'My Institution String'])
       String resp_as_str = new String(resp_bytes)
       println("Result of reports: ${resp_as_str}");
 
