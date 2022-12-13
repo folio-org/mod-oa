@@ -158,7 +158,7 @@ and (exists (select ps from PublicationStatus as ps where pr.id = ps.owner.id an
         .withLineEnd(ICSVWriter.DEFAULT_LINE_END)             // "\n"
       .build()
 
-      List<String> header = [ 'instituion', 'period', 'doi', 'is_hybrid', 'publisher', 'journal_full_title', 'issn', 'url' ]
+      List<String> header = [ 'institution', 'period', 'doi', 'is_hybrid', 'publisher', 'journal_full_title', 'issn', 'url' ]
       csvWriter.writeNext(header as String[])
 
       int parsedPaymentPeriod
