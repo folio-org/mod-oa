@@ -261,18 +261,6 @@
       ]
     }
   ],
-  "requires":[
-  ],
-  "optional":[
-    {
-      "id": "organizations",
-      "version": "1.2"
-    },
-    {
-      "id": "finance.exchange-rate",
-      "version": "1.0"
-    }
-  ],
   "permissionSets": [
     {
       "permissionName": "oa.settings.get",
