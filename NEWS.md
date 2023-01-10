@@ -1,3 +1,5 @@
+## 1.1.0 In progress
+
 ## 1.0.0 2023-01-10
  * Added domain model for Publication requests and partys
  * Added domain model for Charges
