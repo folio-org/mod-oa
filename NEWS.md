@@ -1,4 +1,5 @@
 ## 1.1.0 In progress
+ * Modified p_main_email datatype from VARCHAR(36) to VARCHAR(255). Refs MODOA-44
 
 ## 1.0.0 2023-01-10
  * Added domain model for Publication requests and partys
