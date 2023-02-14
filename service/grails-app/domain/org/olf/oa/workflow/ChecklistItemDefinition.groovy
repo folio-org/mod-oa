@@ -24,7 +24,7 @@ class ChecklistItemDefinition implements MultiTenant<ChecklistItemDefinition> {
 
   public static String normValue ( String string ) {
     // Remove all diacritics and substitute for compatibility
-    normalizer.normalize( string.trim() ).replaceAll(/\p{M}/, '').replaceAll(/\s+/, '_').toLowerCase()
+    normalizer.normalize( string.trim() ).replaceAll(/\p{M}/, '').replaceAll(/[^a-zA-Z0-9\-_]/, '_').toLowerCase()
   }
   
   private static String tidyLabel ( String string ) {
