@@ -1,3 +1,8 @@
+configurations.all {
+  // Check for updates every build
+  resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
+
 buildscript {
   repositories {
     mavenCentral()
@@ -165,15 +170,15 @@ dependencies {
   compile "org.hibernate:hibernate-core:5.4.19.Final"             // Update to latest 5.4
   compile "org.hibernate:hibernate-java8:5.4.19.Final"
   runtime "com.zaxxer:HikariCP:3.4.5"                             // Replaces Tomcat JDBC pool
-  runtime "org.postgresql:postgresql:42.3.1"
+  runtime "org.postgresql:postgresql:42.5.3"
 
   compile ('org.grails.plugins:database-migration:3.1.0') {       // Required by Grails Okapi
     exclude group: 'org.liquibase', module: 'liquibase-core'
   }
-  compile 'org.liquibase:liquibase-core:3.9.0'
+  compile 'org.liquibase:liquibase-core:4.8.0'
 
-  compile 'com.opencsv:opencsv:4.6'
-  compile 'commons-io:commons-io:2.6'
+  compile 'com.opencsv:opencsv:5.7.1'
+  compile 'commons-io:commons-io:2.7'
 
   // compile 'org.codehaus.groovy.modules.http-builder:http-builder:0.7.1'     // TODO: Migrate away from this resource.
   
@@ -181,7 +186,7 @@ dependencies {
   compile 'com.k_int.okapi:grails-okapi:5.0.1'
 
   // Custom non profile deps.
-  compile 'org.apache.kafka:kafka-clients:2.3.0'
+  compile 'org.apache.kafka:kafka-clients:2.7.2'
   runtime "org.grails.plugins:async"
   runtime "org.grails.plugins:events"
   compile 'org.codehaus.groovy.modules.http-builder:http-builder:0.7.1'
