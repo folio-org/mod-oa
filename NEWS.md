@@ -1,3 +1,5 @@
+## 1.2.0 In progress
+
 ## 1.1.0 2023-03-20
  * Modified p_main_email datatype from VARCHAR(36) to VARCHAR(255). Refs MODOA-44
  * Modified pr_title datatype from VARCHAR(255) to VARCHAR(4096) to accommodate longer publication titles. Refs MODOA-46
