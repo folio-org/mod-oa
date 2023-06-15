@@ -73,7 +73,7 @@ databaseChangeLog = {
     addPrimaryKey(columnNames: "sw_id", constraintName: "sw_idPK", tableName: "scholarly_work")
   }
 
-  changeSet(author: "Jack-Golding (manual)", id: "2023-06-15-1608-014") {
+  changeSet(author: "Jack-Golding (manual)", id: "2023-06-15-1608-015") {
     addPrimaryKey(columnNames: "ti_id", constraintName: "ti_idPK", tableName: "title_instance")
   }
 }
