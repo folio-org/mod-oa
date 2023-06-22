@@ -387,7 +387,7 @@ eclipse {
 	jacocoTestReport {
 		// See https://github.com/grails/grails-core/issues/11318
 		// executionData test, integrationTest
-		executionData = files tasks.withType(Test)*.jacoco*.destinationFile.findAll { it.exists() }
+		executionData(files tasks.withType(Test)*.jacoco*.destinationFile.findAll { it.exists() })
 		// executionData = files tasks.withType(Test)*.jacoco*.destinationFile.findAll { it.exists() } tasks.withType(IntegrationTest)*.jacoco*.destinationFile.findAll { it.exists() }
 
 		println("execution data : ${executionData}");
@@ -397,14 +397,14 @@ eclipse {
 			csv.enabled true
 		}
 		afterEvaluate {
-			classDirectories = files(classDirectories.files.collect {
+			classDirectories.setFrom(files(classDirectories.files.collect {
 					fileTree(dir: it,
 									exclude: ['**/Application**',
 														'**/BootStrap**',
 														'**/**gson**',
 														'**/**closure**',
 														'**/UrlMappings**'])
-			})
+			}))
 		}
 		dependsOn test, integrationTest
 	}
