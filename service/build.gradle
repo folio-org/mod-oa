@@ -115,7 +115,7 @@ dependencies {
 	implementation 'com.k_int.grails:web-toolkit-ce:8.1.0-rc.1'
 	implementation 'com.k_int.okapi:grails-okapi:6.0.0-rc.2'
 	
-	// implementation 'io.github.http-builder-ng:http-builder-ng-core:1.0.4'
+	implementation 'io.github.http-builder-ng:http-builder-ng-core:1.0.4'
 	implementation 'org.codehaus.janino:janino:3.1.9'
 	implementation "org.springframework.boot:spring-boot-starter-undertow" // Replaces spring-boot-starter-tomcat
 	implementation "org.hibernate:hibernate-java8:5.4.28.Final"
