@@ -37,6 +37,8 @@ apply plugin:"idea"
 apply plugin:"org.grails.grails-web"
 apply plugin:"org.grails.plugins.views-json"
 apply plugin: 'com.bmuschko.docker-remote-api'
+apply plugin: 'jacoco'
+apply plugin: 'org.sonarqube'
 
 sourceSets {
 	main {
@@ -373,5 +375,46 @@ eclipse {
 				entries << lib
 			}
 		}
+	}
+
+	jacoco {
+		toolVersion = "0.8.8"
+	}
+
+
+	// Use ./gradlew clean build jacocoTestReport
+	jacocoTestReport {
+		// See https://github.com/grails/grails-core/issues/11318
+		// executionData test, integrationTest
+		executionData = files tasks.withType(Test)*.jacoco*.destinationFile.findAll { it.exists() }
+		// executionData = files tasks.withType(Test)*.jacoco*.destinationFile.findAll { it.exists() } tasks.withType(IntegrationTest)*.jacoco*.destinationFile.findAll { it.exists() }
+
+		println("execution data : ${executionData}");
+		reports {
+			xml.enabled true
+			html.enabled true
+			csv.enabled true
+		}
+		afterEvaluate {
+			classDirectories = files(classDirectories.files.collect {
+					fileTree(dir: it,
+									exclude: ['**/Application**',
+														'**/BootStrap**',
+														'**/**gson**',
+														'**/**closure**',
+														'**/UrlMappings**'])
+			})
+		}
+		dependsOn test, integrationTest
+	}
+
+	sonarqube {
+			properties {
+					property "sonar.java.coveragePlugin", "jacoco"
+					property "sonar.projectKey", "org.folio:mod-oa"
+					property "sonar.verbose", true
+					property "sonar.projectName", "mod-oa"
+					property "sonar.coverage.jacoco.xmlReportPaths", "${rootDir}/build/reports/jacoco/test/jacocoTestReport.xml"
+			}
 	}
 }
