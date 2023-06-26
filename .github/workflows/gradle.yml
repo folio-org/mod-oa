@@ -37,8 +37,7 @@ jobs:
 
       - name: Build with Gradle
         run: |
-          ./gradlew --refresh-dependencies clean buildImage
-          ./gradlew build jacocoTestReport
+          ./gradlew --refresh-dependencies clean buildImage jacocoTestReport
           ls ./build/test-results/integrationTest/*
 
       - name: Stop containers
