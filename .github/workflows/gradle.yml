@@ -37,7 +37,7 @@ jobs:
 
       - name: Build with Gradle
         run: |
-          ./gradlew --refresh-dependencies clean
+          ./gradlew --refresh-dependencies clean buildImage
           ./gradlew build jacocoTestReport
           ls ./build/test-results/integrationTest/*
 
@@ -57,31 +57,3 @@ jobs:
             service/build/reports/jacoco/test/**/*.html
             service/build/reports/jacoco/test/**/*.csv
             service/build/reports/jacoco/test/**/*.xml
-
-      - name: Publish Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v1
-        if: always()
-        with:
-          files: |
-            service/build/test-results/**/*.xml
-
-      - name: Publish Docker Image
-        if: github.ref == 'refs/heads/master'
-        run: |
-          cd ..
-          cat ./service/gradle.properties
-          APP_VERSION=$(grep appVersion ./service/gradle.properties| cut -f2 -d=)
-          echo "APP_VERSION_2=`grep appVersion ./service/gradle.properties| cut -f2 -d=`" >> $GITHUB_ENV
-          echo "See https://github.com/marketplace/actions/build-and-push-docker-images"
-          echo "Also https://www.prestonlamb.com/blog/creating-a-docker-image-with-github-actions"
-          echo "Run number is $GITHUB_RUN_NUMBER"
-          echo "Parsed APP_VERSION to ${APP_VERSION}"
-          if [[ "${APP_VERSION}" =~ .*SNAPSHOT.* ]]; then
-            echo Publish as snapshot 
-            docker build . --file Dockerfile --tag knowledgeintegration/mod-oa:${APP_VERSION}
-            docker build . --file Dockerfile --tag knowledgeintegration/mod-oa:snapshot-latest
-          else
-            echo Publish as release
-            docker build . --file Dockerfile --tag knowledgeintegration/mod-oa:${APP_VERSION}
-            docker build . --file Dockerfile --tag knowledgeintegration/mod-oa:latest
-          fi
