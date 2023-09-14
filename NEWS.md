@@ -1,6 +1,7 @@
 ## 2.0.0 In progress
  * Upgraded to Grails 5
  * MODOA-51 Added primary keys to database Schema
+ * Bumped dependencies for commons-io and spring-webmvc. Refs MODOA-54/55
 
 ## 1.1.0 2023-03-20
  * Modified p_main_email datatype from VARCHAR(36) to VARCHAR(255). Refs MODOA-44

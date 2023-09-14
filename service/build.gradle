@@ -159,6 +159,9 @@ dependencies {
 	testImplementation( 'com.athaydes:spock-reports:2.3.2-groovy-3.0' ) {
 		transitive = false // this avoids affecting your version of Groovy/Spock
 	}
+
+	// Bumping this manually to avoid potential security issue with spring-webmvc-5.3.25
+	implementation 'org.springframework:spring-webmvc:5.3.28'
 }
 
 bootRun {
