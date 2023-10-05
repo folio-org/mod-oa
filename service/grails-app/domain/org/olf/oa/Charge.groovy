@@ -59,16 +59,18 @@ class Charge implements MultiTenant<Charge> {
     MonetaryValue estimatedPrice
     BigDecimal value
     
-    if (discountType.value == 'percentage') {
+    if (discountType?.value == 'percentage') {
       // PERCENTAGE DISCOUNT
       // Value = (value - (value*(discount/100)))*(1+(tax/100))
       value = amount.value.subtract((amount.value.multiply(discount.divide(ONE_HUNDRED)))).multiply(getTaxMultiplicand())
-    } else {
+    } else if (discountType?.value == 'subtracted'){
       // STATIC DISCOUNT
       // Value = (value - discount)*(1+(tax/100))
       value = amount.value.subtract(discount).multiply(getTaxMultiplicand())
+    } else {
+      value = amount.value
     }
-    
+
     estimatedPrice = new MonetaryValue([
       value: value,
       baseCurrency: amount?.baseCurrency
