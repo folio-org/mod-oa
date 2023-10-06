@@ -151,7 +151,7 @@ dependencies {
 	implementation 'org.z3950.zing:cql-java:1.13'
 
 	/* ---- Custom non profile deps ---- */
-	implementation 'org.apache.kafka:kafka-clients:2.3.0'
+	implementation 'org.apache.kafka:kafka-clients:3.5.1'
     implementation 'com.github.everit-org.json-schema:org.everit.json.schema:1.12.2'
  
 	// implementation 'com.github.everit-org.json-schema:org.everit.json.schema:1.12.2'
