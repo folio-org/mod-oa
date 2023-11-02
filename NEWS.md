@@ -1,7 +1,10 @@
-## 2.0.0 In progress
- * Upgraded to Grails 5
+## 2.0.0 2023-11-02
+ * Upgraded to Grails 5 (including Hibernate 5.6.x for Poppy)
+ * Implemented undertow servlet and enable scheduling annotation to application.groovy
+ * MODOA-57 Fixed error on attempting to render a charge
  * MODOA-51 Added primary keys to database Schema
- * Bumped dependencies for commons-io and spring-webmvc. Refs MODOA-54/55
+ * Bumped web-toolkit-ce to 8.1.4
+ * Bumped dependencies for commons-io, spring-webmvc and kafka-clients Refs MODOA-53/54/55
 
 ## 1.1.0 2023-03-20
  * Modified p_main_email datatype from VARCHAR(36) to VARCHAR(255). Refs MODOA-44
