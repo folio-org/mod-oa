@@ -1,3 +1,5 @@
+## 2.1.0 In progress
+
 ## 2.0.0 2023-11-02
  * Upgraded to Grails 5 (including Hibernate 5.6.x for Poppy)
  * Implemented undertow servlet and enable scheduling annotation to application.groovy
