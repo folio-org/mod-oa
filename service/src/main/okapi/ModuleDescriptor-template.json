@@ -614,6 +614,31 @@
       ]
     },
     {
+      "permissionName": "oa.charges.collection.get",
+      "displayName": "Charges collection get",
+      "description": "Get a collection of charge records"
+    },
+    {
+      "permissionName": "oa.charges.item.get",
+      "displayName": "Charges get",
+      "description": "Get a charge record"
+    },
+    {
+      "permissionName": "oa.charges.item.post",
+      "displayName": "Charges post",
+      "description": "Post a charge record"
+    },
+    {
+      "permissionName": "oa.charges.item.put",
+      "displayName": "Charges put",
+      "description": "Put a charge record"
+    },
+    {
+      "permissionName": "oa.charges.item.delete",
+      "displayName": "Charges delete",
+      "description": "Delete a charge record"
+    },
+    {
       "permissionName": "oa.charges.view",
       "subPermissions": [
         "oa.charges.collection.get",
