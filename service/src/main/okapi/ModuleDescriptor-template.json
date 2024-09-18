@@ -55,135 +55,133 @@
         {
           "methods": [ "GET" ],
           "pathPattern": "/oa/scholarlyWork",
-          "permissionsRequired": [ "oa.scholarlyWork.view" ]
+          "permissionsRequired": [ "oa.scholarlyWork.collection.get" ]
+        },
+        {
+          "methods": [ "GET"],
+          "pathPattern": "/oa/scholarlyWork/{id}",
+          "permissionsRequired": [ "oa.scholarlyWork.item.get" ]
         },
         {
           "methods": [ "POST" ],
           "pathPattern": "/oa/scholarlyWork",
-          "permissionsRequired": [ "oa.scholarlyWork.edit" ]
-        },
-        {
-          "methods": [ "GET"],
-          "pathPattern": "/oa/scholarlyWork/{id}",
-          "permissionsRequired": [ "oa.scholarlyWork.view" ]
+          "permissionsRequired": [ "oa.scholarlyWork.item.post" ]
         },
         {
           "methods": [ "PUT" ],
           "pathPattern": "/oa/scholarlyWork/{id}",
-          "permissionsRequired": [ "oa.scholarlyWork.edit" ]
-
+          "permissionsRequired": [ "oa.scholarlyWork.item.put" ]
         },
         {
           "methods": [ "DELETE" ],
           "pathPattern": "/oa/scholarlyWork/{id}", 
-          "permissionsRequired": [ "oa.scholarlyWork.manage" ]
+          "permissionsRequired": [ "oa.scholarlyWork.item.delete" ]
         },
         {
           "methods": [ "GET" ],
           "pathPattern": "/oa/publicationRequest",
-          "permissionsRequired": [ "oa.publicationRequest.view" ],
+          "permissionsRequired": [ "oa.publicationRequest.collection.get" ],
           "modulePermissions": [ "erm.agreements.item.get" ]
-        },
-        {
-          "methods": [ "POST" ],
-          "pathPattern": "/oa/publicationRequest",
-          "permissionsRequired": [ "oa.publicationRequest.edit" ]
         },
         {
           "methods": [ "GET"],
           "pathPattern": "/oa/publicationRequest/{id}",
-          "permissionsRequired": [ "oa.publicationRequest.view" ]
+          "permissionsRequired": [ "oa.publicationRequest.item.get" ]
+        },
+        {
+          "methods": [ "POST" ],
+          "pathPattern": "/oa/publicationRequest",
+          "permissionsRequired": [ "oa.publicationRequest.item.post" ]
         },
         {
           "methods": [ "PUT" ],
           "pathPattern": "/oa/publicationRequest/{id}",
-          "permissionsRequired": [ "oa.publicationRequest.edit" ]
-
+          "permissionsRequired": [ "oa.publicationRequest.item.post" ]
         },
         {
           "methods": [ "DELETE" ],
           "pathPattern": "/oa/publicationRequest/{id}", 
-          "permissionsRequired": [ "oa.publicationRequest.manage" ]
+          "permissionsRequired": [ "oa.publicationRequest.item.delete" ]
         },
         {
           "methods": [ "GET" ],
           "pathPattern": "/oa/titleInstances",
-          "permissionsRequired": [ "oa.titleInstances.view" ]
+          "permissionsRequired": [ "oa.titleInstances.collection.get" ]
         },
         {
           "methods": [ "GET" ],
           "pathPattern": "/oa/titleInstances/{id}",
-          "permissionsRequired": [ "oa.titleInstances.view" ]
+          "permissionsRequired": [ "oa.titleInstances.item.get" ]
         },
         {
           "methods": [ "GET" ],
           "pathPattern": "/oa/works",
-          "permissionsRequired": [ "oa.works.view" ]
+          "permissionsRequired": [ "oa.works.collection.get" ]
         },
         {
           "methods": [ "GET" ],
           "pathPattern": "/oa/works/{id}",
-          "permissionsRequired": [ "oa.works.view" ]
-        },
-        {
-          "methods": [ "PUT" ],
-          "pathPattern": "/oa/works/{id}",
-          "permissionsRequired": [ "oa.works.edit" ]
-        },
-        {
-          "methods": [ "GET" ],
-          "pathPattern": "/oa/party",
-          "permissionsRequired": [ "oa.party.view" ]
-        },
-        {
-          "methods": [ "POST" ],
-          "pathPattern": "/oa/party",
-          "permissionsRequired": [ "oa.party.edit" ]
-        },
-        {
-          "methods": [ "GET"],
-          "pathPattern": "/oa/party/{id}",
-          "permissionsRequired": [ "oa.party.view" ]
-        },
-        {
-          "methods": [ "PUT" ],
-          "pathPattern": "/oa/party/{id}",
-          "permissionsRequired": [ "oa.party.edit" ]
-        },
-        {
-          "methods": [ "DELETE" ],
-          "pathPattern": "/oa/party/{id}", 
-          "permissionsRequired": [ "oa.party.manage" ]
-        },
-        {
-          "methods": [ "GET" ],
-          "pathPattern": "/oa/correspondence",
-          "permissionsRequired": [ "oa.correspondence.view" ]
-        },
-        {
-          "methods": [ "GET" ],
-          "pathPattern": "/oa/correspondence/{id}",
-          "permissionsRequired": [ "oa.correspondence.view" ]
-        },
-        {
-          "methods": [ "POST" ],
-          "pathPattern": "/oa/correspondence",
-          "permissionsRequired": [ "oa.correspondence.edit" ]
-        },
-        {
-          "methods": [ "PUT" ],
-          "pathPattern": "/oa/correspondence/{id}",
-          "permissionsRequired": [ "oa.correspondence.edit" ]
-        },
-        {
-          "methods": [ "DELETE" ],
-          "pathPattern": "/oa/correspondence/{id}",
-          "permissionsRequired": [ "oa.correspondence.manage" ]
+          "permissionsRequired": [ "oa.works.item.get" ]
         },
         {
           "methods": ["POST"],
           "pathPattern": "/oa/works/citation",
-          "permissionsRequired": [ "oa.works.create" ]
+          "permissionsRequired": [ "oa.works.item.post" ]
+        },
+        {
+          "methods": [ "PUT" ],
+          "pathPattern": "/oa/works/{id}",
+          "permissionsRequired": [ "oa.works.item.put" ]
+        },
+        {
+          "methods": [ "GET" ],
+          "pathPattern": "/oa/party",
+          "permissionsRequired": [ "oa.party.collection.get" ]
+        },
+        {
+          "methods": [ "GET"],
+          "pathPattern": "/oa/party/{id}",
+          "permissionsRequired": [ "oa.party.item.get" ]
+        },
+        {
+          "methods": [ "POST" ],
+          "pathPattern": "/oa/party",
+          "permissionsRequired": [ "oa.party.item.post" ]
+        },
+        {
+          "methods": [ "PUT" ],
+          "pathPattern": "/oa/party/{id}",
+          "permissionsRequired": [ "oa.party.item.put" ]
+        },
+        {
+          "methods": [ "DELETE" ],
+          "pathPattern": "/oa/party/{id}", 
+          "permissionsRequired": [ "oa.party.item.delete" ]
+        },
+        {
+          "methods": [ "GET" ],
+          "pathPattern": "/oa/correspondence",
+          "permissionsRequired": [ "oa.correspondence.collection.get" ]
+        },
+        {
+          "methods": [ "GET" ],
+          "pathPattern": "/oa/correspondence/{id}",
+          "permissionsRequired": [ "oa.correspondence.item.get" ]
+        },
+        {
+          "methods": [ "POST" ],
+          "pathPattern": "/oa/correspondence",
+          "permissionsRequired": [ "oa.correspondence.item.post" ]
+        },
+        {
+          "methods": [ "PUT" ],
+          "pathPattern": "/oa/correspondence/{id}",
+          "permissionsRequired": [ "oa.correspondence.item.put" ]
+        },
+        {
+          "methods": [ "DELETE" ],
+          "pathPattern": "/oa/correspondence/{id}",
+          "permissionsRequired": [ "oa.correspondence.item.delete" ]
         },
         {
           "methods": [ "GET", "POST", "PUT", "DELETE" ],
@@ -193,27 +191,27 @@
          {
           "methods": [ "GET" ],
           "pathPattern": "/oa/charges",
-          "permissionsRequired": [ "oa.charges.view" ]
+          "permissionsRequired": [ "oa.charges.collection.get" ]
         },
         {
           "methods": [ "GET" ],
           "pathPattern": "/oa/charges/{id}",
-          "permissionsRequired": [ "oa.charges.view" ]
+          "permissionsRequired": [ "oa.charges.item.get" ]
         },
         {
           "methods": [ "POST" ],
           "pathPattern": "/oa/charges",
-          "permissionsRequired": [ "oa.charges.edit" ]
+          "permissionsRequired": [ "oa.charges.item.post" ]
         },
         {
           "methods": [ "PUT" ],
           "pathPattern": "/oa/charges/{id}",
-          "permissionsRequired": [ "oa.charges.edit" ]
+          "permissionsRequired": [ "oa.charges.item.put" ]
         },
         {
           "methods": [ "DELETE" ],
           "pathPattern": "/oa/charges/{id}",
-          "permissionsRequired": [ "oa.charges.manage" ]
+          "permissionsRequired": [ "oa.charges.item.delete" ]
         },
         {
           "methods": ["GET"],
@@ -238,7 +236,7 @@
         }, {
           "methods": ["GET"],
           "pathPattern": "/oa/reports/{reportname}",
-          "permissionsRequired": [ "oa.reports.get" ]
+          "permissionsRequired": [ "oa.reports.item.get" ]
         }
       ]
     },
@@ -460,6 +458,61 @@
       ]
     },
     {
+      "permissionName": "oa.titleInstances.collection.get",
+      "displayName": "Title instance collection get",
+      "description": "Get a collection of title instance records"
+    },
+    {
+      "permissionName": "oa.titleInstances.item.get",
+      "displayName": "Title instance item get",
+      "description": "Get a title instance record"
+    },
+    {
+      "permissionName": "oa.titleInstances.view",
+      "subPermissions": [
+        "oa.titleInstances.collection.get",
+        "oa.titleInstances.item.get"
+      ]
+    },
+    {
+      "permissionName": "oa.works.collection.get",
+      "displayName": "Works collection get",
+      "description": "Get a collection of works records"
+    },
+    {
+      "permissionName": "oa.works.item.get",
+      "displayName": "Works item get",
+      "description": "Get a works record"
+    },
+    {
+      "permissionName": "oa.works.view",
+      "subPermissions": [
+        "oa.works.collection.get",
+        "oa.works.item.get"
+      ]
+    },
+    {
+      "permissionName": "oa.works.item.post",
+      "displayName": "Works item post",
+      "description": "Post a work record",
+      "replaces": [
+        "oa.works.create"
+      ]
+    },
+    {
+      "permissionName": "oa.works.item.put",
+      "displayName": "Works item put",
+      "description": "Put a works record"
+    },
+    {
+      "permissionName": "oa.works.edit",
+      "subPermissions": [
+        "oa.works.view",
+        "oa.works.item.put",
+        "oa.works.item.post"
+      ]
+    },
+    {
       "permissionName": "oa.party.collection.get",
       "displayName": "Party collection get",
       "description": "Get a collection of party records"
@@ -468,11 +521,6 @@
       "permissionName": "oa.party.item.get",
       "displayName": "Party item get",
       "description": "Get a party record"
-    },
-    {
-      "permissionName": "oa.reports.get",
-      "displayName": "In App Reporting for Open Access",
-      "description": "In App Reporting for Open Access"
     },
     {
       "permissionName": "oa.party.view",
@@ -512,41 +560,14 @@
       ]
     },
     {
-      "permissionName": "oa.titleInstances.view",
-      "displayName": "TitleInstance collection get",
-      "description": "Get a collection of TitleInstance records"
+      "permissionName": "oa.correspondence.collection.get",
+      "displayName": "Correspondence collection get",
+      "description": "Get a collection of correspondence records"
     },
     {
-      "permissionName": "oa.works.view",
-      "displayName": "Works collection get",
-      "description": "Get a collection of Work records"
-    },
-    {
-      "permissionName": "oa.works.create",
-      "displayName": "Works create",
-      "description": "Create work records",
-      "subPermissions": [
-        "oa.works.view"
-      ]
-    },
-    {
-      "permissionName": "oa.works.item.put",
-      "displayName": "Works item put",
-      "description": "Put a works record"
-    },
-    {
-      "permissionName": "oa.works.edit",
-      "subPermissions": [
-        "oa.correspondence.view",
-        "oa.works.item.put"
-      ]
-    },
-    {
-      "permissionName": "oa.correspondence.manage",
-      "subPermissions": [
-        "oa.correspondence.edit",
-        "oa.correspondence.item.delete"
-      ]
+      "permissionName": "oa.correspondence.item.get",
+      "displayName": "Correspondence item get",
+      "description": "Get a correspondence record"
     },
     {
       "permissionName": "oa.correspondence.view",
@@ -555,6 +576,16 @@
         "oa.correspondence.item.get"
       ]
     },
+    {
+      "permissionName": "oa.correspondence.item.post",
+      "displayName": "Correspondence item post",
+      "description": "Post a correspondence record"
+    },
+    {
+      "permissionName": "oa.correspondence.item.put",
+      "displayName": "Correspondence item put",
+      "description": "Put a correspondence record"
+    }, 
     {
       "permissionName": "oa.correspondence.edit",
       "subPermissions": [
@@ -569,24 +600,11 @@
       "description": "Delete a correspondence record"
     },
     {
-      "permissionName": "oa.correspondence.item.post",
-      "displayName": "Correspondence item post",
-      "description": "Post a correspondence record"
-    },
-    {
-      "permissionName": "oa.correspondence.item.put",
-      "displayName": "Correspondence item put",
-      "description": "Put a correspondence record"
-    },
-    {
-      "permissionName": "oa.correspondence.item.get",
-      "displayName": "Correspondence item get",
-      "description": "Get a correspondence record"
-    },
-    {
-      "permissionName": "oa.correspondence.collection.get",
-      "displayName": "Correspondence collection get",
-      "description": "Get a collection of correspondence records"
+      "permissionName": "oa.correspondence.manage",
+      "subPermissions": [
+        "oa.correspondence.edit",
+        "oa.correspondence.item.delete"
+      ]
     },
     {
       "permissionName": "oa.charges.manage",
@@ -594,6 +612,31 @@
         "oa.charges.edit",
         "oa.charges.item.delete"
       ]
+    },
+    {
+      "permissionName": "oa.charges.collection.get",
+      "displayName": "Charges collection get",
+      "description": "Get a collection of charge records"
+    },
+    {
+      "permissionName": "oa.charges.item.get",
+      "displayName": "Charges get",
+      "description": "Get a charge record"
+    },
+    {
+      "permissionName": "oa.charges.item.post",
+      "displayName": "Charges post",
+      "description": "Post a charge record"
+    },
+    {
+      "permissionName": "oa.charges.item.put",
+      "displayName": "Charges put",
+      "description": "Put a charge record"
+    },
+    {
+      "permissionName": "oa.charges.item.delete",
+      "displayName": "Charges delete",
+      "description": "Delete a charge record"
     },
     {
       "permissionName": "oa.charges.view",
@@ -655,6 +698,14 @@
       "subPermissions": [
         "oa.checklistItems.edit",
         "oa.checklistItems.item.delete"
+      ]
+    },
+    {
+      "permissionName": "oa.reports.item.get",
+      "displayName": "In App Reporting for Open Access",
+      "description": "In App Reporting for Open Access",
+      "replaces": [
+        "oa.reports.get"
       ]
     }
   ],
