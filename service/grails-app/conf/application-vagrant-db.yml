@@ -12,9 +12,25 @@ dataSource:
   dialect: com.k_int.hibernate.dialects.postgres.KIPostgres94Dialect
   schemaHandler: com.k_int.okapi.OkapiSchemaHandler
   properties:
-    jmxEnabled: false
-    maximumPoolSize: ${db.maxpoolsize:10}
-    transactionIsolation: TRANSACTION_READ_COMMITTED
+      jmxEnabled: false
+      initialSize: 5
+      maxActive: 50
+      minIdle: 5
+      maxIdle: 25
+      maxWait: 10000
+      maxAge: 600000
+      timeBetweenEvictionRunsMillis: 5000
+      minEvictableIdleTimeMillis: 60000
+      validationQuery: SELECT 1
+      validationInterval: 30000
+      testOnBorrow: true
+      testWhileIdle: true
+      testOnReturn: false
+      removeAbandoned: true
+      removeAbandonedTimeout: 60
+      abandonWhenPercentageFull: 50
+      jdbcInterceptors: ConnectionState
+      defaultTransactionIsolation: 2 # TRANSACTION_READ_COMMITTED
 ---
 server:
   host: localhost
@@ -23,4 +39,3 @@ logging:
   config: classpath:logback-development.xml
 hibernate:
   enable_lazy_load_no_trans: true
- 

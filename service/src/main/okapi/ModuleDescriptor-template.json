@@ -4,7 +4,7 @@
   "provides": [
     {
       "id": "oa",
-      "version": "${okapiInterfaceVersion}",
+      "version": "${info.app.minorVersion}",
       "handlers" : [
         {
           "methods": [ "GET" ],

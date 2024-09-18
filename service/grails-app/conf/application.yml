@@ -149,18 +149,39 @@ dataSource:
   url: "jdbc:postgresql://${db.host:localhost}:${db.port:5432}/${db.database:okapi_modules}"
   schemaHandler: com.k_int.okapi.OkapiSchemaHandler
   properties:
-    jmxEnabled: false
-    maximumPoolSize: ${db.maxpoolsize:10}
-    transactionIsolation: TRANSACTION_READ_COMMITTED
+    initialSize: 5
+    maxActive: ${db.maxpoolsize:50}
+    minIdle: 5
+    maxIdle: 25
+    maxWait: 10000
+    maxAge: 600000
+    timeBetweenEvictionRunsMillis: 5000
+    minEvictableIdleTimeMillis: 60000
+    validationQuery: SELECT 1
+    validationInterval: 30000
+    testOnBorrow: true
+    testWhileIdle: true
+    testOnReturn: false
+    removeAbandoned: true
+    removeAbandonedTimeout: 60
+    abandonWhenPercentageFull: 50
+    jdbcInterceptors: ConnectionState
+    defaultTransactionIsolation: 2 # TRANSACTION_READ_COMMITTED
 
 environments:
   test:
     dataSource:
       url: "jdbc:postgresql://${db.host:localhost}:${db.port:54321}/${db.database:okapi_modules}"
       properties:
-        jmxEnabled: false
-        maximumPoolSize: ${db.maxpoolsize:10}
-        transactionIsolation: TRANSACTION_READ_COMMITTED
+        initialSize: 7
+        minIdle: 2
+        maxIdle: 10
+        maxActive: 10
+        validationQuery: SELECT 1
+        testOnBorrow: true
+        testWhileIdle: true
+        testOnReturn: false
+        defaultTransactionIsolation: 2 # TRANSACTION_READ_COMMITTED
 
 
   dbGen:
@@ -178,9 +199,24 @@ environments:
   production:
     dataSource:
       properties:
-        jmxEnabled: false
-        maximumPoolSize: ${db.maxpoolsize:10}
-        transactionIsolation: TRANSACTION_READ_COMMITTED
+        initialSize: 5
+        maxActive: 50
+        minIdle: 5
+        maxIdle: 25
+        maxWait: 10000
+        maxAge: 600000
+        timeBetweenEvictionRunsMillis: 5000
+        minEvictableIdleTimeMillis: 60000
+        validationQuery: SELECT 1
+        validationInterval: 30000
+        testOnBorrow: true
+        testWhileIdle: true
+        testOnReturn: false
+        removeAbandoned: true
+        removeAbandonedTimeout: 60
+        abandonWhenPercentageFull: 50
+        jdbcInterceptors: ConnectionState
+        defaultTransactionIsolation: 2 # TRANSACTION_READ_COMMITTED
  
   development:
     okapi:
