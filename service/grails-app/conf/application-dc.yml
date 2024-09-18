@@ -5,24 +5,31 @@
 
 dataSource:
   dbCreate: none
-  url: "jdbc:postgresql://${db.host:localhost}:${db.port:30101}/${db.database:okapi_modules}" # Port 30101 forwarded so as not to clash.
+  url: "jdbc:postgresql://${db.host:localhost}:${db.port:5432}/${db.database:okapi_modules_test}" # Port 5432 forwarded so as not to clash.
   username: postgres
-  password: postgres
+  password: pa55w0rd
   driverClassName: org.postgresql.Driver
   dialect: com.k_int.hibernate.dialects.postgres.KIPostgres94Dialect
   schemaHandler: com.k_int.okapi.OkapiSchemaHandler
   logSql: false
   properties:
-    jmxEnabled: false
-    maximumPoolSize: ${db.maxpoolsize:10}
-    transactionIsolation: TRANSACTION_READ_COMMITTED
-server:
-  port: 8079
+      jmxEnabled: false
+      maximumPoolSize: ${db.maxpoolsize:50}
+      transactionIsolation: TRANSACTION_READ_COMMITTED
+
+  hibernate:
+    enable_lazy_load_no_trans: true
+
 okapi: 
   service:
     host: localhost
     port: 30100
 logging:
   config: classpath:logback-development.xml
-hibernate:
-  enable_lazy_load_no_trans: true       
+
+
+
+#    register: true
+#    deploy: true
+        
+      
