@@ -263,6 +263,8 @@ project.gradle.projectsEvaluated {
 			println("WARNING: Version regex parse failed");
 		}
 
+		properties.setProperty('okapiInterfaceVersion', "$okapiInterfaceVersion")
+
 		if(env.BUILD_NUMBER)
 			properties.setProperty('build.number', env.BUILD_NUMBER)
 
