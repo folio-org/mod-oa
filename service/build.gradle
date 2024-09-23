@@ -148,7 +148,7 @@ dependencies {
 
   // Finance
   implementation "javax.money:money-api:1.1"
-  implementation "org.javamoney:moneta:1.1"
+  implementation "org.javamoney:moneta:1.4"
 
 	/*  ---- Manually installed testing dependencies ---- */
 	// implementation "org.grails:grails-gorm-testing-support:2.6.1"
