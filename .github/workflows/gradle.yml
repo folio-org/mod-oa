@@ -33,7 +33,7 @@ jobs:
       - name: Start containers
         run: |
           cd ../tools/testing
-          docker-compose -f "docker-compose.yml" up -d
+          docker compose -f "docker-compose.yml" up -d
 
       - name: Build with Gradle
         run: |
@@ -43,7 +43,7 @@ jobs:
       - name: Stop containers
         run: |
           cd ../tools/testing
-          docker-compose -f "docker-compose.yml" down -v
+          docker compose -f "docker-compose.yml" down -v
 
       - name: Upload Unit Test Results
         if: always()
