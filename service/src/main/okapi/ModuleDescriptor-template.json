@@ -29,11 +29,11 @@
         {
           "methods": ["GET"],
           "pathPattern": "/oa/refdata",
-          "permissionsRequired": [ "oa.refdata-category.collection.get" ]
+          "permissionsRequired": [ "oa.refdata.category.collection.get" ]
         },{
           "methods": ["GET"],
           "pathPattern": "/oa/refdata/{domain}/{property}",
-          "permissionsRequired": [ "oa.refdata-value.collection.get" ]
+          "permissionsRequired": [ "oa.refdata.value.collection.get" ]
         },{
           "methods": ["GET"],
           "pathPattern": "/oa/refdata/{id}",
@@ -306,16 +306,22 @@
       ]
     },
     {
-      "permissionName": "oa.refdata-category.collection.get",
+      "permissionName": "oa.refdata.category.collection.get",
       "displayName": "Refdata category collection get",
       "description": "Get a collection of refdata category records",
-      "visible": false
+      "visible": false,
+      "replaces": [
+        "oa.refdata.collection.get"
+      ]
     },
     {
-      "permissionName": "oa.refdata-value.collection.get",
+      "permissionName": "oa.refdata.value.collection.get",
       "displayName": "Refdata value collection get",
       "description": "Get a collection of refdata value records",
-      "visible": false
+      "visible": false,
+      "replaces": [
+        "oa.refdata.collection.get"
+      ]
     },
     {
       "permissionName": "oa.refdata.item.get",
@@ -346,8 +352,8 @@
       "displayName": "Refdata read",
       "description": "Read refdata as items or collections",
       "subPermissions": [
-        "oa.refdata-category.collection.get",
-        "oa.refdata-value.collection.get",
+        "oa.refdata.category.collection.get",
+        "oa.refdata.value.collection.get",
         "oa.refdata.item.get"
       ]
     },
