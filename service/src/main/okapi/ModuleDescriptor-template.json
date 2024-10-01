@@ -5,257 +5,465 @@
     {
       "id": "oa",
       "version": "${okapiInterfaceVersion}",
-      "handlers" : [
+      "handlers": [
         {
-          "methods": [ "GET" ],
+          "methods": [
+            "GET"
+          ],
           "pathPattern": "/oa/settings*",
-          "permissionsRequired": [ "oa.settings.get" ]
+          "permissionsRequired": [
+            "oa.settings.get"
+          ]
         },
         {
-          "methods": [ "POST" ],
+          "methods": [
+            "POST"
+          ],
           "pathPattern": "/oa/settings*",
-          "permissionsRequired": [ "oa.settings.post" ]
+          "permissionsRequired": [
+            "oa.settings.post"
+          ]
         },
         {
-          "methods": [ "PUT" ],
+          "methods": [
+            "PUT"
+          ],
           "pathPattern": "/oa/settings*",
-          "permissionsRequired": [ "oa.settings.put" ]
+          "permissionsRequired": [
+            "oa.settings.put"
+          ]
         },
         {
-          "methods": [ "DELETE" ],
+          "methods": [
+            "DELETE"
+          ],
           "pathPattern": "/oa/settings*",
-          "permissionsRequired": [ "oa.settings.delete" ]
+          "permissionsRequired": [
+            "oa.settings.delete"
+          ]
         },
         {
-          "methods": ["GET"],
+          "methods": [
+            "GET"
+          ],
           "pathPattern": "/oa/refdata",
-          "permissionsRequired": [ "oa.refdata.category.collection.get" ]
-        },{
-          "methods": ["GET"],
+          "permissionsRequired": [
+            "oa.refdata.category.collection.get"
+          ]
+        },
+        {
+          "methods": [
+            "GET"
+          ],
           "pathPattern": "/oa/refdata/{domain}/{property}",
-          "permissionsRequired": [ "oa.refdata.value.collection.get" ]
-        },{
-          "methods": ["GET"],
-          "pathPattern": "/oa/refdata/{id}",
-          "permissionsRequired": [ "oa.refdata.item.get" ]
+          "permissionsRequired": [
+            "oa.refdata.value.collection.get"
+          ]
         },
         {
-          "methods": ["POST"],
+          "methods": [
+            "GET"
+          ],
+          "pathPattern": "/oa/refdata/{id}",
+          "permissionsRequired": [
+            "oa.refdata.item.get"
+          ]
+        },
+        {
+          "methods": [
+            "POST"
+          ],
           "pathPattern": "/oa/refdata",
-          "permissionsRequired": [ "oa.refdata.item.post" ]
-        },{
-          "methods": ["PUT"],
+          "permissionsRequired": [
+            "oa.refdata.item.post"
+          ]
+        },
+        {
+          "methods": [
+            "PUT"
+          ],
           "pathPattern": "/oa/refdata/{id}",
-          "permissionsRequired": [ "oa.refdata.item.put" ]
-        },{
-          "methods": ["DELETE"],
+          "permissionsRequired": [
+            "oa.refdata.item.put"
+          ]
+        },
+        {
+          "methods": [
+            "DELETE"
+          ],
           "pathPattern": "/oa/refdata/{id}",
-          "permissionsRequired": [ "oa.refdata.item.delete" ]
+          "permissionsRequired": [
+            "oa.refdata.item.delete"
+          ]
         },
         {
-          "methods": [ "GET" ],
+          "methods": [
+            "GET"
+          ],
           "pathPattern": "/oa/scholarlyWork",
-          "permissionsRequired": [ "oa.scholarlyWork.collection.get" ]
+          "permissionsRequired": [
+            "oa.scholarlyWork.collection.get"
+          ]
         },
         {
-          "methods": [ "GET"],
+          "methods": [
+            "GET"
+          ],
           "pathPattern": "/oa/scholarlyWork/{id}",
-          "permissionsRequired": [ "oa.scholarlyWork.item.get" ]
+          "permissionsRequired": [
+            "oa.scholarlyWork.item.get"
+          ]
         },
         {
-          "methods": [ "POST" ],
+          "methods": [
+            "POST"
+          ],
           "pathPattern": "/oa/scholarlyWork",
-          "permissionsRequired": [ "oa.scholarlyWork.item.post" ]
+          "permissionsRequired": [
+            "oa.scholarlyWork.item.post"
+          ]
         },
         {
-          "methods": [ "PUT" ],
+          "methods": [
+            "PUT"
+          ],
           "pathPattern": "/oa/scholarlyWork/{id}",
-          "permissionsRequired": [ "oa.scholarlyWork.item.put" ]
+          "permissionsRequired": [
+            "oa.scholarlyWork.item.put"
+          ]
         },
         {
-          "methods": [ "DELETE" ],
-          "pathPattern": "/oa/scholarlyWork/{id}", 
-          "permissionsRequired": [ "oa.scholarlyWork.item.delete" ]
+          "methods": [
+            "DELETE"
+          ],
+          "pathPattern": "/oa/scholarlyWork/{id}",
+          "permissionsRequired": [
+            "oa.scholarlyWork.item.delete"
+          ]
         },
         {
-          "methods": [ "GET" ],
+          "methods": [
+            "GET"
+          ],
           "pathPattern": "/oa/publicationRequest",
-          "permissionsRequired": [ "oa.publicationRequest.collection.get" ],
-          "modulePermissions": [ "erm.agreements.item.get" ]
+          "permissionsRequired": [
+            "oa.publicationRequest.collection.get"
+          ],
+          "modulePermissions": [
+            "erm.agreements.item.get"
+          ]
         },
         {
-          "methods": [ "GET"],
+          "methods": [
+            "GET"
+          ],
           "pathPattern": "/oa/publicationRequest/{id}",
-          "permissionsRequired": [ "oa.publicationRequest.item.get" ]
+          "permissionsRequired": [
+            "oa.publicationRequest.item.get"
+          ]
         },
         {
-          "methods": [ "POST" ],
+          "methods": [
+            "POST"
+          ],
           "pathPattern": "/oa/publicationRequest",
-          "permissionsRequired": [ "oa.publicationRequest.item.post" ]
+          "permissionsRequired": [
+            "oa.publicationRequest.item.post"
+          ]
         },
         {
-          "methods": [ "PUT" ],
+          "methods": [
+            "PUT"
+          ],
           "pathPattern": "/oa/publicationRequest/{id}",
-          "permissionsRequired": [ "oa.publicationRequest.item.put" ]
+          "permissionsRequired": [
+            "oa.publicationRequest.item.put"
+          ]
         },
         {
-          "methods": [ "DELETE" ],
-          "pathPattern": "/oa/publicationRequest/{id}", 
-          "permissionsRequired": [ "oa.publicationRequest.item.delete" ]
+          "methods": [
+            "DELETE"
+          ],
+          "pathPattern": "/oa/publicationRequest/{id}",
+          "permissionsRequired": [
+            "oa.publicationRequest.item.delete"
+          ]
         },
         {
-          "methods": [ "GET" ],
+          "methods": [
+            "GET"
+          ],
           "pathPattern": "/oa/titleInstances",
-          "permissionsRequired": [ "oa.titleInstances.collection.get" ]
+          "permissionsRequired": [
+            "oa.titleInstances.collection.get"
+          ]
         },
         {
-          "methods": [ "GET" ],
+          "methods": [
+            "GET"
+          ],
           "pathPattern": "/oa/titleInstances/{id}",
-          "permissionsRequired": [ "oa.titleInstances.item.get" ]
+          "permissionsRequired": [
+            "oa.titleInstances.item.get"
+          ]
         },
         {
-          "methods": [ "GET" ],
+          "methods": [
+            "GET"
+          ],
           "pathPattern": "/oa/works",
-          "permissionsRequired": [ "oa.works.collection.get" ]
+          "permissionsRequired": [
+            "oa.works.collection.get"
+          ]
         },
         {
-          "methods": [ "GET" ],
+          "methods": [
+            "GET"
+          ],
           "pathPattern": "/oa/works/{id}",
-          "permissionsRequired": [ "oa.works.item.get" ]
+          "permissionsRequired": [
+            "oa.works.item.get"
+          ]
         },
         {
-          "methods": ["POST"],
+          "methods": [
+            "POST"
+          ],
           "pathPattern": "/oa/works/citation",
-          "permissionsRequired": [ "oa.works.item.post" ]
+          "permissionsRequired": [
+            "oa.works.item.post"
+          ]
         },
         {
-          "methods": [ "PUT" ],
+          "methods": [
+            "PUT"
+          ],
           "pathPattern": "/oa/works/{id}",
-          "permissionsRequired": [ "oa.works.item.put" ]
+          "permissionsRequired": [
+            "oa.works.item.put"
+          ]
         },
         {
-          "methods": [ "GET" ],
+          "methods": [
+            "GET"
+          ],
           "pathPattern": "/oa/party",
-          "permissionsRequired": [ "oa.party.collection.get" ]
+          "permissionsRequired": [
+            "oa.party.collection.get"
+          ]
         },
         {
-          "methods": [ "GET"],
+          "methods": [
+            "GET"
+          ],
           "pathPattern": "/oa/party/{id}",
-          "permissionsRequired": [ "oa.party.item.get" ]
+          "permissionsRequired": [
+            "oa.party.item.get"
+          ]
         },
         {
-          "methods": [ "POST" ],
+          "methods": [
+            "POST"
+          ],
           "pathPattern": "/oa/party",
-          "permissionsRequired": [ "oa.party.item.post" ]
+          "permissionsRequired": [
+            "oa.party.item.post"
+          ]
         },
         {
-          "methods": [ "PUT" ],
+          "methods": [
+            "PUT"
+          ],
           "pathPattern": "/oa/party/{id}",
-          "permissionsRequired": [ "oa.party.item.put" ]
+          "permissionsRequired": [
+            "oa.party.item.put"
+          ]
         },
         {
-          "methods": [ "DELETE" ],
-          "pathPattern": "/oa/party/{id}", 
-          "permissionsRequired": [ "oa.party.item.delete" ]
+          "methods": [
+            "DELETE"
+          ],
+          "pathPattern": "/oa/party/{id}",
+          "permissionsRequired": [
+            "oa.party.item.delete"
+          ]
         },
         {
-          "methods": [ "GET" ],
+          "methods": [
+            "GET"
+          ],
           "pathPattern": "/oa/correspondence",
-          "permissionsRequired": [ "oa.correspondence.collection.get" ]
+          "permissionsRequired": [
+            "oa.correspondence.collection.get"
+          ]
         },
         {
-          "methods": [ "GET" ],
+          "methods": [
+            "GET"
+          ],
           "pathPattern": "/oa/correspondence/{id}",
-          "permissionsRequired": [ "oa.correspondence.item.get" ]
+          "permissionsRequired": [
+            "oa.correspondence.item.get"
+          ]
         },
         {
-          "methods": [ "POST" ],
+          "methods": [
+            "POST"
+          ],
           "pathPattern": "/oa/correspondence",
-          "permissionsRequired": [ "oa.correspondence.item.post" ]
+          "permissionsRequired": [
+            "oa.correspondence.item.post"
+          ]
         },
         {
-          "methods": [ "PUT" ],
+          "methods": [
+            "PUT"
+          ],
           "pathPattern": "/oa/correspondence/{id}",
-          "permissionsRequired": [ "oa.correspondence.item.put" ]
+          "permissionsRequired": [
+            "oa.correspondence.item.put"
+          ]
         },
         {
-          "methods": [ "DELETE" ],
+          "methods": [
+            "DELETE"
+          ],
           "pathPattern": "/oa/correspondence/{id}",
-          "permissionsRequired": [ "oa.correspondence.item.delete" ]
+          "permissionsRequired": [
+            "oa.correspondence.item.delete"
+          ]
         },
         {
-          "methods": [ "GET", "POST", "PUT", "DELETE" ],
+          "methods": [
+            "GET",
+            "POST",
+            "PUT",
+            "DELETE"
+          ],
           "pathPattern": "/oa/externalApi/*",
-          "permissionsRequired": [ ]
-         },
-         {
-          "methods": [ "GET" ],
+          "permissionsRequired": []
+        },
+        {
+          "methods": [
+            "GET"
+          ],
           "pathPattern": "/oa/charges",
-          "permissionsRequired": [ "oa.charges.collection.get" ]
+          "permissionsRequired": [
+            "oa.charges.collection.get"
+          ]
         },
         {
-          "methods": [ "GET" ],
+          "methods": [
+            "GET"
+          ],
           "pathPattern": "/oa/charges/{id}",
-          "permissionsRequired": [ "oa.charges.item.get" ]
+          "permissionsRequired": [
+            "oa.charges.item.get"
+          ]
         },
         {
-          "methods": [ "POST" ],
+          "methods": [
+            "POST"
+          ],
           "pathPattern": "/oa/charges",
-          "permissionsRequired": [ "oa.charges.item.post" ]
+          "permissionsRequired": [
+            "oa.charges.item.post"
+          ]
         },
         {
-          "methods": [ "PUT" ],
+          "methods": [
+            "PUT"
+          ],
           "pathPattern": "/oa/charges/{id}",
-          "permissionsRequired": [ "oa.charges.item.put" ]
+          "permissionsRequired": [
+            "oa.charges.item.put"
+          ]
         },
         {
-          "methods": [ "DELETE" ],
+          "methods": [
+            "DELETE"
+          ],
           "pathPattern": "/oa/charges/{id}",
-          "permissionsRequired": [ "oa.charges.item.delete" ]
+          "permissionsRequired": [
+            "oa.charges.item.delete"
+          ]
         },
         {
-          "methods": ["GET"],
+          "methods": [
+            "GET"
+          ],
           "pathPattern": "/oa/checklistItems",
-          "permissionsRequired": [ "oa.checklistItems.collection.get" ]
-        },{
-          "methods": ["GET"],
+          "permissionsRequired": [
+            "oa.checklistItems.collection.get"
+          ]
+        },
+        {
+          "methods": [
+            "GET"
+          ],
           "pathPattern": "/oa/checklistItems/{id}",
-          "permissionsRequired": [ "oa.checklistItems.item.get" ]
-        },{
-          "methods": ["POST"],
+          "permissionsRequired": [
+            "oa.checklistItems.item.get"
+          ]
+        },
+        {
+          "methods": [
+            "POST"
+          ],
           "pathPattern": "/oa/checklistItems",
-          "permissionsRequired": [ "oa.checklistItems.item.post" ]
-        },{
-          "methods": ["PUT"],
+          "permissionsRequired": [
+            "oa.checklistItems.item.post"
+          ]
+        },
+        {
+          "methods": [
+            "PUT"
+          ],
           "pathPattern": "/oa/checklistItems/{id}",
-          "permissionsRequired": [ "oa.checklistItems.item.put" ]
-        },{
-          "methods": ["DELETE"],
+          "permissionsRequired": [
+            "oa.checklistItems.item.put"
+          ]
+        },
+        {
+          "methods": [
+            "DELETE"
+          ],
           "pathPattern": "/oa/checklistItems/{id}",
-          "permissionsRequired": [ "oa.checklistItems.item.delete" ]
-        }, {
-          "methods": ["GET"],
+          "permissionsRequired": [
+            "oa.checklistItems.item.delete"
+          ]
+        },
+        {
+          "methods": [
+            "GET"
+          ],
           "pathPattern": "/oa/reports/{reportname}",
-          "permissionsRequired": [ "oa.reports.item.get" ]
+          "permissionsRequired": [
+            "oa.reports.item.get"
+          ]
         }
       ]
     },
     {
       "id": "_tenant",
       "version": "1.2",
-      "interfaceType" : "system",
+      "interfaceType": "system",
       "handlers": [
         {
-          "permissionsRequired" : [],
-          "methods": ["POST", "DELETE"],
+          "permissionsRequired": [],
+          "methods": [
+            "POST",
+            "DELETE"
+          ],
           "pathPattern": "/_/tenant"
-        }, 
+        },
         {
-         "permissionsRequired" : [],
-         "methods" : [ "POST" ],
-         "pathPattern" : "/_/tenant/disable"
+          "permissionsRequired": [],
+          "methods": [
+            "POST"
+          ],
+          "pathPattern": "/_/tenant/disable"
         }
-
       ]
     }
   ],
@@ -265,19 +473,19 @@
       "displayName": "settings get",
       "description": "get settings",
       "visible": false
-    }, 
+    },
     {
       "permissionName": "oa.settings.post",
       "displayName": "settings post",
       "description": "post settings",
       "visible": false
-    }, 
+    },
     {
       "permissionName": "oa.settings.put",
       "displayName": "settings put",
       "description": "put settings",
       "visible": false
-    }, 
+    },
     {
       "permissionName": "oa.settings.delete",
       "displayName": "settings delete",
@@ -290,7 +498,7 @@
       "description": "read settings",
       "visible": false,
       "subPermissions": [
-          "oa.settings.get"
+        "oa.settings.get"
       ]
     },
     {
@@ -299,10 +507,10 @@
       "description": "write settings",
       "visible": false,
       "subPermissions": [
-          "oa.settings.read",
-          "oa.settings.post",
-          "oa.settings.put",
-          "oa.settings.delete"
+        "oa.settings.read",
+        "oa.settings.post",
+        "oa.settings.put",
+        "oa.settings.delete"
       ]
     },
     {
@@ -598,7 +806,7 @@
       "permissionName": "oa.correspondence.item.put",
       "displayName": "Correspondence item put",
       "description": "Put a correspondence record"
-    }, 
+    },
     {
       "permissionName": "oa.correspondence.edit",
       "subPermissions": [
@@ -725,20 +933,47 @@
   "launchDescriptor": {
     "dockerImage": "${info.app.name}:${info.app.version}",
     "dockerArgs": {
-      "HostConfig": { 
+      "HostConfig": {
         "Memory": 1073741824,
-        "PortBindings": { "8080/tcp":  [{ "HostPort": "%p" }] } 
+        "PortBindings": {
+          "8080/tcp": [
+            {
+              "HostPort": "%p"
+            }
+          ]
+        }
       }
     },
-    "dockerPull" : false,
+    "dockerPull": false,
     "env": [
-      { "name": "JAVA_OPTIONS", "value": "-server -XX:+UseContainerSupport -XX:MaxRAMPercentage=55.0 -XX:+PrintFlagsFinal" },
-      { "name": "DB_HOST", "value": "postgres" },
-      { "name": "DB_PORT", "value": "5432" },
-      { "name": "DB_USERNAME", "value": "folio_admin" },
-      { "name": "DB_PASSWORD", "value": "folio_admin" },
-      { "name": "DB_DATABASE", "value": "okapi_modules" },
-      { "name": "DB_MAXPOOLSIZE", "value": "50" }
+      {
+        "name": "JAVA_OPTIONS",
+        "value": "-server -XX:+UseContainerSupport -XX:MaxRAMPercentage=55.0 -XX:+PrintFlagsFinal"
+      },
+      {
+        "name": "DB_HOST",
+        "value": "postgres"
+      },
+      {
+        "name": "DB_PORT",
+        "value": "5432"
+      },
+      {
+        "name": "DB_USERNAME",
+        "value": "folio_admin"
+      },
+      {
+        "name": "DB_PASSWORD",
+        "value": "folio_admin"
+      },
+      {
+        "name": "DB_DATABASE",
+        "value": "okapi_modules"
+      },
+      {
+        "name": "DB_MAXPOOLSIZE",
+        "value": "50"
+      }
     ]
   }
 }
