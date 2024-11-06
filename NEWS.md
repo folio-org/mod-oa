@@ -1,3 +1,6 @@
+## 3.0.1 2024-11-06
+  * Fixed borked release
+
 ## 3.0.0 2024-11-06
   * MODOA-65 Review and cleanup Module Descriptor for mod-oa
   * MODOA-58 Upgrade mod-oa to Grails 6
