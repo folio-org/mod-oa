@@ -1,3 +1,7 @@
+## 3.0.0 2024-11-02
+  * MODOA-65 Review and cleanup Module Descriptor for mod-oa
+  * MODOA-58 Upgrade mod-oa to Grails 6
+
 ## 2.0.1 2024-09-12
  * MODOA-63 Ensure endpoints are protected with fine-grained permissions
 
