@@ -467,6 +467,12 @@
       ]
     }
   ],
+  "optional": [
+    {
+      "id": "erm",
+      "version": "7.0"
+    }
+  ],
   "permissionSets": [
     {
       "permissionName": "oa.settings.get",
