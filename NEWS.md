@@ -1,3 +1,5 @@
+## 3.2.0 - In progress
+
 ## 3.1.0 2024-12-04
   * MODOA-69 Missing interface dependencies in module descriptor in mod-oa
   * MODOA-66 Update module license, guidance and dependencies for mod-oa
