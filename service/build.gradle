@@ -126,7 +126,7 @@ dependencies {
 
   /*  ---- Manually installed dependencies ---- */	
 	implementation 'com.k_int.grails:web-toolkit-ce:10.0.1'
-	implementation('com.k_int.okapi:grails-okapi:7.3.0') {
+	implementation('com.k_int.okapi:grails-okapi:7.4.0') {
     exclude group: 'com.vaadin.external.google', module: 'android-json'
   }
 
