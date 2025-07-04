@@ -27,7 +27,8 @@ okapi:
 logging:
   config: classpath:logback-development.xml
 
-
+endpoints:
+  include-stack-trace: true # This being true for dev builds allows us to see stacktraces in the responses
 
 #    register: true
 #    deploy: true

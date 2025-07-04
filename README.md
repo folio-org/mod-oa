@@ -39,6 +39,13 @@ The following properties are understood and documented in the [Module Descriptor
 * EVENTS_PUBLISHER_ZK_CONNECT
 * EVENTS_CONSUMER_ZK_CONNECT
 
+### Environment variables
+This is a NON-EXHAUSTIVE list of environment variables which tweak behaviour in this module
+
+| Variable                   | Description                                                                                                                                                                                                                                                          | Options                                                    | Default                       |
+|----------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------|-------------------------------|                               |
+| `ENDPOINTS_INCLUDE_STACK_TRACE` | Allows the HTTP response 500 to contain stacktrace from the exception thrown. Default return will be a generic message and a timestamp.                                                                                                                             | <ul><li>`true`</li><li>`false`</li></ul>                                                     | `false`                       |
+
 
 ### Other documentation
 

@@ -56,6 +56,7 @@ spring:
 
 # Spring Actuator Endpoints are Disabled by Default
 endpoints:
+    include-stack-trace: false
     enabled: false
     jmx:
         enabled: true
