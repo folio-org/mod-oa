@@ -127,4 +127,99 @@ databaseChangeLog = {
       }
     }
   }
+
+  changeSet(author: "mchaib (manual)", id: "20250721-1630-004") {
+    // create the PublicationRequest.RequestStatus category if it doesn't already exist
+    grailsChange {
+      change {
+        sql.execute("INSERT INTO ${database.defaultSchemaName}.refdata_category (rdc_id, rdc_version, rdc_description, internal) SELECT md5(random()::text || clock_timestamp()::text) as id, 0 as version, 'PublicationRequestHistory.FromState' as description, false as internal WHERE NOT EXISTS (SELECT rdc_description FROM ${database.defaultSchemaName}.refdata_category WHERE (rdc_description)=('PublicationRequestHistory.FromState') LIMIT 1);".toString())
+      }
+    }
+
+    // Create the "missingRequestStatusRefDataValue" refDataValue for RequestStatus category
+    grailsChange {
+      change {
+        sql.execute("INSERT INTO ${database.defaultSchemaName}.refdata_value (rdv_id, rdv_version, rdv_value, rdv_owner, rdv_label) SELECT md5(random()::text || clock_timestamp()::text) as id, 0 as version, 'missingFromStateRefDataValue' as value, (SELECT rdc_id FROM  ${database.defaultSchemaName}.refdata_category WHERE rdc_description='PublicationRequestHistory.FromState') as owner, 'missingFromStateRefDataValue' as label WHERE NOT EXISTS (SELECT rdv_id FROM ${database.defaultSchemaName}.refdata_value INNER JOIN ${database.defaultSchemaName}.refdata_category ON refdata_value.rdv_owner = refdata_category.rdc_id WHERE rdc_description='PublicationRequestHistory.FromState' AND rdv_value='missingFromStateRefDataValue' LIMIT 1);".toString())
+      }
+    }
+
+    /*
+    Get the newly created 'missingRequestStatusRefDataValue' ID from the refDataValue table and set the prh_from_state
+    column to that ID for any orphaned rows in the 'publication_request' table.
+    */
+    grailsChange {
+      change {
+        sql.execute("""
+          UPDATE ${database.defaultSchemaName}.publication_request_history
+          SET
+            prh_from_state = (
+              SELECT ${database.defaultSchemaName}.refdata_value.rdv_id
+              FROM ${database.defaultSchemaName}.refdata_value
+              INNER JOIN ${database.defaultSchemaName}.refdata_category ON ${database.defaultSchemaName}.refdata_value.rdv_owner = ${database.defaultSchemaName}.refdata_category.rdc_id
+              WHERE ${database.defaultSchemaName}.refdata_category.rdc_description = 'PublicationRequestHistory.FromState'
+                AND ${database.defaultSchemaName}.refdata_value.rdv_value = 'missingFromStateRefDataValue'
+              LIMIT 1
+            )
+          WHERE
+            NOT EXISTS (
+              SELECT 1
+              FROM ${database.defaultSchemaName}.refdata_value
+              WHERE ${database.defaultSchemaName}.refdata_value.rdv_id = ${database.defaultSchemaName}.publication_request_history.prh_from_state
+            )
+        """.toString())
+      }
+    }
+  }
+
+  changeSet(author: "mchaib (manual)", id: "20250721-1630-005") {
+    // create the PublicationRequest.RequestStatus category if it doesn't already exist
+    grailsChange {
+      change {
+        sql.execute("INSERT INTO ${database.defaultSchemaName}.refdata_category (rdc_id, rdc_version, rdc_description, internal) SELECT md5(random()::text || clock_timestamp()::text) as id, 0 as version, 'PublicationRequestHistory.ToState' as description, false as internal WHERE NOT EXISTS (SELECT rdc_description FROM ${database.defaultSchemaName}.refdata_category WHERE (rdc_description)=('PublicationRequestHistory.ToState') LIMIT 1);".toString())
+      }
+    }
+
+    // Create the "missingToStateRefDataValue" refDataValue for RequestStatus category
+    grailsChange {
+      change {
+        sql.execute("INSERT INTO ${database.defaultSchemaName}.refdata_value (rdv_id, rdv_version, rdv_value, rdv_owner, rdv_label) SELECT md5(random()::text || clock_timestamp()::text) as id, 0 as version, 'missingToStateRefDataValue' as value, (SELECT rdc_id FROM  ${database.defaultSchemaName}.refdata_category WHERE rdc_description='PublicationRequestHistory.ToState') as owner, 'missingToStateRefDataValue' as label WHERE NOT EXISTS (SELECT rdv_id FROM ${database.defaultSchemaName}.refdata_value INNER JOIN ${database.defaultSchemaName}.refdata_category ON refdata_value.rdv_owner = refdata_category.rdc_id WHERE rdc_description='PublicationRequestHistory.ToState' AND rdv_value='missingToStateRefDataValue' LIMIT 1);".toString())
+      }
+    }
+
+    /*
+    Get the newly created 'missingToStateRefDataValue' ID from the refDataValue table and set the pr_request_status
+    column to that ID for any orphaned rows in the 'publication_request' table.
+    */
+    grailsChange {
+      change {
+        sql.execute("""
+          UPDATE ${database.defaultSchemaName}.publication_request_history
+          SET
+            prh_to_state = (
+              SELECT ${database.defaultSchemaName}.refdata_value.rdv_id
+              FROM ${database.defaultSchemaName}.refdata_value
+              INNER JOIN ${database.defaultSchemaName}.refdata_category ON ${database.defaultSchemaName}.refdata_value.rdv_owner = ${database.defaultSchemaName}.refdata_category.rdc_id
+              WHERE ${database.defaultSchemaName}.refdata_category.rdc_description = 'PublicationRequestHistory.ToState'
+                AND ${database.defaultSchemaName}.refdata_value.rdv_value = 'missingToStateRefDataValue'
+              LIMIT 1
+            )
+          WHERE
+            NOT EXISTS (
+              SELECT 1
+              FROM ${database.defaultSchemaName}.refdata_value
+              WHERE ${database.defaultSchemaName}.refdata_value.rdv_id = ${database.defaultSchemaName}.publication_request_history.prh_to_state
+            )
+        """.toString())
+      }
+    }
+  }
+
+  changeSet(author: "mchaib (manual)", id: "20250722-1620-004") {
+    addForeignKeyConstraint(baseColumnNames: "pr_request_status", baseTableName: "publication_request", constraintName: "pr_request_status_to_rdv_fk", deferrable: "false", initiallyDeferred: "false", referencedColumnNames: "rdv_id", referencedTableName: "refdata_value")
+    addForeignKeyConstraint(baseColumnNames: "cpy_payer_fk", baseTableName: "payer", constraintName: "cpy_payer_to_rdv_fk", deferrable: "false", initiallyDeferred: "false", referencedColumnNames: "rdv_id", referencedTableName: "refdata_value")
+    addForeignKeyConstraint(baseColumnNames: "ch_charge_status_fk", baseTableName: "charge", constraintName: "charge_to_rdv_fk", deferrable: "false", initiallyDeferred: "false", referencedColumnNames: "rdv_id", referencedTableName: "refdata_value")
+    addForeignKeyConstraint(baseColumnNames: "prh_to_state", baseTableName: "publication_request_history", constraintName: "prh_to_state_to_rdv_fk", deferrable: "false", initiallyDeferred: "false", referencedColumnNames: "rdv_id", referencedTableName: "refdata_value")
+    addForeignKeyConstraint(baseColumnNames: "prh_from_state", baseTableName: "publication_request_history", constraintName: "prh_from_state_to_rdv_fk", deferrable: "false", initiallyDeferred: "false", referencedColumnNames: "rdv_id", referencedTableName: "refdata_value")
+  }
+
 }
