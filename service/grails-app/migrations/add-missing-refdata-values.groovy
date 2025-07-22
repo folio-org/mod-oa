@@ -40,6 +40,9 @@ databaseChangeLog = {
         """.toString())
       }
     }
+
+    addForeignKeyConstraint(baseColumnNames: "ch_charge_status_fk", baseTableName: "charge", constraintName: "charge_to_rdv_fk", deferrable: "false", initiallyDeferred: "false", referencedColumnNames: "rdv_id", referencedTableName: "refdata_value")
+
   }
 
   changeSet(author: "mchaib (manual)", id: "20250721-1620-002") {
@@ -83,6 +86,9 @@ databaseChangeLog = {
         """.toString())
       }
     }
+
+    addForeignKeyConstraint(baseColumnNames: "cpy_payer_fk", baseTableName: "payer", constraintName: "cpy_payer_to_rdv_fk", deferrable: "false", initiallyDeferred: "false", referencedColumnNames: "rdv_id", referencedTableName: "refdata_value")
+
   }
 
   changeSet(author: "mchaib (manual)", id: "20250721-1630-003") {
@@ -126,6 +132,8 @@ databaseChangeLog = {
         """.toString())
       }
     }
+
+    addForeignKeyConstraint(baseColumnNames: "pr_request_status", baseTableName: "publication_request", constraintName: "pr_request_status_to_rdv_fk", deferrable: "false", initiallyDeferred: "false", referencedColumnNames: "rdv_id", referencedTableName: "refdata_value")
   }
 
   changeSet(author: "mchaib (manual)", id: "20250721-1630-004") {
@@ -169,6 +177,8 @@ databaseChangeLog = {
         """.toString())
       }
     }
+    addForeignKeyConstraint(baseColumnNames: "prh_from_state", baseTableName: "publication_request_history", constraintName: "prh_from_state_to_rdv_fk", deferrable: "false", initiallyDeferred: "false", referencedColumnNames: "rdv_id", referencedTableName: "refdata_value")
+
   }
 
   changeSet(author: "mchaib (manual)", id: "20250721-1630-005") {
@@ -212,14 +222,9 @@ databaseChangeLog = {
         """.toString())
       }
     }
-  }
 
-  changeSet(author: "mchaib (manual)", id: "20250722-1620-004") {
-    addForeignKeyConstraint(baseColumnNames: "pr_request_status", baseTableName: "publication_request", constraintName: "pr_request_status_to_rdv_fk", deferrable: "false", initiallyDeferred: "false", referencedColumnNames: "rdv_id", referencedTableName: "refdata_value")
-    addForeignKeyConstraint(baseColumnNames: "cpy_payer_fk", baseTableName: "payer", constraintName: "cpy_payer_to_rdv_fk", deferrable: "false", initiallyDeferred: "false", referencedColumnNames: "rdv_id", referencedTableName: "refdata_value")
-    addForeignKeyConstraint(baseColumnNames: "ch_charge_status_fk", baseTableName: "charge", constraintName: "charge_to_rdv_fk", deferrable: "false", initiallyDeferred: "false", referencedColumnNames: "rdv_id", referencedTableName: "refdata_value")
     addForeignKeyConstraint(baseColumnNames: "prh_to_state", baseTableName: "publication_request_history", constraintName: "prh_to_state_to_rdv_fk", deferrable: "false", initiallyDeferred: "false", referencedColumnNames: "rdv_id", referencedTableName: "refdata_value")
-    addForeignKeyConstraint(baseColumnNames: "prh_from_state", baseTableName: "publication_request_history", constraintName: "prh_from_state_to_rdv_fk", deferrable: "false", initiallyDeferred: "false", referencedColumnNames: "rdv_id", referencedTableName: "refdata_value")
+
   }
 
 }
