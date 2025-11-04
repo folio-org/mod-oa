@@ -1,5 +1,5 @@
 databaseChangeLog = {
-  changeSet(author: "mchaib (manual)", id: "20250721-1620-001") {
+  changeSet(author: "Jack Golding (manual)", id: "20250721-1620-001") {
     // create the Charge.ChargeStatus category if it doesn't already exist
     grailsChange {
       change {
@@ -37,6 +37,18 @@ databaseChangeLog = {
               FROM ${database.defaultSchemaName}.refdata_value
               WHERE ${database.defaultSchemaName}.refdata_value.rdv_id = ${database.defaultSchemaName}.charge.ch_charge_status_fk
             )
+          AND
+          -- create only if there are orphaned FKs
+          EXISTS (
+            SELECT 1
+              FROM ${database.defaultSchemaName}.charge c
+              WHERE c.ch_charge_status_fk IS NOT NULL
+              AND NOT EXISTS (
+                    SELECT 1
+                    FROM ${database.defaultSchemaName}.refdata_value rdv2
+                    WHERE rdv2.rdv_id = c.ch_charge_status_fk
+                  )
+          )
         """.toString())
       }
     }
@@ -83,6 +95,18 @@ databaseChangeLog = {
               FROM ${database.defaultSchemaName}.refdata_value
               WHERE ${database.defaultSchemaName}.refdata_value.rdv_id = ${database.defaultSchemaName}.payer.cpy_payer_fk
             )
+          AND
+          -- create only if there are orphaned FKs
+          EXISTS (
+            SELECT 1
+              FROM ${database.defaultSchemaName}.payer p
+              WHERE p.cpy_payer_fk IS NOT NULL
+              AND NOT EXISTS (
+                    SELECT 1
+                    FROM ${database.defaultSchemaName}.refdata_value rdv2
+                    WHERE rdv2.rdv_id = p.cpy_payer_fk
+                  )
+          )
         """.toString())
       }
     }
@@ -129,6 +153,18 @@ databaseChangeLog = {
               FROM ${database.defaultSchemaName}.refdata_value
               WHERE ${database.defaultSchemaName}.refdata_value.rdv_id = ${database.defaultSchemaName}.publication_request.pr_request_status
             )
+          AND
+          -- create only if there are orphaned FKs
+          EXISTS (
+            SELECT 1
+              FROM ${database.defaultSchemaName}.publication_request pr
+              WHERE pr.pr_request_status IS NOT NULL
+              AND NOT EXISTS (
+                    SELECT 1
+                    FROM ${database.defaultSchemaName}.refdata_value rdv2
+                    WHERE rdv2.rdv_id = pr.pr_request_status
+                  )
+          )
         """.toString())
       }
     }
@@ -174,6 +210,18 @@ databaseChangeLog = {
               FROM ${database.defaultSchemaName}.refdata_value
               WHERE ${database.defaultSchemaName}.refdata_value.rdv_id = ${database.defaultSchemaName}.publication_request_history.prh_from_state
             )
+          AND
+          -- create only if there are orphaned FKs
+          EXISTS (
+            SELECT 1
+              FROM ${database.defaultSchemaName}.publication_request_history prh
+              WHERE prh.prh_from_state IS NOT NULL
+              AND NOT EXISTS (
+                    SELECT 1
+                    FROM ${database.defaultSchemaName}.refdata_value rdv2
+                    WHERE rdv2.rdv_id = prh.prh_from_state
+                  )
+          )
         """.toString())
       }
     }
@@ -219,6 +267,18 @@ databaseChangeLog = {
               FROM ${database.defaultSchemaName}.refdata_value
               WHERE ${database.defaultSchemaName}.refdata_value.rdv_id = ${database.defaultSchemaName}.publication_request_history.prh_to_state
             )
+          AND
+          -- create only if there are orphaned FKs
+          EXISTS (
+            SELECT 1
+              FROM ${database.defaultSchemaName}.publication_request_history prh
+              WHERE prh.prh_to_state IS NOT NULL
+              AND NOT EXISTS (
+                    SELECT 1
+                    FROM ${database.defaultSchemaName}.refdata_value rdv2
+                    WHERE rdv2.rdv_id = prh.prh_to_state
+                  )
+          )
         """.toString())
       }
     }
