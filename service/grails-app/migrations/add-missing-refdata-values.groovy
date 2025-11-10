@@ -10,7 +10,39 @@ databaseChangeLog = {
     // Create the "missingChargeStatusRefDataValue" refDataValue for ChargeStatus category
     grailsChange {
       change {
-        sql.execute("INSERT INTO ${database.defaultSchemaName}.refdata_value (rdv_id, rdv_version, rdv_value, rdv_owner, rdv_label) SELECT md5(random()::text || clock_timestamp()::text) as id, 0 as version, 'missingChargeStatusRefDataValue' as value, (SELECT rdc_id FROM  ${database.defaultSchemaName}.refdata_category WHERE rdc_description='Charge.ChargeStatus') as owner, 'missingChargeStatusRefDataValue' as label WHERE NOT EXISTS (SELECT rdv_id FROM ${database.defaultSchemaName}.refdata_value INNER JOIN ${database.defaultSchemaName}.refdata_category ON refdata_value.rdv_owner = refdata_category.rdc_id WHERE rdc_description='Charge.ChargeStatus' AND rdv_value='missingChargeStatusRefDataValue' LIMIT 1);".toString())
+        sql.execute("""
+          INSERT INTO ${database.defaultSchemaName}.refdata_value (rdv_id, rdv_version, rdv_value, rdv_owner, rdv_label)
+          SELECT md5(random()::text || clock_timestamp()::text) AS id,
+                0 AS version,
+                'missingChargeStatusRefDataValue' AS value,
+                (SELECT rdc_id
+                  FROM ${database.defaultSchemaName}.refdata_category
+                  WHERE rdc_description = 'Charge.ChargeStatus'
+                  LIMIT 1) AS owner,
+                'missingChargeStatusRefDataValue' AS label
+          WHERE
+            -- don't recreate if it already exists
+            NOT EXISTS (
+              SELECT 1
+              FROM ${database.defaultSchemaName}.refdata_value rv
+              JOIN ${database.defaultSchemaName}.refdata_category rc
+              ON rv.rdv_owner = rc.rdc_id
+              WHERE rc.rdc_description = 'Charge.ChargeStatus'
+              AND rv.rdv_value = 'missingChargeStatusRefDataValue'
+            )
+            AND
+            -- create only if there are orphaned ch_charge_status_fk FKs
+            EXISTS (
+              SELECT 1
+                FROM ${database.defaultSchemaName}."charge" c
+                WHERE c.ch_charge_status_fk IS NOT NULL
+                AND NOT EXISTS (
+                      SELECT 1
+                      FROM ${database.defaultSchemaName}.refdata_value rv2
+                      WHERE rv2.rdv_id = c.ch_charge_status_fk
+                    )
+            );
+        """.toString())
       }
     }
 
@@ -21,34 +53,23 @@ databaseChangeLog = {
     grailsChange {
       change {
         sql.execute("""
-          UPDATE ${database.defaultSchemaName}.charge
-          SET
-            ch_charge_status_fk = (
-              SELECT ${database.defaultSchemaName}.refdata_value.rdv_id
-              FROM ${database.defaultSchemaName}.refdata_value
-              INNER JOIN ${database.defaultSchemaName}.refdata_category ON ${database.defaultSchemaName}.refdata_value.rdv_owner = ${database.defaultSchemaName}.refdata_category.rdc_id
-              WHERE ${database.defaultSchemaName}.refdata_category.rdc_description = 'Charge.ChargeStatus'
-                AND ${database.defaultSchemaName}.refdata_value.rdv_value = 'missingChargeStatusRefDataValue'
-              LIMIT 1
-            )
-          WHERE
-            NOT EXISTS (
-              SELECT 1
-              FROM ${database.defaultSchemaName}.refdata_value
-              WHERE ${database.defaultSchemaName}.refdata_value.rdv_id = ${database.defaultSchemaName}.charge.ch_charge_status_fk
-            )
-          AND
-          -- create only if there are orphaned FKs
-          EXISTS (
-            SELECT 1
-              FROM ${database.defaultSchemaName}.charge c
-              WHERE c.ch_charge_status_fk IS NOT NULL
-              AND NOT EXISTS (
-                    SELECT 1
-                    FROM ${database.defaultSchemaName}.refdata_value rdv2
-                    WHERE rdv2.rdv_id = c.ch_charge_status_fk
-                  )
+          UPDATE ${database.defaultSchemaName}.charge c
+          SET ch_charge_status_fk = (
+            SELECT rv.rdv_id
+            FROM ${database.defaultSchemaName}.refdata_value rv
+            JOIN ${database.defaultSchemaName}.refdata_category rc
+            ON rv.rdv_owner = rc.rdc_id
+            WHERE rc.rdc_description = 'Charge.ChargeStatus'
+            AND rv.rdv_value = 'missingChargeStatusRefDataValue'
+            LIMIT 1
           )
+          WHERE
+            -- only touch rows whose current FK doesn't exist in refdata_value
+            NOT EXISTS (
+            SELECT 1
+            FROM ${database.defaultSchemaName}.refdata_value rvx
+            WHERE rvx.rdv_id = c.ch_charge_status_fk
+            );
         """.toString())
       }
     }
@@ -68,7 +89,39 @@ databaseChangeLog = {
     // Create the "missingPayerRefDataValue" refDataValue for Payer category
     grailsChange {
       change {
-        sql.execute("INSERT INTO ${database.defaultSchemaName}.refdata_value (rdv_id, rdv_version, rdv_value, rdv_owner, rdv_label) SELECT md5(random()::text || clock_timestamp()::text) as id, 0 as version, 'missingPayerRefDataValue' as value, (SELECT rdc_id FROM  ${database.defaultSchemaName}.refdata_category WHERE rdc_description='Payer.Payer') as owner, 'missingPayerRefDataValue' as label WHERE NOT EXISTS (SELECT rdv_id FROM ${database.defaultSchemaName}.refdata_value INNER JOIN ${database.defaultSchemaName}.refdata_category ON refdata_value.rdv_owner = refdata_category.rdc_id WHERE rdc_description='Payer.Payer' AND rdv_value='missingPayerRefDataValue' LIMIT 1);".toString())
+        sql.execute("""
+          INSERT INTO ${database.defaultSchemaName}.refdata_value (rdv_id, rdv_version, rdv_value, rdv_owner, rdv_label)
+          SELECT md5(random()::text || clock_timestamp()::text) AS id,
+                0 AS version,
+                'missingPayerRefDataValue' AS value,
+                (SELECT rdc_id
+                  FROM ${database.defaultSchemaName}.refdata_category
+                  WHERE rdc_description = 'Payer.Payer'
+                  LIMIT 1) AS owner,
+                'missingPayerRefDataValue' AS label
+          WHERE
+            -- don't recreate if it already exists
+            NOT EXISTS (
+              SELECT 1
+              FROM ${database.defaultSchemaName}.refdata_value rv
+              JOIN ${database.defaultSchemaName}.refdata_category rc
+              ON rv.rdv_owner = rc.rdc_id
+              WHERE rc.rdc_description = 'Payer.Payer'
+              AND rv.rdv_value = 'missingPayerRefDataValue'
+            )
+            AND
+            -- create only if there are orphaned cpy_payer_fk FKs
+            EXISTS (
+              SELECT 1
+                FROM ${database.defaultSchemaName}."payer" p
+                WHERE p.cpy_payer_fk IS NOT NULL
+                AND NOT EXISTS (
+                      SELECT 1
+                      FROM ${database.defaultSchemaName}.refdata_value rv2
+                      WHERE rv2.rdv_id = p.cpy_payer_fk
+                    )
+            );
+        """.toString())
       }
     }
 
@@ -79,34 +132,23 @@ databaseChangeLog = {
     grailsChange {
       change {
         sql.execute("""
-          UPDATE ${database.defaultSchemaName}.payer
-          SET
-            cpy_payer_fk = (
-              SELECT ${database.defaultSchemaName}.refdata_value.rdv_id
-              FROM ${database.defaultSchemaName}.refdata_value
-              INNER JOIN ${database.defaultSchemaName}.refdata_category ON ${database.defaultSchemaName}.refdata_value.rdv_owner = ${database.defaultSchemaName}.refdata_category.rdc_id
-              WHERE ${database.defaultSchemaName}.refdata_category.rdc_description = 'Payer.Payer'
-                AND ${database.defaultSchemaName}.refdata_value.rdv_value = 'missingPayerRefDataValue'
-              LIMIT 1
-            )
-          WHERE
-            NOT EXISTS (
-              SELECT 1
-              FROM ${database.defaultSchemaName}.refdata_value
-              WHERE ${database.defaultSchemaName}.refdata_value.rdv_id = ${database.defaultSchemaName}.payer.cpy_payer_fk
-            )
-          AND
-          -- create only if there are orphaned FKs
-          EXISTS (
-            SELECT 1
-              FROM ${database.defaultSchemaName}.payer p
-              WHERE p.cpy_payer_fk IS NOT NULL
-              AND NOT EXISTS (
-                    SELECT 1
-                    FROM ${database.defaultSchemaName}.refdata_value rdv2
-                    WHERE rdv2.rdv_id = p.cpy_payer_fk
-                  )
+          UPDATE ${database.defaultSchemaName}.payer p
+          SET cpy_payer_fk = (
+            SELECT rv.rdv_id
+            FROM ${database.defaultSchemaName}.refdata_value rv
+            JOIN ${database.defaultSchemaName}.refdata_category rc
+            ON rv.rdv_owner = rc.rdc_id
+            WHERE rc.rdc_description = 'Payer.Payer'
+            AND rv.rdv_value = 'missingPayerRefDataValue'
+            LIMIT 1
           )
+          WHERE
+            -- only touch rows whose current FK doesn't exist in refdata_value
+            NOT EXISTS (
+            SELECT 1
+            FROM ${database.defaultSchemaName}.refdata_value rvx
+            WHERE rvx.rdv_id = p.cpy_payer_fk
+            );
         """.toString())
       }
     }
@@ -126,7 +168,39 @@ databaseChangeLog = {
     // Create the "missingRequestStatusRefDataValue" refDataValue for RequestStatus category
     grailsChange {
       change {
-        sql.execute("INSERT INTO ${database.defaultSchemaName}.refdata_value (rdv_id, rdv_version, rdv_value, rdv_owner, rdv_label) SELECT md5(random()::text || clock_timestamp()::text) as id, 0 as version, 'missingRequestStatusRefDataValue' as value, (SELECT rdc_id FROM  ${database.defaultSchemaName}.refdata_category WHERE rdc_description='PublicationRequest.RequestStatus') as owner, 'missingRequestStatusRefDataValue' as label WHERE NOT EXISTS (SELECT rdv_id FROM ${database.defaultSchemaName}.refdata_value INNER JOIN ${database.defaultSchemaName}.refdata_category ON refdata_value.rdv_owner = refdata_category.rdc_id WHERE rdc_description='PublicationRequest.RequestStatus' AND rdv_value='missingRequestStatusRefDataValue' LIMIT 1);".toString())
+        sql.execute("""
+          INSERT INTO ${database.defaultSchemaName}.refdata_value (rdv_id, rdv_version, rdv_value, rdv_owner, rdv_label)
+          SELECT md5(random()::text || clock_timestamp()::text) AS id,
+                0 AS version,
+                'missingRequestStatusRefDataValue' AS value,
+                (SELECT rdc_id
+                  FROM ${database.defaultSchemaName}.refdata_category
+                  WHERE rdc_description = 'PublicationRequest.RequestStatus'
+                  LIMIT 1) AS owner,
+                'missingRequestStatusRefDataValue' AS label
+          WHERE
+            -- don't recreate if it already exists
+            NOT EXISTS (
+              SELECT 1
+              FROM ${database.defaultSchemaName}.refdata_value rv
+              JOIN ${database.defaultSchemaName}.refdata_category rc
+              ON rv.rdv_owner = rc.rdc_id
+              WHERE rc.rdc_description = 'PublicationRequest.RequestStatus'
+              AND rv.rdv_value = 'missingRequestStatusRefDataValue'
+            )
+            AND
+            -- create only if there are orphaned publication_request FKs
+            EXISTS (
+              SELECT 1
+                FROM ${database.defaultSchemaName}."publication_request" pr
+                WHERE pr.pr_request_status IS NOT NULL
+                AND NOT EXISTS (
+                      SELECT 1
+                      FROM ${database.defaultSchemaName}.refdata_value rv2
+                      WHERE rv2.rdv_id = pr.pr_request_status
+                    )
+            );
+        """.toString())
       }
     }
 
@@ -137,34 +211,23 @@ databaseChangeLog = {
     grailsChange {
       change {
         sql.execute("""
-          UPDATE ${database.defaultSchemaName}.publication_request
-          SET
-            pr_request_status = (
-              SELECT ${database.defaultSchemaName}.refdata_value.rdv_id
-              FROM ${database.defaultSchemaName}.refdata_value
-              INNER JOIN ${database.defaultSchemaName}.refdata_category ON ${database.defaultSchemaName}.refdata_value.rdv_owner = ${database.defaultSchemaName}.refdata_category.rdc_id
-              WHERE ${database.defaultSchemaName}.refdata_category.rdc_description = 'PublicationRequest.RequestStatus'
-                AND ${database.defaultSchemaName}.refdata_value.rdv_value = 'missingRequestStatusRefDataValue'
-              LIMIT 1
-            )
-          WHERE
-            NOT EXISTS (
-              SELECT 1
-              FROM ${database.defaultSchemaName}.refdata_value
-              WHERE ${database.defaultSchemaName}.refdata_value.rdv_id = ${database.defaultSchemaName}.publication_request.pr_request_status
-            )
-          AND
-          -- create only if there are orphaned FKs
-          EXISTS (
-            SELECT 1
-              FROM ${database.defaultSchemaName}.publication_request pr
-              WHERE pr.pr_request_status IS NOT NULL
-              AND NOT EXISTS (
-                    SELECT 1
-                    FROM ${database.defaultSchemaName}.refdata_value rdv2
-                    WHERE rdv2.rdv_id = pr.pr_request_status
-                  )
+          UPDATE ${database.defaultSchemaName}.publication_request pr
+          SET pr_request_status = (
+            SELECT rv.rdv_id
+            FROM ${database.defaultSchemaName}.refdata_value rv
+            JOIN ${database.defaultSchemaName}.refdata_category rc
+            ON rv.rdv_owner = rc.rdc_id
+            WHERE rc.rdc_description = 'PublicationRequest.RequestStatus'
+            AND rv.rdv_value = 'missingRequestStatusRefDataValue'
+            LIMIT 1
           )
+          WHERE
+            -- only touch rows whose current FK doesn't exist in refdata_value
+            NOT EXISTS (
+            SELECT 1
+            FROM ${database.defaultSchemaName}.refdata_value rvx
+            WHERE rvx.rdv_id = pr.pr_request_status
+            );
         """.toString())
       }
     }
@@ -180,10 +243,42 @@ databaseChangeLog = {
       }
     }
 
-    // Create the "missingRequestStatusRefDataValue" refDataValue for RequestStatus category
+    // Create the "missingFromStatusRefDataValue" refDataValue for RequestStatus category
     grailsChange {
       change {
-        sql.execute("INSERT INTO ${database.defaultSchemaName}.refdata_value (rdv_id, rdv_version, rdv_value, rdv_owner, rdv_label) SELECT md5(random()::text || clock_timestamp()::text) as id, 0 as version, 'missingFromStateRefDataValue' as value, (SELECT rdc_id FROM  ${database.defaultSchemaName}.refdata_category WHERE rdc_description='PublicationRequestHistory.FromState') as owner, 'missingFromStateRefDataValue' as label WHERE NOT EXISTS (SELECT rdv_id FROM ${database.defaultSchemaName}.refdata_value INNER JOIN ${database.defaultSchemaName}.refdata_category ON refdata_value.rdv_owner = refdata_category.rdc_id WHERE rdc_description='PublicationRequestHistory.FromState' AND rdv_value='missingFromStateRefDataValue' LIMIT 1);".toString())
+        sql.execute("""
+          INSERT INTO ${database.defaultSchemaName}.refdata_value (rdv_id, rdv_version, rdv_value, rdv_owner, rdv_label)
+          SELECT md5(random()::text || clock_timestamp()::text) AS id,
+                0 AS version,
+                'missingFromStatusRefDataValue' AS value,
+                (SELECT rdc_id
+                  FROM ${database.defaultSchemaName}.refdata_category
+                  WHERE rdc_description = 'PublicationRequestHistory.FromState'
+                  LIMIT 1) AS owner,
+                'missingFromStatusRefDataValue' AS label
+          WHERE
+            -- don't recreate if it already exists
+            NOT EXISTS (
+              SELECT 1
+              FROM ${database.defaultSchemaName}.refdata_value rv
+              JOIN ${database.defaultSchemaName}.refdata_category rc
+              ON rv.rdv_owner = rc.rdc_id
+              WHERE rc.rdc_description = 'PublicationRequestHistory.FromState'
+              AND rv.rdv_value = 'missingFromStatusRefDataValue'
+            )
+            AND
+            -- create only if there are orphaned publication_request_history FKs
+            EXISTS (
+              SELECT 1
+                FROM ${database.defaultSchemaName}."publication_request_history" prh
+                WHERE prh.prh_from_state IS NOT NULL
+                AND NOT EXISTS (
+                      SELECT 1
+                      FROM ${database.defaultSchemaName}.refdata_value rv2
+                      WHERE rv2.rdv_id = prh.prh_from_state
+                    )
+            );
+        """.toString())
       }
     }
 
@@ -194,34 +289,23 @@ databaseChangeLog = {
     grailsChange {
       change {
         sql.execute("""
-          UPDATE ${database.defaultSchemaName}.publication_request_history
-          SET
-            prh_from_state = (
-              SELECT ${database.defaultSchemaName}.refdata_value.rdv_id
-              FROM ${database.defaultSchemaName}.refdata_value
-              INNER JOIN ${database.defaultSchemaName}.refdata_category ON ${database.defaultSchemaName}.refdata_value.rdv_owner = ${database.defaultSchemaName}.refdata_category.rdc_id
-              WHERE ${database.defaultSchemaName}.refdata_category.rdc_description = 'PublicationRequestHistory.FromState'
-                AND ${database.defaultSchemaName}.refdata_value.rdv_value = 'missingFromStateRefDataValue'
-              LIMIT 1
-            )
-          WHERE
-            NOT EXISTS (
-              SELECT 1
-              FROM ${database.defaultSchemaName}.refdata_value
-              WHERE ${database.defaultSchemaName}.refdata_value.rdv_id = ${database.defaultSchemaName}.publication_request_history.prh_from_state
-            )
-          AND
-          -- create only if there are orphaned FKs
-          EXISTS (
-            SELECT 1
-              FROM ${database.defaultSchemaName}.publication_request_history prh
-              WHERE prh.prh_from_state IS NOT NULL
-              AND NOT EXISTS (
-                    SELECT 1
-                    FROM ${database.defaultSchemaName}.refdata_value rdv2
-                    WHERE rdv2.rdv_id = prh.prh_from_state
-                  )
+          UPDATE ${database.defaultSchemaName}.publication_request_history prh
+          SET prh_from_state = (
+            SELECT rv.rdv_id
+            FROM ${database.defaultSchemaName}.refdata_value rv
+            JOIN ${database.defaultSchemaName}.refdata_category rc
+            ON rv.rdv_owner = rc.rdc_id
+            WHERE rc.rdc_description = 'PublicationRequestHistory.FromState'
+            AND rv.rdv_value = 'missingFromStatusRefDataValue'
+            LIMIT 1
           )
+          WHERE
+            -- only touch rows whose current FK doesn't exist in refdata_value
+            NOT EXISTS (
+            SELECT 1
+            FROM ${database.defaultSchemaName}.refdata_value rvx
+            WHERE rvx.rdv_id = prh.prh_from_state
+            );
         """.toString())
       }
     }
@@ -240,7 +324,39 @@ databaseChangeLog = {
     // Create the "missingToStateRefDataValue" refDataValue for RequestStatus category
     grailsChange {
       change {
-        sql.execute("INSERT INTO ${database.defaultSchemaName}.refdata_value (rdv_id, rdv_version, rdv_value, rdv_owner, rdv_label) SELECT md5(random()::text || clock_timestamp()::text) as id, 0 as version, 'missingToStateRefDataValue' as value, (SELECT rdc_id FROM  ${database.defaultSchemaName}.refdata_category WHERE rdc_description='PublicationRequestHistory.ToState') as owner, 'missingToStateRefDataValue' as label WHERE NOT EXISTS (SELECT rdv_id FROM ${database.defaultSchemaName}.refdata_value INNER JOIN ${database.defaultSchemaName}.refdata_category ON refdata_value.rdv_owner = refdata_category.rdc_id WHERE rdc_description='PublicationRequestHistory.ToState' AND rdv_value='missingToStateRefDataValue' LIMIT 1);".toString())
+        sql.execute("""
+          INSERT INTO ${database.defaultSchemaName}.refdata_value (rdv_id, rdv_version, rdv_value, rdv_owner, rdv_label)
+          SELECT md5(random()::text || clock_timestamp()::text) AS id,
+                0 AS version,
+                'missingToStatusRefDataValue' AS value,
+                (SELECT rdc_id
+                  FROM ${database.defaultSchemaName}.refdata_category
+                  WHERE rdc_description = 'PublicationRequestHistory.ToState'
+                  LIMIT 1) AS owner,
+                'missingToStatusRefDataValue' AS label
+          WHERE
+            -- don't recreate if it already exists
+            NOT EXISTS (
+              SELECT 1
+              FROM ${database.defaultSchemaName}.refdata_value rv
+              JOIN ${database.defaultSchemaName}.refdata_category rc
+              ON rv.rdv_owner = rc.rdc_id
+              WHERE rc.rdc_description = 'PublicationRequestHistory.ToState'
+              AND rv.rdv_value = 'missingToStatusRefDataValue'
+            )
+            AND
+            -- create only if there are orphaned publication_request_history FKs
+            EXISTS (
+              SELECT 1
+                FROM ${database.defaultSchemaName}."publication_request_history" prh
+                WHERE prh.prh_to_state IS NOT NULL
+                AND NOT EXISTS (
+                      SELECT 1
+                      FROM ${database.defaultSchemaName}.refdata_value rv2
+                      WHERE rv2.rdv_id = prh.prh_to_state
+                    )
+            );
+        """.toString())
       }
     }
 
@@ -251,34 +367,23 @@ databaseChangeLog = {
     grailsChange {
       change {
         sql.execute("""
-          UPDATE ${database.defaultSchemaName}.publication_request_history
-          SET
-            prh_to_state = (
-              SELECT ${database.defaultSchemaName}.refdata_value.rdv_id
-              FROM ${database.defaultSchemaName}.refdata_value
-              INNER JOIN ${database.defaultSchemaName}.refdata_category ON ${database.defaultSchemaName}.refdata_value.rdv_owner = ${database.defaultSchemaName}.refdata_category.rdc_id
-              WHERE ${database.defaultSchemaName}.refdata_category.rdc_description = 'PublicationRequestHistory.ToState'
-                AND ${database.defaultSchemaName}.refdata_value.rdv_value = 'missingToStateRefDataValue'
-              LIMIT 1
-            )
-          WHERE
-            NOT EXISTS (
-              SELECT 1
-              FROM ${database.defaultSchemaName}.refdata_value
-              WHERE ${database.defaultSchemaName}.refdata_value.rdv_id = ${database.defaultSchemaName}.publication_request_history.prh_to_state
-            )
-          AND
-          -- create only if there are orphaned FKs
-          EXISTS (
-            SELECT 1
-              FROM ${database.defaultSchemaName}.publication_request_history prh
-              WHERE prh.prh_to_state IS NOT NULL
-              AND NOT EXISTS (
-                    SELECT 1
-                    FROM ${database.defaultSchemaName}.refdata_value rdv2
-                    WHERE rdv2.rdv_id = prh.prh_to_state
-                  )
+          UPDATE ${database.defaultSchemaName}.publication_request_history prh
+          SET prh_to_state = (
+            SELECT rv.rdv_id
+            FROM ${database.defaultSchemaName}.refdata_value rv
+            JOIN ${database.defaultSchemaName}.refdata_category rc
+            ON rv.rdv_owner = rc.rdc_id
+            WHERE rc.rdc_description = 'PublicationRequestHistory.ToState'
+            AND rv.rdv_value = 'missingToStatusRefDataValue'
+            LIMIT 1
           )
+          WHERE
+            -- only touch rows whose current FK doesn't exist in refdata_value
+            NOT EXISTS (
+            SELECT 1
+            FROM ${database.defaultSchemaName}.refdata_value rvx
+            WHERE rvx.rdv_id = prh.prh_to_state
+            );
         """.toString())
       }
     }
