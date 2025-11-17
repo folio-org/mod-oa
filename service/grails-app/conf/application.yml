@@ -132,6 +132,12 @@ management:
      defaults:
         enabled: false
 
+db:
+  maxpoolsize: 10
+  transactionIsolation: TRANSACTION_READ_COMMITTED
+  jmxEnabled: false
+  jmxExport: false
+
 okapi:
     schema:
         appName: 'mod-oa'
@@ -141,7 +147,7 @@ okapi:
 
 dataSource:
   pooled: true
-  jmxExport: false
+  jmxExport: "${db.jmxExport}"
   dbCreate: none
   username: "${db.username:folio_admin}"
   password: "${db.password:folio_admin}"
@@ -150,9 +156,9 @@ dataSource:
   url: "jdbc:postgresql://${db.host:localhost}:${db.port:5432}/${db.database:okapi_modules}"
   schemaHandler: com.k_int.okapi.OkapiSchemaHandler
   properties:
-    jmxEnabled: false
+    jmxEnabled: ${db.jmxEnabled:false}
     maximumPoolSize: ${db.maxpoolsize:10}
-    transactionIsolation: TRANSACTION_READ_COMMITTED
+    transactionIsolation: ${db.transactionIsolation:TRANSACTION_READ_COMMITTED}
 
 environments:
   test:

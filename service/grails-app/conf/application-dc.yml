@@ -13,12 +13,18 @@ dataSource:
   schemaHandler: com.k_int.okapi.OkapiSchemaHandler
   logSql: false
   properties:
-      jmxEnabled: false
-      maximumPoolSize: ${db.maxpoolsize:50}
-      transactionIsolation: TRANSACTION_READ_COMMITTED
+    jmxEnabled: ${db.jmxEnabled}
+    maximumPoolSize: ${db.maxpoolsize}
+    transactionIsolation: ${db.transactionIsolation}
 
   hibernate:
     enable_lazy_load_no_trans: true
+
+db:
+  maxpoolsize: 15
+  transactionIsolation: TRANSACTION_READ_COMMITTED
+  jmxEnabled: true
+  jmxExport: true
 
 okapi: 
   service:
