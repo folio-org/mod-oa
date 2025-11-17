@@ -1,0 +1,72 @@
+on:
+  push:
+
+## Copied and tweaked from mod-agreements.
+## If we want to split into runners like there we may want to centralise and clean up this logic
+jobs:
+  integration_test_job:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - name: Validate Gradle wrapper
+        uses: gradle/actions/wrapper-validation@v3
+      - name: Start containers
+        run: |
+          cd tools/testing
+          docker compose down -v
+          docker compose up -d &> dockerOutput.log
+          sleep 20
+      - name: Inject github build number
+        run: |
+          # Make github run id available to gradle script via env var BUILD_NUMBER so it ends up in our module descriptor version
+          # echo "BUILD_NUMBER=${{github.run_id}}" >> $GITHUB_ENV
+          echo "BUILD_NUMBER=${{github.run_number}}" >> $GITHUB_ENV
+      - name: Setup gradle
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          build-root-directory: service
+      - name: Run integration test
+        working-directory: ./service
+        run:
+          ./gradlew integrationTest
+      - name: Upload Test Results Files
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: IntegrationTestResults
+          path: |
+            service/build/spock-reports/*.json
+            service/build/spock-reports/*.html
+            service/build/test-results/**/*.xml
+            tools/testing/*.log
+          retention-days: 1
+      - name: Capture container output
+        if: always()
+        run: |
+          cd tools/testing
+          docker ps -a > ps.log
+          docker logs testing_pg > postgres.log
+      - name: Stop containers
+        if: always()
+        run: |
+          cd tools/testing
+          docker compose down -v
+          sleep 10
+  publish-test-results:
+    if: always()
+    needs: [integration_test_job]
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'download test results'
+        uses: actions/download-artifact@v4
+        with:
+          path: testLogs
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        with:
+          files: "testLogs/**/*.xml"
