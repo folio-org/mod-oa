@@ -195,7 +195,7 @@ correspondingInstitutionLevel2(nullable:true)
       
       AppSetting prefix_setting = AppSetting.findByKey('hrid_prefix')
       log.debug("Got app setting ${prefix_setting} ${prefix_setting?.value} ${prefix_setting?.defValue}")
-      String hrid_prefix = prefix_setting?.value ?: prefix_setting.defValue ?: ''
+      String hrid_prefix = prefix_setting?.value ?: prefix_setting?.defValue ?: ''
       log.debug("Generate hrid");
       def sql = new Sql(session.connection())
       def query_result = sql.rows("select nextval('pubreq_hrid_seq')".toString())

@@ -102,9 +102,11 @@ dependencies {
 	implementation("org.grails.plugins:async")
   implementation("org.grails.plugins:events")
   implementation("org.grails.plugins:hibernate5")
+
   implementation("org.grails.plugins:spring-security-core:6.1.2") // NOT IN LINE WITH GRAILS PATCH VERSION
   // 5.8.9 affected by https://security.snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORKSECURITY-6457293
-  implementation("org.springframework.security:spring-security-core:5.8.11")
+  implementation("org.springframework.security:spring-security-core:5.8.16")
+  implementation("org.springframework.security:spring-security-web:5.8.16")
 	
 	implementation("org.grails.plugins:views-json")
   implementation("org.grails.plugins:views-json-templates")
@@ -125,8 +127,8 @@ dependencies {
   //testImplementation("io.micronaut:micronaut-http-client")
 
   /*  ---- Manually installed dependencies ---- */	
-	implementation 'com.k_int.grails:web-toolkit-ce:10.2.0'
-	implementation('com.k_int.okapi:grails-okapi:7.4.0') {
+	implementation 'com.k_int.grails:web-toolkit-ce:10.4.0'
+	implementation('com.k_int.okapi:grails-okapi:8.0.2') {
     exclude group: 'com.vaadin.external.google', module: 'android-json'
   }
 
@@ -142,7 +144,7 @@ dependencies {
   implementation 'org.liquibase:liquibase-core:4.19.0'
 
 	implementation 'com.opencsv:opencsv:5.7.1'
-	implementation 'commons-io:commons-io:2.7'
+  implementation 'commons-io:commons-io:2.14.0'
 	implementation 'io.github.virtualdogbert:logback-groovy-config:1.14.1' // Grails 5 and up no longer supports groovy files for logback config
 	compileOnly 'ch.qos.logback:logback-classic:1.4.7'
 
