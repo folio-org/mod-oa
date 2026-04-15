@@ -29,14 +29,18 @@ class HousekeepingService {
 
   BibReferenceService bibReferenceService
 
-  /**
-   * This is called by the eventing mechanism - There is no web request context
-   * this method is called after the schema for a tenant is updated.
-   */
-  @Subscriber('okapi:schema_update')
-  public void onSchemaUpdate(tn, tid) {
-    log.debug("HousekeepingService::onSchemaUpdate(${tn},${tid})")
-    setupData(tn, tid);
+  @Subscriber('okapi:tenant_enabled')
+  public void onTenantEnabled(final String tenantId, 
+                              final boolean existing_tenant, 
+                              final boolean upgrading, 
+                              final String toVersion, 
+                              final String fromVersion) {
+    log.debug("HousekeepingService::onTenantEnabled(${tenantId},${existing_tenant},${upgrading},${toVersion},${fromVersion})")
+    try {
+      setupData(tenantId);
+    } catch (Exception e) {
+      log.error("HousekeepingService::onTenantEnabled: Error during housekeeping for tenant ${tenantId}", e)
+    }
   }
 
   /**
@@ -44,11 +48,12 @@ class HousekeepingService {
    * system in the same state. It will be called regularly throughout the lifecycle of a project. It is common to see calls to
    * lookupOrCreate, or "upsert" type functions in here."
    */
-  private void setupData(tenantName, tenantId) {
-    log.info("HousekeepingService::setupData(${tenantName},${tenantId})");
+  private void setupData(tenantId) {
+    log.info("HousekeepingService::setupData(${tenantId})");
+    final String tenant_schema_id = OkapiTenantResolver.getTenantSchemaName(tenantId)
     // Establish a database session in the context of the activated tenant. You can use GORM domain classes inside the closure
-    Tenants.withId(tenantId) {
-      AppSetting.withNewTransaction { status ->
+    Tenants.withId(tenant_schema_id) {
+      AppSetting.withTransaction { status ->
         RefdataValue.lookupOrCreate('InstitutionName', 'Institution name');
 
         AppSetting pubreq_id_prefix = AppSetting.findByKey('hrid_prefix') ?: new AppSetting(
