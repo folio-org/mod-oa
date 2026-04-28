@@ -14,7 +14,7 @@ import groovy.util.logging.Slf4j
 @Stepwise
 class PartyLifecycleSpec extends HttpSpec {
 
-  static final String tenantName = 'party_tests'
+  static final String tenantName = 'party_lifecycle_tests'
 
   def setup() {
     setHeaders((OkapiHeaders.TENANT): tenantName)
