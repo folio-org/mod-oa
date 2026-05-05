@@ -16,6 +16,15 @@ class PartyLifecycleSpec extends HttpSpec {
 
   static final String tenantName = 'party_tests'
 
+  def setupSpec() {
+    httpClientConfig = {
+      client.clientCustomizer { HttpURLConnection conn ->
+        conn.connectTimeout = 2000
+        conn.readTimeout = 30000 
+      }
+    }
+  }
+
   def setup() {
     setHeaders((OkapiHeaders.TENANT): tenantName)
   }
