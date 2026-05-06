@@ -60,7 +60,25 @@
   </logger>
 
   <logger name="com.k_int.web.toolkit">
-    <level value="TRACE" />
+    <level value="DEBUG" />
+  </logger>
+
+  <!-- Silence noisy Spring/Hibernate infrastructure -->
+  <logger name="org.springframework">
+    <level value="WARN" />
+  </logger>
+
+  <logger name="org.hibernate">
+    <level value="WARN" />
+  </logger>
+
+  <!-- Keep full stacktraces visible for Spring MVC exceptions -->
+  <logger name="org.springframework.web.servlet.DispatcherServlet">
+    <level value="DEBUG" />
+  </logger>
+
+  <logger name="org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver">
+    <level value="DEBUG" />
   </logger>
 
   <logger name="org.grails.gorm.graphql">
@@ -163,7 +181,7 @@ logger ('folio', DEBUG)
 logger ('org.olf', DEBUG)
 logger ('com.k_int.okapi.OkapiTenantAdminService', DEBUG)
 logger ('com.k_int.okapi.OkapiSchemaHandler', WARN)
-logger ('com.k_int.web.toolkit', TRACE)
+logger ('com.k_int.web.toolkit', DEBUG)
 logger ('org.grails.gorm.graphql', WARN)
 logger ('mod.directory', INFO)
 logger ('mod.service', INFO)
