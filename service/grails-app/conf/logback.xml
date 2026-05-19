@@ -60,8 +60,8 @@
   </logger>
 
   <logger name="com.k_int.web.toolkit">
-    <!-- MODOA-96: TRACE leaks auth tokens and sensitive headers via HTTP client helpers; capped at WARN for production -->
-    <level value="WARN" />
+    <!-- MODOA-96: DEBUG leaks S3 secret key (FileUploadService); INFO is safe — no credentials or PII at INFO level -->
+    <level value="INFO" />
   </logger>
 
   <logger name="org.grails.gorm.graphql">
