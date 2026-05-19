@@ -112,7 +112,6 @@ class HousekeepingService {
           sample_party_data.each { pty ->
             log.debug("Import sample party ${ctr++} of ${num_sample_party_records}");
             AppSetting.withNewTransaction { status ->
-              log.debug("Import party ${pty}");
               // Key the sample data off main email - so that repeated calls to loadReference will not repeat the data
               Party p = Party.findByMainEmail(pty.mainEmail) ?: new Party(
                                   'title': pty.title,
