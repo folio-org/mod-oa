@@ -96,6 +96,16 @@
   </logger>
   -->
 
+  <!-- MODOA-96: groovy.net.http (http-builder-ng) at DEBUG dumps all HTTP headers including x-okapi-token -->
+  <logger name="groovy.net.http">
+    <level value="ERROR" />
+  </logger>
+
+  <!-- MODOA-96: Netty DEBUG logs channel/SSL pipeline details -->
+  <logger name="io.netty">
+    <level value="ERROR" />
+  </logger>
+
   <!--LOG SQL - VERBOSE!!!!!!-->
   <!--
   <logger name="org.hibernate.SQL">
