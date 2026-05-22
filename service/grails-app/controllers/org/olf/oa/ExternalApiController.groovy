@@ -19,8 +19,7 @@ class ExternalApiController {
   }
 
   def oaSwitchboard() {
-    log.info("ExternalApiController::oaSwitchboard(${params})");
-    log.info("Request JSON if present: ${request?.JSON}")
+    log.info("ExternalApiController::oaSwitchboard called");
     Map result=['status':'ok']
     render result as JSON
   }
