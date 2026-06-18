@@ -11,6 +11,7 @@ on:
   push:
     branches:
       - master
+      - test-sbom-shared-scripts # FIXME DO NOT MERGE THIS
   workflow_dispatch:
 
 jobs:
@@ -18,7 +19,7 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
-    uses: k-int/github-actions/.github/workflows/sbom-gradle.yml@main
+    uses: k-int/github-actions/.github/workflows/sbom-gradle.yml@test
     with:
       gradle_project_path: 'service'
     secrets:
