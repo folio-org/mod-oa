@@ -1,0 +1,17 @@
+type: object
+properties:
+  total:
+    type: integer
+  errors:
+    type: array
+    items:
+      type: object
+      properties:
+        code:
+          type: string
+        i18n_code:
+          type: string
+        message:
+          type: string
+        object:
+          type: string

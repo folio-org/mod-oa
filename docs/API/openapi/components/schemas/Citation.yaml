@@ -1,0 +1,19 @@
+type: object
+required:
+  - id
+properties:
+  id:
+    type: string
+    format: uuid
+  title:
+    type: string
+  instances:
+    type: array
+    items:
+      $ref: ./TitleInstance.yaml
+  indexedInDOAJ:
+    type: string
+  oaStatus:
+    type: string
+  type:
+    type: string

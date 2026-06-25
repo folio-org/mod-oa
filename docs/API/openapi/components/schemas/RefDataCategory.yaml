@@ -1,0 +1,13 @@
+type: object
+properties:
+  desc:
+    type: string
+  id:
+    type: string
+    format: uuid
+  internal:
+    type: boolean
+  values:
+    type: array
+    items:
+      $ref: ./RefData.yaml

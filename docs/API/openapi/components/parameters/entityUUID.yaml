@@ -1,0 +1,7 @@
+in: path
+name: entityUUID
+description: UUID for an Entity
+required: true
+schema:
+  type: string
+  format: uuid

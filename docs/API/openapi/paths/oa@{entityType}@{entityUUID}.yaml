@@ -1,0 +1,50 @@
+parameters:
+  - $ref: ../components/parameters/x-okapi-tenant.yaml
+  - $ref: ../components/parameters/x-okapi-token.yaml
+  - $ref: ../components/parameters/entityType.yaml
+  - $ref: ../components/parameters/entityUUID.yaml
+get:
+  operationId: getEntityByID
+  summary: Returns specified entity
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref: ../components/schemas/Entity.yaml
+    '404':
+      description: Entity UUID not found. Not possible to GET entity
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/HttpError.yaml
+put:
+  operationId: putEntity
+  summary: Update an existing Entity
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Entity.yaml
+    '404':
+      description: Entity UUID not found. Not possible to PUT entity
+      content:
+        text/plain:
+          schema:
+            type: string
+delete:
+  operationId: deleteEntity
+  summary: Delete an Entity
+  responses:
+    '204':
+      description: Success
+    '404':
+      description: Entity UUID not found. Not possible to DELETE entity
+      content:
+        text/plain:
+          schema:
+            type: string

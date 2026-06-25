@@ -1,0 +1,14 @@
+in: path
+name: entityType
+required: true
+schema:
+  type: string
+  enum:
+    - scholarlyWork
+    - publicationRequest
+    - titleInstances
+    - works
+    - party
+    - correspondence
+    - charges
+    - checklistItems

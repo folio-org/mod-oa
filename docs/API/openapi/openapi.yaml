@@ -1,0 +1,18 @@
+openapi: 3.0.0
+info:
+  version: 0.0.1
+  title: Folio Open Access Requests
+  description: API for the Folio library services platform mod-oa app
+servers:
+  - url: 'http://localhost:9130'
+  - url: 'https://folio-snapshot-okapi.dev.folio.org'
+  - url: 'https://folio-snapshot-2-okapi.dev.folio.org'
+paths:
+  '/oa/{entityType}':
+    $ref: 'paths/oa@{entityType}.yaml'
+  '/oa/{entityType}/{entityUUID}':
+    $ref: 'paths/oa@{entityType}@{entityUUID}.yaml'
+  '/oa/works/citation':
+    $ref: 'paths/oa@works@citation.yaml'
+  '/oa/refdata/{domain}/{property}':
+    $ref: 'paths/oa@refdata@{domain}@{property}.yaml'

@@ -1,0 +1,52 @@
+type: object
+required:
+  - id
+properties:
+  id:
+    type: string
+    format: uuid
+  invoiceLineItemReference:
+    type: string
+    format: uuid
+  dateCreated:
+    type: string
+    format: date-time
+  discountNote:
+    type: string
+  lastUpdated:
+    type: string
+    format: date-time
+  invoiceReference:
+    type: string
+    format: uuid
+  exchangeRate:
+    type: object
+  discountType:
+    oneOf:
+      - type: string
+      - $ref: ./RefData.yaml
+  chargeStatus:
+    oneOf:
+      - type: string
+      - $ref: ./RefData.yaml
+  discount:
+    type: number
+    format: float
+  category:
+    oneOf:
+      - type: string
+      - $ref: ./RefData.yaml
+  amount:
+    type: object
+  description:
+    type: string
+  tax:
+    type: number
+    format: float
+  payers:
+    type: object
+    $ref: ./Payer.yaml
+  estimatedInvoicePrice:
+    type: object
+  estimatedPrice:
+    type: object

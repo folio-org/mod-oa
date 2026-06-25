@@ -1,0 +1,616 @@
+openapi: 3.0.0
+info:
+  version: 0.0.1
+  title: Folio Open Access Requests
+  description: API for the Folio library services platform mod-oa app
+servers:
+  - url: http://localhost:9130
+  - url: https://folio-snapshot-okapi.dev.folio.org
+  - url: https://folio-snapshot-2-okapi.dev.folio.org
+paths:
+  /oa/{entityType}:
+    parameters:
+      - $ref: '#/components/parameters/x-okapi-tenant'
+      - $ref: '#/components/parameters/x-okapi-token'
+      - $ref: '#/components/parameters/entityType'
+    get:
+      operationId: getEntities
+      summary: Returns list of specified entities
+      parameters:
+        - $ref: '#/components/parameters/filters'
+        - $ref: '#/components/parameters/match'
+        - $ref: '#/components/parameters/term'
+        - $ref: '#/components/parameters/sort'
+        - $ref: '#/components/parameters/stats'
+        - $ref: '#/components/parameters/perPage'
+        - $ref: '#/components/parameters/offset'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/Results'
+                  - $ref: '#/components/schemas/ResultsArray'
+        '404':
+          description: Not found
+          content:
+            text/plain:
+              schema:
+                type: string
+    post:
+      operationId: createEntity
+      summary: Create Entity of specified type
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Entity'
+      responses:
+        '201':
+          description: Success. Entity created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Entity'
+        '404':
+          description: Not found. Not possible to POST entity type
+          content:
+            text/plain:
+              schema:
+                type: string
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationError'
+  /oa/{entityType}/{entityUUID}:
+    parameters:
+      - $ref: '#/components/parameters/x-okapi-tenant'
+      - $ref: '#/components/parameters/x-okapi-token'
+      - $ref: '#/components/parameters/entityType'
+      - $ref: '#/components/parameters/entityUUID'
+    get:
+      operationId: getEntityByID
+      summary: Returns specified entity
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/Entity'
+        '404':
+          description: Entity UUID not found. Not possible to GET entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HttpError'
+    put:
+      operationId: putEntity
+      summary: Update an existing Entity
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Entity'
+        '404':
+          description: Entity UUID not found. Not possible to PUT entity
+          content:
+            text/plain:
+              schema:
+                type: string
+    delete:
+      operationId: deleteEntity
+      summary: Delete an Entity
+      responses:
+        '204':
+          description: Success
+        '404':
+          description: Entity UUID not found. Not possible to DELETE entity
+          content:
+            text/plain:
+              schema:
+                type: string
+  /oa/works/citation:
+    parameters:
+      - $ref: '#/components/parameters/x-okapi-tenant'
+      - $ref: '#/components/parameters/x-okapi-token'
+    post:
+      operationId: createCitation
+      summary: Create a work and instances based on a citation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Citation'
+      responses:
+        '201':
+          description: Success. Entity created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Citation'
+        '404':
+          description: Not found. Not possible to POST citation
+          content:
+            text/plain:
+              schema:
+                type: string
+        '422':
+          description: Unprocessable Citation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationError'
+  /oa/refdata/{domain}/{property}:
+    parameters:
+      - $ref: '#/components/parameters/x-okapi-tenant'
+      - $ref: '#/components/parameters/x-okapi-token'
+      - in: path
+        name: domain
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: property
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: getRefDat
+      summary: Returns list of reference data values for specified domain/property
+      parameters:
+        - $ref: '#/components/parameters/filters'
+        - $ref: '#/components/parameters/match'
+        - $ref: '#/components/parameters/term'
+        - $ref: '#/components/parameters/sort'
+        - $ref: '#/components/parameters/stats'
+        - $ref: '#/components/parameters/perPage'
+        - $ref: '#/components/parameters/offset'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/Results'
+                  - $ref: '#/components/schemas/ResultsArray'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HttpError'
+components:
+  parameters:
+    x-okapi-tenant:
+      in: header
+      name: x-okapi-tenant
+      required: true
+      schema:
+        type: string
+    x-okapi-token:
+      in: header
+      name: x-okapi-token
+      required: true
+      schema:
+        type: string
+    entityType:
+      in: path
+      name: entityType
+      required: true
+      schema:
+        type: string
+        enum:
+          - scholarlyWork
+          - publicationRequest
+          - titleInstances
+          - works
+          - party
+          - correspondence
+          - charges
+          - checklistItems
+    filters:
+      in: query
+      name: filters
+      required: false
+      schema:
+        type: string
+    match:
+      in: query
+      name: match
+      required: false
+      schema:
+        type: string
+    term:
+      in: query
+      name: term
+      required: false
+      schema:
+        type: string
+    sort:
+      in: query
+      name: sort
+      required: false
+      schema:
+        type: string
+    stats:
+      in: query
+      name: stats
+      required: false
+      schema:
+        type: boolean
+    perPage:
+      in: query
+      name: perPage
+      required: false
+      schema:
+        type: integer
+    offset:
+      in: query
+      name: offset
+      required: false
+      schema:
+        type: integer
+    entityUUID:
+      in: path
+      name: entityUUID
+      description: UUID for an Entity
+      required: true
+      schema:
+        type: string
+        format: uuid
+  schemas:
+    ScholarlyWork:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: string
+          format: uuid
+    Correspondence:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: string
+          format: uuid
+    RefData:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        label:
+          type: string
+        value:
+          type: string
+    Party:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: string
+          format: uuid
+    Identifier:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: string
+          format: uuid
+    PublicationStatus:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: string
+          format: uuid
+    History:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: string
+          format: uuid
+    Funding:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: string
+          format: uuid
+    ExternalRequestId:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: string
+          format: uuid
+    ChecklistItem:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: string
+          format: uuid
+    Payer:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: string
+          format: uuid
+    Charge:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: string
+          format: uuid
+        invoiceLineItemReference:
+          type: string
+          format: uuid
+        dateCreated:
+          type: string
+          format: date-time
+        discountNote:
+          type: string
+        lastUpdated:
+          type: string
+          format: date-time
+        invoiceReference:
+          type: string
+          format: uuid
+        exchangeRate:
+          type: object
+        discountType:
+          oneOf:
+            - type: string
+            - $ref: '#/components/schemas/RefData'
+        chargeStatus:
+          oneOf:
+            - type: string
+            - $ref: '#/components/schemas/RefData'
+        discount:
+          type: number
+          format: float
+        category:
+          oneOf:
+            - type: string
+            - $ref: '#/components/schemas/RefData'
+        amount:
+          type: object
+        description:
+          type: string
+        tax:
+          type: number
+          format: float
+        payers:
+          type: object
+          $ref: '#/components/schemas/Payer'
+        estimatedInvoicePrice:
+          type: object
+        estimatedPrice:
+          type: object
+    PublicationRequest:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: string
+          format: uuid
+        correspondences:
+          type: array
+          items:
+            $ref: '#/components/schemas/Correspondence'
+        publisher:
+          oneOf:
+            - type: string
+            - $ref: '#/components/schemas/RefData'
+        dateCreated:
+          type: string
+          format: date-time
+        correspondingAuthor:
+          type: object
+          $ref: '#/components/schemas/Party'
+        lastUpdated:
+          type: string
+          format: date-time
+        requestDate:
+          type: string
+          format: date
+        doi:
+          type: string
+        correspondingFaculty:
+          oneOf:
+            - type: string
+            - $ref: '#/components/schemas/RefData'
+        publicationType:
+          oneOf:
+            - type: string
+            - $ref: '#/components/schemas/RefData'
+        requestNumber:
+          type: string
+        requestContact:
+          type: object
+          $ref: '#/components/schemas/Party'
+        license:
+          oneOf:
+            - type: string
+            - $ref: '#/components/schemas/RefData'
+        identifiers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Identifier'
+        publicationStatuses:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicationStatus'
+        withoutAgreement:
+          type: boolean
+        subtype:
+          oneOf:
+            - type: string
+            - $ref: '#/components/schemas/RefData'
+        history:
+          type: array
+          items:
+            $ref: '#/components/schemas/History'
+        fundings:
+          type: array
+          items:
+            $ref: '#/components/schemas/Funding'
+        correspondingDepartment:
+          type: string
+        requestStatus:
+          oneOf:
+            - type: string
+            - $ref: '#/components/schemas/RefData'
+        publicationTitle:
+          type: string
+        authorNames:
+          type: string
+        externalRequestIds:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalRequestId'
+        localReference:
+          type: string
+        checklist:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChecklistItem'
+        workOAStatus:
+          oneOf:
+            - type: string
+            - $ref: '#/components/schemas/RefData'
+        publicationUrl:
+          type: string
+          format: url
+        charges:
+          type: array
+          items:
+            $ref: '#/components/schemas/Charge'
+        work:
+          type: object
+          $ref: '#/components/schemas/ScholarlyWork'
+        workIndexedInDOAJ:
+          oneOf:
+            - type: string
+            - $ref: '#/components/schemas/RefData'
+        version:
+          type: number
+    TitleInstance:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: string
+          format: uuid
+    Work:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: string
+          format: uuid
+    Entity:
+      oneOf:
+        - $ref: '#/components/schemas/ScholarlyWork'
+        - $ref: '#/components/schemas/PublicationRequest'
+        - $ref: '#/components/schemas/TitleInstance'
+        - $ref: '#/components/schemas/Work'
+        - $ref: '#/components/schemas/Party'
+        - $ref: '#/components/schemas/Correspondence'
+        - $ref: '#/components/schemas/Charge'
+        - $ref: '#/components/schemas/ChecklistItem'
+    ResultsArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/Entity'
+    Results:
+      type: object
+      required:
+        - results
+      properties:
+        results:
+          $ref: '#/components/schemas/ResultsArray'
+        meta:
+          type: object
+        page:
+          type: integer
+        pageSize:
+          type: integer
+        total:
+          type: integer
+        totalPages:
+          type: integer
+        totalRecords:
+          type: integer
+    ApplicationError:
+      type: object
+      properties:
+        total:
+          type: integer
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              i18n_code:
+                type: string
+              message:
+                type: string
+              object:
+                type: string
+    HttpError:
+      type: object
+      properties:
+        message:
+          type: string
+        error:
+          type: integer
+    Citation:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        instances:
+          type: array
+          items:
+            $ref: '#/components/schemas/TitleInstance'
+        indexedInDOAJ:
+          type: string
+        oaStatus:
+          type: string
+        type:
+          type: string
