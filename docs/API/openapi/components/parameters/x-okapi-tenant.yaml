@@ -1,5 +1,0 @@
-in: header
-name: x-okapi-tenant
-required: true
-schema:
-  type: string

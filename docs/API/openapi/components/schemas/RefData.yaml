@@ -1,9 +1,0 @@
-type: object
-properties:
-  id:
-    type: string
-    format: uuid
-  label:
-    type: string
-  value:
-    type: string

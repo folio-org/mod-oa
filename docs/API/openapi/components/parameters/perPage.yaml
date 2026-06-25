@@ -1,5 +1,0 @@
-in: query
-name: perPage
-required: false
-schema:
-  type: integer

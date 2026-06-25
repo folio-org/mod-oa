@@ -1,5 +1,0 @@
-in: query
-name: term
-required: false
-schema:
-  type: string
