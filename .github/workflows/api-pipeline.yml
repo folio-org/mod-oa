@@ -7,7 +7,7 @@ on:
 
 jobs:
   run-openapi-pipeline:
-    uses: k-int/github-actions/.github/workflows/folio-api-build.yml@test
+    uses: k-int/github-actions/.github/workflows/folio-api-build.yml@main
     permissions:
       contents: write
       pull-requests: write
