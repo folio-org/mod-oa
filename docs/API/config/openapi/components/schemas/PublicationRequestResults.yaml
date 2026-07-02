@@ -1,18 +1,9 @@
 type: object
 required:
   - results
-properties:
-  results:
-    $ref: ./PublicationRequestResultsArray.yaml
-  meta:
-    type: object
-  page:
-    type: integer
-  pageSize:
-    type: integer
-  total:
-    type: integer
-  totalPages:
-    type: integer
-  totalRecords:
-    type: integer
+allOf:
+  - $ref: ./ResultsMeta.yaml
+  - type: object
+  - properties:
+      results:
+        $ref: ./PublicationRequestResultsArray.yaml
