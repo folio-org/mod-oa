@@ -1,0 +1,18 @@
+type: object
+required:
+  - id
+properties:
+  id:
+    type: string
+    format: uuid
+    readOnly: true
+  owner:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uuid
+    readOnly: true
+  externalId:
+    type: string
+    description: An identifier for this request in an external system

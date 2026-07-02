@@ -1,0 +1,8 @@
+in: path
+name: subset
+required: true
+schema:
+  type: string
+  enum:
+    - current
+    - all

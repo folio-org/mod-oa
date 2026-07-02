@@ -1,0 +1,49 @@
+description:  Supports search and creation of publication requests.
+parameters:
+  - $ref: ../components/parameters/x-okapi-tenant.yaml
+get:
+  tags:
+    - Publication requests
+  summary: Get a set of publication request records.
+  operationId: getPublicationRequests
+  parameters: 
+    $ref: ../components/parameters/queryParameters.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref: ../components/schemas/PublicationRequestResults.yaml
+              - $ref: ../components/schemas/PublicationRequestResultsArray.yaml
+    '400':
+      description: Bad request error
+    '403':
+      description: Forbidden
+    '500':
+      description: Internal server error
+post:
+  tags:
+    - Publication requests
+  summary: Create publication request record
+  operationId: postPublicationRequest
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/PublicationRequest.yaml
+    required: true
+  responses:
+    '201':
+      description: Created
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/PublicationRequest.yaml
+    '400':
+      description: Bad request error
+    '403':
+      description: Forbidden
+    '500':
+      description: Internal server error

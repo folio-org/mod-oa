@@ -1,0 +1,31 @@
+type: object
+required:
+  - id
+  - definition
+properties:
+  id:
+    type: string
+    format: uuid
+    readOnly: true
+  dateCreated:
+    type: string
+    format: date-time
+    readOnly: true
+  lastUpdated:
+    type: string
+    format: date-time
+    readOnly: true
+  definition:
+    $ref: ./ChecklistItemDefinition.yaml
+  outcome:
+    oneOf:
+      - type: string
+      - $ref: ./Refdata.yaml
+  status:
+    oneOf:
+      - type: string
+      - $ref: ./Refdata.yaml
+  notes:
+    type: array
+    items:
+      $ref: ./ChecklistItemNote.yaml

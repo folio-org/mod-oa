@@ -1,0 +1,23 @@
+type: object
+required:
+  - id
+  - title
+properties:
+  id:
+    type: string
+    format: uuid
+    readOnly: true
+  title:
+    type: string
+  indexedInDOAJ:
+    oneOf:
+      - type: string
+      - $ref: ./Refdata.yaml
+  oaStatus:
+    oneOf:
+      - type: string
+      - $ref: ./Refdata.yaml
+  instances:
+    type: array
+    items:
+      $ref: ./TitleInstance.yaml

@@ -1,0 +1,17 @@
+type: object
+required:
+  - id
+  - fromCurrency
+  - toCurrency
+  - coefficient
+properties:
+  id:
+    type: string
+    format: uuid
+    readOnly: true
+  fromCurrency:
+    type: string
+  toCurrency:
+    type: string
+  coefficient:
+    type: number

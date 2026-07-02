@@ -4,3 +4,9 @@ tools/testing/zk-single-kafka-single/
 
 .idea
 */.idea
+
+# Mac
+.DS_Store
+
+# Visual Studio Code
+.vscode/*

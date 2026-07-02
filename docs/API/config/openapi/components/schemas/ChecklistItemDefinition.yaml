@@ -1,0 +1,27 @@
+type: object
+required:
+  - id
+  - name
+  - label
+properties:
+  id:
+    type: string
+    format: uuid
+    readOnly: true
+  dateCreated:
+    type: string
+    format: date-time
+    readOnly: true
+  lastUpdated:
+    type: string
+    format: date-time
+    readOnly: true
+  name:
+    type: string
+  label:
+    type: string
+  description:
+    type: string
+  weight:
+    type: integer
+    default: 0

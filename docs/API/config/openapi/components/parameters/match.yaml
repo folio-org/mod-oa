@@ -1,0 +1,5 @@
+in: query
+name: match
+required: false
+schema:
+  type: string

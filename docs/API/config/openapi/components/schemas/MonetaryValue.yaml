@@ -1,0 +1,16 @@
+type: object
+required:
+  - id
+  - baseCurrency
+  - value
+properties:
+  id:
+    type: string
+    format: uuid
+    readOnly: true
+  baseCurrency:
+    type: string
+  value:
+    type: number
+    multipleOf: 0.01
+    description: Monetary amount, fixed to 2 decimal places

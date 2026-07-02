@@ -1,0 +1,14 @@
+type: object
+required:
+  - owner
+properties:
+  owner:
+    type: string
+    format: uuid
+    readOnly: true
+  remoteId:
+    type: string
+    format: uuid
+  remoteId_object:
+    type: object
+    readOnly: true

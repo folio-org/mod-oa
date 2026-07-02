@@ -1,0 +1,5 @@
+in: header
+name: x-okapi-token
+required: true
+schema:
+  type: string

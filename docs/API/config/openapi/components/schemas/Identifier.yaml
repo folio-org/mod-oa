@@ -1,0 +1,24 @@
+type: object
+required:
+  - id
+  - value
+  - ns
+properties:
+  id:
+    type: string
+    format: uuid
+    readOnly: true
+  value:
+    type: string
+  ns:
+    type: object
+    required:
+      - id
+      - value
+    properties:
+      id:
+        type: string
+        format: uuid
+        readOnly: true
+      value:
+        type: string
