@@ -1,4 +1,4 @@
-description:  Supports search and creation of Publciation requests.
+description:  Supports search and creation of publication requests.
 parameters:
   - $ref: ../components/parameters/x-okapi-tenant.yaml
 get:
