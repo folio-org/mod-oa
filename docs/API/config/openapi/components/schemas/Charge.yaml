@@ -15,6 +15,10 @@ properties:
     type: string
     format: date-time
     readOnly: true
+  owner:
+    type: string
+    format: uuid
+    writeOnly: true
   amount:
     $ref: ./MonetaryValue.yaml
   exchangeRate:
