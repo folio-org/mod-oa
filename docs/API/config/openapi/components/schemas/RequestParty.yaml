@@ -1,0 +1,17 @@
+type: object
+required:
+  - id
+  - role
+  - partyOwner
+properties:
+  id:
+    type: string
+    format: uuid
+    readOnly: true
+  role:
+    description: The role this party plays on the request, e.g. corresponding author
+    oneOf:
+      - type: string
+      - $ref: ./Refdata.yaml
+  partyOwner:
+    $ref: ./Party.yaml
