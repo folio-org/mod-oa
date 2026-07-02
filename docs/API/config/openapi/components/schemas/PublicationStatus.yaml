@@ -1,0 +1,24 @@
+type: object
+required:
+  - id
+properties:
+  id:
+    type: string
+    format: uuid
+    readOnly: true
+  owner:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uuid
+    readOnly: true
+  publicationStatus:
+    oneOf:
+      - type: string
+      - $ref: ./Refdata.yaml
+  statusDate:
+    type: string
+    format: date
+  statusNote:
+    type: string

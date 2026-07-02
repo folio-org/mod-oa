@@ -1,0 +1,20 @@
+type: object
+required:
+  - id
+  - email
+properties:
+  id:
+    type: string
+    format: uuid
+    readOnly: true
+  owner:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uuid
+    readOnly: true
+    description: The party that this alternate email address belongs to
+  email:
+    type: string
+    format: email

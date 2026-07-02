@@ -1,0 +1,5 @@
+in: query
+name: sort
+required: false
+schema:
+  type: string

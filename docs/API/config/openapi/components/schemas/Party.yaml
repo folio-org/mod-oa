@@ -1,0 +1,39 @@
+type: object
+required:
+  - id
+properties:
+  id:
+    type: string
+    format: uuid
+    readOnly: true
+  title:
+    type: string
+  familyName:
+    type: string
+  givenNames:
+    type: string
+  fullName:
+    type: string
+    readOnly: true
+    description: Derived automatically from givenNames and familyName
+  orcidId:
+    type: string
+  mainEmail:
+    type: string
+    format: email
+  phone:
+    type: string
+  mobile:
+    type: string
+  streetAddress:
+    $ref: ./PartyAddress.yaml
+  institutionLevel1:
+    oneOf:
+      - type: string
+      - $ref: ./Refdata.yaml
+  institutionLevel2:
+    type: string
+  alternateEmails:
+    type: array
+    items:
+      $ref: ./AlternateEmailAddress.yaml

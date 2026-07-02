@@ -1,0 +1,22 @@
+type: object
+required:
+  - id
+properties:
+  id:
+    type: string
+    format: uuid
+    readOnly: true
+  name:
+    type: string
+  addressLineOne:
+    type: string
+  addressLineTwo:
+    type: string
+  city:
+    type: string
+  region:
+    type: string
+  postalCode:
+    type: string
+  country:
+    type: string

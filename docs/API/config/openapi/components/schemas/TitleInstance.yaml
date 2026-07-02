@@ -1,0 +1,27 @@
+type: object
+required:
+  - id
+  - title
+properties:
+  id:
+    type: string
+    format: uuid
+    readOnly: true
+  title:
+    type: string
+  publicationType:
+    oneOf:
+      - type: string
+      - $ref: ./Refdata.yaml
+  type:
+    oneOf:
+      - type: string
+      - $ref: ./Refdata.yaml
+  subType:
+    oneOf:
+      - type: string
+      - $ref: ./Refdata.yaml
+  identifiers:
+    type: array
+    items:
+      $ref: ./IdentifierOccurrence.yaml

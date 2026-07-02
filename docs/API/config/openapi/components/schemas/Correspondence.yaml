@@ -1,0 +1,44 @@
+type: object
+required:
+  - id
+  - dateOfCorrespondence
+  - content
+  - correspondent
+  - status
+  - mode
+properties:
+  id:
+    type: string
+    format: uuid
+    readOnly: true
+  owner:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uuid
+    readOnly: true
+    description: The publication request that this correspondence entry belongs to
+  lastUpdated:
+    type: string
+    format: date-time
+    readOnly: true
+  dateOfCorrespondence:
+    type: string
+    format: date
+  content:
+    type: string
+  correspondent:
+    type: string
+  status:
+    oneOf:
+      - type: string
+      - $ref: ./Refdata.yaml
+  mode:
+    oneOf:
+      - type: string
+      - $ref: ./Refdata.yaml
+  category:
+    oneOf:
+      - type: string
+      - $ref: ./Refdata.yaml

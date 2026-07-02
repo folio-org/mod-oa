@@ -1,0 +1,19 @@
+type: object
+required:
+  - id
+  - address
+properties:
+  id:
+    type: string
+    format: uuid
+    readOnly: true
+  owner:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uuid
+    readOnly: true
+    description: The party that this address belongs to
+  address:
+    $ref: ./Address.yaml

@@ -1,0 +1,126 @@
+type: object
+required:
+  - id
+  - withoutAgreement
+properties:
+  id:
+    type: string
+    format: uuid
+    readOnly: true
+  version:
+    type: integer
+    readOnly: true
+  dateCreated:
+    type: string
+    format: date-time
+    readOnly: true
+  lastUpdated:
+    type: string
+    format: date-time
+    readOnly: true
+  requestNumber:
+    type: string
+  requestDate:
+    type: string
+    format: date
+  retrospectiveOA:
+    type: boolean
+    default: false
+  publicationTitle:
+    type: string
+  authorNames:
+    type: string
+  correspondingAuthor:
+    $ref: ./RequestParty.yaml
+  requestContact:
+    $ref: ./RequestParty.yaml
+  localReference:
+    type: string
+  publicationUrl:
+    type: string
+    format: uri
+  doi:
+    type: string
+  bookDateOfPublication:
+    type: string
+    pattern: '^\d{4}(-((0[0-9])|(1[0-2]))(-(([0-2][0-9])|3[0-1]))?)?$'
+  bookPlaceOfPublication:
+    type: string
+  correspondingInstitutionLevel1:
+    oneOf:
+      - type: string
+      - $ref: ./Refdata.yaml
+  correspondingInstitutionLevel2:
+    type: string
+  withoutAgreement:
+    type: boolean
+    default: false
+  requestStatus:
+    oneOf:
+      - type: string
+      - $ref: ./Refdata.yaml
+  closureReason:
+    oneOf:
+      - type: string
+      - $ref: ./Refdata.yaml
+  publicationType:
+    oneOf:
+      - type: string
+      - $ref: ./Refdata.yaml
+  subtype:
+    oneOf:
+      - type: string
+      - $ref: ./Refdata.yaml
+  publisher:
+    oneOf:
+      - type: string
+      - $ref: ./Refdata.yaml
+  license:
+    oneOf:
+      - type: string
+      - $ref: ./Refdata.yaml
+  work:
+    $ref: ./Work.yaml
+  workIndexedInDOAJ:
+    oneOf:
+      - type: string
+      - $ref: ./Refdata.yaml
+  workOAStatus:
+    oneOf:
+      - type: string
+      - $ref: ./Refdata.yaml
+  agreement:
+    $ref: ./PublicationRequestAgreement.yaml
+  externalRequestIds:
+    type: array
+    items:
+      $ref: ./ExternalRequestId.yaml
+  history:
+    type: array
+    items:
+      $ref: ./PublicationRequestHistory.yaml
+  identifiers:
+    type: array
+    items:
+      $ref: ./PublicationIdentifier.yaml
+  publicationStatuses:
+    type: array
+    items:
+      $ref: ./PublicationStatus.yaml
+  fundings:
+    type: array
+    items:
+      $ref: ./Funding.yaml
+  correspondences:
+    type: array
+    items:
+      $ref: ./Correspondence.yaml
+  charges:
+    type: array
+    items:
+      $ref: ./Charge.yaml
+  checklist:
+    type: array
+    description: Checklist items tracking this request's progress through a workflow
+    items:
+      $ref: ./ChecklistItem.yaml

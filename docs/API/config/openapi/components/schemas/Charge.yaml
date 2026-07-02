@@ -1,0 +1,61 @@
+type: object
+required:
+  - id
+  - amount
+properties:
+  id:
+    type: string
+    format: uuid
+    readOnly: true
+  dateCreated:
+    type: string
+    format: date-time
+    readOnly: true
+  lastUpdated:
+    type: string
+    format: date-time
+    readOnly: true
+  amount:
+    $ref: ./MonetaryValue.yaml
+  exchangeRate:
+    $ref: ./ExchangeRate.yaml
+  description:
+    type: string
+  paymentPeriod:
+    type: string
+    pattern: '^([0-9]{4})?$'
+  category:
+    oneOf:
+      - type: string
+      - $ref: ./Refdata.yaml
+  discount:
+    type: number
+    default: 0
+  discountType:
+    oneOf:
+      - type: string
+      - $ref: ./Refdata.yaml
+  discountNote:
+    type: string
+  tax:
+    type: number
+  chargeStatus:
+    oneOf:
+      - type: string
+      - $ref: ./Refdata.yaml
+  invoiceReference:
+    type: string
+    format: uuid
+  invoiceLineItemReference:
+    type: string
+    format: uuid
+  payers:
+    type: array
+    items:
+      $ref: ./Payer.yaml
+  estimatedInvoicePrice:
+    readOnly: true
+    $ref: ./MonetaryValue.yaml
+  estimatedPrice:
+    readOnly: true
+    $ref: ./MonetaryValue.yaml

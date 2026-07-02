@@ -1,0 +1,5 @@
+in: query
+name: filters
+required: false
+schema:
+  type: string
