@@ -1,0 +1,30 @@
+type: object
+required:
+  - id
+  - toState
+properties:
+  id:
+    type: string
+    format: uuid
+    readOnly: true
+  owner:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uuid
+    readOnly: true
+  lastUpdated:
+    type: string
+    format: date-time
+    readOnly: true
+  note:
+    type: string
+  fromState:
+    oneOf:
+      - type: string
+      - $ref: ./Refdata.yaml
+  toState:
+    oneOf:
+      - type: string
+      - $ref: ./Refdata.yaml
