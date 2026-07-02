@@ -9,6 +9,10 @@ properties:
     readOnly: true
   title:
     type: string
+  work:
+    type: string
+    format: uuid
+    writeOnly: true
   publicationType:
     oneOf:
       - type: string
