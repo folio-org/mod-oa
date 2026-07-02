@@ -1,0 +1,79 @@
+parameters:
+  - $ref: ../common/parameters/x-okapi-tenant.yaml
+  - $ref: ../components/parameters/refdataCategoryId.yaml
+get:
+  tags:
+    - Reference data
+  summary: Get a specified reference data category record
+  operationId: getRefdataCategory
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../common/schemas/RefdataCategory.yaml
+    '400':
+      description: Bad request error
+    '403':
+      description: Forbidden
+    '404':
+      description: Not found error
+      content:
+        application/json:
+          schema:
+            $ref: ../common/schemas/HttpError.yaml
+    '500':
+      description: Internal server error
+put:
+  tags:
+    - Reference data
+  summary: Update reference data category record
+  operationId: putRefdataCategory
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../common/schemas/RefdataCategory.yaml
+    required: true
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../common/schemas/RefdataCategory.yaml
+    '400':
+      description: Bad request error
+    '404':
+      description: Not found error
+      content:
+        application/json:
+          schema:
+            $ref: ../common/schemas/HttpError.yaml
+    '500':
+      description: Internal server error
+delete:
+  tags:
+    - Reference data
+  summary: >-
+    Delete a specified reference data category record. Categories marked
+    internal cannot be deleted and will return a 405.
+  operationId: deleteRefdataCategory
+  responses:
+    '204':
+      description: No content
+    '400':
+      description: Bad request error
+    '403':
+      description: Forbidden
+    '404':
+      description: Not found error
+      content:
+        application/json:
+          schema:
+            $ref: ../common/schemas/HttpError.yaml
+    '405':
+      description: Method not allowed - this reference data category is internal and cannot be deleted
+    '500':
+      description: Internal server error

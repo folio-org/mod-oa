@@ -1,0 +1,7 @@
+in: path
+name: id
+description: UUID for a reference data category
+required: true
+schema:
+  type: string
+  format: uuid
