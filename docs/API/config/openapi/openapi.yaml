@@ -24,7 +24,7 @@ paths:
    /oa/publicationRequest:
      $ref: './paths/publicationRequest.yaml'
    /oa/publicationRequest/{publicationRequestId}:
-     $ref: './paths/publicationRequest_{publicationRequestid}.yaml'
+     $ref: './paths/publicationRequest_{publicationRequestId}.yaml'
   # /oa/titleInstances:
   #   $ref: './paths/oa_titleInstances.yaml'
   # /oa/titleInstances/{id}:
