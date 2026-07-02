@@ -1,0 +1,49 @@
+description: Supports search and creation of charges.
+parameters:
+  - $ref: ../common/parameters/x-okapi-tenant.yaml
+get:
+  tags:
+    - Charges
+  summary: Get a set of charge records.
+  operationId: getCharges
+  parameters:
+    $ref: ../common/parameters/queryParameters.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref: ../components/schemas/ChargeResults.yaml
+              - $ref: ../components/schemas/ChargeResultsArray.yaml
+    '400':
+      description: Bad request error
+    '403':
+      description: Forbidden
+    '500':
+      description: Internal server error
+post:
+  tags:
+    - Charges
+  summary: Create charge record
+  operationId: postCharge
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/Charge.yaml
+    required: true
+  responses:
+    '201':
+      description: Created
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Charge.yaml
+    '400':
+      description: Bad request error
+    '403':
+      description: Forbidden
+    '500':
+      description: Internal server error
