@@ -13,12 +13,12 @@ properties:
     readOnly: true
   owner:
     type: object
+    required:
+      - id
     properties:
       id:
         type: string
         format: uuid
-    readOnly: true
-    description: The publication request that this correspondence entry belongs to
   lastUpdated:
     type: string
     format: date-time
