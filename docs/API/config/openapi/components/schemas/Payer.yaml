@@ -1,0 +1,18 @@
+type: object
+required:
+  - id
+  - payer
+  - payerAmount
+properties:
+  id:
+    type: string
+    format: uuid
+    readOnly: true
+  payer:
+    oneOf:
+      - type: string
+      - $ref: ./Refdata.yaml
+  payerAmount:
+    type: number
+  payerNote:
+    type: string
