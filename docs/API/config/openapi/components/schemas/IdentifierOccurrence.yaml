@@ -1,0 +1,19 @@
+type: object
+required:
+  - identifier
+properties:
+  id:
+    type: string
+    format: uuid
+    readOnly: true
+    description: Present when reached via /oa/publicationRequest; absent via /oa/titleInstances
+  identifier:
+    $ref: ./Identifier.yaml
+  status:
+    description: Present when reached via /oa/titleInstances; absent via /oa/publicationRequest
+    oneOf:
+      - type: string
+      - $ref: ./Refdata.yaml
+  selected:
+    type: boolean
+    description: Present when reached via /oa/titleInstances; absent via /oa/publicationRequest
