@@ -33,12 +33,12 @@ properties:
   status:
     oneOf:
       - type: string
-      - $ref: ./Refdata.yaml
+      - $ref: ../../common/schemas/Refdata.yaml
   mode:
     oneOf:
       - type: string
-      - $ref: ./Refdata.yaml
+      - $ref: ../../common/schemas/Refdata.yaml
   category:
     oneOf:
       - type: string
-      - $ref: ./Refdata.yaml
+      - $ref: ../../common/schemas/Refdata.yaml

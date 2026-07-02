@@ -20,11 +20,11 @@ properties:
   outcome:
     oneOf:
       - type: string
-      - $ref: ./Refdata.yaml
+      - $ref: ../../common/schemas/Refdata.yaml
   status:
     oneOf:
       - type: string
-      - $ref: ./Refdata.yaml
+      - $ref: ../../common/schemas/Refdata.yaml
   notes:
     type: array
     items:

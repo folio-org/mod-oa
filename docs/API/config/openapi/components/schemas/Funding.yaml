@@ -20,8 +20,8 @@ properties:
   funder:
     oneOf:
       - type: string
-      - $ref: ./Refdata.yaml
+      - $ref: ../../common/schemas/Refdata.yaml
   aspectFunded:
     oneOf:
       - type: string
-      - $ref: ./Refdata.yaml
+      - $ref: ../../common/schemas/Refdata.yaml

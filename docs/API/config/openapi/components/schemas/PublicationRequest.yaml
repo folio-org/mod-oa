@@ -49,7 +49,7 @@ properties:
   correspondingInstitutionLevel1:
     oneOf:
       - type: string
-      - $ref: ./Refdata.yaml
+      - $ref: ../../common/schemas/Refdata.yaml
   correspondingInstitutionLevel2:
     type: string
   withoutAgreement:
@@ -58,37 +58,37 @@ properties:
   requestStatus:
     oneOf:
       - type: string
-      - $ref: ./Refdata.yaml
+      - $ref: ../../common/schemas/Refdata.yaml
   closureReason:
     oneOf:
       - type: string
-      - $ref: ./Refdata.yaml
+      - $ref: ../../common/schemas/Refdata.yaml
   publicationType:
     oneOf:
       - type: string
-      - $ref: ./Refdata.yaml
+      - $ref: ../../common/schemas/Refdata.yaml
   subtype:
     oneOf:
       - type: string
-      - $ref: ./Refdata.yaml
+      - $ref: ../../common/schemas/Refdata.yaml
   publisher:
     oneOf:
       - type: string
-      - $ref: ./Refdata.yaml
+      - $ref: ../../common/schemas/Refdata.yaml
   license:
     oneOf:
       - type: string
-      - $ref: ./Refdata.yaml
+      - $ref: ../../common/schemas/Refdata.yaml
   work:
     $ref: ./Work.yaml
   workIndexedInDOAJ:
     oneOf:
       - type: string
-      - $ref: ./Refdata.yaml
+      - $ref: ../../common/schemas/Refdata.yaml
   workOAStatus:
     oneOf:
       - type: string
-      - $ref: ./Refdata.yaml
+      - $ref: ../../common/schemas/Refdata.yaml
   agreement:
     $ref: ./PublicationRequestAgreement.yaml
   externalRequestIds:

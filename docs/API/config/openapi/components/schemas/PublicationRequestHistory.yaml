@@ -23,8 +23,8 @@ properties:
   fromState:
     oneOf:
       - type: string
-      - $ref: ./Refdata.yaml
+      - $ref: ../../common/schemas/Refdata.yaml
   toState:
     oneOf:
       - type: string
-      - $ref: ./Refdata.yaml
+      - $ref: ../../common/schemas/Refdata.yaml

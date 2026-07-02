@@ -12,6 +12,6 @@ properties:
     description: The role this party plays on the request, e.g. corresponding author
     oneOf:
       - type: string
-      - $ref: ./Refdata.yaml
+      - $ref: ../../common/schemas/Refdata.yaml
   partyOwner:
     $ref: ./Party.yaml

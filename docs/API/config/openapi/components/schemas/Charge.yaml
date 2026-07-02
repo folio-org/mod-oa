@@ -27,14 +27,14 @@ properties:
   category:
     oneOf:
       - type: string
-      - $ref: ./Refdata.yaml
+      - $ref: ../../common/schemas/Refdata.yaml
   discount:
     type: number
     default: 0
   discountType:
     oneOf:
       - type: string
-      - $ref: ./Refdata.yaml
+      - $ref: ../../common/schemas/Refdata.yaml
   discountNote:
     type: string
   tax:
@@ -42,7 +42,7 @@ properties:
   chargeStatus:
     oneOf:
       - type: string
-      - $ref: ./Refdata.yaml
+      - $ref: ../../common/schemas/Refdata.yaml
   invoiceReference:
     type: string
     format: uuid

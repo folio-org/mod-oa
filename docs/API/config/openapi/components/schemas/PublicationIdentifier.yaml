@@ -16,6 +16,6 @@ properties:
   type:
     oneOf:
       - type: string
-      - $ref: ./Refdata.yaml
+      - $ref: ../../common/schemas/Refdata.yaml
   publicationIdentifier:
     type: string

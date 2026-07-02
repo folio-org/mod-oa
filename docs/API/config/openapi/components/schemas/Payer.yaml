@@ -11,7 +11,7 @@ properties:
   payer:
     oneOf:
       - type: string
-      - $ref: ./Refdata.yaml
+      - $ref: ../../common/schemas/Refdata.yaml
   payerAmount:
     type: number
   payerNote:
