@@ -1,0 +1,27 @@
+type: object
+required:
+  - id
+properties:
+  id:
+    type: string
+    format: uuid
+    readOnly: true
+  owner:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uuid
+    readOnly: true
+  lastUpdated:
+    type: string
+    format: date-time
+    readOnly: true
+  funder:
+    oneOf:
+      - type: string
+      - $ref: ./Refdata.yaml
+  aspectFunded:
+    oneOf:
+      - type: string
+      - $ref: ./Refdata.yaml
