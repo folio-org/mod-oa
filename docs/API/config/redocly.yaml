@@ -6,4 +6,4 @@ extends:
   - recommended
 rules:
   no-unused-components: error
-  no-server-example.com: off
+  no-ambiguous-paths: off

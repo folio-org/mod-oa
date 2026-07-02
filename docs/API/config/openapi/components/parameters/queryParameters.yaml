@@ -1,0 +1,8 @@
+- $ref: filters.yaml
+- $ref: match.yaml
+- $ref: term.yaml
+- $ref: sort.yaml
+- $ref: stats.yaml
+- $ref: perPage.yaml
+- $ref: offset.yaml
+- $ref: page.yaml

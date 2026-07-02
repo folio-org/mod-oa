@@ -1,0 +1,5 @@
+in: query
+name: stats
+required: false
+schema:
+  type: boolean

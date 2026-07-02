@@ -1,0 +1,75 @@
+openapi: 3.1.0
+info:
+  version: 3.2.0
+  title: Folio Open Access Management
+  description: API for the Folio library services platform mod-oa app
+  contact: 
+    name: Knowledge Integration
+    url: https://www.k-int.com
+servers:
+  - url: 'https://folio-snapshot-okapi.dev.folio.org'
+  - url: 'https://folio-snapshot-2-okapi.dev.folio.org'
+  - url: 'https://folio-etesting-snapshot-kong.ci.folio.org'
+paths:
+  # /oa/refdata:
+  #   $ref: './paths/oa_refdata.yaml'
+  # /oa/refdata/{id}:
+  #   $ref: './paths/oa_refdata_{id}.yaml'
+  # /oa/refdata/{domain}/{property}:
+  #   $ref: './paths/oa_refdata_{domain}_{property}.yaml'
+  # /oa/settings/appSettings:
+  #   $ref: './paths/oa_settings_appSettings.yaml'
+  # /oa/settings/appSettings/{id}:
+  #   $ref: './paths/oa_settings_appSettings_{id}.yaml'
+   /oa/publicationRequest:
+     $ref: './paths/publicationRequest.yaml'
+   /oa/publicationRequest/{publicationRequestId}:
+     $ref: './paths/publicationRequest_{publicationRequestid}.yaml'
+  # /oa/titleInstances:
+  #   $ref: './paths/oa_titleInstances.yaml'
+  # /oa/titleInstances/{id}:
+  #   $ref: './paths/oa_titleInstances_{id}.yaml'
+  # /oa/works:
+  #   $ref: './paths/oa_works.yaml'
+  # /oa/works/{id}:
+  #   $ref: './paths/oa_works_{id}.yaml'
+  # /oa/works/citation:
+  #   $ref: './paths/oa_works_citation.yaml'
+  # /oa/party:
+  #   $ref: './paths/oa_party.yaml'
+  # /oa/party/{id}:
+  #   $ref: './paths/oa_party_{id}.yaml'
+  # /oa/correspondence:
+  #   $ref: './paths/oa_correspondence.yaml'
+  # /oa/correspondence/{id}:
+  #   $ref: './paths/oa_correspondence_{id}.yaml'
+  # /oa/charges:
+  #   $ref: './paths/oa_charges.yaml'
+  # /oa/charges/{id}:
+  #   $ref: './paths/oa_charges_{id}.yaml'
+  # /oa/checklistItems:
+  #   $ref: './paths/oa_checklistItems.yaml'
+  # /oa/checklistItems/{id}:
+  #   $ref: './paths/oa_checklistItems_{id}.yaml'
+  # /oa/externalApi/oaSwitchboard:
+  #   $ref: './paths/oa_externalApi_oaSwitchboard.yaml'
+  # /oa/reports/openApcChargesReport:
+  #   $ref: './paths/oa_reports_openApcChargesReport.yaml'
+  # /oa/reports/openApcBpcReport:
+  #   $ref: './paths/oa_reports_openApcBpcReport.yaml'
+  # /oa/reports/openApcTransformativeAgreementReport:
+  #   $ref: './paths/oa_reports_openApcTransformativeAgreementReport.yaml'
+
+components:
+  securitySchemes:
+      okapiToken:
+        type: apiKey
+        in: header
+        name: x-okapi-token
+      accessToken:
+        type: apiKey
+        in: cookie
+        name: folioAccessToken
+security:
+  - accessToken: []
+  - okapiToken: []

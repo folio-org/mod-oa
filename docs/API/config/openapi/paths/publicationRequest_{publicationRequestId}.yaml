@@ -1,0 +1,75 @@
+parameters:
+  - $ref: ../components/parameters/x-okapi-tenant.yaml
+  - $ref: ../components/parameters/publicationRequestId.yaml
+get:
+  tags:
+    - Publication requests
+  summary: Get a specified publication request record
+  operationId: getPublicationRequest
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/PublicationRequest.yaml
+    '400':
+      description: Bad request error
+    '403':
+      description: Forbidden
+    '404':
+      description: Not found error
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/HttpError.yaml
+    '500':
+      description: Internal server error
+put:
+  tags:
+    - Publication requests
+  summary: Update publication request record
+  operationId: putPublicationRequest
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/PublicationRequest.yaml
+    required: true
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/PublicationRequest.yaml
+    '400':
+      description: Bad request error
+    '404':
+      description: Not found error
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/HttpError.yaml
+    '500':
+      description: Internal server error  
+delete:
+  tags:
+    - Publication requests
+  summary: Delete a specified publication request record
+  operationId: deletePublicationRequest
+  responses:
+    '204':
+      description: No content
+    '400':
+      description: Bad request error
+    '403':
+      description: Forbidden
+    '404':
+      description: Not found error
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/HttpError.yaml
+    '500':
+      description: Internal server error

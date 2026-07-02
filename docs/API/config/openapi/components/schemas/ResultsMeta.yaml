@@ -1,0 +1,14 @@
+type: object
+properties:
+  meta:
+    type: object
+  page:
+    type: integer
+  pageSize:
+    type: integer
+  total:
+    type: integer
+  totalPages:
+    type: integer
+  totalRecords:
+    type: integer

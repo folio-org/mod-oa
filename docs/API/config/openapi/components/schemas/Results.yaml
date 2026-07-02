@@ -1,0 +1,18 @@
+type: object
+required:
+  - results
+properties:
+  results:
+    $ref: ./ResultsArray.yaml
+  meta:
+    type: object
+  page:
+    type: integer
+  pageSize:
+    type: integer
+  total:
+    type: integer
+  totalPages:
+    type: integer
+  totalRecords:
+    type: integer

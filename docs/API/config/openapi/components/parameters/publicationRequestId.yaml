@@ -1,0 +1,7 @@
+in: path
+name: publicationRequestId
+description: UUID for a publication request
+required: true
+schema:
+  type: string
+  format: uuid
