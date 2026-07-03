@@ -1,4 +1,8 @@
 type: object
+required:
+  - message
+  - path
+  - _links
 properties:
   message:
     type: string
@@ -6,9 +10,13 @@ properties:
     type: string
   _links:
     type: object
+    required:
+      - self
     properties:
       self:
         type: object
+        required:
+          - href
         properties:
           href:
             type: string
