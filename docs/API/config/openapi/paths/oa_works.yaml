@@ -23,27 +23,3 @@ get:
       description: Forbidden
     '500':
       description: Internal server error
-post:
-  tags:
-    - Works
-  summary: Create work record
-  operationId: postWork
-  requestBody:
-    content:
-      application/json:
-        schema:
-          $ref: ../components/schemas/Work.yaml
-    required: true
-  responses:
-    '201':
-      description: Created
-      content:
-        application/json:
-          schema:
-            $ref: ../components/schemas/Work.yaml
-    '400':
-      description: Bad request error
-    '403':
-      description: Forbidden
-    '500':
-      description: Internal server error
