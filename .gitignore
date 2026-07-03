@@ -10,3 +10,5 @@ tools/testing/zk-single-kafka-single/
 
 # Visual Studio Code
 .vscode/*
+
+cdx-bom.json
