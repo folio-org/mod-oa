@@ -1,0 +1,21 @@
+description: >-
+  Validation error body returned when a create/update request fails
+  domain-object validation. Shape depends on the number of errors: a
+  single ValidationError when there is exactly one, otherwise a wrapper
+  with a count and an embedded array.
+oneOf:
+  - $ref: ./ValidationError.yaml
+  - type: object
+    required:
+      - total
+      - _embedded
+    properties:
+      total:
+        type: integer
+      _embedded:
+        type: object
+        properties:
+          errors:
+            type: array
+            items:
+              $ref: ./ValidationError.yaml

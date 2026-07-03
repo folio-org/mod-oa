@@ -55,6 +55,12 @@ put:
         application/json:
           schema:
             $ref: ../common/schemas/SpringBootErrorResponse.yaml
+    '422':
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            $ref: ../common/schemas/ValidationErrorResponse.yaml
     '500':
       description: Internal server error
 delete:

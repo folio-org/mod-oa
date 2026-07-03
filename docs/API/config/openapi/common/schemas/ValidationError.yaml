@@ -1,0 +1,15 @@
+type: object
+properties:
+  message:
+    type: string
+  path:
+    type: string
+  _links:
+    type: object
+    properties:
+      self:
+        type: object
+        properties:
+          href:
+            type: string
+            format: uri

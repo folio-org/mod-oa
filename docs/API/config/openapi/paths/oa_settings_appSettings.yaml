@@ -52,5 +52,11 @@ post:
       description: Unauthorized
     '403':
       description: Forbidden
+    '422':
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            $ref: ../common/schemas/ValidationErrorResponse.yaml
     '500':
       description: Internal server error
