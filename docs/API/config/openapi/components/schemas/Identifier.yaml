@@ -7,7 +7,7 @@ properties:
     type: string
     format: uuid
     readOnly: true
-    description: Present when reached via /oa/publicationRequest; absent via /oa/titleInstances
+    description: Present when reached via /oa/publicationRequest or /oa/works; absent via /oa/titleInstances
   value:
     type: string
   ns:
@@ -19,6 +19,6 @@ properties:
         type: string
         format: uuid
         readOnly: true
-        description: Present when reached via /oa/publicationRequest; absent via /oa/titleInstances
+        description: Present when reached via /oa/publicationRequest or /oa/works; absent via /oa/titleInstances
       value:
         type: string

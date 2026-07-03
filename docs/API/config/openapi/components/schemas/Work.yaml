@@ -20,4 +20,4 @@ properties:
   instances:
     type: array
     items:
-      $ref: ./TitleInstance.yaml
+      $ref: ./WorkTitleInstance.yaml
