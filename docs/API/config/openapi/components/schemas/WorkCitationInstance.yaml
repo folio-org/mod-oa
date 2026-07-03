@@ -1,0 +1,40 @@
+type: object
+required:
+  - ids
+properties:
+  ids:
+    type: array
+    minItems: 1
+    items:
+      $ref: ./WorkCitationIdentifier.yaml
+    description: >-
+      Identifiers used to match this instance against an existing
+      TitleInstance. A new TitleInstance is created if none match; if more
+      than one matches, the request fails.
+  title:
+    type: string
+    description: >-
+      Overrides the citation's top-level title for this instance. If this
+      instance matches an existing TitleInstance, its title must equal the
+      resolved title or the request fails.
+  type:
+    type: string
+    description: >-
+      Overrides the citation's top-level type for this instance, e.g.
+      `serial` or `monograph`. Also drives the derived publicationType
+      (`serial` -> Journal, `monograph` -> Book) when publicationType is
+      not set.
+  subType:
+    type: string
+    description: Refdata value for the TitleInstance's subType category.
+  publicationType:
+    type: string
+    description: >-
+      Refdata value for the TitleInstance's publicationType category.
+      Derived from `type` when not set.
+  indexedInDOAJ:
+    type: string
+    description: Overrides the citation's top-level indexedInDOAJ for this instance's Work.
+  oaStatus:
+    type: string
+    description: Overrides the citation's top-level oaStatus for this instance's Work.

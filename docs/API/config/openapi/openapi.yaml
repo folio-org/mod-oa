@@ -33,8 +33,8 @@ paths:
      $ref: './paths/oa_works.yaml'
    /oa/works/{id}:
      $ref: './paths/oa_works_{id}.yaml'
-  # /oa/works/citation:
-  #   $ref: './paths/oa_works_citation.yaml'
+   /oa/works/citation:
+     $ref: './paths/oa_works_citation.yaml'
    /oa/party:
      $ref: './paths/oa_party.yaml'
    /oa/party/{id}:

@@ -1,0 +1,25 @@
+type: object
+description: >-
+  Error-handler body for an uncaught exception raised during
+  request processing. `exception` and `stackTrace` usually
+  suppressed in production systems
+required:
+  - error
+  - timestamp
+  - message
+properties:
+  error:
+    type: integer
+    description: HTTP status code
+  timestamp:
+    type: string
+    format: date-time
+  message:
+    type: string
+  exception:
+    type: string
+    description: Exception class and message.
+  stackTrace:
+    type: array
+    items:
+      type: string

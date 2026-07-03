@@ -1,0 +1,52 @@
+description: >-
+  Import or resolve a Work and its TitleInstances from bibliographic
+  citation metadata (title, type, DOAJ/OA status, and one or more instances
+  identified by ns/id pairs such as ISSN). Existing TitleInstances are
+  matched by identifier where possible, rather than always creating new
+  records.
+parameters:
+  - $ref: ../common/parameters/x-okapi-tenant.yaml
+post:
+  tags:
+    - Works
+  summary: Import a Work and TitleInstances from citation metadata
+  description: >-
+    Requires permission `oa.works.item.post`. Returns 200, not 201 - this
+    action resolves/matches records rather than unconditionally creating a
+    new one.
+  operationId: postWorkCitation
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/WorkCitation.yaml
+    required: true
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Work.yaml
+    '400':
+      description: Bad request error
+    '403':
+      description: Forbidden
+    '404':
+      description: >-
+        Not found error - returned when `instances` is empty, or when the
+        instances provided resolve to more than one distinct Work.
+      content:
+        application/json:
+          schema:
+            $ref: ../common/schemas/SpringBootErrorResponse.yaml
+    '500':
+      description: >-
+        Internal server error - also returned for malformed instance data,
+        e.g. an instance with no `ids`/`title`, a `title` that conflicts
+        with an existing matched TitleInstance, or identifiers that match
+        more than one existing TitleInstance.
+      content:
+        application/json:
+          schema:
+            $ref: ../common/schemas/GrailsErrorResponse.yaml

@@ -1,0 +1,11 @@
+type: object
+required:
+  - ns
+  - id
+properties:
+  ns:
+    type: string
+    description: Identifier namespace value, e.g. `issn`
+  id:
+    type: string
+    description: Identifier value
