@@ -1,0 +1,25 @@
+type: object
+required:
+  - id
+  - key
+properties:
+  id:
+    type: string
+    readOnly: true
+  section:
+    type: string
+  key:
+    type: string
+  settingType:
+    type: string
+  vocab:
+    type: string
+  defValue:
+    type: string
+  value:
+    type: string
+  hidden:
+    type: boolean
+    description: >-
+      If true, this setting is excluded from filter/search results but is
+      otherwise still retrievable and modifiable normally.

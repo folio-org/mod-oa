@@ -1,0 +1,9 @@
+type: object
+required:
+  - results
+allOf:
+  - $ref: ./ResultsMeta.yaml
+  - type: object
+  - properties:
+      results:
+        $ref: ./AppSettingResultsArray.yaml

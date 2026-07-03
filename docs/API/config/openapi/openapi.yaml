@@ -17,10 +17,10 @@ paths:
      $ref: './paths/oa_refdata_{id}.yaml'
    /oa/refdata/{domain}/{property}:
      $ref: './paths/oa_refdata_{domain}_{property}.yaml'
-  # /oa/settings/appSettings:
-  #   $ref: './paths/oa_settings_appSettings.yaml'
-  # /oa/settings/appSettings/{id}:
-  #   $ref: './paths/oa_settings_appSettings_{id}.yaml'
+   /oa/settings/appSettings:
+     $ref: './paths/oa_settings_appSettings.yaml'
+   /oa/settings/appSettings/{id}:
+     $ref: './paths/oa_settings_appSettings_{id}.yaml'
    /oa/publicationRequest:
      $ref: './paths/publicationRequest.yaml'
    /oa/publicationRequest/{publicationRequestId}:

@@ -1,0 +1,56 @@
+description: >-
+  Supports search and creation of application settings. `AppSetting` is a
+  generic key/value settings record from the shared web-toolkit library,
+  not specific to this module.
+parameters:
+  - $ref: ../common/parameters/x-okapi-tenant.yaml
+get:
+  tags:
+    - Settings
+  summary: Get a set of application setting records.
+  description: >-
+    Requires permission `oa.settings.get`.
+  operationId: getAppSettings
+  parameters:
+    $ref: ../common/parameters/queryParameters.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref: ../common/schemas/AppSettingResults.yaml
+              - $ref: ../common/schemas/AppSettingResultsArray.yaml
+    '400':
+      description: Bad request error
+    '403':
+      description: Forbidden
+    '500':
+      description: Internal server error
+post:
+  tags:
+    - Settings
+  summary: Create application setting record
+  description: >-
+    Requires permission `oa.settings.post`.
+  operationId: postAppSetting
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../common/schemas/AppSetting.yaml
+    required: true
+  responses:
+    '201':
+      description: Created
+      content:
+        application/json:
+          schema:
+            $ref: ../common/schemas/AppSetting.yaml
+    '400':
+      description: Bad request error
+    '403':
+      description: Forbidden
+    '500':
+      description: Internal server error
