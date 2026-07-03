@@ -1,0 +1,24 @@
+description: >-
+  A more limited TitleInstance representation used
+  for TitleInstance nested under Work.instances prop
+type: object
+required:
+  - id
+  - title
+properties:
+  id:
+    type: string
+    format: uuid
+    readOnly: true
+  title:
+    type: string
+  identifiers:
+    type: array
+    items:
+      $ref: ./IdentifierOccurrence.yaml
+  publicationType:
+    $ref: ../../common/schemas/Refdata.yaml
+  type:
+    $ref: ../../common/schemas/Refdata.yaml
+  subType:
+    $ref: ../../common/schemas/Refdata.yaml

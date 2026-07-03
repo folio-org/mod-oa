@@ -1,0 +1,75 @@
+parameters:
+  - $ref: ../common/parameters/x-okapi-tenant.yaml
+  - $ref: ../components/parameters/chargeId.yaml
+get:
+  tags:
+    - Charges
+  summary: Get a specified charge record
+  operationId: getCharge
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Charge.yaml
+    '400':
+      description: Bad request error
+    '403':
+      description: Forbidden
+    '404':
+      description: Not found error
+      content:
+        application/json:
+          schema:
+            $ref: ../common/schemas/SpringBootErrorResponse.yaml
+    '500':
+      description: Internal server error
+put:
+  tags:
+    - Charges
+  summary: Update charge record
+  operationId: putCharge
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/Charge.yaml
+    required: true
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Charge.yaml
+    '400':
+      description: Bad request error
+    '404':
+      description: Not found error
+      content:
+        application/json:
+          schema:
+            $ref: ../common/schemas/SpringBootErrorResponse.yaml
+    '500':
+      description: Internal server error
+delete:
+  tags:
+    - Charges
+  summary: Delete a specified charge record
+  operationId: deleteCharge
+  responses:
+    '204':
+      description: No content
+    '400':
+      description: Bad request error
+    '403':
+      description: Forbidden
+    '404':
+      description: Not found error
+      content:
+        application/json:
+          schema:
+            $ref: ../common/schemas/SpringBootErrorResponse.yaml
+    '500':
+      description: Internal server error

@@ -1,0 +1,75 @@
+parameters:
+  - $ref: ../common/parameters/x-okapi-tenant.yaml
+  - $ref: ../components/parameters/checklistItemDefinitionId.yaml
+get:
+  tags:
+    - Checklist Items
+  summary: Get a specified checklist item definition record
+  operationId: getChecklistItemDefinition
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ChecklistItemDefinition.yaml
+    '400':
+      description: Bad request error
+    '403':
+      description: Forbidden
+    '404':
+      description: Not found error
+      content:
+        application/json:
+          schema:
+            $ref: ../common/schemas/SpringBootErrorResponse.yaml
+    '500':
+      description: Internal server error
+put:
+  tags:
+    - Checklist Items
+  summary: Update checklist item definition record
+  operationId: putChecklistItemDefinition
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/ChecklistItemDefinition.yaml
+    required: true
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ChecklistItemDefinition.yaml
+    '400':
+      description: Bad request error
+    '404':
+      description: Not found error
+      content:
+        application/json:
+          schema:
+            $ref: ../common/schemas/SpringBootErrorResponse.yaml
+    '500':
+      description: Internal server error
+delete:
+  tags:
+    - Checklist Items
+  summary: Delete a specified checklist item definition record
+  operationId: deleteChecklistItemDefinition
+  responses:
+    '204':
+      description: No content
+    '400':
+      description: Bad request error
+    '403':
+      description: Forbidden
+    '404':
+      description: Not found error
+      content:
+        application/json:
+          schema:
+            $ref: ../common/schemas/SpringBootErrorResponse.yaml
+    '500':
+      description: Internal server error

@@ -1,13 +1,13 @@
 description:  Supports search and creation of publication requests.
 parameters:
-  - $ref: ../components/parameters/x-okapi-tenant.yaml
+  - $ref: ../common/parameters/x-okapi-tenant.yaml
 get:
   tags:
     - Publication requests
   summary: Get a set of publication request records.
   operationId: getPublicationRequests
   parameters: 
-    $ref: ../components/parameters/queryParameters.yaml
+    $ref: ../common/parameters/queryParameters.yaml
   responses:
     '200':
       description: OK

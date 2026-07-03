@@ -2,7 +2,7 @@ type: object
 required:
   - results
 allOf:
-  - $ref: ./ResultsMeta.yaml
+  - $ref: ../../common/schemas/ResultsMeta.yaml
   - type: object
   - properties:
       results:

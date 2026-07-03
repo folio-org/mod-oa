@@ -6,14 +6,22 @@ properties:
     type: string
     format: uuid
     readOnly: true
-    description: Present when reached via /oa/publicationRequest; absent via /oa/titleInstances
+    description: Present when reached via /oa/publicationRequest or /oa/works; absent via /oa/titleInstances
   identifier:
     $ref: ./Identifier.yaml
+  title:
+    type: object
+    readOnly: true
+    description: Present when reached via /oa/titleInstances; absent via /oa/publicationRequest or /oa/works
+    properties:
+      id:
+        type: string
+        format: uuid
   status:
-    description: Present when reached via /oa/titleInstances; absent via /oa/publicationRequest
+    description: Present when reached via /oa/titleInstances; absent via /oa/publicationRequest or /oa/works
     oneOf:
       - type: string
-      - $ref: ./Refdata.yaml
+      - $ref: ../../common/schemas/Refdata.yaml
   selected:
     type: boolean
-    description: Present when reached via /oa/titleInstances; absent via /oa/publicationRequest
+    description: Present when reached via /oa/titleInstances; absent via /oa/publicationRequest or /oa/works

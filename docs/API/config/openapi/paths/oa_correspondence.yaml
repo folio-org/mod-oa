@@ -1,0 +1,49 @@
+description: Supports search and creation of correspondence records.
+parameters:
+  - $ref: ../common/parameters/x-okapi-tenant.yaml
+get:
+  tags:
+    - Correspondence
+  summary: Get a set of correspondence records.
+  operationId: getCorrespondences
+  parameters:
+    $ref: ../common/parameters/queryParameters.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref: ../components/schemas/CorrespondenceResults.yaml
+              - $ref: ../components/schemas/CorrespondenceResultsArray.yaml
+    '400':
+      description: Bad request error
+    '403':
+      description: Forbidden
+    '500':
+      description: Internal server error
+post:
+  tags:
+    - Correspondence
+  summary: Create correspondence record
+  operationId: postCorrespondence
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/Correspondence.yaml
+    required: true
+  responses:
+    '201':
+      description: Created
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Correspondence.yaml
+    '400':
+      description: Bad request error
+    '403':
+      description: Forbidden
+    '500':
+      description: Internal server error

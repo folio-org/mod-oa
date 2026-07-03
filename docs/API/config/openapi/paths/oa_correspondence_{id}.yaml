@@ -1,0 +1,75 @@
+parameters:
+  - $ref: ../common/parameters/x-okapi-tenant.yaml
+  - $ref: ../components/parameters/correspondenceId.yaml
+get:
+  tags:
+    - Correspondence
+  summary: Get a specified correspondence record
+  operationId: getCorrespondence
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Correspondence.yaml
+    '400':
+      description: Bad request error
+    '403':
+      description: Forbidden
+    '404':
+      description: Not found error
+      content:
+        application/json:
+          schema:
+            $ref: ../common/schemas/SpringBootErrorResponse.yaml
+    '500':
+      description: Internal server error
+put:
+  tags:
+    - Correspondence
+  summary: Update correspondence record
+  operationId: putCorrespondence
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/Correspondence.yaml
+    required: true
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Correspondence.yaml
+    '400':
+      description: Bad request error
+    '404':
+      description: Not found error
+      content:
+        application/json:
+          schema:
+            $ref: ../common/schemas/SpringBootErrorResponse.yaml
+    '500':
+      description: Internal server error
+delete:
+  tags:
+    - Correspondence
+  summary: Delete a specified correspondence record
+  operationId: deleteCorrespondence
+  responses:
+    '204':
+      description: No content
+    '400':
+      description: Bad request error
+    '403':
+      description: Forbidden
+    '404':
+      description: Not found error
+      content:
+        application/json:
+          schema:
+            $ref: ../common/schemas/SpringBootErrorResponse.yaml
+    '500':
+      description: Internal server error

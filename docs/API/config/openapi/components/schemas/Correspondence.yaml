@@ -13,12 +13,12 @@ properties:
     readOnly: true
   owner:
     type: object
+    required:
+      - id
     properties:
       id:
         type: string
         format: uuid
-    readOnly: true
-    description: The publication request that this correspondence entry belongs to
   lastUpdated:
     type: string
     format: date-time
@@ -33,12 +33,12 @@ properties:
   status:
     oneOf:
       - type: string
-      - $ref: ./Refdata.yaml
+      - $ref: ../../common/schemas/Refdata.yaml
   mode:
     oneOf:
       - type: string
-      - $ref: ./Refdata.yaml
+      - $ref: ../../common/schemas/Refdata.yaml
   category:
     oneOf:
       - type: string
-      - $ref: ./Refdata.yaml
+      - $ref: ../../common/schemas/Refdata.yaml

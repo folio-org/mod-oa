@@ -1,0 +1,6 @@
+in: path
+name: domain
+description: Simple (case-insensitive) name of the domain class that owns the property, e.g. `PublicationRequest`
+required: true
+schema:
+  type: string

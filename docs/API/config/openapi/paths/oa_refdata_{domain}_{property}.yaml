@@ -1,0 +1,45 @@
+description: >-
+  Look up the reference data values for a single property of a domain class,
+  e.g. the valid `requestStatus` values for `PublicationRequest`. The domain
+  and property are combined into a reference data category name internally.
+  An unrecognised `domain` returns a 404; an unrecognised `property` on a
+  valid `domain` does not error, it returns a 200 with an empty result set,
+  since a category name is always derived even when nothing matches it.
+parameters:
+  - $ref: ../common/parameters/x-okapi-tenant.yaml
+  - $ref: ../common/parameters/refdataDomain.yaml
+  - $ref: ../common/parameters/refdataProperty.yaml
+get:
+  tags:
+    - Reference data
+  summary: Get the reference data values for a domain class property.
+  operationId: getRefdataValuesForProperty
+  parameters:
+    $ref: ../common/parameters/queryParameters.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref: ../common/schemas/RefdataResults.yaml
+              - $ref: ../common/schemas/RefdataResultsArray.yaml
+    '400':
+      description: Bad request error
+    '403':
+      description: Forbidden
+    '404':
+      description: >-
+        Not found error: `domain` does not match any known domain class.
+        Note an unrecognised `property` on a valid `domain` does not trigger
+        this; it returns 200 with an empty result set instead. This action
+        does not write its own error body, so the response is the servlet
+        container's default error page rather than this API's usual
+        `HttpError` shape.
+      content:
+        application/json:
+          schema:
+            $ref: ../common/schemas/SpringBootErrorResponse.yaml
+    '500':
+      description: Internal server error

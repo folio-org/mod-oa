@@ -1,0 +1,9 @@
+type: object
+required:
+  - results
+allOf:
+  - $ref: ../../common/schemas/ResultsMeta.yaml
+  - type: object
+  - properties:
+      results:
+        $ref: ./RefdataCategoryResultsArray.yaml

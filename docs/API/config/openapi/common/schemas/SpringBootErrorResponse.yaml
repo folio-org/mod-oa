@@ -1,0 +1,16 @@
+type: object
+description: >-
+  Spring Boot's default error body. Emitted by the servlet container itself
+  when a request ends in an error status with no response body written by
+  the application, rather than by this app's own error handling - so it
+  does not match the `HttpError` shape used elsewhere in this API.
+properties:
+  timestamp:
+    type: integer
+    description: Epoch milliseconds
+  status:
+    type: integer
+  error:
+    type: string
+  path:
+    type: string

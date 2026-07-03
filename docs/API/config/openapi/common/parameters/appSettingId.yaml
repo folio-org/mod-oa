@@ -1,0 +1,6 @@
+in: path
+name: id
+description: Identifier for an application setting
+required: true
+schema:
+  type: string
