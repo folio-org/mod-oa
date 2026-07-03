@@ -22,7 +22,7 @@ get:
       content:
         application/json:
           schema:
-            $ref: ../common/schemas/HttpError.yaml
+            $ref: ../common/schemas/SpringBootErrorResponse.yaml
     '500':
       description: Internal server error
 put:
@@ -50,7 +50,7 @@ put:
       content:
         application/json:
           schema:
-            $ref: ../common/schemas/HttpError.yaml
+            $ref: ../common/schemas/SpringBootErrorResponse.yaml
     '500':
       description: Internal server error
 delete:
@@ -72,7 +72,7 @@ delete:
       content:
         application/json:
           schema:
-            $ref: ../common/schemas/HttpError.yaml
+            $ref: ../common/schemas/SpringBootErrorResponse.yaml
     '405':
       description: Method not allowed - this reference data category is internal and cannot be deleted
     '500':
