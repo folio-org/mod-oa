@@ -1769,7 +1769,7 @@ components:
           type: string
           format: uuid
           readOnly: true
-          description: Present when reached via /oa/publicationRequest; absent via /oa/titleInstances
+          description: Present when reached via /oa/publicationRequest or /oa/works; absent via /oa/titleInstances
         value:
           type: string
         ns:
@@ -1781,7 +1781,7 @@ components:
               type: string
               format: uuid
               readOnly: true
-              description: Present when reached via /oa/publicationRequest; absent via /oa/titleInstances
+              description: Present when reached via /oa/publicationRequest or /oa/works; absent via /oa/titleInstances
             value:
               type: string
     IdentifierOccurrence:
@@ -1793,26 +1793,27 @@ components:
           type: string
           format: uuid
           readOnly: true
-          description: Present when reached via /oa/publicationRequest; absent via /oa/titleInstances
+          description: Present when reached via /oa/publicationRequest or /oa/works; absent via /oa/titleInstances
         identifier:
           $ref: '#/components/schemas/Identifier'
         title:
           type: object
           readOnly: true
-          description: Present when reached via /oa/titleInstances; absent via /oa/publicationRequest
+          description: Present when reached via /oa/titleInstances; absent via /oa/publicationRequest or /oa/works
           properties:
             id:
               type: string
               format: uuid
         status:
-          description: Present when reached via /oa/titleInstances; absent via /oa/publicationRequest
+          description: Present when reached via /oa/titleInstances; absent via /oa/publicationRequest or /oa/works
           oneOf:
             - type: string
             - $ref: '#/components/schemas/Refdata'
         selected:
           type: boolean
-          description: Present when reached via /oa/titleInstances; absent via /oa/publicationRequest
-    TitleInstance:
+          description: Present when reached via /oa/titleInstances; absent via /oa/publicationRequest or /oa/works
+    WorkTitleInstance:
+      description: A more limited TitleInstance representation used for TitleInstance nested under Work.instances prop
       type: object
       required:
         - id
@@ -1824,26 +1825,16 @@ components:
           readOnly: true
         title:
           type: string
-        work:
-          type: string
-          format: uuid
-          writeOnly: true
-        publicationType:
-          oneOf:
-            - type: string
-            - $ref: '#/components/schemas/Refdata'
-        type:
-          oneOf:
-            - type: string
-            - $ref: '#/components/schemas/Refdata'
-        subType:
-          oneOf:
-            - type: string
-            - $ref: '#/components/schemas/Refdata'
         identifiers:
           type: array
           items:
             $ref: '#/components/schemas/IdentifierOccurrence'
+        publicationType:
+          $ref: '#/components/schemas/Refdata'
+        type:
+          $ref: '#/components/schemas/Refdata'
+        subType:
+          $ref: '#/components/schemas/Refdata'
     Work:
       type: object
       required:
@@ -1867,7 +1858,7 @@ components:
         instances:
           type: array
           items:
-            $ref: '#/components/schemas/TitleInstance'
+            $ref: '#/components/schemas/WorkTitleInstance'
     RemoteOkapiLink:
       type: object
       required:
@@ -2414,6 +2405,38 @@ components:
         - properties:
             results:
               $ref: '#/components/schemas/PublicationRequestResultsArray'
+    TitleInstance:
+      type: object
+      required:
+        - id
+        - title
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        title:
+          type: string
+        work:
+          type: string
+          format: uuid
+          writeOnly: true
+        publicationType:
+          oneOf:
+            - type: string
+            - $ref: '#/components/schemas/Refdata'
+        type:
+          oneOf:
+            - type: string
+            - $ref: '#/components/schemas/Refdata'
+        subType:
+          oneOf:
+            - type: string
+            - $ref: '#/components/schemas/Refdata'
+        identifiers:
+          type: array
+          items:
+            $ref: '#/components/schemas/IdentifierOccurrence'
     TitleInstanceResultsArray:
       type: array
       items:
