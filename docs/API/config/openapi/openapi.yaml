@@ -15,8 +15,8 @@ paths:
      $ref: './paths/oa_refdata.yaml'
    /oa/refdata/{id}:
      $ref: './paths/oa_refdata_{id}.yaml'
-  # /oa/refdata/{domain}/{property}:
-  #   $ref: './paths/oa_refdata_{domain}_{property}.yaml'
+   /oa/refdata/{domain}/{property}:
+     $ref: './paths/oa_refdata_{domain}_{property}.yaml'
   # /oa/settings/appSettings:
   #   $ref: './paths/oa_settings_appSettings.yaml'
   # /oa/settings/appSettings/{id}:
