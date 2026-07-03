@@ -8,8 +8,6 @@ get:
   tags:
     - Settings
   summary: Get a set of application setting records.
-  description: >-
-    Requires permission `oa.settings.get`.
   operationId: getAppSettings
   parameters:
     $ref: ../common/parameters/queryParameters.yaml
@@ -32,8 +30,6 @@ post:
   tags:
     - Settings
   summary: Create application setting record
-  description: >-
-    Requires permission `oa.settings.post`.
   operationId: postAppSetting
   requestBody:
     content:

@@ -10,10 +10,6 @@ post:
   tags:
     - Works
   summary: Import a Work and TitleInstances from citation metadata
-  description: >-
-    Requires permission `oa.works.item.post`. Returns 200, not 201 - this
-    action resolves/matches records rather than unconditionally creating a
-    new one.
   operationId: postWorkCitation
   requestBody:
     content:

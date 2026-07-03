@@ -13,8 +13,6 @@ get:
   tags:
     - Reference data
   summary: Get the reference data values for a domain class property.
-  description: >-
-    Requires permission `oa.refdata.value.collection.get`.
   operationId: getRefdataValuesForProperty
   parameters:
     $ref: ../common/parameters/queryParameters.yaml

@@ -5,8 +5,6 @@ get:
   tags:
     - Settings
   summary: Get a specified application setting record
-  description: >-
-    Requires permission `oa.settings.get`.
   operationId: getAppSetting
   responses:
     '200':
@@ -31,8 +29,6 @@ put:
   tags:
     - Settings
   summary: Update application setting record
-  description: >-
-    Requires permission `oa.settings.put`.
   operationId: putAppSetting
   requestBody:
     content:
@@ -61,8 +57,6 @@ delete:
   tags:
     - Settings
   summary: Delete a specified application setting record
-  description: >-
-    Requires permission `oa.settings.delete`.
   operationId: deleteAppSetting
   responses:
     '204':
