@@ -14,6 +14,315 @@ security:
   - accessToken: []
   - okapiToken: []
 paths:
+  /oa/refdata:
+    description: Supports search and creation of reference data categories.
+    parameters:
+      - $ref: '#/components/parameters/x-okapi-tenant'
+    get:
+      tags:
+        - Reference data
+      summary: Get a set of reference data category records.
+      operationId: getRefdataCategories
+      parameters:
+        - $ref: '#/components/parameters/filters'
+        - $ref: '#/components/parameters/match'
+        - $ref: '#/components/parameters/term'
+        - $ref: '#/components/parameters/sort'
+        - $ref: '#/components/parameters/stats'
+        - $ref: '#/components/parameters/perPage'
+        - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/page'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/RefdataCategoryResults'
+                  - $ref: '#/components/schemas/RefdataCategoryResultsArray'
+        '400':
+          description: Bad request error
+        '403':
+          description: Forbidden
+        '500':
+          description: Internal server error
+    post:
+      tags:
+        - Reference data
+      summary: Create reference data category record
+      operationId: postRefdataCategory
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefdataCategory'
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RefdataCategory'
+        '400':
+          description: Bad request error
+        '403':
+          description: Forbidden
+        '500':
+          description: Internal server error
+  /oa/refdata/{id}:
+    parameters:
+      - $ref: '#/components/parameters/x-okapi-tenant'
+      - $ref: '#/components/parameters/refdataCategoryId'
+    get:
+      tags:
+        - Reference data
+      summary: Get a specified reference data category record
+      operationId: getRefdataCategory
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RefdataCategory'
+        '400':
+          description: Bad request error
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SpringBootErrorResponse'
+        '500':
+          description: Internal server error
+    put:
+      tags:
+        - Reference data
+      summary: Update reference data category record
+      operationId: putRefdataCategory
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefdataCategory'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RefdataCategory'
+        '400':
+          description: Bad request error
+        '404':
+          description: Not found error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SpringBootErrorResponse'
+        '500':
+          description: Internal server error
+    delete:
+      tags:
+        - Reference data
+      summary: Delete a specified reference data category record. Categories marked internal cannot be deleted and will return a 405.
+      operationId: deleteRefdataCategory
+      responses:
+        '204':
+          description: No content
+        '400':
+          description: Bad request error
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SpringBootErrorResponse'
+        '405':
+          description: Method not allowed - this reference data category is internal and cannot be deleted
+        '500':
+          description: Internal server error
+  /oa/refdata/{domain}/{property}:
+    description: Look up the reference data values for a single property of a domain class, e.g. the valid `requestStatus` values for `PublicationRequest`. The domain and property are combined into a reference data category name internally. An unrecognised `domain` returns a 404; an unrecognised `property` on a valid `domain` does not error, it returns a 200 with an empty result set, since a category name is always derived even when nothing matches it.
+    parameters:
+      - $ref: '#/components/parameters/x-okapi-tenant'
+      - $ref: '#/components/parameters/refdataDomain'
+      - $ref: '#/components/parameters/refdataProperty'
+    get:
+      tags:
+        - Reference data
+      summary: Get the reference data values for a domain class property.
+      operationId: getRefdataValuesForProperty
+      parameters:
+        - $ref: '#/components/parameters/filters'
+        - $ref: '#/components/parameters/match'
+        - $ref: '#/components/parameters/term'
+        - $ref: '#/components/parameters/sort'
+        - $ref: '#/components/parameters/stats'
+        - $ref: '#/components/parameters/perPage'
+        - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/page'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/RefdataResults'
+                  - $ref: '#/components/schemas/RefdataResultsArray'
+        '400':
+          description: Bad request error
+        '403':
+          description: Forbidden
+        '404':
+          description: 'Not found error: `domain` does not match any known domain class. Note an unrecognised `property` on a valid `domain` does not trigger this; it returns 200 with an empty result set instead. This action does not write its own error body, so the response is the servlet container''s default error page rather than this API''s usual `HttpError` shape.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SpringBootErrorResponse'
+        '500':
+          description: Internal server error
+  /oa/settings/appSettings:
+    description: Supports search and creation of application settings. `AppSetting` is a generic key/value settings record from the shared web-toolkit library, not specific to this module.
+    parameters:
+      - $ref: '#/components/parameters/x-okapi-tenant'
+    get:
+      tags:
+        - Settings
+      summary: Get a set of application setting records.
+      operationId: getAppSettings
+      parameters:
+        - $ref: '#/components/parameters/filters'
+        - $ref: '#/components/parameters/match'
+        - $ref: '#/components/parameters/term'
+        - $ref: '#/components/parameters/sort'
+        - $ref: '#/components/parameters/stats'
+        - $ref: '#/components/parameters/perPage'
+        - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/page'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/AppSettingResults'
+                  - $ref: '#/components/schemas/AppSettingResultsArray'
+        '400':
+          description: Bad request error
+        '403':
+          description: Forbidden
+        '500':
+          description: Internal server error
+    post:
+      tags:
+        - Settings
+      summary: Create application setting record
+      operationId: postAppSetting
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppSetting'
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppSetting'
+        '400':
+          description: Bad request error
+        '403':
+          description: Forbidden
+        '500':
+          description: Internal server error
+  /oa/settings/appSettings/{id}:
+    parameters:
+      - $ref: '#/components/parameters/x-okapi-tenant'
+      - $ref: '#/components/parameters/appSettingId'
+    get:
+      tags:
+        - Settings
+      summary: Get a specified application setting record
+      operationId: getAppSetting
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppSetting'
+        '400':
+          description: Bad request error
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SpringBootErrorResponse'
+        '500':
+          description: Internal server error
+    put:
+      tags:
+        - Settings
+      summary: Update application setting record
+      operationId: putAppSetting
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppSetting'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppSetting'
+        '400':
+          description: Bad request error
+        '404':
+          description: Not found error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SpringBootErrorResponse'
+        '500':
+          description: Internal server error
+    delete:
+      tags:
+        - Settings
+      summary: Delete a specified application setting record
+      operationId: deleteAppSetting
+      responses:
+        '204':
+          description: No content
+        '400':
+          description: Bad request error
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SpringBootErrorResponse'
+        '500':
+          description: Internal server error
   /oa/publicationRequest:
     description: Supports search and creation of publication requests.
     parameters:
@@ -96,7 +405,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/HttpError'
+                $ref: '#/components/schemas/SpringBootErrorResponse'
         '500':
           description: Internal server error
     put:
@@ -124,7 +433,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/HttpError'
+                $ref: '#/components/schemas/SpringBootErrorResponse'
         '500':
           description: Internal server error
     delete:
@@ -144,9 +453,921 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/HttpError'
+                $ref: '#/components/schemas/SpringBootErrorResponse'
         '500':
           description: Internal server error
+  /oa/titleInstances:
+    description: Supports search and creation of title instances.
+    parameters:
+      - $ref: '#/components/parameters/x-okapi-tenant'
+    get:
+      tags:
+        - Title instances
+      summary: Get a set of title instance records.
+      operationId: getTitleInstances
+      parameters:
+        - $ref: '#/components/parameters/filters'
+        - $ref: '#/components/parameters/match'
+        - $ref: '#/components/parameters/term'
+        - $ref: '#/components/parameters/sort'
+        - $ref: '#/components/parameters/stats'
+        - $ref: '#/components/parameters/perPage'
+        - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/page'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/TitleInstanceResults'
+                  - $ref: '#/components/schemas/TitleInstanceResultsArray'
+        '400':
+          description: Bad request error
+        '403':
+          description: Forbidden
+        '500':
+          description: Internal server error
+    post:
+      tags:
+        - Title instances
+      summary: Create title instance record
+      operationId: postTitleInstance
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TitleInstance'
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TitleInstance'
+        '400':
+          description: Bad request error
+        '403':
+          description: Forbidden
+        '500':
+          description: Internal server error
+  /oa/titleInstances/{id}:
+    parameters:
+      - $ref: '#/components/parameters/x-okapi-tenant'
+      - $ref: '#/components/parameters/titleInstanceId'
+    get:
+      tags:
+        - Title instances
+      summary: Get a specified title instance record
+      operationId: getTitleInstance
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TitleInstance'
+        '400':
+          description: Bad request error
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SpringBootErrorResponse'
+        '500':
+          description: Internal server error
+    put:
+      tags:
+        - Title instances
+      summary: Update title instance record
+      operationId: putTitleInstance
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TitleInstance'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TitleInstance'
+        '400':
+          description: Bad request error
+        '404':
+          description: Not found error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SpringBootErrorResponse'
+        '500':
+          description: Internal server error
+    delete:
+      tags:
+        - Title instances
+      summary: Delete a specified title instance record
+      operationId: deleteTitleInstance
+      responses:
+        '204':
+          description: No content
+        '400':
+          description: Bad request error
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SpringBootErrorResponse'
+        '500':
+          description: Internal server error
+  /oa/works:
+    description: Supports search and creation of works.
+    parameters:
+      - $ref: '#/components/parameters/x-okapi-tenant'
+    get:
+      tags:
+        - Works
+      summary: Get a set of work records.
+      operationId: getWorks
+      parameters:
+        - $ref: '#/components/parameters/filters'
+        - $ref: '#/components/parameters/match'
+        - $ref: '#/components/parameters/term'
+        - $ref: '#/components/parameters/sort'
+        - $ref: '#/components/parameters/stats'
+        - $ref: '#/components/parameters/perPage'
+        - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/page'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/WorkResults'
+                  - $ref: '#/components/schemas/WorkResultsArray'
+        '400':
+          description: Bad request error
+        '403':
+          description: Forbidden
+        '500':
+          description: Internal server error
+  /oa/works/{id}:
+    parameters:
+      - $ref: '#/components/parameters/x-okapi-tenant'
+      - $ref: '#/components/parameters/workId'
+    get:
+      tags:
+        - Works
+      summary: Get a specified work record
+      operationId: getWork
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Work'
+        '400':
+          description: Bad request error
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SpringBootErrorResponse'
+        '500':
+          description: Internal server error
+    put:
+      tags:
+        - Works
+      summary: Update work record
+      operationId: putWork
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Work'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Work'
+        '400':
+          description: Bad request error
+        '404':
+          description: Not found error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SpringBootErrorResponse'
+        '500':
+          description: Internal server error
+  /oa/works/citation:
+    description: Import or resolve a Work and its TitleInstances from bibliographic citation metadata (title, type, DOAJ/OA status, and one or more instances identified by ns/id pairs such as ISSN). Existing TitleInstances are matched by identifier where possible, rather than always creating new records.
+    parameters:
+      - $ref: '#/components/parameters/x-okapi-tenant'
+    post:
+      tags:
+        - Works
+      summary: Import a Work and TitleInstances from citation metadata
+      operationId: postWorkCitation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkCitation'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Work'
+        '400':
+          description: Bad request error
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found error - returned when `instances` is empty, or when the instances provided resolve to more than one distinct Work.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SpringBootErrorResponse'
+        '500':
+          description: Internal server error - also returned for malformed instance data, e.g. an instance with no `ids`/`title`, a `title` that conflicts with an existing matched TitleInstance, or identifiers that match more than one existing TitleInstance.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GrailsErrorResponse'
+  /oa/party:
+    description: Supports search and creation of parties.
+    parameters:
+      - $ref: '#/components/parameters/x-okapi-tenant'
+    get:
+      tags:
+        - Parties
+      summary: Get a set of party records.
+      operationId: getParties
+      parameters:
+        - $ref: '#/components/parameters/filters'
+        - $ref: '#/components/parameters/match'
+        - $ref: '#/components/parameters/term'
+        - $ref: '#/components/parameters/sort'
+        - $ref: '#/components/parameters/stats'
+        - $ref: '#/components/parameters/perPage'
+        - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/page'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/PartyResults'
+                  - $ref: '#/components/schemas/PartyResultsArray'
+        '400':
+          description: Bad request error
+        '403':
+          description: Forbidden
+        '500':
+          description: Internal server error
+    post:
+      tags:
+        - Parties
+      summary: Create party record
+      operationId: postParty
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Party'
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Party'
+        '400':
+          description: Bad request error
+        '403':
+          description: Forbidden
+        '500':
+          description: Internal server error
+  /oa/party/{id}:
+    parameters:
+      - $ref: '#/components/parameters/x-okapi-tenant'
+      - $ref: '#/components/parameters/partyId'
+    get:
+      tags:
+        - Parties
+      summary: Get a specified party record
+      operationId: getParty
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Party'
+        '400':
+          description: Bad request error
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SpringBootErrorResponse'
+        '500':
+          description: Internal server error
+    put:
+      tags:
+        - Parties
+      summary: Update party record
+      operationId: putParty
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Party'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Party'
+        '400':
+          description: Bad request error
+        '404':
+          description: Not found error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SpringBootErrorResponse'
+        '500':
+          description: Internal server error
+    delete:
+      tags:
+        - Parties
+      summary: Delete a specified party record
+      operationId: deleteParty
+      responses:
+        '204':
+          description: No content
+        '400':
+          description: Bad request error
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SpringBootErrorResponse'
+        '500':
+          description: Internal server error
+  /oa/correspondence:
+    description: Supports search and creation of correspondence records.
+    parameters:
+      - $ref: '#/components/parameters/x-okapi-tenant'
+    get:
+      tags:
+        - Correspondence
+      summary: Get a set of correspondence records.
+      operationId: getCorrespondences
+      parameters:
+        - $ref: '#/components/parameters/filters'
+        - $ref: '#/components/parameters/match'
+        - $ref: '#/components/parameters/term'
+        - $ref: '#/components/parameters/sort'
+        - $ref: '#/components/parameters/stats'
+        - $ref: '#/components/parameters/perPage'
+        - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/page'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/CorrespondenceResults'
+                  - $ref: '#/components/schemas/CorrespondenceResultsArray'
+        '400':
+          description: Bad request error
+        '403':
+          description: Forbidden
+        '500':
+          description: Internal server error
+    post:
+      tags:
+        - Correspondence
+      summary: Create correspondence record
+      operationId: postCorrespondence
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Correspondence'
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Correspondence'
+        '400':
+          description: Bad request error
+        '403':
+          description: Forbidden
+        '500':
+          description: Internal server error
+  /oa/correspondence/{id}:
+    parameters:
+      - $ref: '#/components/parameters/x-okapi-tenant'
+      - $ref: '#/components/parameters/correspondenceId'
+    get:
+      tags:
+        - Correspondence
+      summary: Get a specified correspondence record
+      operationId: getCorrespondence
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Correspondence'
+        '400':
+          description: Bad request error
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SpringBootErrorResponse'
+        '500':
+          description: Internal server error
+    put:
+      tags:
+        - Correspondence
+      summary: Update correspondence record
+      operationId: putCorrespondence
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Correspondence'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Correspondence'
+        '400':
+          description: Bad request error
+        '404':
+          description: Not found error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SpringBootErrorResponse'
+        '500':
+          description: Internal server error
+    delete:
+      tags:
+        - Correspondence
+      summary: Delete a specified correspondence record
+      operationId: deleteCorrespondence
+      responses:
+        '204':
+          description: No content
+        '400':
+          description: Bad request error
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SpringBootErrorResponse'
+        '500':
+          description: Internal server error
+  /oa/charges:
+    description: Supports search and creation of charges.
+    parameters:
+      - $ref: '#/components/parameters/x-okapi-tenant'
+    get:
+      tags:
+        - Charges
+      summary: Get a set of charge records.
+      operationId: getCharges
+      parameters:
+        - $ref: '#/components/parameters/filters'
+        - $ref: '#/components/parameters/match'
+        - $ref: '#/components/parameters/term'
+        - $ref: '#/components/parameters/sort'
+        - $ref: '#/components/parameters/stats'
+        - $ref: '#/components/parameters/perPage'
+        - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/page'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/ChargeResults'
+                  - $ref: '#/components/schemas/ChargeResultsArray'
+        '400':
+          description: Bad request error
+        '403':
+          description: Forbidden
+        '500':
+          description: Internal server error
+    post:
+      tags:
+        - Charges
+      summary: Create charge record
+      operationId: postCharge
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Charge'
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Charge'
+        '400':
+          description: Bad request error
+        '403':
+          description: Forbidden
+        '500':
+          description: Internal server error
+  /oa/charges/{id}:
+    parameters:
+      - $ref: '#/components/parameters/x-okapi-tenant'
+      - $ref: '#/components/parameters/chargeId'
+    get:
+      tags:
+        - Charges
+      summary: Get a specified charge record
+      operationId: getCharge
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Charge'
+        '400':
+          description: Bad request error
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SpringBootErrorResponse'
+        '500':
+          description: Internal server error
+    put:
+      tags:
+        - Charges
+      summary: Update charge record
+      operationId: putCharge
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Charge'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Charge'
+        '400':
+          description: Bad request error
+        '404':
+          description: Not found error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SpringBootErrorResponse'
+        '500':
+          description: Internal server error
+    delete:
+      tags:
+        - Charges
+      summary: Delete a specified charge record
+      operationId: deleteCharge
+      responses:
+        '204':
+          description: No content
+        '400':
+          description: Bad request error
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SpringBootErrorResponse'
+        '500':
+          description: Internal server error
+  /oa/checklistItems:
+    description: Supports search and creation of checklist item definitions.
+    parameters:
+      - $ref: '#/components/parameters/x-okapi-tenant'
+    get:
+      tags:
+        - Checklist Items
+      summary: Get a set of checklist item definition records.
+      operationId: getChecklistItemDefinitions
+      parameters:
+        - $ref: '#/components/parameters/filters'
+        - $ref: '#/components/parameters/match'
+        - $ref: '#/components/parameters/term'
+        - $ref: '#/components/parameters/sort'
+        - $ref: '#/components/parameters/stats'
+        - $ref: '#/components/parameters/perPage'
+        - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/page'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/ChecklistItemDefinitionResults'
+                  - $ref: '#/components/schemas/ChecklistItemDefinitionResultsArray'
+        '400':
+          description: Bad request error
+        '403':
+          description: Forbidden
+        '500':
+          description: Internal server error
+    post:
+      tags:
+        - Checklist Items
+      summary: Create checklist item definition record
+      operationId: postChecklistItemDefinition
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChecklistItemDefinition'
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChecklistItemDefinition'
+        '400':
+          description: Bad request error
+        '403':
+          description: Forbidden
+        '500':
+          description: Internal server error
+  /oa/checklistItems/{id}:
+    parameters:
+      - $ref: '#/components/parameters/x-okapi-tenant'
+      - $ref: '#/components/parameters/checklistItemDefinitionId'
+    get:
+      tags:
+        - Checklist Items
+      summary: Get a specified checklist item definition record
+      operationId: getChecklistItemDefinition
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChecklistItemDefinition'
+        '400':
+          description: Bad request error
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SpringBootErrorResponse'
+        '500':
+          description: Internal server error
+    put:
+      tags:
+        - Checklist Items
+      summary: Update checklist item definition record
+      operationId: putChecklistItemDefinition
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChecklistItemDefinition'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChecklistItemDefinition'
+        '400':
+          description: Bad request error
+        '404':
+          description: Not found error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SpringBootErrorResponse'
+        '500':
+          description: Internal server error
+    delete:
+      tags:
+        - Checklist Items
+      summary: Delete a specified checklist item definition record
+      operationId: deleteChecklistItemDefinition
+      responses:
+        '204':
+          description: No content
+        '400':
+          description: Bad request error
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SpringBootErrorResponse'
+        '500':
+          description: Internal server error
+  /oa/reports/openApcChargesReport:
+    description: 'Exports a CSV report of open-access charges (APC) for the given filters. Streams the CSV body directly to the response - there is no pagination, and the server does not set a `Content-Type` header on the response (only `Content-Disposition: attachment; filename=export.csv`).'
+    parameters:
+      - $ref: '#/components/parameters/x-okapi-tenant'
+    get:
+      tags:
+        - Reports
+      summary: Get an open-access charges CSV report
+      operationId: getOpenApcChargesReport
+      parameters:
+        - in: query
+          name: institution
+          description: Not used to filter the underlying query - included verbatim as the `institution` column value on every output row.
+          schema:
+            type: string
+        - in: query
+          name: paymentPeriod
+          schema:
+            type: string
+        - in: query
+          name: chargeCategory
+          description: Comma-separated list of Charge category refdata values.
+          schema:
+            type: string
+        - in: query
+          name: chargeStatus
+          description: Comma-separated list of Charge status refdata values.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'OK. CSV body with columns: institution, period, euro, doi, is_hybrid, publisher, journal_full_title, issn, url. Invalid paymentPeriod or other failures in the query result in a CSV with header but  no rows, or missing whatever rows the failure prevented'
+          content:
+            text/csv:
+              schema:
+                type: string
+        '400':
+          description: Bad request error
+        '403':
+          description: Forbidden
+  /oa/reports/openApcBpcReport:
+    description: 'Exports a CSV report of book processing charges (BPC) for the given filters. Streams the CSV body directly to the response - there is no pagination, and the server does not set a `Content-Type` header on the response (only `Content-Disposition: attachment; filename=export.csv`).'
+    parameters:
+      - $ref: '#/components/parameters/x-okapi-tenant'
+    get:
+      tags:
+        - Reports
+      summary: Get a book processing charges CSV report
+      operationId: getOpenApcBpcReport
+      parameters:
+        - in: query
+          name: institution
+          description: Not used to filter the underlying query - included verbatim as the `institution` column value on every output row.
+          schema:
+            type: string
+        - in: query
+          name: paymentPeriod
+          schema:
+            type: string
+        - in: query
+          name: chargeCategory
+          description: Comma-separated list of Charge category refdata values.
+          schema:
+            type: string
+        - in: query
+          name: chargeStatus
+          description: Comma-separated list of Charge status refdata values.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'OK. CSV body with columns: institution, period, euro, doi, backlist_oa, book_title, isbn. Invalid paymentPeriod or other failures in the query result in a CSV with header but  no rows, or missing whatever rows the failure prevented'
+          content:
+            text/csv:
+              schema:
+                type: string
+        '400':
+          description: Bad request error
+        '403':
+          description: Forbidden
+  /oa/reports/openApcTransformativeAgreementReport:
+    description: 'Exports a CSV report of publication requests billed under a specific transformative agreement. Streams the CSV body directly to the response - there is no pagination, and the server does not set a `Content-Type` header on the response (only `Content-Disposition: attachment; filename=export.csv`).'
+    parameters:
+      - $ref: '#/components/parameters/x-okapi-tenant'
+    get:
+      tags:
+        - Reports
+      summary: Get a transformative agreement CSV report
+      operationId: getOpenApcTransformativeAgreementReport
+      parameters:
+        - in: query
+          name: institution
+          description: Not used to filter the underlying query - included verbatim as the `institution` column value on every output row.
+          schema:
+            type: string
+        - in: query
+          name: paymentPeriod
+          schema:
+            type: string
+        - in: query
+          name: publicationStatus
+          description: PublicationStatus refdata value to filter on.
+          schema:
+            type: string
+        - in: query
+          name: agreementId
+          description: Remote ID of the agreement to report on.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'OK. CSV body with columns: institution, period, doi, is_hybrid, publisher, journal_full_title, issn, url. Invalid paymentPeriod or other failures in the query result in a CSV with header but  no rows, or missing whatever rows the failure prevented'
+          content:
+            text/csv:
+              schema:
+                type: string
+        '400':
+          description: Bad request error
+        '403':
+          description: Forbidden
 components:
   securitySchemes:
     okapiToken:
@@ -212,10 +1433,87 @@ components:
       required: false
       schema:
         type: integer
+    refdataCategoryId:
+      in: path
+      name: id
+      description: UUID for a reference data category
+      required: true
+      schema:
+        type: string
+        format: uuid
+    refdataDomain:
+      in: path
+      name: domain
+      description: Simple (case-insensitive) name of the domain class that owns the property, e.g. `PublicationRequest`
+      required: true
+      schema:
+        type: string
+    refdataProperty:
+      in: path
+      name: property
+      description: Name of the refdata-backed property on the domain class, e.g. `requestStatus`
+      required: true
+      schema:
+        type: string
+    appSettingId:
+      in: path
+      name: id
+      description: Identifier for an application setting
+      required: true
+      schema:
+        type: string
     publicationRequestId:
       in: path
       name: publicationRequestId
       description: UUID for a publication request
+      required: true
+      schema:
+        type: string
+        format: uuid
+    titleInstanceId:
+      in: path
+      name: id
+      description: UUID for a title instance
+      required: true
+      schema:
+        type: string
+        format: uuid
+    workId:
+      in: path
+      name: id
+      description: UUID for a work
+      required: true
+      schema:
+        type: string
+        format: uuid
+    partyId:
+      in: path
+      name: id
+      description: UUID for a party
+      required: true
+      schema:
+        type: string
+        format: uuid
+    correspondenceId:
+      in: path
+      name: id
+      description: UUID for a correspondence record
+      required: true
+      schema:
+        type: string
+        format: uuid
+    chargeId:
+      in: path
+      name: id
+      description: UUID for a charge
+      required: true
+      schema:
+        type: string
+        format: uuid
+    checklistItemDefinitionId:
+      in: path
+      name: id
+      description: UUID for a checklist item definition
       required: true
       schema:
         type: string
@@ -246,6 +1544,99 @@ components:
           type: string
         value:
           type: string
+    RefdataCategory:
+      type: object
+      properties:
+        desc:
+          type: string
+        id:
+          type: string
+          format: uuid
+        internal:
+          type: boolean
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/Refdata'
+    RefdataCategoryResultsArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/RefdataCategory'
+    RefdataCategoryResults:
+      type: object
+      required:
+        - results
+      allOf:
+        - $ref: '#/components/schemas/ResultsMeta'
+        - type: object
+        - properties:
+            results:
+              $ref: '#/components/schemas/RefdataCategoryResultsArray'
+    SpringBootErrorResponse:
+      type: object
+      description: Spring Boot's default error body. Emitted by the servlet container itself when a request ends in an error status with no response body written by the application, rather than by this app's own error handling - so it does not match the `HttpError` shape used elsewhere in this API.
+      properties:
+        timestamp:
+          type: integer
+          description: Epoch milliseconds
+        status:
+          type: integer
+        error:
+          type: string
+        path:
+          type: string
+    RefdataResultsArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/Refdata'
+    RefdataResults:
+      type: object
+      required:
+        - results
+      allOf:
+        - $ref: '#/components/schemas/ResultsMeta'
+        - type: object
+        - properties:
+            results:
+              $ref: '#/components/schemas/RefdataResultsArray'
+    AppSetting:
+      type: object
+      required:
+        - id
+        - key
+      properties:
+        id:
+          type: string
+          readOnly: true
+        section:
+          type: string
+        key:
+          type: string
+        settingType:
+          type: string
+        vocab:
+          type: string
+        defValue:
+          type: string
+        value:
+          type: string
+        hidden:
+          type: boolean
+          description: If true, this setting is excluded from filter/search results but is otherwise still retrievable and modifiable normally.
+    AppSettingResultsArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/AppSetting'
+    AppSettingResults:
+      type: object
+      required:
+        - results
+      allOf:
+        - $ref: '#/components/schemas/ResultsMeta'
+        - type: object
+        - properties:
+            results:
+              $ref: '#/components/schemas/AppSettingResultsArray'
     Address:
       type: object
       required:
@@ -371,7 +1762,6 @@ components:
     Identifier:
       type: object
       required:
-        - id
         - value
         - ns
       properties:
@@ -379,18 +1769,19 @@ components:
           type: string
           format: uuid
           readOnly: true
+          description: Present when reached via /oa/publicationRequest; absent via /oa/titleInstances
         value:
           type: string
         ns:
           type: object
           required:
-            - id
             - value
           properties:
             id:
               type: string
               format: uuid
               readOnly: true
+              description: Present when reached via /oa/publicationRequest; absent via /oa/titleInstances
             value:
               type: string
     IdentifierOccurrence:
@@ -405,6 +1796,14 @@ components:
           description: Present when reached via /oa/publicationRequest; absent via /oa/titleInstances
         identifier:
           $ref: '#/components/schemas/Identifier'
+        title:
+          type: object
+          readOnly: true
+          description: Present when reached via /oa/titleInstances; absent via /oa/publicationRequest
+          properties:
+            id:
+              type: string
+              format: uuid
         status:
           description: Present when reached via /oa/titleInstances; absent via /oa/publicationRequest
           oneOf:
@@ -425,6 +1824,10 @@ components:
           readOnly: true
         title:
           type: string
+        work:
+          type: string
+          format: uuid
+          writeOnly: true
         publicationType:
           oneOf:
             - type: string
@@ -465,21 +1868,43 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/TitleInstance'
-    PublicationRequestAgreement:
+    RemoteOkapiLink:
       type: object
       required:
-        - owner
+        - id
+        - remoteId
       properties:
-        owner:
+        id:
           type: string
-          format: uuid
           readOnly: true
         remoteId:
           type: string
           format: uuid
         remoteId_object:
-          type: object
           readOnly: true
+          description: Result of a live lookup against the remote system by remoteId. Either the resolved remote object (shape depends on what is being linked to) or, if the lookup failed, an error object.
+          oneOf:
+            - type: object
+            - type: object
+              properties:
+                error:
+                  oneOf:
+                    - type: integer
+                    - type: string
+                  description: HTTP status code if the lookup failed with an HTTP error, otherwise the exception class name.
+                message:
+                  type: string
+    PublicationRequestAgreement:
+      allOf:
+        - $ref: '#/components/schemas/RemoteOkapiLink'
+        - type: object
+          required:
+            - owner
+          properties:
+            owner:
+              type: string
+              format: uuid
+              readOnly: true
     ExternalRequestId:
       type: object
       required:
@@ -621,12 +2046,12 @@ components:
           readOnly: true
         owner:
           type: object
+          required:
+            - id
           properties:
             id:
               type: string
               format: uuid
-          readOnly: true
-          description: The publication request that this correspondence entry belongs to
         lastUpdated:
           type: string
           format: date-time
@@ -722,6 +2147,10 @@ components:
           type: string
           format: date-time
           readOnly: true
+        owner:
+          type: string
+          format: uuid
+          writeOnly: true
         amount:
           $ref: '#/components/schemas/MonetaryValue'
         exchangeRate:
@@ -770,7 +2199,6 @@ components:
       type: object
       required:
         - id
-        - name
         - label
       properties:
         id:
@@ -785,9 +2213,9 @@ components:
           type: string
           format: date-time
           readOnly: true
-        name:
-          type: string
         label:
+          type: string
+        name:
           type: string
         description:
           type: string
@@ -986,10 +2414,173 @@ components:
         - properties:
             results:
               $ref: '#/components/schemas/PublicationRequestResultsArray'
-    HttpError:
+    TitleInstanceResultsArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/TitleInstance'
+    TitleInstanceResults:
       type: object
+      required:
+        - results
+      allOf:
+        - $ref: '#/components/schemas/ResultsMeta'
+        - type: object
+        - properties:
+            results:
+              $ref: '#/components/schemas/TitleInstanceResultsArray'
+    WorkResultsArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/Work'
+    WorkResults:
+      type: object
+      required:
+        - results
+      allOf:
+        - $ref: '#/components/schemas/ResultsMeta'
+        - type: object
+        - properties:
+            results:
+              $ref: '#/components/schemas/WorkResultsArray'
+    WorkCitationIdentifier:
+      type: object
+      required:
+        - ns
+        - id
       properties:
-        message:
+        ns:
           type: string
+          description: Identifier namespace value, e.g. `issn`
+        id:
+          type: string
+          description: Identifier value
+    WorkCitationInstance:
+      type: object
+      required:
+        - ids
+      properties:
+        ids:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/WorkCitationIdentifier'
+          description: Identifiers used to match this instance against an existing TitleInstance. A new TitleInstance is created if none match; if more than one matches, the request fails.
+        title:
+          type: string
+          description: Overrides the citation's top-level title for this instance. If this instance matches an existing TitleInstance, its title must equal the resolved title or the request fails.
+        type:
+          type: string
+          description: Overrides the citation's top-level type for this instance, e.g. `serial` or `monograph`. Also drives the derived publicationType (`serial` -> Journal, `monograph` -> Book) when publicationType is not set.
+        subType:
+          type: string
+          description: Refdata value for the TitleInstance's subType category.
+        publicationType:
+          type: string
+          description: Refdata value for the TitleInstance's publicationType category. Derived from `type` when not set.
+        indexedInDOAJ:
+          type: string
+          description: Overrides the citation's top-level indexedInDOAJ for this instance's Work.
+        oaStatus:
+          type: string
+          description: Overrides the citation's top-level oaStatus for this instance's Work.
+    WorkCitation:
+      type: object
+      required:
+        - title
+        - instances
+      properties:
+        title:
+          type: string
+        type:
+          type: string
+          description: e.g. `serial` or `monograph`. Used as the default `type` for each instance in `instances` that does not set its own.
+        indexedInDOAJ:
+          type: string
+          description: Refdata value for the `Global.Yes_No` category, e.g. `Yes`/`No`. Used as the default for each instance's Work that does not set its own.
+        oaStatus:
+          type: string
+          description: Refdata value for the Work's oaStatus category, e.g. `Gold`/`Hybrid`. Used as the default for each instance's Work that does not set its own.
+        instances:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/WorkCitationInstance'
+    GrailsErrorResponse:
+      type: object
+      description: Error-handler body for an uncaught exception raised during request processing. `exception` and `stackTrace` usually suppressed in production systems
+      required:
+        - error
+        - timestamp
+        - message
+      properties:
         error:
           type: integer
+          description: HTTP status code
+        timestamp:
+          type: string
+          format: date-time
+        message:
+          type: string
+        exception:
+          type: string
+          description: Exception class and message.
+        stackTrace:
+          type: array
+          items:
+            type: string
+    PartyResultsArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/Party'
+    PartyResults:
+      type: object
+      required:
+        - results
+      allOf:
+        - $ref: '#/components/schemas/ResultsMeta'
+        - type: object
+        - properties:
+            results:
+              $ref: '#/components/schemas/PartyResultsArray'
+    CorrespondenceResultsArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/Correspondence'
+    CorrespondenceResults:
+      type: object
+      required:
+        - results
+      allOf:
+        - $ref: '#/components/schemas/ResultsMeta'
+        - type: object
+        - properties:
+            results:
+              $ref: '#/components/schemas/CorrespondenceResultsArray'
+    ChargeResultsArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/Charge'
+    ChargeResults:
+      type: object
+      required:
+        - results
+      allOf:
+        - $ref: '#/components/schemas/ResultsMeta'
+        - type: object
+        - properties:
+            results:
+              $ref: '#/components/schemas/ChargeResultsArray'
+    ChecklistItemDefinitionResultsArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/ChecklistItemDefinition'
+    ChecklistItemDefinitionResults:
+      type: object
+      required:
+        - results
+      allOf:
+        - $ref: '#/components/schemas/ResultsMeta'
+        - type: object
+        - properties:
+            results:
+              $ref: '#/components/schemas/ChecklistItemDefinitionResultsArray'
