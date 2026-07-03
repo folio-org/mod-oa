@@ -1,0 +1,30 @@
+type: object
+required:
+  - id
+  - remoteId
+properties:
+  id:
+    type: string
+    readOnly: true
+  remoteId:
+    type: string
+    format: uuid
+  remoteId_object:
+    readOnly: true
+    description: >-
+      Result of a live lookup against the remote system by remoteId.
+      Either the resolved remote object (shape depends on what is being
+      linked to) or, if the lookup failed, an error object.
+    oneOf:
+      - type: object
+      - type: object
+        properties:
+          error:
+            oneOf:
+              - type: integer
+              - type: string
+            description: >-
+              HTTP status code if the lookup failed with an HTTP error,
+              otherwise the exception class name.
+          message:
+            type: string
