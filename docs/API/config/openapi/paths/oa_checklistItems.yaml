@@ -1,0 +1,49 @@
+description: Supports search and creation of checklist item definitions.
+parameters:
+  - $ref: ../common/parameters/x-okapi-tenant.yaml
+get:
+  tags:
+    - Checklist Items
+  summary: Get a set of checklist item definition records.
+  operationId: getChecklistItemDefinitions
+  parameters:
+    $ref: ../common/parameters/queryParameters.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref: ../components/schemas/ChecklistItemDefinitionResults.yaml
+              - $ref: ../components/schemas/ChecklistItemDefinitionResultsArray.yaml
+    '400':
+      description: Bad request error
+    '403':
+      description: Forbidden
+    '500':
+      description: Internal server error
+post:
+  tags:
+    - Checklist Items
+  summary: Create checklist item definition record
+  operationId: postChecklistItemDefinition
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/ChecklistItemDefinition.yaml
+    required: true
+  responses:
+    '201':
+      description: Created
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ChecklistItemDefinition.yaml
+    '400':
+      description: Bad request error
+    '403':
+      description: Forbidden
+    '500':
+      description: Internal server error

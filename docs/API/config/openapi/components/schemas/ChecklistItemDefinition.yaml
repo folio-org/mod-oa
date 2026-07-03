@@ -1,7 +1,6 @@
 type: object
 required:
   - id
-  - name
   - label
 properties:
   id:
@@ -16,9 +15,9 @@ properties:
     type: string
     format: date-time
     readOnly: true
-  name:
-    type: string
   label:
+    type: string
+  name:
     type: string
   description:
     type: string
