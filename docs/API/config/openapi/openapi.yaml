@@ -53,12 +53,12 @@ paths:
      $ref: './paths/oa_checklistItems_{id}.yaml'
   # /oa/externalApi/oaSwitchboard:
   #   $ref: './paths/oa_externalApi_oaSwitchboard.yaml'
-  # /oa/reports/openApcChargesReport:
-  #   $ref: './paths/oa_reports_openApcChargesReport.yaml'
-  # /oa/reports/openApcBpcReport:
-  #   $ref: './paths/oa_reports_openApcBpcReport.yaml'
-  # /oa/reports/openApcTransformativeAgreementReport:
-  #   $ref: './paths/oa_reports_openApcTransformativeAgreementReport.yaml'
+   /oa/reports/openApcChargesReport:
+     $ref: './paths/oa_reports_openApcChargesReport.yaml'
+   /oa/reports/openApcBpcReport:
+     $ref: './paths/oa_reports_openApcBpcReport.yaml'
+   /oa/reports/openApcTransformativeAgreementReport:
+     $ref: './paths/oa_reports_openApcTransformativeAgreementReport.yaml'
 
 components:
   securitySchemes:

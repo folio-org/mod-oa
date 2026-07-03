@@ -1,0 +1,50 @@
+description: >-
+  Exports a CSV report of publication requests billed under a specific
+  transformative agreement. Streams the CSV body directly to the response
+  - there is no pagination, and the server does not set a `Content-Type`
+  header on the response (only `Content-Disposition: attachment;
+  filename=export.csv`).
+parameters:
+  - $ref: ../common/parameters/x-okapi-tenant.yaml
+get:
+  tags:
+    - Reports
+  summary: Get a transformative agreement CSV report
+  operationId: getOpenApcTransformativeAgreementReport
+  parameters:
+    - in: query
+      name: institution
+      description: >-
+        Not used to filter the underlying query - included verbatim as the
+        `institution` column value on every output row.
+      schema:
+        type: string
+    - in: query
+      name: paymentPeriod
+      schema:
+        type: string
+    - in: query
+      name: publicationStatus
+      description: PublicationStatus refdata value to filter on.
+      schema:
+        type: string
+    - in: query
+      name: agreementId
+      description: Remote ID of the agreement to report on.
+      schema:
+        type: string
+  responses:
+    '200':
+      description: >-
+        OK. CSV body with columns: institution, period, doi, is_hybrid,
+        publisher, journal_full_title, issn, url. Invalid paymentPeriod
+        or other failures in the query result in a CSV with header but 
+        no rows, or missing whatever rows the failure prevented
+      content:
+        text/csv:
+          schema:
+            type: string
+    '400':
+      description: Bad request error
+    '403':
+      description: Forbidden
