@@ -1,4 +1,4 @@
-description: Supports search and creation of title instances.
+description: Supports search of title instances.
 parameters:
   - $ref: ../common/parameters/x-okapi-tenant.yaml
 get:
@@ -23,37 +23,5 @@ get:
       description: Unauthorized
     '403':
       description: Forbidden
-    '500':
-      description: Internal server error
-post:
-  tags:
-    - Title instances
-  summary: Create title instance record
-  operationId: postTitleInstance
-  requestBody:
-    content:
-      application/json:
-        schema:
-          $ref: ../components/schemas/TitleInstance.yaml
-    required: true
-  responses:
-    '201':
-      description: Created
-      content:
-        application/json:
-          schema:
-            $ref: ../components/schemas/TitleInstance.yaml
-    '400':
-      description: Bad request error
-    '401':
-      description: Unauthorized
-    '403':
-      description: Forbidden
-    '422':
-      description: Validation error
-      content:
-        application/json:
-          schema:
-            $ref: ../common/schemas/ValidationErrorResponse.yaml
     '500':
       description: Internal server error
