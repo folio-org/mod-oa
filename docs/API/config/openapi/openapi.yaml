@@ -47,10 +47,10 @@ paths:
      $ref: './paths/oa_charges.yaml'
    /oa/charges/{id}:
      $ref: './paths/oa_charges_{id}.yaml'
-  # /oa/checklistItems:
-  #   $ref: './paths/oa_checklistItems.yaml'
-  # /oa/checklistItems/{id}:
-  #   $ref: './paths/oa_checklistItems_{id}.yaml'
+   /oa/checklistItems:
+     $ref: './paths/oa_checklistItems.yaml'
+   /oa/checklistItems/{id}:
+     $ref: './paths/oa_checklistItems_{id}.yaml'
   # /oa/externalApi/oaSwitchboard:
   #   $ref: './paths/oa_externalApi_oaSwitchboard.yaml'
   # /oa/reports/openApcChargesReport:
