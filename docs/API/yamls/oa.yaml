@@ -43,6 +43,8 @@ paths:
                   - $ref: '#/components/schemas/RefdataCategoryResultsArray'
         '400':
           description: Bad request error
+        '401':
+          description: Unauthorized
         '403':
           description: Forbidden
         '500':
@@ -67,8 +69,16 @@ paths:
                 $ref: '#/components/schemas/RefdataCategory'
         '400':
           description: Bad request error
+        '401':
+          description: Unauthorized
         '403':
           description: Forbidden
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
         '500':
           description: Internal server error
   /oa/refdata/{id}:
@@ -89,6 +99,8 @@ paths:
                 $ref: '#/components/schemas/RefdataCategory'
         '400':
           description: Bad request error
+        '401':
+          description: Unauthorized
         '403':
           description: Forbidden
         '404':
@@ -119,12 +131,20 @@ paths:
                 $ref: '#/components/schemas/RefdataCategory'
         '400':
           description: Bad request error
+        '401':
+          description: Unauthorized
         '404':
           description: Not found error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/SpringBootErrorResponse'
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
         '500':
           description: Internal server error
     delete:
@@ -137,6 +157,8 @@ paths:
           description: No content
         '400':
           description: Bad request error
+        '401':
+          description: Unauthorized
         '403':
           description: Forbidden
         '404':
@@ -180,6 +202,8 @@ paths:
                   - $ref: '#/components/schemas/RefdataResultsArray'
         '400':
           description: Bad request error
+        '401':
+          description: Unauthorized
         '403':
           description: Forbidden
         '404':
@@ -219,6 +243,8 @@ paths:
                   - $ref: '#/components/schemas/AppSettingResultsArray'
         '400':
           description: Bad request error
+        '401':
+          description: Unauthorized
         '403':
           description: Forbidden
         '500':
@@ -243,8 +269,16 @@ paths:
                 $ref: '#/components/schemas/AppSetting'
         '400':
           description: Bad request error
+        '401':
+          description: Unauthorized
         '403':
           description: Forbidden
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
         '500':
           description: Internal server error
   /oa/settings/appSettings/{id}:
@@ -265,6 +299,8 @@ paths:
                 $ref: '#/components/schemas/AppSetting'
         '400':
           description: Bad request error
+        '401':
+          description: Unauthorized
         '403':
           description: Forbidden
         '404':
@@ -295,12 +331,20 @@ paths:
                 $ref: '#/components/schemas/AppSetting'
         '400':
           description: Bad request error
+        '401':
+          description: Unauthorized
         '404':
           description: Not found error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/SpringBootErrorResponse'
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
         '500':
           description: Internal server error
     delete:
@@ -313,6 +357,8 @@ paths:
           description: No content
         '400':
           description: Bad request error
+        '401':
+          description: Unauthorized
         '403':
           description: Forbidden
         '404':
@@ -352,6 +398,8 @@ paths:
                   - $ref: '#/components/schemas/PublicationRequestResultsArray'
         '400':
           description: Bad request error
+        '401':
+          description: Unauthorized
         '403':
           description: Forbidden
         '500':
@@ -376,8 +424,16 @@ paths:
                 $ref: '#/components/schemas/PublicationRequest'
         '400':
           description: Bad request error
+        '401':
+          description: Unauthorized
         '403':
           description: Forbidden
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
         '500':
           description: Internal server error
   /oa/publicationRequest/{publicationRequestId}:
@@ -398,6 +454,8 @@ paths:
                 $ref: '#/components/schemas/PublicationRequest'
         '400':
           description: Bad request error
+        '401':
+          description: Unauthorized
         '403':
           description: Forbidden
         '404':
@@ -428,12 +486,20 @@ paths:
                 $ref: '#/components/schemas/PublicationRequest'
         '400':
           description: Bad request error
+        '401':
+          description: Unauthorized
         '404':
           description: Not found error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/SpringBootErrorResponse'
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
         '500':
           description: Internal server error
     delete:
@@ -446,6 +512,8 @@ paths:
           description: No content
         '400':
           description: Bad request error
+        '401':
+          description: Unauthorized
         '403':
           description: Forbidden
         '404':
@@ -457,7 +525,7 @@ paths:
         '500':
           description: Internal server error
   /oa/titleInstances:
-    description: Supports search and creation of title instances.
+    description: Supports search of title instances.
     parameters:
       - $ref: '#/components/parameters/x-okapi-tenant'
     get:
@@ -485,30 +553,8 @@ paths:
                   - $ref: '#/components/schemas/TitleInstanceResultsArray'
         '400':
           description: Bad request error
-        '403':
-          description: Forbidden
-        '500':
-          description: Internal server error
-    post:
-      tags:
-        - Title instances
-      summary: Create title instance record
-      operationId: postTitleInstance
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/TitleInstance'
-        required: true
-      responses:
-        '201':
-          description: Created
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TitleInstance'
-        '400':
-          description: Bad request error
+        '401':
+          description: Unauthorized
         '403':
           description: Forbidden
         '500':
@@ -531,54 +577,8 @@ paths:
                 $ref: '#/components/schemas/TitleInstance'
         '400':
           description: Bad request error
-        '403':
-          description: Forbidden
-        '404':
-          description: Not found error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SpringBootErrorResponse'
-        '500':
-          description: Internal server error
-    put:
-      tags:
-        - Title instances
-      summary: Update title instance record
-      operationId: putTitleInstance
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/TitleInstance'
-        required: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TitleInstance'
-        '400':
-          description: Bad request error
-        '404':
-          description: Not found error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SpringBootErrorResponse'
-        '500':
-          description: Internal server error
-    delete:
-      tags:
-        - Title instances
-      summary: Delete a specified title instance record
-      operationId: deleteTitleInstance
-      responses:
-        '204':
-          description: No content
-        '400':
-          description: Bad request error
+        '401':
+          description: Unauthorized
         '403':
           description: Forbidden
         '404':
@@ -618,6 +618,8 @@ paths:
                   - $ref: '#/components/schemas/WorkResultsArray'
         '400':
           description: Bad request error
+        '401':
+          description: Unauthorized
         '403':
           description: Forbidden
         '500':
@@ -640,6 +642,8 @@ paths:
                 $ref: '#/components/schemas/Work'
         '400':
           description: Bad request error
+        '401':
+          description: Unauthorized
         '403':
           description: Forbidden
         '404':
@@ -670,12 +674,20 @@ paths:
                 $ref: '#/components/schemas/Work'
         '400':
           description: Bad request error
+        '401':
+          description: Unauthorized
         '404':
           description: Not found error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/SpringBootErrorResponse'
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
         '500':
           description: Internal server error
   /oa/works/citation:
@@ -702,6 +714,8 @@ paths:
                 $ref: '#/components/schemas/Work'
         '400':
           description: Bad request error
+        '401':
+          description: Unauthorized
         '403':
           description: Forbidden
         '404':
@@ -745,6 +759,8 @@ paths:
                   - $ref: '#/components/schemas/PartyResultsArray'
         '400':
           description: Bad request error
+        '401':
+          description: Unauthorized
         '403':
           description: Forbidden
         '500':
@@ -769,8 +785,16 @@ paths:
                 $ref: '#/components/schemas/Party'
         '400':
           description: Bad request error
+        '401':
+          description: Unauthorized
         '403':
           description: Forbidden
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
         '500':
           description: Internal server error
   /oa/party/{id}:
@@ -791,6 +815,8 @@ paths:
                 $ref: '#/components/schemas/Party'
         '400':
           description: Bad request error
+        '401':
+          description: Unauthorized
         '403':
           description: Forbidden
         '404':
@@ -821,12 +847,20 @@ paths:
                 $ref: '#/components/schemas/Party'
         '400':
           description: Bad request error
+        '401':
+          description: Unauthorized
         '404':
           description: Not found error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/SpringBootErrorResponse'
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
         '500':
           description: Internal server error
     delete:
@@ -839,6 +873,8 @@ paths:
           description: No content
         '400':
           description: Bad request error
+        '401':
+          description: Unauthorized
         '403':
           description: Forbidden
         '404':
@@ -878,6 +914,8 @@ paths:
                   - $ref: '#/components/schemas/CorrespondenceResultsArray'
         '400':
           description: Bad request error
+        '401':
+          description: Unauthorized
         '403':
           description: Forbidden
         '500':
@@ -902,8 +940,16 @@ paths:
                 $ref: '#/components/schemas/Correspondence'
         '400':
           description: Bad request error
+        '401':
+          description: Unauthorized
         '403':
           description: Forbidden
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
         '500':
           description: Internal server error
   /oa/correspondence/{id}:
@@ -924,6 +970,8 @@ paths:
                 $ref: '#/components/schemas/Correspondence'
         '400':
           description: Bad request error
+        '401':
+          description: Unauthorized
         '403':
           description: Forbidden
         '404':
@@ -954,12 +1002,20 @@ paths:
                 $ref: '#/components/schemas/Correspondence'
         '400':
           description: Bad request error
+        '401':
+          description: Unauthorized
         '404':
           description: Not found error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/SpringBootErrorResponse'
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
         '500':
           description: Internal server error
     delete:
@@ -972,6 +1028,8 @@ paths:
           description: No content
         '400':
           description: Bad request error
+        '401':
+          description: Unauthorized
         '403':
           description: Forbidden
         '404':
@@ -1011,6 +1069,8 @@ paths:
                   - $ref: '#/components/schemas/ChargeResultsArray'
         '400':
           description: Bad request error
+        '401':
+          description: Unauthorized
         '403':
           description: Forbidden
         '500':
@@ -1024,7 +1084,10 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Charge'
+              allOf:
+                - $ref: '#/components/schemas/Charge'
+                - required:
+                    - owner
         required: true
       responses:
         '201':
@@ -1035,8 +1098,16 @@ paths:
                 $ref: '#/components/schemas/Charge'
         '400':
           description: Bad request error
+        '401':
+          description: Unauthorized
         '403':
           description: Forbidden
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
         '500':
           description: Internal server error
   /oa/charges/{id}:
@@ -1057,6 +1128,8 @@ paths:
                 $ref: '#/components/schemas/Charge'
         '400':
           description: Bad request error
+        '401':
+          description: Unauthorized
         '403':
           description: Forbidden
         '404':
@@ -1087,12 +1160,20 @@ paths:
                 $ref: '#/components/schemas/Charge'
         '400':
           description: Bad request error
+        '401':
+          description: Unauthorized
         '404':
           description: Not found error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/SpringBootErrorResponse'
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
         '500':
           description: Internal server error
     delete:
@@ -1105,6 +1186,8 @@ paths:
           description: No content
         '400':
           description: Bad request error
+        '401':
+          description: Unauthorized
         '403':
           description: Forbidden
         '404':
@@ -1144,6 +1227,8 @@ paths:
                   - $ref: '#/components/schemas/ChecklistItemDefinitionResultsArray'
         '400':
           description: Bad request error
+        '401':
+          description: Unauthorized
         '403':
           description: Forbidden
         '500':
@@ -1168,8 +1253,16 @@ paths:
                 $ref: '#/components/schemas/ChecklistItemDefinition'
         '400':
           description: Bad request error
+        '401':
+          description: Unauthorized
         '403':
           description: Forbidden
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
         '500':
           description: Internal server error
   /oa/checklistItems/{id}:
@@ -1190,6 +1283,8 @@ paths:
                 $ref: '#/components/schemas/ChecklistItemDefinition'
         '400':
           description: Bad request error
+        '401':
+          description: Unauthorized
         '403':
           description: Forbidden
         '404':
@@ -1220,12 +1315,20 @@ paths:
                 $ref: '#/components/schemas/ChecklistItemDefinition'
         '400':
           description: Bad request error
+        '401':
+          description: Unauthorized
         '404':
           description: Not found error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/SpringBootErrorResponse'
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
         '500':
           description: Internal server error
     delete:
@@ -1238,6 +1341,8 @@ paths:
           description: No content
         '400':
           description: Bad request error
+        '401':
+          description: Unauthorized
         '403':
           description: Forbidden
         '404':
@@ -1286,6 +1391,8 @@ paths:
                 type: string
         '400':
           description: Bad request error
+        '401':
+          description: Unauthorized
         '403':
           description: Forbidden
   /oa/reports/openApcBpcReport:
@@ -1326,6 +1433,8 @@ paths:
                 type: string
         '400':
           description: Bad request error
+        '401':
+          description: Unauthorized
         '403':
           description: Forbidden
   /oa/reports/openApcTransformativeAgreementReport:
@@ -1366,6 +1475,8 @@ paths:
                 type: string
         '400':
           description: Bad request error
+        '401':
+          description: Unauthorized
         '403':
           description: Forbidden
 components:
@@ -1436,11 +1547,10 @@ components:
     refdataCategoryId:
       in: path
       name: id
-      description: UUID for a reference data category
+      description: Id for a reference data category
       required: true
       schema:
         type: string
-        format: uuid
     refdataDomain:
       in: path
       name: domain
@@ -1536,10 +1646,12 @@ components:
           type: integer
     Refdata:
       type: object
+      required:
+        - id
       properties:
         id:
           type: string
-          format: uuid
+          readOnly: true
         label:
           type: string
         value:
@@ -1551,7 +1663,6 @@ components:
           type: string
         id:
           type: string
-          format: uuid
         internal:
           type: boolean
         values:
@@ -1572,6 +1683,48 @@ components:
         - properties:
             results:
               $ref: '#/components/schemas/RefdataCategoryResultsArray'
+    ValidationError:
+      type: object
+      required:
+        - message
+        - path
+        - _links
+      properties:
+        message:
+          type: string
+        path:
+          type: string
+        _links:
+          type: object
+          required:
+            - self
+          properties:
+            self:
+              type: object
+              required:
+                - href
+              properties:
+                href:
+                  type: string
+                  format: uri
+    ValidationErrorResponse:
+      description: 'Validation error body returned when a create/update request fails domain-object validation. Shape depends on the number of errors: a single ValidationError when there is exactly one, otherwise a wrapper with a count and an embedded array.'
+      oneOf:
+        - $ref: '#/components/schemas/ValidationError'
+        - type: object
+          required:
+            - total
+            - _embedded
+          properties:
+            total:
+              type: integer
+            _embedded:
+              type: object
+              properties:
+                errors:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/ValidationError'
     SpringBootErrorResponse:
       type: object
       description: Spring Boot's default error body. Emitted by the servlet container itself when a request ends in an error status with no response body written by the application, rather than by this app's own error handling - so it does not match the `HttpError` shape used elsewhere in this API.
@@ -1893,9 +2046,14 @@ components:
             - owner
           properties:
             owner:
-              type: string
-              format: uuid
+              type: object
               readOnly: true
+              required:
+                - id
+              properties:
+                id:
+                  type: string
+                  format: uuid
     ExternalRequestId:
       type: object
       required:

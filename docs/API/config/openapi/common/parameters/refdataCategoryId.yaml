@@ -1,0 +1,6 @@
+in: path
+name: id
+description: Id for a reference data category
+required: true
+schema:
+  type: string

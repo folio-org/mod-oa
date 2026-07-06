@@ -26,6 +26,8 @@ post:
             $ref: ../components/schemas/Work.yaml
     '400':
       description: Bad request error
+    '401':
+      description: Unauthorized
     '403':
       description: Forbidden
     '404':
