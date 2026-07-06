@@ -34,7 +34,10 @@ post:
     content:
       application/json:
         schema:
-          $ref: ../components/schemas/Charge.yaml
+          allOf:
+            - $ref: ../components/schemas/Charge.yaml
+            - required:
+                - owner
     required: true
   responses:
     '201':
