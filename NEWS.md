@@ -1,3 +1,5 @@
+## 3.4.0 IN PROGRESS
+
 ## 3.3.0 2026-07-06
   * MODOA-98 Add full OpenAPI documentation for OA API
   * MODOA-96 Sensitive data in logs cleanup
