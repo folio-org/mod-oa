@@ -19,6 +19,8 @@ get:
               - $ref: ../components/schemas/PartyResultsArray.yaml
     '400':
       description: Bad request error
+    '401':
+      description: Unauthorized
     '403':
       description: Forbidden
     '500':
@@ -43,7 +45,15 @@ post:
             $ref: ../components/schemas/Party.yaml
     '400':
       description: Bad request error
+    '401':
+      description: Unauthorized
     '403':
       description: Forbidden
+    '422':
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            $ref: ../common/schemas/ValidationErrorResponse.yaml
     '500':
       description: Internal server error

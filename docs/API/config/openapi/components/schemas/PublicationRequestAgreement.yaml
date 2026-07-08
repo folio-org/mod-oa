@@ -5,6 +5,11 @@ allOf:
       - owner
     properties:
       owner:
-        type: string
-        format: uuid
+        type: object
         readOnly: true
+        required:
+          - id
+        properties:
+          id:
+            type: string
+            format: uuid
