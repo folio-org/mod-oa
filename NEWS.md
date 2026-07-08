@@ -1,4 +1,12 @@
-## 3.3.0 IN PROGRESS
+## 3.3.0 2026-07-06
+  * MODOA-98 Add full OpenAPI documentation for OA API
+  * MODOA-96 Sensitive data in logs cleanup
+  * MODOA-95 Write integration test for Party
+  * MODOA-87 Implement ENDPOINTS_INCLUDE_STACK_TRACE env variable for mod-oa
+  * MODOA-88 Add FK constraints to refDataValue columns that are missing them.
+  * ERM-4105 Security Security bumps for Grails modules June 2026
+  * ERM-4022 Security fix May 2026
+  * ERM-3851 Long stnding connection issues
 
 ## 3.2.0 2025-03-14
   * Incremented version and interface for Sunflower release
