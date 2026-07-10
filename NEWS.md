@@ -1,3 +1,6 @@
+## 3.2.1 2026-07-10
+  * MODOA-99 Backport security fix may 2026
+
 ## 3.2.0 2025-03-14
   * Incremented version and interface for Sunflower release
 

@@ -1,0 +1,26 @@
+name: SBOM Generation
+
+# SBOM generation workflow for Release branches
+# -------------------------------
+# 1. Select the appropriate 'release/*' branch in the 'Run workflow' dropdown.
+# 2. This will generate the SBOM and commit it directly to the selected branch.
+# 3. Once the workflow completes, you can proceed to create your manual tag.
+# 4. The generated SBOM will be captured in the tag's commit history.
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  generate-sbom:
+    permissions:
+      contents: write
+      pull-requests: write
+    uses: k-int/github-actions/.github/workflows/sbom-gradle.yml@main
+    with:
+      gradle_project_path: 'service'
+    secrets:
+      GITLAB_DEPLOY_USER: ${{ secrets.GITLAB_DEPLOY_USER }}
+      GITLAB_DEPLOY_TOKEN: ${{ secrets.GITLAB_DEPLOY_TOKEN }}
