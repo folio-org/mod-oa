@@ -2,15 +2,14 @@ name: Gradle Central Workflow
 
 on:
   push:
-    branches: ['FOLIO-4554-gradle-workflows']
   pull_request:
   workflow_dispatch:
 
 jobs:
   gradle:
-    uses: folio-org/.github/.github/workflows/gradle.yml@FOLIO-4554-gradle-workflows
+    uses: folio-org/.github/.github/workflows/gradle.yml@v1
     # Only handle push events from the main branch or tags, to decrease PR noise
-    if: github.ref_name == github.event.repository.default_branch || github.event_name != 'push' || github.ref_type == 'tag' || github.ref_name == 'FOLIO-4554-gradle-workflows'
+    if: github.ref_name == github.event.repository.default_branch || github.event_name != 'push' || github.ref_type == 'tag'
     secrets: inherit
     with:
       artifact-id: mod-oa
